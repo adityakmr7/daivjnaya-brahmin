@@ -20,10 +20,12 @@ export const theme = {
     successColor: "#0CC155",
   },
   spacing: {
-    s: 8,
-    m: 16,
-    l: 24,
-    xl: 40,
+    xs: 5,
+    s: 10,
+    m: 14,
+    mx: 17,
+    l: 20,
+    xl: 24,
   },
   borderRadii: {
     m: 10,
@@ -31,12 +33,30 @@ export const theme = {
     xl: 75,
   },
   textVariants: {
-    hero: {
-      fontSize: 80,
-      lineHeight: 80,
-
-      color: "white",
-      textAlign: "center",
+    cardTitle: {
+      fontFamily: "SFProTextBold",
+      fontSize: 21,
+      color: "iconBackground",
+    },
+    cardSubTitle: {
+      fontFamily: "SFProTextSemiBold",
+      fontSize: 14,
+      color: "iconBackground",
+    },
+    cardText: {
+      fontFamily: "SFProTextRegular",
+      fontSize: 12,
+      color: "iconBackground",
+    },
+    sectionTitle: {
+      fontFamily: "SFProTextBold",
+      fontSize: 18,
+      color: "primaryText",
+    },
+    mainIconSubTitle: {
+      fontFamily: "SFProTextSemiBold",
+      fontSize: 12,
+      color: "primaryText",
     },
   },
   breakpoints: {},
