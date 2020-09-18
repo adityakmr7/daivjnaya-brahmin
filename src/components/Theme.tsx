@@ -58,6 +58,11 @@ export const theme = {
       fontSize: 12,
       color: "primaryText",
     },
+    silentText: {
+      fontFamily: "SFProTextBold",
+      fontSize: 16,
+      color: "grey",
+    },
   },
   breakpoints: {},
 };
