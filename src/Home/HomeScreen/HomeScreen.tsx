@@ -1,11 +1,10 @@
 import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { Box, Text } from "../../components";
+import { Box, NewsSection, Text } from "../../components";
 import MainCard from "./MainCard";
 import { Dimensions, Image } from "react-native";
 import SectionHeader from "./components/SectionHeader";
 import IconNavigator from "./components/IconNavigator";
-import NewsSection from "./components/NewsSection";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 interface HomeProps {}
@@ -47,6 +46,7 @@ export const iconAssets = [
   require("../assets/shake.png"),
   require("../assets/sun.png"),
 ];
+const image = require("../../../assets/images/img-2.png");
 
 const HomeScreen = ({}: HomeProps) => {
   return (
@@ -119,7 +119,7 @@ const HomeScreen = ({}: HomeProps) => {
         >
           <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
             {[1, 2, 3].map((item, index) => {
-              return <NewsSection key={index} />;
+              return <NewsSection image={image} key={index} />;
             })}
           </ScrollView>
         </Box>

@@ -1,10 +1,11 @@
 import React from "react";
 import { Dimensions, Image } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { Box, Text } from "../../components";
+import { Box, Text, VideoSection } from "../../components";
 import SectionHeader from "../HomeScreen/components/SectionHeader";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
+const image = require("../../../assets/images/img-2.png");
 interface NotificationsProps {}
 const Notifications = ({}: NotificationsProps) => {
   const CARD_WIDTH = wWidth - 40;
@@ -40,6 +41,18 @@ const Notifications = ({}: NotificationsProps) => {
         </Box>
       </Box>
       <SectionHeader title="Videos" onPress={() => {}} />
+      <Box
+        paddingVertical="l"
+        width={wWidth - 40}
+        marginLeft="l"
+        justifyContent="space-between"
+      >
+        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
+          {[1, 2, 3].map((item, index) => {
+            return <VideoSection key={index} image={image} />;
+          })}
+        </ScrollView>
+      </Box>
     </Box>
   );
 };
