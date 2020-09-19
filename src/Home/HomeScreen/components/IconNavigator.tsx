@@ -1,11 +1,13 @@
 import React from "react";
 import { Image } from "react-native";
+import { RectButton } from "react-native-gesture-handler";
 import { Box, Text } from "../../../components";
 interface IconNavigatorProps {
   subtitle: string;
   image: number;
+  onPress: () => void;
 }
-const IconNavigator = ({ subtitle, image }: IconNavigatorProps) => {
+const IconNavigator = ({ subtitle, image, onPress }: IconNavigatorProps) => {
   return (
     <Box justifyContent="space-between" alignItems="center">
       <Box
@@ -17,7 +19,9 @@ const IconNavigator = ({ subtitle, image }: IconNavigatorProps) => {
         width={92}
         backgroundColor="iconBackground"
       >
-        <Image source={image} />
+        <RectButton {...{ onPress }}>
+          <Image source={image} />
+        </RectButton>
       </Box>
       <Box paddingVertical="s">
         <Text variant="mainIconSubTitle">{subtitle}</Text>

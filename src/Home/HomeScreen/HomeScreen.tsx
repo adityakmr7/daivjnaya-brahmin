@@ -69,14 +69,17 @@ const HomeScreen = ({}: HomeProps) => {
           justifyContent="space-between"
         >
           <IconNavigator
+            onPress={() => console.log("Icon Button Clicked")}
             image={require("../assets/profile.png")}
             subtitle="My Profile"
           />
           <IconNavigator
+            onPress={() => console.log("Icon Button Clicked")}
             image={require("../assets/dna.png")}
             subtitle="Daivajnya Samaj…"
           />
           <IconNavigator
+            onPress={() => console.log("Icon Button Clicked")}
             image={require("../assets/meet.png")}
             subtitle="Matrimony"
           />
@@ -89,14 +92,17 @@ const HomeScreen = ({}: HomeProps) => {
           justifyContent="space-between"
         >
           <IconNavigator
+            onPress={() => console.log("Icon Button Clicked")}
             image={require("../assets/shake.png")}
             subtitle="B2B"
           />
           <IconNavigator
+            onPress={() => console.log("Icon Button Clicked")}
             image={require("../assets/jwel.png")}
             subtitle="Jewellery Market"
           />
           <IconNavigator
+            onPress={() => console.log("Icon Button Clicked")}
             image={require("../assets/briefcase.png")}
             subtitle="Careers & Talents"
           />
