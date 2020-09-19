@@ -7,6 +7,7 @@ import HomeScreen from "./HomeScreen/HomeScreen";
 import { RectButton } from "react-native-gesture-handler";
 import { Image, View } from "react-native";
 import NewScreen from "./NewScreen";
+import Notification from "./Notifications";
 const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = () => {
@@ -32,7 +33,7 @@ const AppNavigation = () => {
               <Box flexDirection={"row"} paddingHorizontal="s">
                 <Box paddingHorizontal="s">
                   <RectButton
-                    onPress={() => console.log("Notification")}
+                    onPress={() => navigation.navigate("Notification")}
                     style={{
                       width: 28,
                       height: 28,
@@ -93,6 +94,11 @@ const AppNavigation = () => {
         options={{ headerStyle: { elevation: 1 } }}
         name="New"
         component={NewScreen}
+      />
+      <AppStack.Screen
+        options={{ headerStyle: { elevation: 1 } }}
+        name="Notification"
+        component={Notification}
       />
     </AppStack.Navigator>
   );
