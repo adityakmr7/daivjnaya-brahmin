@@ -19,6 +19,8 @@ export const theme = {
     notificationColor: "#E20000",
     selectColor: "#6EAAF7",
     successColor: "#0CC155",
+    danger: "#FF0058",
+    text: "rgba(12,13,52,0.4)",
   },
   spacing: {
     xs: 5,
