@@ -36,6 +36,18 @@ const Images = [
     color: ["#6C59D3", "#270047"],
   },
 ];
+
+export const headerAssets = Images.map((img) => img.image);
+export const iconAssets = [
+  require("../assets/briefcase.png"),
+  require("../assets/dna.png"),
+  require("../assets/jwel.png"),
+  require("../assets/meet.png"),
+  require("../assets/profile.png"),
+  require("../assets/shake.png"),
+  require("../assets/sun.png"),
+];
+
 const HomeScreen = ({}: HomeProps) => {
   return (
     <Box flex={1} backgroundColor="mainBackground">
@@ -45,7 +57,10 @@ const HomeScreen = ({}: HomeProps) => {
             return <MainCard {...data} key={index} />;
           })}
         </ScrollView>
-        <SectionHeader title={"explore"} />
+        <SectionHeader
+          title={"explore"}
+          onPress={() => console.log("Explore")}
+        />
         <Box
           flexDirection="row"
           paddingVertical="s"
@@ -53,9 +68,18 @@ const HomeScreen = ({}: HomeProps) => {
           marginHorizontal="l"
           justifyContent="space-between"
         >
-          <IconNavigator subtitle="My Profile" />
-          <IconNavigator subtitle="Daivajnya Samaj…" />
-          <IconNavigator subtitle="Matrimony" />
+          <IconNavigator
+            image={require("../assets/profile.png")}
+            subtitle="My Profile"
+          />
+          <IconNavigator
+            image={require("../assets/dna.png")}
+            subtitle="Daivajnya Samaj…"
+          />
+          <IconNavigator
+            image={require("../assets/meet.png")}
+            subtitle="Matrimony"
+          />
         </Box>
         <Box
           flexDirection="row"
@@ -64,11 +88,23 @@ const HomeScreen = ({}: HomeProps) => {
           marginHorizontal="l"
           justifyContent="space-between"
         >
-          <IconNavigator subtitle="B2B" />
-          <IconNavigator subtitle="Jewellery Market" />
-          <IconNavigator subtitle="Careers & Talents" />
+          <IconNavigator
+            image={require("../assets/shake.png")}
+            subtitle="B2B"
+          />
+          <IconNavigator
+            image={require("../assets/jwel.png")}
+            subtitle="Jewellery Market"
+          />
+          <IconNavigator
+            image={require("../assets/briefcase.png")}
+            subtitle="Careers & Talents"
+          />
         </Box>
-        <SectionHeader title={"Upcoming News & Events"} />
+        <SectionHeader
+          onPress={() => console.log("Upcoming")}
+          title={"Upcoming News & Events"}
+        />
         <Box
           paddingVertical="l"
           width={wWidth - 40}
@@ -82,7 +118,10 @@ const HomeScreen = ({}: HomeProps) => {
           </ScrollView>
         </Box>
 
-        <SectionHeader title={"Current Gold Silver Price"} />
+        <SectionHeader
+          onPress={() => console.log("Current Gold")}
+          title={"Current Gold Silver Price"}
+        />
         {/* // ? Current Gold Silver Price Section */}
         <Box paddingVertical="l" width={wWidth - 40} marginLeft="l">
           <Box

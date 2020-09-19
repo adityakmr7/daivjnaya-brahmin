@@ -1,13 +1,11 @@
 import React from "react";
 import { Feather as Icon } from "@expo/vector-icons";
-import {
-  createStackNavigator,
-  StackNavigationProp,
-} from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import { theme, Box, Text } from "../components";
 import { AppRoutes } from "../components/NavigationRoutes";
 import HomeScreen from "./HomeScreen/HomeScreen";
-
+import { RectButton } from "react-native-gesture-handler";
+import { Image, View } from "react-native";
 const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = () => {
@@ -21,17 +19,27 @@ const AppNavigation = () => {
     >
       <AppStack.Screen
         options={({ navigation, route }) => ({
+          headerLeft: () => {
+            return (
+              <View style={{ paddingLeft: 22 }}>
+                <Image source={require("./assets/sun.png")} />
+              </View>
+            );
+          },
           headerRight: () => {
             return (
               <Box flexDirection={"row"} paddingHorizontal="s">
                 <Box paddingHorizontal="s">
-                  <Box
-                    width={28}
-                    height={28}
-                    borderRadius="m"
-                    backgroundColor="iconBackground"
-                    justifyContent="center"
-                    alignItems="center"
+                  <RectButton
+                    onPress={() => console.log("Notification")}
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: 10,
+                      backgroundColor: "white",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
                   >
                     <Box
                       position="absolute"
@@ -43,32 +51,38 @@ const AppNavigation = () => {
                       backgroundColor="notificationColor"
                     />
                     <Icon name="bell" size={20} color={"black"} />
-                  </Box>
+                  </RectButton>
                 </Box>
                 <Box>
-                  <Box
-                    alignItems="center"
-                    justifyContent="center"
-                    width={71}
-                    height={28}
-                    borderRadius="m"
-                    backgroundColor="iconBackground"
+                  <RectButton
+                    onPress={() => console.log("NaviG")}
+                    style={{
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: 71,
+                      height: 28,
+                      borderRadius: 10,
+                      backgroundColor: "white",
+                    }}
                   >
-                    <Text>
+                    <Box flexDirection="row" justifyContent="space-between">
                       <Text>New</Text>
                       <Text>+</Text>
-                    </Text>
-                  </Box>
+                    </Box>
+                  </RectButton>
                 </Box>
               </Box>
             );
           },
-          title: "Daivjnaya Brahmin",
 
+          headerTitle: () => (
+            <Text style={{ fontFamily: "Saman", fontSize: 20 }}>
+              Daivjnaya Brahmin
+            </Text>
+          ),
           headerStyle: {
             elevation: 0,
             backgroundColor: theme.colors.mainBackground,
-            // fontFamily: "Saman",
           },
         })}
         name={"Home"}

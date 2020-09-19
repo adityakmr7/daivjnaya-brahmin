@@ -1,10 +1,11 @@
 import React from "react";
+import { Image } from "react-native";
 import { Box, Text } from "../../../components";
-
 interface IconNavigatorProps {
   subtitle: string;
+  image: number;
 }
-const IconNavigator = ({ subtitle }: IconNavigatorProps) => {
+const IconNavigator = ({ subtitle, image }: IconNavigatorProps) => {
   return (
     <Box justifyContent="space-between" alignItems="center">
       <Box
@@ -16,7 +17,7 @@ const IconNavigator = ({ subtitle }: IconNavigatorProps) => {
         width={92}
         backgroundColor="iconBackground"
       >
-        <Text>Hel</Text>
+        <Image source={image} />
       </Box>
       <Box paddingVertical="s">
         <Text variant="mainIconSubTitle">{subtitle}</Text>
