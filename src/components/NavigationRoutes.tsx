@@ -3,6 +3,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 
 export type AppRoutes = {
   Home: undefined;
+  New: undefined;
 };
 
 export type StackNavigationProps<T extends keyof AppRoutes> = {

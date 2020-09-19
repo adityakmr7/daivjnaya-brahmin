@@ -14,6 +14,7 @@ export const theme = {
     mainIconColor: "#D4AF37",
     iconBackground: "#FFFFFF",
     grey: "#DBDEE0",
+    greyish: "#0000001A",
     primaryText: "#000000",
     notificationColor: "#E20000",
     selectColor: "#6EAAF7",
@@ -26,8 +27,10 @@ export const theme = {
     mx: 17,
     l: 20,
     xl: 24,
+    xxl: 40,
   },
   borderRadii: {
+    s: 5,
     m: 10,
     l: 25,
     xl: 75,
