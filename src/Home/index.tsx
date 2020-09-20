@@ -8,6 +8,7 @@ import { RectButton } from "react-native-gesture-handler";
 import { Image, View } from "react-native";
 import NewScreen from "./NewScreen";
 import Notification from "./Notifications";
+import EventScreen from "./EventScreen";
 const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = () => {
@@ -99,6 +100,11 @@ const AppNavigation = () => {
         options={{ headerStyle: { elevation: 1 } }}
         name="Notification"
         component={Notification}
+      />
+      <AppStack.Screen
+        options={{ headerStyle: { elevation: 1 } }}
+        name="Event"
+        component={EventScreen}
       />
     </AppStack.Navigator>
   );

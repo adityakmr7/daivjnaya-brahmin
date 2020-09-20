@@ -13,7 +13,7 @@ export const theme = {
     mainBackground: "#EBEFF2",
     mainIconColor: "#D4AF37",
     iconBackground: "#FFFFFF",
-    grey: "#DBDEE0",
+    grey: "#707070",
     greyish: "#0000001A",
     primaryText: "#000000",
     notificationColor: "#E20000",

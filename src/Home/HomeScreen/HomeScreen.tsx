@@ -111,12 +111,7 @@ const HomeScreen = ({}: HomeProps) => {
           onPress={() => console.log("Upcoming")}
           title={"Upcoming News & Events"}
         />
-        <Box
-          paddingVertical="l"
-          width={wWidth - 40}
-          marginLeft="l"
-          justifyContent="space-between"
-        >
+        <Box paddingVertical="l" width={wWidth - 40} marginLeft="l">
           <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
             {[1, 2, 3].map((item, index) => {
               return <NewsSection image={image} key={index} />;
