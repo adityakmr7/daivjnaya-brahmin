@@ -3,11 +3,11 @@ import { Feather as Icon } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
 import { theme, Box, Text } from "../components";
 import { AppRoutes } from "../components/NavigationRoutes";
-import HomeScreen from "./HomeScreen/HomeScreen";
+import { HomeScreen } from "./HomeScreen";
 import { RectButton } from "react-native-gesture-handler";
 import { Image, View } from "react-native";
 import NewScreen from "./NewScreen";
-import Notification from "./Notifications";
+import { Notification } from "./Notifications";
 import EventScreen from "./EventScreen";
 const AppStack = createStackNavigator<AppRoutes>();
 
