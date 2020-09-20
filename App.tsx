@@ -1,8 +1,8 @@
 import { ThemeProvider } from "@shopify/restyle";
 import React from "react";
 import { Box, LoadAssets, theme, Text } from "./src/components";
-import AppNavigation from "./src/Home";
-import { headerAssets, iconAssets } from "./src/Home/HomeScreen";
+import AppNavigation from "./src/Screens";
+import { headerAssets, iconAssets } from "./src/Screens/HomeScreen";
 const assets = [...headerAssets, ...iconAssets];
 const fonts = {
   Saman: require("./assets/fonts/Samarkan.ttf"),
