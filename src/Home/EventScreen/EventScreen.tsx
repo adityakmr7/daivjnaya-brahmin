@@ -1,6 +1,10 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import {
+  RectButton,
+  ScrollView,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import { Box, Text } from "../../components";
 import { StackNavigationProps } from "../../components/NavigationRoutes";
 import { NotificationData } from "../Notifications/Notifications";
@@ -20,9 +24,15 @@ const EventScreen = ({ route, navigation }: StackNavigationProps<"Event">) => {
     navigation.setOptions({
       headerRight: () => (
         <Box flexDirection="row">
-          <Icon style={styles.icon} size={26} name="bookmark" />
-          <Icon style={styles.icon} size={26} name="share-2" />
-          <Icon style={styles.icon} size={26} name="more-vertical" />
+          <TouchableWithoutFeedback onPress={() => console.log("bookmark")}>
+            <Icon style={styles.icon} size={26} name="bookmark" />
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => console.log("share")}>
+            <Icon style={styles.icon} size={26} name="share-2" />
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => console.log("More")}>
+            <Icon style={styles.icon} size={26} name="more-vertical" />
+          </TouchableWithoutFeedback>
         </Box>
       ),
     });
