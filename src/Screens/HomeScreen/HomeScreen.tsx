@@ -5,10 +5,9 @@ import MainCard from "./MainCard";
 import { Dimensions, Image } from "react-native";
 import SectionHeader from "./components/SectionHeader";
 import IconNavigator from "./components/IconNavigator";
+import { StackNavigationProps } from "../../components/NavigationRoutes";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
-interface HomeProps {}
-
 const Images = [
   {
     id: 1,
@@ -48,7 +47,7 @@ export const iconAssets = [
 ];
 const image = require("../../../assets/images/img-2.png");
 
-const HomeScreen = ({}: HomeProps) => {
+const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
   return (
     <Box flex={1} backgroundColor="mainBackground">
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -108,7 +107,7 @@ const HomeScreen = ({}: HomeProps) => {
           />
         </Box>
         <SectionHeader
-          onPress={() => console.log("Upcoming")}
+          onPress={() => navigation.navigate("NewsEvent")}
           title={"Upcoming News & Events"}
         />
         <Box paddingVertical="l" width={wWidth - 40} marginLeft="l">
