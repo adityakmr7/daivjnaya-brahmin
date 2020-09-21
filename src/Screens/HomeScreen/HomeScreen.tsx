@@ -68,7 +68,7 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
           justifyContent="space-between"
         >
           <IconNavigator
-            onPress={() => console.log("Icon Button Clicked")}
+            onPress={() => navigation.navigate("MyProfile")}
             image={require("../assets/profile.png")}
             subtitle="My Profile"
           />

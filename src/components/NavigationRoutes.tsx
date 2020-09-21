@@ -7,6 +7,7 @@ export type AppRoutes = {
   Notification: undefined;
   Event: { id: number };
   NewsEvent: undefined;
+  MyProfile: undefined;
 };
 
 export type StackNavigationProps<T extends keyof AppRoutes> = {

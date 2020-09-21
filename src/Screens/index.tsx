@@ -10,6 +10,7 @@ import NewScreen from "./NewScreen";
 import { Notification } from "./Notifications";
 import EventScreen from "./EventScreen";
 import { NewsEvents } from "./NewsEvents";
+import MyProfile from "./MyProfile";
 const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = () => {
@@ -111,6 +112,11 @@ const AppNavigation = () => {
         options={{ headerStyle: { elevation: 1 } }}
         name="NewsEvent"
         component={NewsEvents}
+      />
+      <AppStack.Screen
+        options={{ headerStyle: { elevation: 1 } }}
+        name="MyProfile"
+        component={MyProfile}
       />
     </AppStack.Navigator>
   );

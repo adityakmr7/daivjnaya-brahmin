@@ -1,6 +1,9 @@
 import React from "react";
 import { Image } from "react-native";
-import { RectButton } from "react-native-gesture-handler";
+import {
+  RectButton,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import { Box, Text } from "../../../components";
 interface IconNavigatorProps {
   subtitle: string;
@@ -10,19 +13,20 @@ interface IconNavigatorProps {
 const IconNavigator = ({ subtitle, image, onPress }: IconNavigatorProps) => {
   return (
     <Box justifyContent="space-between" alignItems="center">
-      <Box
-        justifyContent="center"
-        alignItems="center"
-        borderRadius="m"
-        shadowOffset=""
-        height={92}
-        width={92}
-        backgroundColor="iconBackground"
-      >
-        <RectButton {...{ onPress }}>
+      <TouchableWithoutFeedback {...{ onPress }}>
+        <Box
+          justifyContent="center"
+          alignItems="center"
+          borderRadius="m"
+          shadowOffset=""
+          height={92}
+          width={92}
+          backgroundColor="iconBackground"
+        >
           <Image source={image} />
-        </RectButton>
-      </Box>
+        </Box>
+      </TouchableWithoutFeedback>
+
       <Box paddingVertical="s">
         <Text variant="mainIconSubTitle">{subtitle}</Text>
       </Box>
