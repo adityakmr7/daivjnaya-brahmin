@@ -10,7 +10,7 @@ import NewScreen from "./NewScreen";
 import { Notification } from "./Notifications";
 import EventScreen from "./EventScreen";
 import { NewsEvents } from "./NewsEvents";
-import MyProfile from "./MyProfile";
+import TabNavigation from "./MyProfile";
 const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = () => {
@@ -114,9 +114,11 @@ const AppNavigation = () => {
         component={NewsEvents}
       />
       <AppStack.Screen
-        options={{ headerStyle: { elevation: 1 } }}
+        options={{
+          headerShown: false,
+        }}
         name="MyProfile"
-        component={MyProfile}
+        component={TabNavigation}
       />
     </AppStack.Navigator>
   );
