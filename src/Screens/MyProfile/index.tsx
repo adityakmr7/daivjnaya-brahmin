@@ -5,7 +5,40 @@ import Videos from "./Videos";
 import Gallery from "./Gallery";
 import Message from "./Message";
 import { Feather as Icon } from "@expo/vector-icons";
+import { createStackNavigator } from "@react-navigation/stack";
 const Tab = createBottomTabNavigator();
+
+const Stack = createStackNavigator();
+
+const VideoStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Videos" component={Videos} />
+    </Stack.Navigator>
+  );
+};
+const ProfileStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Profile" component={MyProfile} />
+    </Stack.Navigator>
+  );
+};
+
+const GalleryStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Gallery" component={Gallery} />
+    </Stack.Navigator>
+  );
+};
+const MessageStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Message" component={Message} />
+    </Stack.Navigator>
+  );
+};
 
 const TabNavigation = ({}) => {
   return (
@@ -37,22 +70,22 @@ const TabNavigation = ({}) => {
       <Tab.Screen
         options={{ tabBarLabel: "Profile" }}
         name="Profile"
-        component={MyProfile}
+        component={ProfileStack}
       />
       <Tab.Screen
         options={{ tabBarLabel: "Videos" }}
         name="Videos"
-        component={Videos}
+        component={VideoStack}
       />
       <Tab.Screen
         options={{ tabBarLabel: "Gallery" }}
         name="Gallery"
-        component={Gallery}
+        component={GalleryStack}
       />
       <Tab.Screen
         options={{ tabBarLabel: "Message" }}
         name="Message"
-        component={Message}
+        component={MessageStack}
       />
     </Tab.Navigator>
   );
