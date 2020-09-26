@@ -3,8 +3,8 @@ import {
   RectButton,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
-import { Box, Text, LargeButton } from "../../components";
-import TextField from "./TextField";
+import { Box, Text, LargeButton, TextField } from "../../components";
+
 import { Feather as Icon } from "@expo/vector-icons";
 import { useFormik } from "formik";
 import * as Yup from "yup";
