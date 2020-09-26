@@ -7,11 +7,11 @@ import { Feather as Icon } from "@expo/vector-icons";
 import {
   RectButton,
   ScrollView,
-  TextInput,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import {
   CreatePost,
+  FriendsThumbnail,
   IntroSection,
   PostCard,
   RoundedBorderButton,
@@ -22,7 +22,31 @@ export const friends = [
   { id: 2, src: require("./assets/pa.png"), name: "Anany Panday" },
   { id: 3, src: require("./assets/sm.png"), name: "Hello world" },
 ];
-const { width: wWidth, height: wHeight } = Dimensions.get("window");
+
+export const Posts = [
+  {
+    id: 1,
+    user: "Siddharth Revankar",
+    userImage: require("./assets/ak.png"),
+    date: "17 Jun 2019",
+    caption: "Caption here",
+    image: require("./assets/post.png"),
+    comments: 10,
+    likes: 25,
+    video: require("./assets/video.mp4"),
+  },
+  {
+    id: 2,
+    user: "Siddharth Revankar",
+    userImage: require("./assets/pa.png"),
+    date: "17 Jun 2019",
+    caption: "Caption here",
+    image: require("./assets/post.png"),
+    comments: 10,
+    likes: 25,
+    video: require("./assets/video.mp4"),
+  },
+];
 
 const MyProfile = ({ navigation }: StackNavigationProps<"MyProfile">) => {
   useLayoutEffect(() => {
@@ -92,50 +116,20 @@ const MyProfile = ({ navigation }: StackNavigationProps<"MyProfile">) => {
             justifyContent="space-between"
           >
             {friends.map((item, i) => {
-              return (
-                <React.Fragment key={i}>
-                  <Box>
-                    <Image
-                      style={{
-                        width: wWidth / 3 - 15,
-                        height: wWidth / 4,
-                        borderRadius: 10,
-                      }}
-                      source={item.src}
-                    />
-                    <Box>
-                      <Text variant="mainIconSubTitle">{item.name}</Text>
-                    </Box>
-                  </Box>
-                </React.Fragment>
-              );
+              return <FriendsThumbnail {...{ item }} />;
             })}
           </Box>
           <Box flexDirection="row" justifyContent="space-between">
             {friends.map((item, i) => {
-              return (
-                <React.Fragment key={i}>
-                  <Box>
-                    <Image
-                      style={{
-                        width: wWidth / 3 - 15,
-                        height: wWidth / 4,
-                        borderRadius: 10,
-                      }}
-                      source={item.src}
-                    />
-                    <Box>
-                      <Text variant="mainIconSubTitle">{item.name}</Text>
-                    </Box>
-                  </Box>
-                </React.Fragment>
-              );
+              return <FriendsThumbnail {...{ item }} />;
             })}
           </Box>
         </Box>
         <CreatePost src={friends[0].src} />
         <Box height={3} backgroundColor="mainBackground" />
-        <PostCard src={friends[0].src} />
+        {Posts.map((post, index) => {
+          return <PostCard key={post.id} {...{ post }} />;
+        })}
         <Box backgroundColor="mainBackground" height={10} />
       </ScrollView>
     </Box>

@@ -1,20 +1,42 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useLayoutEffect } from "react";
+import React from "react";
 import { Box, Text } from "../../components";
-import { Feather as Icon } from "@expo/vector-icons";
-import { RectButton, ScrollView } from "react-native-gesture-handler";
-import { Platform } from "react-native";
+
+import { ScrollView } from "react-native-gesture-handler";
+
 import { VideoCard } from "./components";
+import { Posts } from "./MyProfile";
 interface VideosProps {}
+
+type post = {
+  id: number;
+  video: string;
+  image: number;
+  user: string;
+  userImage: number;
+  date: string;
+  caption: string;
+  likes: number;
+  comments: number;
+};
+
 const Videos = ({ navigation }) => {
   const src = require("./assets/post.png");
   return (
     <ScrollView>
       <Box flex={1} backgroundColor="iconBackground">
-        {[1, 2, 3].map((_, i) => {
+        {Posts.map((post, i) => {
+          if (post.video) {
+            return (
+              <Box key={i}>
+                <VideoCard {...{ post }} />
+                <Box height={5} backgroundColor="mainBackground" />
+              </Box>
+            );
+          }
           return (
-            <Box key={i}>
-              <VideoCard {...src} />
+            <Box>
+              <Text>No Video For this Post</Text>
             </Box>
           );
         })}

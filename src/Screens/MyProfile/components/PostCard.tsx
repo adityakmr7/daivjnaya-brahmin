@@ -5,10 +5,18 @@ import { Feather as Icon } from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
-interface PostCardProps {
-  src: number;
+export interface PostCardProps {
+  post: {
+    image: number;
+    user: string;
+    userImage: number;
+    date: string;
+    caption: string;
+    likes: number;
+    comments: number;
+  };
 }
-const PostCard = ({ src }: PostCardProps) => {
+const PostCard = ({ post }: PostCardProps) => {
   return (
     <Box marginVertical="s">
       <Box
@@ -24,15 +32,15 @@ const PostCard = ({ src }: PostCardProps) => {
                 height: wWidth / 6,
                 borderRadius: wWidth / 2,
               }}
-              source={src}
+              source={post.userImage}
             />
           </Box>
           <Box>
             <Text color="primaryText" variant="cardSubTitle">
-              Siddharth Revankar
+              {post.user}
             </Text>
             <Text variant="cardText" color="grey">
-              17 Jun 2019
+              {post.date}
             </Text>
           </Box>
         </Box>
@@ -42,12 +50,12 @@ const PostCard = ({ src }: PostCardProps) => {
       </Box>
       <Box>
         <Text marginVertical="s" marginHorizontal="s">
-          Caption Here
+          {post.caption}
         </Text>
         <Box>
           <Image
             style={{ width: wWidth, height: wWidth }}
-            source={require("../assets/post.png")}
+            source={post.image}
           />
         </Box>
         <Box
@@ -59,12 +67,12 @@ const PostCard = ({ src }: PostCardProps) => {
           <Box flexDirection="row" alignItems="center">
             <Icon size={15} name="thumbs-up" />
             <Text variant="cardText" color="grey" paddingHorizontal="s">
-              You and 25 othes
+              You and {post.likes} othes
             </Text>
           </Box>
           <Box>
             <Text variant="cardText" color="grey">
-              10 Comments
+              {post.comments} Comments
             </Text>
           </Box>
         </Box>
