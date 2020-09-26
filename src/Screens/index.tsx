@@ -11,6 +11,7 @@ import { Notification } from "./Notifications";
 import EventScreen from "./EventScreen";
 import { NewsEvents } from "./NewsEvents";
 import TabNavigation from "./MyProfile";
+import CommunityHub from "./communityHub/index";
 const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = () => {
@@ -119,6 +120,12 @@ const AppNavigation = () => {
         }}
         name="MyProfile"
         component={TabNavigation}
+      />
+      {/* // ? Nested Community */}
+      <AppStack.Screen
+        options={{ title: "Community Hub" }}
+        name="CommunityHub"
+        component={CommunityHub}
       />
     </AppStack.Navigator>
   );

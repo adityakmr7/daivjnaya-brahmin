@@ -73,7 +73,7 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
             subtitle="My Profile"
           />
           <IconNavigator
-            onPress={() => console.log("Icon Button Clicked")}
+            onPress={() => navigation.navigate("CommunityHub")}
             image={require("../assets/dna.png")}
             subtitle="Daivajnya Samaj…"
           />

@@ -116,12 +116,12 @@ const MyProfile = ({ navigation }: StackNavigationProps<"MyProfile">) => {
             justifyContent="space-between"
           >
             {friends.map((item, i) => {
-              return <FriendsThumbnail {...{ item }} />;
+              return <FriendsThumbnail key={i} {...{ item }} />;
             })}
           </Box>
           <Box flexDirection="row" justifyContent="space-between">
             {friends.map((item, i) => {
-              return <FriendsThumbnail {...{ item }} />;
+              return <FriendsThumbnail key={i} {...{ item }} />;
             })}
           </Box>
         </Box>
