@@ -6,7 +6,23 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { createStackNavigator } from "@react-navigation/stack";
 import KarawarDetail from "./KarawarDetail";
 import { useTheme } from "../../components/Theme";
-const Tab = createMaterialTopTabNavigator();
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { RouteProp } from "@react-navigation/native";
+import CommunityMember from "./CommunityMember";
+
+export type TabRoutes = {
+  Karwar: undefined;
+  Hubli: undefined;
+  Bangalore: undefined;
+  KarawarDetail: { id: number };
+  CommunityMember: undefined;
+};
+export type TabNavigationProps<T extends keyof TabRoutes> = {
+  navigation: BottomTabNavigationProp<TabRoutes, T>;
+  route: RouteProp<TabRoutes, T>;
+};
+
+const Tab = createMaterialTopTabNavigator<TabRoutes>();
 const Stack = createStackNavigator();
 
 const CommunityHub = ({}) => {
@@ -32,6 +48,7 @@ const CommunityStack = () => {
     <Stack.Navigator>
       <Stack.Screen name="CommunityHub" component={CommunityHub} />
       <Stack.Screen name="KarawarDetail" component={KarawarDetail} />
+      <Stack.Screen name="CommunityMember" component={CommunityMember} />
     </Stack.Navigator>
   );
 };

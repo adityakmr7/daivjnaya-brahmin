@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
+import { TabNavigationProps } from ".";
 import { Box, SearchBox, Text } from "../../components";
 import HorizontalCard from "./components/HorizontalCard";
 
-interface KarwarProps {}
-const houses = [
+export const houses = [
   {
     id: 1,
     image: require("./assets/house1.png"),
@@ -43,7 +43,7 @@ const houses = [
   },
 ];
 
-const Karwar = ({ navigation }: KarwarProps) => {
+const Karwar = ({ navigation }: TabNavigationProps<"Karwar">) => {
   const [searchText, setSearchText] = useState<string>("");
   const handleChangeText = (text: string) => {
     setSearchText(text);
@@ -64,7 +64,9 @@ const Karwar = ({ navigation }: KarwarProps) => {
           return (
             <HorizontalCard
               key={i}
-              onPress={() => navigation.navigate("KarawarDetail")}
+              onPress={() =>
+                navigation.navigate("KarawarDetail", { id: house.id })
+              }
               {...{ house }}
             />
           );

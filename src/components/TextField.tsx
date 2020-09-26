@@ -1,7 +1,7 @@
 import React from "react";
 import { TextInputProps } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { Box, useTheme } from ".";
+import { Box, useTheme } from "./Theme";
 
 interface TextFieldProps extends TextInputProps {
   placeholder: string;
