@@ -131,7 +131,7 @@ const AppNavigation = () => {
             return (
               <Box marginHorizontal="s">
                 <RoundedBorderButton
-                  label="member"
+                  label="For Members"
                   onPress={() => navigation.navigate("Register")}
                 />
               </Box>

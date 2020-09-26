@@ -1,5 +1,4 @@
 import React from "react";
-
 import Karwar from "./Karwar";
 import Hubli from "./Hubli";
 import Bangalore from "./Bangalore";
@@ -12,7 +11,6 @@ const Stack = createStackNavigator();
 
 const CommunityHub = ({}) => {
   const theme = useTheme();
-
   return (
     <Tab.Navigator
       tabBarOptions={{
