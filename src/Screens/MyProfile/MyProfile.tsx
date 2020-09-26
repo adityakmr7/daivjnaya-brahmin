@@ -1,10 +1,29 @@
-import { color } from "@shopify/restyle";
 import { StatusBar } from "expo-status-bar";
 import React, { useLayoutEffect } from "react";
-import { Image } from "react-native";
+import { Dimensions, Image, Platform } from "react-native";
 import { Box, Text } from "../../components";
 import { StackNavigationProps } from "../../components/NavigationRoutes";
 import { Feather as Icon } from "@expo/vector-icons";
+import {
+  RectButton,
+  ScrollView,
+  TextInput,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
+import {
+  CreatePost,
+  IntroSection,
+  PostCard,
+  RoundedBorderButton,
+} from "./components";
+
+export const friends = [
+  { id: 1, src: require("./assets/ak.png"), name: "Akshay Kumar" },
+  { id: 2, src: require("./assets/pa.png"), name: "Anany Panday" },
+  { id: 3, src: require("./assets/sm.png"), name: "Hello world" },
+];
+const { width: wWidth, height: wHeight } = Dimensions.get("window");
+
 const MyProfile = ({ navigation }: StackNavigationProps<"MyProfile">) => {
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -12,47 +31,113 @@ const MyProfile = ({ navigation }: StackNavigationProps<"MyProfile">) => {
     });
   }, [navigation]);
   return (
-    <Box flex={1}>
+    <Box flex={1} backgroundColor="iconBackground">
       <StatusBar translucent={true} />
-      <Box height={20}>
-        <Image height={20} source={require("./assets/wall.png")} />
-      </Box>
-      <Box
-        marginHorizontal="xl"
-        justifyContent="space-between"
-        style={{ marginTop: 115, marginLeft: 20 }}
-        flexDirection="row"
-      >
-        <Box
-          borderRadius="xl"
-          backgroundColor="notificationColor"
-          height={140}
-          width={140}
-        ></Box>
-        <Box style={{ marginTop: 60 }} alignSelf="center">
-          <Text>Edit Profile</Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Box height={20}>
+          <Image height={20} source={require("./assets/wall.png")} />
+          <RectButton
+            onPress={() => navigation.pop()}
+            style={{ position: "absolute", top: 40, left: 10 }}
+          >
+            <Icon
+              size={30}
+              name={Platform.OS === "android" ? "arrow-left" : "chevron-left"}
+              color="white"
+            />
+          </RectButton>
         </Box>
-      </Box>
-      <Box paddingHorizontal="m" paddingVertical="s">
-        <Text variant="sectionTitle">Siddharth Revankar</Text>
-        <Box>
-          <Box>
-            <Box flexDirection="row" alignItems="center">
-              <Icon name="briefcase" />
-              <Text>Chef at Healthy Eats</Text>
-            </Box>
-            <Box flexDirection="row" alignItems="center">
-              <Icon name="briefcase" />
-              <Text>Studied at National College</Text>
-            </Box>
-            <Box flexDirection="row" alignItems="center">
-              <Icon name="briefcase" />
-              <Text>Lives in Baad, Karwar</Text>
-            </Box>
+        <Box
+          marginHorizontal="xl"
+          justifyContent="space-between"
+          style={{ marginTop: 115, marginLeft: 20 }}
+          flexDirection="row"
+        >
+          <Box borderRadius="xl" height={140} width={140}>
+            <Image
+              style={{ height: 140, width: 140, borderRadius: 140 / 2 }}
+              source={friends[0].src}
+            />
+          </Box>
+          <Box
+            style={{
+              position: "relative",
+              top: 80,
+            }}
+          >
+            <RoundedBorderButton label={"Edit Profile"} onPress={() => {}} />
           </Box>
         </Box>
-      </Box>
-      <Box>{/* // TODO:  Tab Bar Navigation Here */}</Box>
+        <IntroSection />
+        <Box
+          paddingTop="xl"
+          paddingHorizontal="s"
+          flexDirection="row"
+          justifyContent="space-between"
+        >
+          <Box>
+            <Text variant="mainIconSubTitle">Friends</Text>
+            <Text fontSize={13} variant="silentText">
+              100 friends
+            </Text>
+          </Box>
+          <TouchableWithoutFeedback onPress={() => console.log("See All")}>
+            <Text variant="seeAll">See all</Text>
+          </TouchableWithoutFeedback>
+        </Box>
+        <Box paddingHorizontal="s" paddingTop="l">
+          <Box
+            marginBottom="s"
+            flexDirection="row"
+            justifyContent="space-between"
+          >
+            {friends.map((item, i) => {
+              return (
+                <React.Fragment key={i}>
+                  <Box>
+                    <Image
+                      style={{
+                        width: wWidth / 3 - 15,
+                        height: wWidth / 4,
+                        borderRadius: 10,
+                      }}
+                      source={item.src}
+                    />
+                    <Box>
+                      <Text variant="mainIconSubTitle">{item.name}</Text>
+                    </Box>
+                  </Box>
+                </React.Fragment>
+              );
+            })}
+          </Box>
+          <Box flexDirection="row" justifyContent="space-between">
+            {friends.map((item, i) => {
+              return (
+                <React.Fragment key={i}>
+                  <Box>
+                    <Image
+                      style={{
+                        width: wWidth / 3 - 15,
+                        height: wWidth / 4,
+                        borderRadius: 10,
+                      }}
+                      source={item.src}
+                    />
+                    <Box>
+                      <Text variant="mainIconSubTitle">{item.name}</Text>
+                    </Box>
+                  </Box>
+                </React.Fragment>
+              );
+            })}
+          </Box>
+        </Box>
+        <CreatePost src={friends[0].src} />
+        <Box height={3} backgroundColor="mainBackground" />
+        <PostCard src={friends[0].src} />
+        <Box backgroundColor="mainBackground" height={10} />
+      </ScrollView>
     </Box>
   );
 };

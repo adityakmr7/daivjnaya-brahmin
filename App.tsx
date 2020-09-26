@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@shopify/restyle";
 import React from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Box, LoadAssets, theme, Text } from "./src/components";
 import AppNavigation from "./src/Screens";
 import { headerAssets, iconAssets } from "./src/Screens/HomeScreen";
@@ -15,7 +16,9 @@ export default function App() {
   return (
     <ThemeProvider {...{ theme }}>
       <LoadAssets {...{ fonts, assets }}>
-        <AppNavigation />
+        <SafeAreaProvider>
+          <AppNavigation />
+        </SafeAreaProvider>
       </LoadAssets>
     </ThemeProvider>
   );

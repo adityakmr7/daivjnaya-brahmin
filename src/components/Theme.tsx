@@ -53,6 +53,12 @@ export const theme = {
       fontSize: 12,
       color: "iconBackground",
     },
+    profileAction: {
+      fontFamily: "SFProTextRegular",
+      fontSize: 10,
+      color: "primaryText",
+    },
+
     sectionTitle: {
       fontFamily: "SFProTextBold",
       fontSize: 18,
@@ -60,13 +66,18 @@ export const theme = {
     },
     mainIconSubTitle: {
       fontFamily: "SFProTextSemiBold",
-      fontSize: 12,
+      fontSize: 13,
       color: "primaryText",
     },
     silentText: {
       fontFamily: "SFProTextBold",
       fontSize: 16,
       color: "grey",
+    },
+    seeAll: {
+      fontFamily: "SFProTextSemiBold",
+      fontSize: 13,
+      color: "mainIconColor",
     },
   },
   breakpoints: {},
