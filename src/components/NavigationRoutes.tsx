@@ -8,7 +8,8 @@ export type AppRoutes = {
   Event: { id: number };
   NewsEvent: undefined;
   MyProfile: undefined;
-  CommunityHub: undefined;
+  CommunityStack: undefined;
+  Register: undefined;
 };
 
 export type StackNavigationProps<T extends keyof AppRoutes> = {

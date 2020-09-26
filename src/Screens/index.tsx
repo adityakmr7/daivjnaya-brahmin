@@ -11,7 +11,9 @@ import { Notification } from "./Notifications";
 import EventScreen from "./EventScreen";
 import { NewsEvents } from "./NewsEvents";
 import TabNavigation from "./MyProfile";
-import CommunityHub from "./communityHub/index";
+import CommunityStack from "./communityHub/index";
+import { RoundedBorderButton } from "./MyProfile/components";
+import { Register } from "./Register";
 const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = () => {
@@ -123,10 +125,23 @@ const AppNavigation = () => {
       />
       {/* // ? Nested Community */}
       <AppStack.Screen
-        options={{ title: "Community Hub" }}
-        name="CommunityHub"
-        component={CommunityHub}
+        options={({ navigation, route }) => ({
+          title: "Community Hub",
+          headerRight: () => {
+            return (
+              <Box marginHorizontal="s">
+                <RoundedBorderButton
+                  label="member"
+                  onPress={() => navigation.navigate("Register")}
+                />
+              </Box>
+            );
+          },
+        })}
+        name="CommunityStack"
+        component={CommunityStack}
       />
+      <AppStack.Screen name="Register" component={Register} />
     </AppStack.Navigator>
   );
 };

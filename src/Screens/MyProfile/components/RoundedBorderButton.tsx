@@ -10,7 +10,7 @@ const RoundedBorderButton = ({ label, onPress }: RoundedBorderButtonProps) => {
   return (
     <RectButton {...{ onPress }}>
       <Box
-        padding="s"
+        style={{ padding: 4 }}
         borderColor="mainIconColor"
         borderRadius="m"
         borderWidth={1}

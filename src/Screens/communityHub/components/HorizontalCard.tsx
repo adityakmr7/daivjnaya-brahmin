@@ -38,7 +38,7 @@ const HorizontalCard = ({ house, onPress }: HorizontalCardProps) => {
       <Box
         width={wWidth - 40}
         marginHorizontal="l"
-        backgroundColor="grey"
+        backgroundColor="mainBackground"
         height={1}
       />
     </TouchableWithoutFeedback>
