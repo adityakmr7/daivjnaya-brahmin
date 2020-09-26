@@ -12,9 +12,9 @@ const validationSchema = Yup.object().shape({
   name: Yup.string().required(),
   contact: Yup.string().length(10).required(),
   community: Yup.string().required(),
-  email: Yup.string().length(16).required(), //TODO: Validate Email
-  city: Yup.string().length(3).required(),
-  tellUs: Yup.number().positive().required(),
+  email: Yup.string().required(), //TODO: Validate Email
+  city: Yup.string().required(),
+  tellUs: Yup.number().required(),
 });
 const Register = ({}: RegisterProps) => {
   const {
