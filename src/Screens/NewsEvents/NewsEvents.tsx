@@ -1,14 +1,6 @@
-import React, { useEffect, useReducer, useState } from "react";
-import { RectButton, TextInput } from "react-native-gesture-handler";
-import { Box, SearchBox, Text } from "../../components";
+import React, { useState } from "react";
+import { SearchBox } from "../../components";
 import { StackNavigationProps } from "../../components/NavigationRoutes";
-import { Feather as Icon } from "@expo/vector-icons";
-
-const initialState = {
-  news: true,
-  events: false,
-  upcoming: false,
-};
 
 const NewsEvents = ({ navigation }: StackNavigationProps<"NewsEvent">) => {
   React.useLayoutEffect(() => {
