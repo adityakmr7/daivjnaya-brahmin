@@ -21,9 +21,9 @@ const VideoStack = () => {
 };
 const ProfileStack = () => {
   return (
-    <AppStack.Navigator>
-      <AppStack.Screen name="FriendList" component={SeeAllFriends} />
+    <AppStack.Navigator initialRouteName="Profile">
       <AppStack.Screen name="Profile" component={MyProfile} />
+      <AppStack.Screen name="FriendList" component={SeeAllFriends} />
     </AppStack.Navigator>
   );
 };

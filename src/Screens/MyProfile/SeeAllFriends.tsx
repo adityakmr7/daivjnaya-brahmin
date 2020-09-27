@@ -1,11 +1,9 @@
-import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
 import { Dimensions, Image } from "react-native";
 import { Box, SearchBox, Text } from "../../components";
 import { StackNavigationProps } from "../../components/NavigationRoutes";
 import { Feather as Icon } from "@expo/vector-icons";
 import { friends } from "./MyProfile";
-interface SeeAllFriendsProps {}
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const SeeAllFriends = ({
@@ -13,10 +11,9 @@ const SeeAllFriends = ({
   route,
 }: StackNavigationProps<"FriendList">) => {
   const { username } = route.params;
-  const data = friends;
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: username,
+      title: username ? username : "",
     });
   }, [navigation]);
 
