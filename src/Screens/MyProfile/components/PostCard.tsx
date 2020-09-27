@@ -2,7 +2,10 @@ import React from "react";
 import { Dimensions, Image } from "react-native";
 import { Box, Text } from "../../../components";
 import { Feather as Icon } from "@expo/vector-icons";
-import { RectButton } from "react-native-gesture-handler";
+import {
+  RectButton,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 export interface PostCardProps {
@@ -15,8 +18,9 @@ export interface PostCardProps {
     likes: number;
     comments: number;
   };
+  onPress: () => void;
 }
-const PostCard = ({ post }: PostCardProps) => {
+const PostCard = ({ post, onPress }: PostCardProps) => {
   return (
     <Box marginVertical="s">
       <Box
@@ -45,7 +49,9 @@ const PostCard = ({ post }: PostCardProps) => {
           </Box>
         </Box>
         <Box>
-          <Icon name="more-horizontal" size={26} />
+          <TouchableWithoutFeedback {...{ onPress }}>
+            <Icon name="more-horizontal" size={26} />
+          </TouchableWithoutFeedback>
         </Box>
       </Box>
       <Box>

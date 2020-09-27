@@ -1,15 +1,18 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import { Dimensions, Image, Platform } from "react-native";
 import { Box, Text } from "../../components";
 import { StackNavigationProps } from "../../components/NavigationRoutes";
 import { Feather as Icon } from "@expo/vector-icons";
+import RBSheet from "react-native-raw-bottom-sheet";
+
 import {
   RectButton,
   ScrollView,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import {
+  BottomDrawerComponent,
   CreatePost,
   FriendsThumbnail,
   IntroSection,
@@ -54,6 +57,8 @@ const MyProfile = ({ navigation }: StackNavigationProps<"MyProfile">) => {
       headerShown: false,
     });
   }, [navigation]);
+  const refRBSheet = useRef();
+  const handleDrawer = () => refRBSheet.current.open();
   return (
     <Box flex={1} backgroundColor="iconBackground">
       <StatusBar translucent={true} />
@@ -128,9 +133,26 @@ const MyProfile = ({ navigation }: StackNavigationProps<"MyProfile">) => {
         <CreatePost src={friends[0].src} />
         <Box height={3} backgroundColor="mainBackground" />
         {Posts.map((post, index) => {
-          return <PostCard key={post.id} {...{ post }} />;
+          return (
+            <PostCard onPress={handleDrawer} key={post.id} {...{ post }} />
+          );
         })}
         <Box backgroundColor="mainBackground" height={10} />
+        <RBSheet
+          ref={refRBSheet}
+          closeOnDragDown={true}
+          closeOnPressMask={false}
+          customStyles={{
+            wrapper: {
+              backgroundColor: "transparent",
+            },
+            draggableIcon: {
+              backgroundColor: "#000",
+            },
+          }}
+        >
+          <BottomDrawerComponent />
+        </RBSheet>
       </ScrollView>
     </Box>
   );
