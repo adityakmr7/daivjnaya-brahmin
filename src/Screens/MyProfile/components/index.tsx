@@ -5,3 +5,4 @@ export { default as PostCard } from "./PostCard";
 export { default as CreatePost } from "./Createpost";
 export { default as VideoCard } from "./VideoCard";
 export { default as BottomDrawerComponent } from "./BottomDrawerComponent";
+export { default as MessageList } from "./MessageList";
