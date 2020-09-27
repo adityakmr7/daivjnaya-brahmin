@@ -10,6 +10,11 @@ export type AppRoutes = {
   MyProfile: undefined;
   CommunityStack: undefined;
   Register: undefined;
+  FriendList: { username: string };
+  Videos: undefined;
+  Profile: undefined;
+  Gallery: undefined;
+  Message: undefined;
 };
 
 export type StackNavigationProps<T extends keyof AppRoutes> = {

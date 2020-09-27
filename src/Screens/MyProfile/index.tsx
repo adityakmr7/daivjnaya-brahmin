@@ -6,37 +6,40 @@ import Gallery from "./Gallery";
 import Message from "./Message";
 import { Feather as Icon } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
+import SeeAllFriends from "./SeeAllFriends";
+import { AppRoutes } from "../../components/NavigationRoutes";
+
 const Tab = createBottomTabNavigator();
 
-const Stack = createStackNavigator();
-
+const AppStack = createStackNavigator<AppRoutes>();
 const VideoStack = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Videos" component={Videos} />
-    </Stack.Navigator>
+    <AppStack.Navigator>
+      <AppStack.Screen name="Videos" component={Videos} />
+    </AppStack.Navigator>
   );
 };
 const ProfileStack = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Profile" component={MyProfile} />
-    </Stack.Navigator>
+    <AppStack.Navigator>
+      <AppStack.Screen name="FriendList" component={SeeAllFriends} />
+      <AppStack.Screen name="Profile" component={MyProfile} />
+    </AppStack.Navigator>
   );
 };
 
 const GalleryStack = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Gallery" component={Gallery} />
-    </Stack.Navigator>
+    <AppStack.Navigator>
+      <AppStack.Screen name="Gallery" component={Gallery} />
+    </AppStack.Navigator>
   );
 };
 const MessageStack = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Message" component={Message} />
-    </Stack.Navigator>
+    <AppStack.Navigator>
+      <AppStack.Screen name="Message" component={Message} />
+    </AppStack.Navigator>
   );
 };
 

@@ -14,7 +14,7 @@ import TabNavigation from "./MyProfile";
 import CommunityStack from "./communityHub/index";
 import { RoundedBorderButton } from "./MyProfile/components";
 import { Register } from "./Register";
-const AppStack = createStackNavigator<AppRoutes>();
+export const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = () => {
   return (

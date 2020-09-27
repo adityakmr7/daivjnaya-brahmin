@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useLayoutEffect, useRef } from "react";
-import { Dimensions, Image, Platform } from "react-native";
+import { Image, Platform } from "react-native";
 import { Box, Text } from "../../components";
 import { StackNavigationProps } from "../../components/NavigationRoutes";
 import { Feather as Icon } from "@expo/vector-icons";
@@ -110,7 +110,13 @@ const MyProfile = ({ navigation }: StackNavigationProps<"MyProfile">) => {
               100 friends
             </Text>
           </Box>
-          <TouchableWithoutFeedback onPress={() => console.log("See All")}>
+          <TouchableWithoutFeedback
+            onPress={() =>
+              navigation.navigate("FriendList", {
+                username: Posts[0].user,
+              })
+            }
+          >
             <Text variant="seeAll">See all</Text>
           </TouchableWithoutFeedback>
         </Box>
