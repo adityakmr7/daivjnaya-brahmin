@@ -78,7 +78,7 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
             subtitle="Daivajnya Samaj…"
           />
           <IconNavigator
-            onPress={() => console.log("Icon Button Clicked")}
+            onPress={() => navigation.navigate("Matrimony")}
             image={require("../assets/meet.png")}
             subtitle="Matrimony"
           />

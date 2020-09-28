@@ -15,6 +15,7 @@ export type AppRoutes = {
   Profile: undefined;
   Gallery: undefined;
   Message: undefined;
+  Matrimony: undefined;
 };
 
 export type StackNavigationProps<T extends keyof AppRoutes> = {

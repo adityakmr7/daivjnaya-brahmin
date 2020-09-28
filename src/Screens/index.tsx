@@ -1,11 +1,11 @@
 import React from "react";
 import { Feather as Icon } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
-import { theme, Box, Text } from "../components";
+import { theme, Box, Text, HeaderBackButton } from "../components";
 import { AppRoutes } from "../components/NavigationRoutes";
 import { HomeScreen } from "./HomeScreen";
 import { RectButton } from "react-native-gesture-handler";
-import { Image, View } from "react-native";
+import { Image, Platform, View } from "react-native";
 import NewScreen from "./NewScreen";
 import { Notification } from "./Notifications";
 import EventScreen from "./EventScreen";
@@ -14,6 +14,7 @@ import TabNavigation from "./MyProfile";
 import CommunityStack from "./communityHub/index";
 import { RoundedBorderButton } from "./MyProfile/components";
 import { Register } from "./Register";
+import MatrimonyStack from "./Matrimony";
 export const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = () => {
@@ -142,6 +143,31 @@ const AppNavigation = () => {
         component={CommunityStack}
       />
       <AppStack.Screen name="Register" component={Register} />
+      <AppStack.Screen
+        options={({ navigation, route }) => ({
+          title: "Matrimony",
+          headerLeft: () => {
+            return (
+              <HeaderBackButton
+                image={require("./assets/matrimony-head.png")}
+                onPress={() => navigation.pop()}
+              />
+            );
+          },
+          headerRight: () => {
+            return (
+              <Box marginHorizontal="s">
+                <RoundedBorderButton
+                  label="Register"
+                  onPress={() => navigation.navigate("Register")}
+                />
+              </Box>
+            );
+          },
+        })}
+        name="Matrimony"
+        component={MatrimonyStack}
+      />
     </AppStack.Navigator>
   );
 };

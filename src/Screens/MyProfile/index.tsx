@@ -48,7 +48,7 @@ const TabNavigation = ({}) => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
+          let iconName: string = "";
 
           if (route.name === "Profile") {
             iconName = focused ? "home" : "home";
