@@ -60,14 +60,14 @@ const Karwar = ({ navigation }: TabNavigationProps<"Karwar">) => {
           <SearchBox {...{ searchText, handleChangeText }} />
         </Box>
 
-        {houses.map((house, i) => {
+        {houses.map((data, i) => {
           return (
             <HorizontalCard
               key={i}
               onPress={() =>
-                navigation.navigate("KarawarDetail", { id: house.id })
+                navigation.navigate("KarawarDetail", { id: data.id })
               }
-              {...{ house }}
+              {...{ data }}
             />
           );
         })}

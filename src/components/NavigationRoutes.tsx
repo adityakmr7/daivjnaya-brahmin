@@ -15,6 +15,7 @@ export type AppRoutes = {
   Profile: undefined;
   Gallery: undefined;
   Message: undefined;
+  //Matrimony
   Matrimony: undefined;
 };
 

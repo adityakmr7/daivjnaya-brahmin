@@ -4,12 +4,16 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Box, Text } from "../../../components";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 interface HorizontalCardProps {
-  house: {
+  data: {
     image: number;
+    title: string;
+    description: string;
+    subtitle?: string;
+    btn: string;
   };
   onPress: () => void;
 }
-const HorizontalCard = ({ house, onPress }: HorizontalCardProps) => {
+const HorizontalCard = ({ data, onPress }: HorizontalCardProps) => {
   return (
     <TouchableWithoutFeedback {...{ onPress }}>
       <Box
@@ -20,19 +24,17 @@ const HorizontalCard = ({ house, onPress }: HorizontalCardProps) => {
         marginVertical="s"
       >
         <Box>
-          <Image style={{ height: 139, width: 108 }} source={house.image} />
+          <Image style={{ height: 139, width: 108 }} source={data.image} />
         </Box>
-        <Box>
-          <Text variant="sectionTitle">Community Name</Text>
+        <Box width={wWidth / 2}>
+          <Text variant="sectionTitle">{data.title}</Text>
           <Text color="primaryText" variant="cardText">
             Risus commodo
           </Text>
           <Text paddingVertical="s" color="primaryText" variant="cardText">
-            Lorem ipsum dolor sit{"\n"} amet, consectetur
-            {"\n"}
-            adipiscing elit, sed do eiusmod…
+            {data.description}
           </Text>
-          <Text>View full details</Text>
+          <Text>{data.btn}</Text>
         </Box>
       </Box>
       <Box

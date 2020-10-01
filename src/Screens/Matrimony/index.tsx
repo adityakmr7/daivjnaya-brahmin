@@ -2,13 +2,14 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { useTheme } from "../../components";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import Matrimony from "./Matrimony";
 import Groom from "./Groom";
 import Bride from "./Bride";
 import Vendors from "./Vendors";
+import GroomDetail from "./GroomDetail";
+import { MatrimonyStackRoutes, MatrimonyTabRoutes } from "./MatrimonyRoutes";
 
-const Stack = createStackNavigator();
-const Tab = createMaterialTopTabNavigator();
+const Stack = createStackNavigator<MatrimonyStackRoutes>();
+const Tab = createMaterialTopTabNavigator<MatrimonyTabRoutes>();
 const MatrimonyTab = ({}) => {
   const theme = useTheme();
   return (
@@ -32,6 +33,7 @@ const MatrimonyStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Matrimony" component={MatrimonyTab} />
+      <Stack.Screen name="GroomDetail" component={GroomDetail} />
     </Stack.Navigator>
   );
 };
