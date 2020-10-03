@@ -11,6 +11,7 @@ import {
   MatrimonyTabParamList,
 } from "./MatrimonyRoutes";
 import { RoundedBorderButton } from "../MyProfile/components";
+import BrideDetail from "./BrideDetail";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator<MatrimonyTabParamList>();
@@ -66,6 +67,7 @@ const MatrimonyStack = () => {
         component={MatrimonyTab}
       />
       <Stack.Screen name="GroomDetail" component={GroomDetail} />
+      <Stack.Screen name="BrideDetail" component={BrideDetail} />
     </Stack.Navigator>
   );
 };

@@ -3,9 +3,11 @@ import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { Box, Text } from "../../components";
 import HorizontalCard from "../communityHub/components/HorizontalCard";
-import { MatrimonyRootParamList } from "./MatrimonyRoutes";
+import {
+  MatrimonyStackParamList,
+  MatrimonyTabParamList,
+} from "./MatrimonyRoutes";
 
-interface VendorsProps {}
 const VendorDetail = [
   {
     id: 1,
@@ -44,7 +46,7 @@ const VendorDetail = [
 const Vendors = ({
   navigation,
 }: {
-  navigation: BottomTabNavigationProp<MatrimonyRootParamList, "Vendors">;
+  navigation: BottomTabNavigationProp<MatrimonyTabParamList, "Vendors">;
 }) => {
   return (
     <ScrollView>

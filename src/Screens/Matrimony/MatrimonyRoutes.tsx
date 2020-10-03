@@ -8,11 +8,14 @@ export type MatrimonyTabParamList = {
   Vendors: undefined;
   Matrimony: undefined;
   GroomDetail: { id: number };
+  BrideDetail: { id: number };
 };
 
 export type MatrimonyStackParamList = {
   Matrimony: undefined;
   GroomDetail: { id: number };
+  BrideDetail: { id: number };
+  Bride: undefined;
 };
 
 // export type MatrimonyRootParamList = {

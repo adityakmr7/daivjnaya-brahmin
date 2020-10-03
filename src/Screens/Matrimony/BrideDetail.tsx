@@ -1,22 +1,22 @@
+import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useLayoutEffect } from "react";
-import { Box, Text } from "../../components";
 import { MatrimonyStackParamList } from "./MatrimonyRoutes";
+import { BrideList } from "./Bride";
 import { Feather as Icon } from "@expo/vector-icons";
-import { RouteProp } from "@react-navigation/native";
-import { GroomList } from "./Groom";
+import { Box, Text } from "../../components";
 import { ScrollView } from "react-native-gesture-handler";
 import Detail from "./components/Detail";
 
-const GroomDetail = ({
+const BrideDetail = ({
   navigation,
   route,
 }: {
-  navigation: StackNavigationProp<MatrimonyStackParamList, "GroomDetail">;
-  route: RouteProp<MatrimonyStackParamList, "GroomDetail">;
+  navigation: StackNavigationProp<MatrimonyStackParamList, "BrideDetail">;
+  route: RouteProp<MatrimonyStackParamList, "BrideDetail">;
 }) => {
   const id = route.params.id;
-  const data = GroomList.filter((item) => item.id === id)[0];
+  const data = BrideList.filter((item) => item.id === id)[0];
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTransparent: true,
@@ -40,4 +40,4 @@ const GroomDetail = ({
   );
 };
 
-export default GroomDetail;
+export default BrideDetail;

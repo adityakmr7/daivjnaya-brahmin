@@ -3,11 +3,9 @@ import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { Box, Text } from "../../components";
 import HorizontalCard from "../communityHub/components/HorizontalCard";
-import { MatrimonyRootParamList } from "./MatrimonyRoutes";
+import { MatrimonyStackParamList } from "./MatrimonyRoutes";
 
-interface BrideProps {}
-
-const BrideDetail = [
+export const BrideList = [
   {
     id: 1,
     title: "Full Name",
@@ -45,18 +43,18 @@ const BrideDetail = [
 const Bride = ({
   navigation,
 }: {
-  navigation: BottomTabNavigationProp<MatrimonyRootParamList, "Bride">;
+  navigation: BottomTabNavigationProp<MatrimonyStackParamList, "Bride">;
 }) => {
   return (
     <ScrollView>
       <Box backgroundColor="iconBackground" flex={1}>
         <Box>
-          {BrideDetail.map((data, i) => {
+          {BrideList.map((data, i) => {
             return (
               <HorizontalCard
                 key={i}
                 onPress={() =>
-                  navigation.navigate("GroomDetail", {
+                  navigation.navigate("BrideDetail", {
                     id: data.id,
                   })
                 }
