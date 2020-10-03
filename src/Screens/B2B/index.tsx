@@ -9,6 +9,10 @@ import { RoundedBorderButton } from "../MyProfile/components";
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
+export type TabRoutes = {
+  Product: undefined;
+  Property: undefined;
+};
 const B2BTabNavigation = ({}) => {
   const theme = useTheme();
   return (
@@ -49,7 +53,7 @@ const B2BStackNavigation = () => {
               <Box marginHorizontal="s">
                 <RoundedBorderButton
                   label="Post Product"
-                  onPress={() => navigation.navigate("PostProduct")}
+                  onPress={() => console.log("PostProduct page Here")}
                 />
               </Box>
             );

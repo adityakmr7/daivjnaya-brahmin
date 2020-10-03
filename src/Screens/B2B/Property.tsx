@@ -41,11 +41,7 @@ const Property = ({ navigation }: PropertyProps) => {
             return (
               <HorizontalCard
                 key={i}
-                onPress={() =>
-                  navigation.navigate("GroomDetail", {
-                    id: data.id,
-                  })
-                }
+                onPress={() => console.log("Navigate to propertyDetail screen")}
                 {...{ data }}
               />
             );
