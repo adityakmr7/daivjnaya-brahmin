@@ -13,6 +13,7 @@ import {
 import { RoundedBorderButton } from "../MyProfile/components";
 import BrideDetail from "./BrideDetail";
 import VendorDetail from "./VendorDetail";
+import FullScreen from "./FullScreen";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator<MatrimonyTabParamList>();
@@ -70,6 +71,7 @@ const MatrimonyStack = () => {
       <Stack.Screen name="GroomDetail" component={GroomDetail} />
       <Stack.Screen name="BrideDetail" component={BrideDetail} />
       <Stack.Screen name="VendorDetail" component={VendorDetail} />
+      <Stack.Screen name="FullScreen" component={FullScreen} />
     </Stack.Navigator>
   );
 };

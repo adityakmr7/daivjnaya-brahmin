@@ -5,7 +5,10 @@ import { MatrimonyStackParamList } from "./MatrimonyRoutes";
 import { BrideList } from "./Bride";
 import { Feather as Icon } from "@expo/vector-icons";
 import { Box, Text } from "../../components";
-import { ScrollView } from "react-native-gesture-handler";
+import {
+  ScrollView,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import Detail from "./components/Detail";
 
 const BrideDetail = ({
@@ -26,7 +29,16 @@ const BrideDetail = ({
       headerRight: () => (
         <Box paddingHorizontal="s" flexDirection="row" alignItems="center">
           <Text paddingHorizontal="s">1/2</Text>
-          <Icon name="more-vertical" size={26} />
+          <TouchableWithoutFeedback
+            onPress={() =>
+              navigation.navigate("FullScreen", {
+                title: data.title,
+                img: data.image,
+              })
+            }
+          >
+            <Icon name="more-vertical" size={26} />
+          </TouchableWithoutFeedback>
         </Box>
       ),
     });

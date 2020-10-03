@@ -10,6 +10,10 @@ export type MatrimonyTabParamList = {
   GroomDetail: { id: number };
   BrideDetail: { id: number };
   VendorDetail: { id: number };
+  FullScreen: {
+    title: string;
+    img: number;
+  };
 };
 
 export type MatrimonyStackParamList = {
@@ -17,6 +21,10 @@ export type MatrimonyStackParamList = {
   GroomDetail: { id: number };
   BrideDetail: { id: number };
   VendorDetail: { id: number };
+  FullScreen: {
+    title: string;
+    img: number;
+  };
 
   Bride: undefined;
 };
