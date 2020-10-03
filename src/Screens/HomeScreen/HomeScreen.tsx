@@ -91,7 +91,7 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
           justifyContent="space-between"
         >
           <IconNavigator
-            onPress={() => console.log("Icon Button Clicked")}
+            onPress={() => navigation.navigate("B2b")}
             image={require("../assets/shake.png")}
             subtitle="B2B"
           />

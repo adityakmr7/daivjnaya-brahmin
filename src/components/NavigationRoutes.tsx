@@ -17,6 +17,8 @@ export type AppRoutes = {
   Message: undefined;
   //Matrimony
   Matrimony: undefined;
+  //B2B
+  B2b: undefined;
 };
 
 export type StackNavigationProps<T extends keyof AppRoutes> = {

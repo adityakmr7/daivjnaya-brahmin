@@ -15,6 +15,8 @@ import CommunityStack from "./communityHub/index";
 import { RoundedBorderButton } from "./MyProfile/components";
 import { Register } from "./Register";
 import MatrimonyStack from "./Matrimony";
+import B2b from "./B2B";
+import B2BStackNavigation from "./B2B";
 export const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = () => {
@@ -147,6 +149,11 @@ const AppNavigation = () => {
         name="Matrimony"
         options={{ headerShown: false }}
         component={MatrimonyStack}
+      />
+      <AppStack.Screen
+        options={{ headerShown: false }}
+        name="B2b"
+        component={B2BStackNavigation}
       />
     </AppStack.Navigator>
   );
