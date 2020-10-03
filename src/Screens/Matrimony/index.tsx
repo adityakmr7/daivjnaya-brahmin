@@ -6,11 +6,14 @@ import Groom from "./Groom";
 import Bride from "./Bride";
 import Vendors from "./Vendors";
 import GroomDetail from "./GroomDetail";
-import { MatrimonyRootParamList } from "./MatrimonyRoutes";
+import {
+  MatrimonyStackParamList,
+  MatrimonyTabParamList,
+} from "./MatrimonyRoutes";
 import { RoundedBorderButton } from "../MyProfile/components";
 
-const Stack = createStackNavigator<MatrimonyRootParamList>();
-const Tab = createMaterialTopTabNavigator<MatrimonyRootParamList>();
+const Stack = createStackNavigator();
+const Tab = createMaterialTopTabNavigator<MatrimonyTabParamList>();
 
 const MatrimonyTab = ({}) => {
   const theme = useTheme();

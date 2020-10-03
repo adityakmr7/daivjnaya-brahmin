@@ -5,7 +5,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Box, Text } from "../../components";
 import { StackNavigationProps } from "../../components/NavigationRoutes";
 import HorizontalCard from "../communityHub/components/HorizontalCard";
-import { MatrimonyRootParamList } from "./MatrimonyRoutes";
+import { MatrimonyTabParamList } from "./MatrimonyRoutes";
 
 interface GroomProps {}
 export const GroomList = [
@@ -43,7 +43,7 @@ export const GroomAssets = GroomList.map((data, i) => [data.image]);
 const Groom = ({
   navigation,
 }: {
-  navigation: BottomTabNavigationProp<MatrimonyRootParamList, "Groom">;
+  navigation: BottomTabNavigationProp<MatrimonyTabParamList, "Groom">;
 }) => {
   return (
     <ScrollView>
