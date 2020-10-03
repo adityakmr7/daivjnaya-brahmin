@@ -8,7 +8,7 @@ import {
   MatrimonyTabParamList,
 } from "./MatrimonyRoutes";
 
-const VendorDetail = [
+export const VendorList = [
   {
     id: 1,
     title: "Full Name",
@@ -52,12 +52,12 @@ const Vendors = ({
     <ScrollView>
       <Box backgroundColor="iconBackground" flex={1}>
         <Box>
-          {VendorDetail.map((data, i) => {
+          {VendorList.map((data, i) => {
             return (
               <HorizontalCard
                 key={i}
                 onPress={() =>
-                  navigation.navigate("GroomDetail", {
+                  navigation.navigate("VendorDetail", {
                     id: data.id,
                   })
                 }
