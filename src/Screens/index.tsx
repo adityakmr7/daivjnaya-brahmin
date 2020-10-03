@@ -144,28 +144,8 @@ const AppNavigation = () => {
       />
       <AppStack.Screen name="Register" component={Register} />
       <AppStack.Screen
-        options={({ navigation, route }) => ({
-          title: "Matrimony",
-          headerLeft: () => {
-            return (
-              <HeaderBackButton
-                image={require("./assets/matrimony-head.png")}
-                onPress={() => navigation.pop()}
-              />
-            );
-          },
-          headerRight: () => {
-            return (
-              <Box marginHorizontal="s">
-                <RoundedBorderButton
-                  label="Register"
-                  onPress={() => navigation.navigate("Register")}
-                />
-              </Box>
-            );
-          },
-        })}
         name="Matrimony"
+        options={{ headerShown: false }}
         component={MatrimonyStack}
       />
     </AppStack.Navigator>

@@ -1,15 +1,17 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { useTheme } from "../../components";
+import { Box, HeaderBackButton, useTheme } from "../../components";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import Groom from "./Groom";
 import Bride from "./Bride";
 import Vendors from "./Vendors";
 import GroomDetail from "./GroomDetail";
-import { MatrimonyStackRoutes, MatrimonyTabRoutes } from "./MatrimonyRoutes";
+import { MatrimonyRootParamList } from "./MatrimonyRoutes";
+import { RoundedBorderButton } from "../MyProfile/components";
 
-const Stack = createStackNavigator<MatrimonyStackRoutes>();
-const Tab = createMaterialTopTabNavigator<MatrimonyTabRoutes>();
+const Stack = createStackNavigator<MatrimonyRootParamList>();
+const Tab = createMaterialTopTabNavigator<MatrimonyRootParamList>();
+
 const MatrimonyTab = ({}) => {
   const theme = useTheme();
   return (
@@ -32,7 +34,34 @@ const MatrimonyTab = ({}) => {
 const MatrimonyStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Matrimony" component={MatrimonyTab} />
+      <Stack.Screen
+        options={({ navigation, route }) => ({
+          headerStyle: {
+            elevation: 0,
+          },
+          title: "Matrimony",
+          headerLeft: () => {
+            return (
+              <HeaderBackButton
+                image={require("../assets/matrimony-head.png")}
+                onPress={() => navigation.pop()}
+              />
+            );
+          },
+          headerRight: () => {
+            return (
+              <Box marginHorizontal="s">
+                <RoundedBorderButton
+                  label="Register"
+                  onPress={() => navigation.navigate("Register")}
+                />
+              </Box>
+            );
+          },
+        })}
+        name="Matrimony"
+        component={MatrimonyTab}
+      />
       <Stack.Screen name="GroomDetail" component={GroomDetail} />
     </Stack.Navigator>
   );

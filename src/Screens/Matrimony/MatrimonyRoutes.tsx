@@ -1,23 +1,31 @@
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { RouteProp } from "@react-navigation/native";
+import { CompositeNavigationProp, RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-export type MatrimonyStackRoutes = {
+export type MatrimonyRootParamList = {
   Matrimony: undefined;
-  GroomDetail: undefined;
-};
-export type MatrimonyTabRoutes = {
+  GroomDetail: { id: number };
   Groom: undefined;
   Bride: undefined;
   Vendors: undefined;
 };
 
+export type MatrimonyNavigationProps<
+  T extends keyof MatrimonyRootParamList
+> = CompositeNavigationProp<
+  StackNavigationProp<MatrimonyRootParamList, T>,
+  BottomTabNavigationProp<MatrimonyRootParamList, T>
+>;
+
 export type MatrimonyStackNavigationProps<
-  T extends keyof MatrimonyStackRoutes
+  T extends keyof MatrimonyRootParamList
 > = {
-  navigation: BottomTabNavigationProp<MatrimonyStackRoutes, T>;
-  route: RouteProp<MatrimonyStackRoutes, T>;
+  navigation: BottomTabNavigationProp<MatrimonyRootParamList, T>;
+  route: RouteProp<MatrimonyRootParamList, T>;
 };
-export type MatrimonyTabNavigationProps<T extends keyof MatrimonyTabRoutes> = {
-  navigation: BottomTabNavigationProp<MatrimonyTabRoutes, T>;
-  route: RouteProp<MatrimonyTabRoutes, T>;
+export type MatrimonyTabNavigationProps<
+  T extends keyof MatrimonyRootParamList
+> = {
+  navigation: BottomTabNavigationProp<MatrimonyRootParamList, T>;
+  route: RouteProp<MatrimonyRootParamList, T>;
 };
