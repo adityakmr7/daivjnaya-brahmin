@@ -2,12 +2,16 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { useTheme } from "../../components";
+import {
+  JewelleryStackParamList,
+  JewelleryTabParamList,
+} from "./JewelleryNavigationProps";
 import Shop from "./Shop";
 import Vendors from "./Vendors";
 import Workers from "./Workers";
 
-const Stack = createStackNavigator();
-const Tab = createMaterialTopTabNavigator();
+const Stack = createStackNavigator<JewelleryStackParamList>();
+const Tab = createMaterialTopTabNavigator<JewelleryTabParamList>();
 const JewelleryTab = () => {
   const theme = useTheme();
   return (
