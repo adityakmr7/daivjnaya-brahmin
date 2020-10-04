@@ -50,7 +50,6 @@ const MatrimonyStack = () => {
             return (
               <HeaderBackButton
                 image={require("../assets/matrimony-head.png")}
-                onPress={() => navigation.pop()}
               />
             );
           },

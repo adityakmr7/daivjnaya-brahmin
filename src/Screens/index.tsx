@@ -157,7 +157,15 @@ const AppNavigation = () => {
         name="B2b"
         component={B2BStackNavigation}
       />
-      <AppStack.Screen name="Jewellery" component={JewelleryStack} />
+      <AppStack.Screen
+        options={{
+          headerLeft: () => (
+            <HeaderBackButton image={require("./assets/jwelIcon.png")} />
+          ),
+        }}
+        name="Jewellery"
+        component={JewelleryStack}
+      />
       <AppStack.Screen name="Careers" component={CareerTab} />
     </AppStack.Navigator>
   );
