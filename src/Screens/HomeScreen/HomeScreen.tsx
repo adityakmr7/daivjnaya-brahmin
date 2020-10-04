@@ -96,12 +96,12 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
             subtitle="B2B"
           />
           <IconNavigator
-            onPress={() => console.log("Icon Button Clicked")}
+            onPress={() => navigation.navigate("Jewellery")}
             image={require("../assets/jwel.png")}
             subtitle="Jewellery Mar.."
           />
           <IconNavigator
-            onPress={() => console.log("Icon Button Clicked")}
+            onPress={() => navigation.navigate("Careers")}
             image={require("../assets/briefcase.png")}
             subtitle="Careers & Tal.."
           />

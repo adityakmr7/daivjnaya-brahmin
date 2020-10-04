@@ -19,6 +19,8 @@ export type AppRoutes = {
   Matrimony: undefined;
   //B2B
   B2b: undefined;
+  Careers: undefined;
+  Jewellery: undefined;
 };
 
 export type StackNavigationProps<T extends keyof AppRoutes> = {
