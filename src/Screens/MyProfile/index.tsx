@@ -8,7 +8,6 @@ import { Feather as Icon } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
 import SeeAllFriends from "./SeeAllFriends";
 import { AppRoutes } from "../../components/NavigationRoutes";
-
 const Tab = createBottomTabNavigator();
 
 const AppStack = createStackNavigator<AppRoutes>();

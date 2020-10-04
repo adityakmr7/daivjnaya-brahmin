@@ -51,6 +51,12 @@ export const Posts = [
   },
 ];
 
+export const profileAssets = Posts.map((item) => [
+  item.image,
+  item.userImage,
+  item.video,
+]);
+
 const MyProfile = ({ navigation }: StackNavigationProps<"MyProfile">) => {
   useLayoutEffect(() => {
     navigation.setOptions({

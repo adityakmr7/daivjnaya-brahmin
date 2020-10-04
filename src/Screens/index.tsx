@@ -19,6 +19,7 @@ import B2b from "./B2B";
 import B2BStackNavigation from "./B2B";
 import Jewellery from "./Jewellery";
 import Careers from "./Careers";
+import JewelleryStack from "./Jewellery";
 export const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = () => {
@@ -157,7 +158,7 @@ const AppNavigation = () => {
         name="B2b"
         component={B2BStackNavigation}
       />
-      <AppStack.Screen name="Jewellery" component={Jewellery} />
+      <AppStack.Screen name="Jewellery" component={JewelleryStack} />
       <AppStack.Screen name="Careers" component={Careers} />
     </AppStack.Navigator>
   );
