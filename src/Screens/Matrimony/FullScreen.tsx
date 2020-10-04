@@ -1,19 +1,13 @@
-import { RouteProp } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useLayoutEffect } from "react";
 import { Dimensions, Image, StyleSheet } from "react-native";
 import { Box, Text } from "../../components";
-import { MatrimonyStackParamList } from "./MatrimonyRoutes";
+import { MatrimonyStackNavigationProps } from "./MatrimonyRoutes";
 
-interface FullScreenProps {}
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const FullScreen = ({
   navigation,
   route,
-}: {
-  navigation: StackNavigationProp<MatrimonyStackParamList, "FullScreen">;
-  route: RouteProp<MatrimonyStackParamList, "FullScreen">;
-}) => {
+}: MatrimonyStackNavigationProps<"FullScreen">) => {
   const { title, img } = route.params;
   console.log({ title, img });
   useLayoutEffect(() => {

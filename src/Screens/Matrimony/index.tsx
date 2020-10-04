@@ -7,6 +7,7 @@ import Bride from "./Bride";
 import Vendors from "./Vendors";
 import GroomDetail from "./GroomDetail";
 import {
+  MatrimonyStackNavigationProps,
   MatrimonyStackParamList,
   MatrimonyTabParamList,
 } from "./MatrimonyRoutes";
@@ -15,7 +16,7 @@ import BrideDetail from "./BrideDetail";
 import VendorDetail from "./VendorDetail";
 import FullScreen from "./FullScreen";
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<MatrimonyStackParamList>();
 const Tab = createMaterialTopTabNavigator<MatrimonyTabParamList>();
 
 const MatrimonyTab = ({}) => {

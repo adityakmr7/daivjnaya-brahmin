@@ -1,7 +1,10 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useLayoutEffect } from "react";
-import { MatrimonyStackParamList } from "./MatrimonyRoutes";
+import {
+  MatrimonyStackNavigationProps,
+  MatrimonyStackParamList,
+} from "./MatrimonyRoutes";
 import { BrideList } from "./Bride";
 import { Feather as Icon } from "@expo/vector-icons";
 import { Box, Text } from "../../components";
@@ -14,10 +17,7 @@ import Detail from "./components/Detail";
 const BrideDetail = ({
   navigation,
   route,
-}: {
-  navigation: StackNavigationProp<MatrimonyStackParamList, "BrideDetail">;
-  route: RouteProp<MatrimonyStackParamList, "BrideDetail">;
-}) => {
+}: MatrimonyStackNavigationProps<"BrideDetail">) => {
   const id = route.params.id;
   const data = BrideList.filter((item) => item.id === id)[0];
   useLayoutEffect(() => {

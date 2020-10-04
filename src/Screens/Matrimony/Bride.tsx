@@ -1,8 +1,7 @@
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { Box, Text, HorizontalCard } from "../../components";
-import { MatrimonyStackParamList } from "./MatrimonyRoutes";
+import { combineTabWithStackProps } from "./MatrimonyRoutes";
 
 export const BrideList = [
   {
@@ -39,11 +38,10 @@ export const BrideList = [
   },
 ];
 
-const Bride = ({
-  navigation,
-}: {
-  navigation: BottomTabNavigationProp<MatrimonyStackParamList, "Bride">;
-}) => {
+interface BrideProps {
+  navigation: combineTabWithStackProps<"Bride">;
+}
+const Bride = ({ navigation }: BrideProps) => {
   return (
     <ScrollView>
       <Box backgroundColor="iconBackground" flex={1}>

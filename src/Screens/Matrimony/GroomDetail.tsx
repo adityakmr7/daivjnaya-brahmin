@@ -1,9 +1,7 @@
-import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useLayoutEffect } from "react";
 import { Box, Text } from "../../components";
-import { MatrimonyStackParamList } from "./MatrimonyRoutes";
+import { MatrimonyStackNavigationProps } from "./MatrimonyRoutes";
 import { Feather as Icon } from "@expo/vector-icons";
-import { RouteProp } from "@react-navigation/native";
 import { GroomList } from "./Groom";
 import {
   RectButton,
@@ -15,10 +13,7 @@ import Detail from "./components/Detail";
 const GroomDetail = ({
   navigation,
   route,
-}: {
-  navigation: StackNavigationProp<MatrimonyStackParamList, "GroomDetail">;
-  route: RouteProp<MatrimonyStackParamList, "GroomDetail">;
-}) => {
+}: MatrimonyStackNavigationProps<"GroomDetail">) => {
   const id = route.params.id;
   const data = GroomList.filter((item) => item.id === id)[0];
   useLayoutEffect(() => {

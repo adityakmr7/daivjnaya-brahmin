@@ -1,12 +1,8 @@
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { Box, Text, HorizontalCard } from "../../components";
-import { StackNavigationProps } from "../../components/NavigationRoutes";
-import { MatrimonyTabParamList } from "./MatrimonyRoutes";
+import { combineTabWithStackProps } from "./MatrimonyRoutes";
 
-interface GroomProps {}
 export const GroomList = [
   {
     id: 1,
@@ -39,11 +35,11 @@ export const GroomList = [
 
 export const GroomAssets = GroomList.map((data, i) => [data.image]);
 
-const Groom = ({
-  navigation,
-}: {
-  navigation: BottomTabNavigationProp<MatrimonyTabParamList, "Groom">;
-}) => {
+interface GroomProps {
+  navigation: combineTabWithStackProps<"Groom">;
+}
+
+const Groom = ({ navigation }: GroomProps) => {
   return (
     <ScrollView>
       <Box backgroundColor="iconBackground" flex={1}>

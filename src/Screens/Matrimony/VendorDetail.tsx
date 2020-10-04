@@ -1,9 +1,7 @@
-import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useLayoutEffect } from "react";
 import { Box, Text } from "../../components";
-import { MatrimonyStackParamList } from "./MatrimonyRoutes";
+import { MatrimonyStackNavigationProps } from "./MatrimonyRoutes";
 import { Feather as Icon } from "@expo/vector-icons";
-import { RouteProp } from "@react-navigation/native";
 import { VendorList } from "./Vendors";
 import { ScrollView } from "react-native-gesture-handler";
 import Detail from "./components/Detail";
@@ -11,10 +9,7 @@ import Detail from "./components/Detail";
 const VendorDetail = ({
   navigation,
   route,
-}: {
-  navigation: StackNavigationProp<MatrimonyStackParamList, "VendorDetail">;
-  route: RouteProp<MatrimonyStackParamList, "VendorDetail">;
-}) => {
+}: MatrimonyStackNavigationProps<"VendorDetail">) => {
   const id = route.params.id;
   const data = VendorList.filter((item) => item.id === id)[0];
   useLayoutEffect(() => {
