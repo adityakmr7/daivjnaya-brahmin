@@ -1,8 +1,7 @@
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { Box, Text } from "../../components";
-import HorizontalCard from "../communityHub/components/HorizontalCard";
+import { Box, Text, HorizontalCard } from "../../components";
 import {
   MatrimonyStackParamList,
   MatrimonyTabParamList,

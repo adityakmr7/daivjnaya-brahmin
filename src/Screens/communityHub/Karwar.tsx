@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { TabNavigationProps } from ".";
-import { Box, SearchBox, Text } from "../../components";
-import HorizontalCard from "./components/HorizontalCard";
+import { Box, SearchBox, Text, HorizontalCard } from "../../components";
 
 export const houses = [
   {

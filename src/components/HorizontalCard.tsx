@@ -1,7 +1,7 @@
 import React from "react";
 import { Dimensions, Image } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { Box, Text } from "../../../components";
+import { Box, Text } from "./Theme";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 interface HorizontalCardProps {
   data: {
