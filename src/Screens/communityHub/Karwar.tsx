@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { TabNavigationProps } from ".";
 import { Box, SearchBox, Text, HorizontalCard } from "../../components";
+import { combineTabWithStackProps } from "./communityNavigatinProps";
 
 export const houses = [
   {
@@ -41,8 +41,11 @@ export const houses = [
     btn: "View full details",
   },
 ];
+interface KarwarProps {
+  navigation: combineTabWithStackProps<"Karwar">;
+}
 
-const Karwar = ({ navigation }: TabNavigationProps<"Karwar">) => {
+const Karwar = ({ navigation }: KarwarProps) => {
   const [searchText, setSearchText] = useState<string>("");
   const handleChangeText = (text: string) => {
     setSearchText(text);

@@ -9,21 +9,10 @@ import { useTheme } from "../../components/Theme";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { RouteProp } from "@react-navigation/native";
 import CommunityMember from "./CommunityMember";
+import { StackRoutesList, TabRoutesList } from "./communityNavigatinProps";
 
-export type TabRoutes = {
-  Karwar: undefined;
-  Hubli: undefined;
-  Bangalore: undefined;
-  KarawarDetail: { id: number };
-  CommunityMember: undefined;
-};
-export type TabNavigationProps<T extends keyof TabRoutes> = {
-  navigation: BottomTabNavigationProp<TabRoutes, T>;
-  route: RouteProp<TabRoutes, T>;
-};
-
-const Tab = createMaterialTopTabNavigator<TabRoutes>();
-const Stack = createStackNavigator();
+const Tab = createMaterialTopTabNavigator<TabRoutesList>();
+const Stack = createStackNavigator<StackRoutesList>();
 
 const CommunityHub = ({}) => {
   const theme = useTheme();

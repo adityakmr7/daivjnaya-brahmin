@@ -1,16 +1,17 @@
 import React, { useLayoutEffect } from "react";
 import { Dimensions, Image } from "react-native";
-import { TabNavigationProps } from ".";
+
 import { Box, Text } from "../../components";
 import { houses } from "./Karwar";
 import { Feather as Icon } from "@expo/vector-icons";
 import { RectButton, ScrollView } from "react-native-gesture-handler";
+import { CommunityNavProps } from "./communityNavigatinProps";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 const KarawarDetail = ({
   navigation,
   route,
-}: TabNavigationProps<"KarawarDetail">) => {
+}: CommunityNavProps<"KarawarDetail">) => {
   const { id } = route.params;
   const house = houses.filter((x) => x.id === id)[0];
 
