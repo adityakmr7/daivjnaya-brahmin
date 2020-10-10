@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, Dimensions } from "react-native";
+import { RectButton, TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Box, Text } from "./Theme";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
@@ -7,9 +8,12 @@ const { width: wWidth, height: wHeight } = Dimensions.get("window");
 interface NewsSectionProps {
   image: number;
   title?:boolean;
+  onPress:() => void;
 }
-const NewsSection = ({ title,image }: NewsSectionProps) => {
+const NewsSection = ({ title,image, onPress }: NewsSectionProps) => {
   return (
+    <TouchableWithoutFeedback {...{onPress}}>
+
     <Box  paddingRight="l">
       <Image width={wWidth} source={image} />
       <Box style={{ paddingLeft: 3 }} paddingVertical="s">
@@ -20,6 +24,8 @@ const NewsSection = ({ title,image }: NewsSectionProps) => {
         </Text>
       </Box>
     </Box>
+    </TouchableWithoutFeedback>
+
   );
 };
 

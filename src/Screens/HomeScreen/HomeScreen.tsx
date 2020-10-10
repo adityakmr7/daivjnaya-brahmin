@@ -113,7 +113,7 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
         <Box paddingVertical="l" width={wWidth - 40} marginLeft="l">
           <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
             {[1, 2, 3].map((item, index) => {
-              return <NewsSection image={image} key={index} />;
+              return <NewsSection onPress={() => navigation.navigate('NewsEvent')} image={image} key={index} />;
             })}
           </ScrollView>
         </Box>
