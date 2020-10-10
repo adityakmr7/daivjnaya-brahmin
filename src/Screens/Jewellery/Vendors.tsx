@@ -42,7 +42,8 @@ const vendorList = [
     btn: "View full details",
   },
 ];
-
+  export const assetsVendor = vendorList.map((item, i) => item.image);
+  
 const Vendors = ({}: VendorsProps) => {
   return (
     <ScrollView>

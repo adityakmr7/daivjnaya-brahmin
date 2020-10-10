@@ -45,6 +45,10 @@ interface KarwarProps {
   navigation: combineTabWithStackProps<"Karwar">;
 }
 
+export const assetsKarwar = houses.map((item, i) => item.image);
+
+
+
 const Karwar = ({ navigation }: KarwarProps) => {
   const [searchText, setSearchText] = useState<string>("");
   const handleChangeText = (text: string) => {

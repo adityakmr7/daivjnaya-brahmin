@@ -1,5 +1,5 @@
 import React from "react";
-import Karwar from "./Karwar";
+import Karwar, {assetsKarwar} from "./Karwar";
 import Hubli from "./Hubli";
 import Bangalore from "./Bangalore";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
@@ -10,6 +10,8 @@ import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { RouteProp } from "@react-navigation/native";
 import CommunityMember from "./CommunityMember";
 import { StackRoutesList, TabRoutesList } from "./communityNavigatinProps";
+
+
 
 const Tab = createMaterialTopTabNavigator<TabRoutesList>();
 const Stack = createStackNavigator<StackRoutesList>();

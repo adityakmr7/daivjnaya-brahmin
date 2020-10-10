@@ -41,6 +41,8 @@ const workerList = [
     btn: "View full details",
   },
 ];
+export const assetsWorker = workerList.map((item, i) => item.image);
+
 
 const Workers = ({}: WorkersProps) => {
   return (

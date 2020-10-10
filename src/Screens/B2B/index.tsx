@@ -5,7 +5,9 @@ import Product from "./Product";
 import Property from "./Property";
 import { Box, useTheme, HeaderBackButton } from "../../components";
 import { RoundedBorderButton } from "../MyProfile/components";
-
+import {B2BProductAssets} from './Product';
+import {B2BPropertyAssets} from './Property';
+export const  B2BAssets = [ ...B2BProductAssets, ...B2BPropertyAssets]; 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 

@@ -30,6 +30,9 @@ export const PropertyList = [
     btn: "View full details",
   },
 ];
+export const B2BPropertyAssets = PropertyList.map((item, i) => item.image);
+
+
 
 const Property = ({ navigation }: PropertyProps) => {
   return (

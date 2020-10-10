@@ -41,6 +41,10 @@ const shopList = [
   },
 ];
 
+export const assetShop = shopList.map((item, i) => item.image);
+
+
+
 export default function Shop() {
   return (
     <ScrollView>

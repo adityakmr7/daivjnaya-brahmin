@@ -30,6 +30,8 @@ export const ProductList = [
     btn: "View full details",
   },
 ];
+export const B2BProductAssets = ProductList.map((item, i) => item.image);
+
 
 const Product = ({ navigation }: ProductProps) => {
   return (
