@@ -3,9 +3,11 @@ import { Image } from "react-native";
 import { RectButton, ScrollView } from "react-native-gesture-handler";
 import { Box, Text } from "../../components";
 import { IntroSection, RoundedBorderButton } from "../MyProfile/components";
+import CompanyCard from "./components/CompanyCard";
 import NetWorkComponentTitle from "./components/NetWorkComponentTitle";
 
 interface CareerProfileProps {}
+export const companyLogo = require("./assets/company-logo.png");
 
 export const friends = require("./assets/small-image.png");
 const walls = require("./assets/wall.png");
@@ -13,11 +15,10 @@ const CareerProfile = ({}: CareerProfileProps) => {
   return (
     <Box flex={1} backgroundColor="iconBackground">
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Box height={20}>
-          <Image height={20} source={walls} />
+        <Box height={10}>
+          <Image height={10} source={walls} />
         </Box>
         <Box
-        
           marginHorizontal="xl"
           justifyContent="space-between"
           style={{ marginTop: 115, marginLeft: 20 }}
@@ -39,9 +40,40 @@ const CareerProfile = ({}: CareerProfileProps) => {
           </Box>
         </Box>
         <IntroSection />
-        <Box>
-          <NetWorkComponentTitle title="About" onPress={()=>{}} />
+        <Box borderWidth={1} borderColor="greyish">
+          <NetWorkComponentTitle title="About" onPress={() => {}} />
         </Box>
+        <Box paddingVertical="s" paddingHorizontal="s">
+          <Text>
+            Morbi a suscipit ipsum. Suspendisse mollis libero ante. Pellentesque
+            finibus convallis nulla vel placerat. Nulla ipsum dolor sit amet,
+            consectetur adipiscing elitut eleifend nisl.
+          </Text>
+        </Box>
+        <Box backgroundColor="mainBackground" height={5} />
+        <Box borderWidth={1} borderColor="greyish">
+          <NetWorkComponentTitle title="Experience" onPress={() => {}} />
+        </Box>
+
+        {[1, 2, 3, 4, 5].map((_, i) => {
+          return (
+            <Box
+              key={i}
+              paddingVertical="s"
+              paddingHorizontal="s"
+              flexDirection="row"
+            >
+              <Box>
+                <Image source={companyLogo} />
+              </Box>
+              <Box>
+                <Text>Designation</Text>
+                <Text variant="profileAction">Company Name</Text>
+                <Text variant="profileAction">Feb 2019 - Nov 2019 10 moss</Text>
+              </Box>
+            </Box>
+          );
+        })}
       </ScrollView>
     </Box>
   );
