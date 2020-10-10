@@ -9,8 +9,9 @@ import { headerAssets, iconAssets } from "./src/Screens/HomeScreen";
 import { assetShop } from "./src/Screens/Jewellery/Shop";
 import { assetsVendor } from "./src/Screens/Jewellery/Vendors";
 import { assetsWorker } from "./src/Screens/Jewellery/Workers";
+import { NotificationAssets } from "./src/Screens/Notifications";
 const assets = [...headerAssets, ...iconAssets, ...assetsKarwar, 
-  ...assetsVendor, ...assetShop, ...assetsWorker, 
+  ...assetsVendor, ...assetShop, ...assetsWorker, ...NotificationAssets,
   ...B2BAssets
 ];
 const fonts = {

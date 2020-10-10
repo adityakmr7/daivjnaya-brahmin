@@ -6,13 +6,14 @@ const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface NewsSectionProps {
   image: number;
+  title?:boolean;
 }
-const NewsSection = ({ image }: NewsSectionProps) => {
+const NewsSection = ({ title,image }: NewsSectionProps) => {
   return (
-    <Box paddingRight="l">
+    <Box  paddingRight="l">
       <Image width={wWidth} source={image} />
       <Box style={{ paddingLeft: 3 }} paddingVertical="s">
-        <Text variant="mainIconSubTitle"> News</Text>
+        {title ? <Text variant="mainIconSubTitle"> News</Text>: null}
         <Text paddingVertical="s" variant="cardText" color="primaryText">
           Lorem ipsum dolor sit amet, consectetur {"\n"} adipiscing elit, sed do
           eiusmod…
