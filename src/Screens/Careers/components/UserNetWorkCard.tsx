@@ -6,8 +6,15 @@ import { Feather as Icon } from "@expo/vector-icons";
 interface UserNetWorkCardProps {
   profileImage: number;
   addButton: boolean;
+  chat?: boolean;
+  day?:string;
 }
-const UserNetWorkCard = ({ profileImage, addButton }: UserNetWorkCardProps) => {
+const UserNetWorkCard = ({
+  chat,
+  profileImage,
+  day,
+  addButton,
+}: UserNetWorkCardProps) => {
   return (
     <Box
       paddingVertical="s"
@@ -24,28 +31,38 @@ const UserNetWorkCard = ({ profileImage, addButton }: UserNetWorkCardProps) => {
       </Box>
       <Box>
         <Text fontSize={14}>Full Name</Text>
-        <Text fontSize={12}>Designation @ Company Name</Text>
-        <Text fontSize={8} variant="silentText">
-          10 Mutual Connections
-        </Text>
-      </Box>
-      <Box flexDirection="row">
-        {addButton ? (
-          <Box borderRadius="l" borderWidth={1} borderColor="grey">
-            <Icon name="plus" size={20} color="blue" />
-          </Box>
+        {chat ? (
+          <Text>Lorem ipsum dolor sit amet?</Text>
         ) : (
           <>
-            <Box borderRadius="l" borderWidth={1} borderColor="grey">
-              <Icon name="x" size={20} color="red" />
-            </Box>
-            <Box width={10} />
-            <Box borderRadius="l" borderWidth={1} borderColor="grey">
-              <Icon name="check" size={20} color="green" />
-            </Box>
+            <Text fontSize={12}>Designation @ Company Name</Text>
+            <Text fontSize={8} variant="silentText">
+              10 Mutual Connections
+            </Text>
           </>
         )}
       </Box>
+      {chat ? (
+        <Text>{day}</Text>
+      ) : (
+        <Box flexDirection="row">
+          {addButton ? (
+            <Box borderRadius="l" borderWidth={1} borderColor="grey">
+              <Icon name="plus" size={20} color="blue" />
+            </Box>
+          ) : (
+            <>
+              <Box borderRadius="l" borderWidth={1} borderColor="grey">
+                <Icon name="x" size={20} color="red" />
+              </Box>
+              <Box width={10} />
+              <Box borderRadius="l" borderWidth={1} borderColor="grey">
+                <Icon name="check" size={20} color="green" />
+              </Box>
+            </>
+          )}
+        </Box>
+      )}
     </Box>
   );
 };
