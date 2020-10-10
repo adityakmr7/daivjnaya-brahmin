@@ -9,7 +9,7 @@ import { Image, Platform, View } from "react-native";
 import NewScreen from "./NewScreen";
 import { Notification } from "./Notifications";
 import EventScreen from "./EventScreen";
-import { NewsEvents } from "./NewsEvents";
+import NewsAndEventsStack from "./NewsEvents";
 import TabNavigation from "./MyProfile";
 import CommunityStack from "./communityHub/index";
 import { RoundedBorderButton } from "./MyProfile/components";
@@ -119,7 +119,7 @@ const AppNavigation = () => {
       <AppStack.Screen
         options={{ headerStyle: { elevation: 1 } }}
         name="NewsEvent"
-        component={NewsEvents}
+        component={NewsAndEventsStack}
       />
       <AppStack.Screen
         options={{
