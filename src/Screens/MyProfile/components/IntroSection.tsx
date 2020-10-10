@@ -5,7 +5,7 @@ import { Feather as Icon } from "@expo/vector-icons";
 interface IntroSectionProps {}
 const IntroSection = ({}: IntroSectionProps) => {
   return (
-    <Box paddingHorizontal="m" paddingVertical="s">
+    <Box  paddingHorizontal="m" paddingVertical="s">
       <Text variant="sectionTitle">Siddharth Revankar</Text>
       <Box>
         <Box>

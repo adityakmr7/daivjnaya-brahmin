@@ -21,7 +21,7 @@ const UserNetWorkCard = ({
       alignItems="center"
       justifyContent="space-around"
       flexDirection="row"
-      style={{ borderWidth: StyleSheet.hairlineWidth }}
+      style={{ borderWidth: StyleSheet.hairlineWidth, borderColor: '#0000001A' }}
     >
       <Box>
         <Image
