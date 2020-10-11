@@ -21,6 +21,7 @@ export type AppRoutes = {
   B2b: undefined;
   Careers: undefined;
   Jewellery: undefined;
+  Pricing:undefined;
 };
 
 export type StackNavigationProps<T extends keyof AppRoutes> = {

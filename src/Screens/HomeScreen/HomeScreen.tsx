@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Box, NewsSection, Text } from "../../components";
 import MainCard from "./MainCard";
 import { Dimensions, Image } from "react-native";
@@ -119,10 +119,12 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
         </Box>
 
         <SectionHeader
-          onPress={() => console.log("Current Gold")}
+          onPress={() => navigation.navigate('Pricing')}
           title={"Current Gold Silver Price"}
         />
         {/* // ? Current Gold Silver Price Section */}
+        <TouchableWithoutFeedback onPress={() =>navigation.navigate('Pricing')}>
+
         <Box paddingVertical="l" width={wWidth - 40} marginLeft="l">
           <Box
             paddingHorizontal="m"
@@ -161,6 +163,9 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
             </Box>
           </Box>
         </Box>
+
+
+        </TouchableWithoutFeedback>
 
         <Box padding="l">
           <Box>

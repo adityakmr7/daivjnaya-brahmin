@@ -19,6 +19,7 @@ import B2b from "./B2B";
 import B2BStackNavigation from "./B2B";
 import JewelleryStack from "./Jewellery";
 import CareerTab from "./Careers";
+import Pricing from './GoldAndSilverPricing';
 export const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = () => {
@@ -167,6 +168,7 @@ const AppNavigation = () => {
         component={JewelleryStack}
       />
       <AppStack.Screen name="Careers" component={CareerTab} />
+      <AppStack.Screen name="Pricing" component={Pricing}/>
     </AppStack.Navigator>
   );
 };
