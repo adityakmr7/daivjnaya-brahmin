@@ -6,7 +6,7 @@ import { AppRoutes } from "../components/NavigationRoutes";
 import { HomeScreen } from "./HomeScreen";
 import { RectButton } from "react-native-gesture-handler";
 import { Image, Platform, View } from "react-native";
-import NewScreen from "./NewScreen";
+import NewScreenStack from "./NewScreen";
 import { Notification } from "./Notifications";
 import EventScreen from "./EventScreen";
 import NewsAndEventsStack from "./NewsEvents";
@@ -105,7 +105,7 @@ const AppNavigation = () => {
       <AppStack.Screen
         options={{ headerStyle: { elevation: 1 } }}
         name="New"
-        component={NewScreen}
+        component={NewScreenStack}
       />
       <AppStack.Screen
         options={{ headerStyle: { elevation: 1 } }}

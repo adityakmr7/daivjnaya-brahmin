@@ -9,6 +9,7 @@ import { Feather as Icon } from "@expo/vector-icons";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Keyboard, KeyboardAvoidingView } from "react-native";
+import { NewScreenStackNavigationProps } from ".";
 
 /**
  *  TODO:  Add Native Function to Upload Image Button
@@ -25,7 +26,7 @@ const validationSchema = Yup.object().shape({
   amount: Yup.number().positive().required(),
 });
 
-const NewScreen = ({}: NewScreenProps) => {
+const NewScreen = ({navigation}:NewScreenStackNavigationProps<"New"> ) => {
   const {
     handleChange,
     handleBlur,
@@ -46,6 +47,7 @@ const NewScreen = ({}: NewScreenProps) => {
     },
     onSubmit: (values) => {
       console.log(values);
+      navigation.navigate('EventAdded');
     },
   });
   return (
