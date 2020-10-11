@@ -4,9 +4,22 @@ import { Box, Text } from "../../../components";
 import { Feather as Icon } from "@expo/vector-icons";
 import { RectButton } from "react-native-gesture-handler";
 import { PostCardProps } from "./PostCard";
+import { Video } from "expo-av";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
-interface VideoCardProps extends PostCardProps {}
+interface VideoCardProps {
+  post: {
+    id: number;
+    image: number;
+    comments: string;
+    user: string;
+    date: string;
+    likes: number;
+    caption: string;
+    video: number;
+    userImage:number;
+  };
+}
 const VideoCard = ({ post }: VideoCardProps) => {
   return (
     <Box marginVertical="s">
@@ -44,10 +57,18 @@ const VideoCard = ({ post }: VideoCardProps) => {
           {post.caption}
         </Text>
         <Box>
-          {/* // TODO: Add Video Here */}
-          <Image
-            style={{ width: wWidth, height: wWidth }}
-            source={post.image}
+          <Video
+            style={{
+              width: wWidth,
+              height: wWidth,
+            }}
+            rate={1.0}
+            volume={1.0}
+            isMuted={false}
+            resizeMode="cover"
+            shouldPlay
+            isLooping
+            source={post.video}
           />
         </Box>
         <Box

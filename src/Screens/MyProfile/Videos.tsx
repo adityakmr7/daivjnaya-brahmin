@@ -5,27 +5,40 @@ import { Box, Text } from "../../components";
 import { ScrollView } from "react-native-gesture-handler";
 
 import { VideoCard } from "./components";
-import { Posts } from "./MyProfile";
-interface VideosProps {}
 
-type post = {
-  id: number;
-  video: string;
-  image: number;
-  user: string;
-  userImage: number;
-  date: string;
-  caption: string;
-  likes: number;
-  comments: number;
-};
+
+export const VideoPost = [
+  {
+    id: 1,
+    user: "Siddharth Revankar",
+    userImage: require("./assets/ak.png"),
+    date: "17 Jun 2019",
+    caption: "Caption here",
+    image: require("./assets/post.png"),
+    comments: 10,
+    likes: 25,
+    video: require("./assets/video.mp4"),
+  },
+  {
+    id: 2,
+    user: "Siddharth Revankar",
+    userImage: require("./assets/pa.png"),
+    date: "17 Jun 2019",
+    caption: "Caption here",
+    image: require("./assets/post.png"),
+    comments: 10,
+    likes: 25,
+    video: require("./assets/video.mp4"),
+  },
+];
+
 
 const Videos = ({ navigation }) => {
   const src = require("./assets/post.png");
   return (
     <ScrollView>
       <Box flex={1} backgroundColor="iconBackground">
-        {Posts.map((post, i) => {
+        {VideoPost.map((post, i) => {
           if (post.video) {
             return (
               <Box key={i}>
