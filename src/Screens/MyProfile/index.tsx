@@ -2,12 +2,12 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MyProfile from "./MyProfile";
 import Videos from "./Videos";
-import Gallery from "./Gallery";
 import Message from "./Message";
 import { Feather as Icon } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
 import SeeAllFriends from "./SeeAllFriends";
 import { AppRoutes } from "../../components/NavigationRoutes";
+import GalleryStack from "./Gallery";
 const Tab = createBottomTabNavigator();
 
 const AppStack = createStackNavigator<AppRoutes>();
@@ -27,13 +27,13 @@ const ProfileStack = () => {
   );
 };
 
-const GalleryStack = () => {
-  return (
-    <AppStack.Navigator>
-      <AppStack.Screen name="Gallery" component={Gallery} />
-    </AppStack.Navigator>
-  );
-};
+// const GalleryStack = () => {
+//   return (
+//     <AppStack.Navigator>
+//       <AppStack.Screen name="Gallery" component={GalleryStack} />
+//     </AppStack.Navigator>
+//   );
+// };
 const MessageStack = () => {
   return (
     <AppStack.Navigator>
