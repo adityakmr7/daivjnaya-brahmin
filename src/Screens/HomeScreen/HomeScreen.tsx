@@ -1,5 +1,8 @@
 import React from "react";
-import { ScrollView, TouchableWithoutFeedback } from "react-native-gesture-handler";
+import {
+  ScrollView,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import { Box, NewsSection, Text } from "../../components";
 import MainCard from "./MainCard";
 import { Dimensions, Image } from "react-native";
@@ -113,43 +116,37 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
         <Box paddingVertical="l" width={wWidth - 40} marginLeft="l">
           <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
             {[1, 2, 3].map((item, index) => {
-              return <NewsSection onPress={() => navigation.navigate('NewsEvent')} image={image} key={index} />;
+              return (
+                <NewsSection
+                  onPress={() => navigation.navigate("NewsEvent")}
+                  image={image}
+                  key={index}
+                />
+              );
             })}
           </ScrollView>
         </Box>
 
         <SectionHeader
-          onPress={() => navigation.navigate('Pricing')}
+          onPress={() => navigation.navigate("Pricing")}
           title={"Current Gold Silver Price"}
         />
         {/* // ? Current Gold Silver Price Section */}
-        <TouchableWithoutFeedback onPress={() =>navigation.navigate('Pricing')}>
-
-        <Box paddingVertical="l" width={wWidth - 40} marginLeft="l">
-          <Box
-            paddingHorizontal="m"
-            borderRadius="m"
-            height={120}
-            backgroundColor={"iconBackground"}
-          >
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate("Pricing")}
+        >
+          <Box paddingVertical="l" width={wWidth - 40} marginLeft="l">
             <Box
-              flexDirection="row"
-              paddingVertical="s"
-              justifyContent="space-between"
+              paddingHorizontal="m"
+              borderRadius="m"
+              height={120}
+              backgroundColor={"iconBackground"}
             >
-              <Box>
-                <Text variant="mainIconSubTitle">
-                  10g of 24k gold (99.9): 31,800 INR
-                </Text>
-                <Text>Hyderabad, 1 Jun 2018</Text>
-              </Box>
-              <Box>
-                <Text>-0.9%</Text>
-              </Box>
-            </Box>
-            <Box width={wWidth - 80} height={2} backgroundColor="grey" />
-            <Box paddingVertical="s" justifyContent="flex-start">
-              <Box flexDirection="row" justifyContent="space-between">
+              <Box
+                flexDirection="row"
+                paddingVertical="s"
+                justifyContent="space-between"
+              >
                 <Box>
                   <Text variant="mainIconSubTitle">
                     10g of 24k gold (99.9): 31,800 INR
@@ -160,11 +157,22 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
                   <Text>-0.9%</Text>
                 </Box>
               </Box>
+              <Box width={wWidth - 80} height={2} backgroundColor="grey" />
+              <Box paddingVertical="s" justifyContent="flex-start">
+                <Box flexDirection="row" justifyContent="space-between">
+                  <Box>
+                    <Text variant="mainIconSubTitle">
+                      10g of 24k gold (99.9): 31,800 INR
+                    </Text>
+                    <Text>Hyderabad, 1 Jun 2018</Text>
+                  </Box>
+                  <Box>
+                    <Text>-0.9%</Text>
+                  </Box>
+                </Box>
+              </Box>
             </Box>
           </Box>
-        </Box>
-
-
         </TouchableWithoutFeedback>
 
         <Box padding="l">

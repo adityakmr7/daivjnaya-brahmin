@@ -5,9 +5,10 @@ import Product from "./Product";
 import Property from "./Property";
 import { Box, useTheme, HeaderBackButton } from "../../components";
 import { RoundedBorderButton } from "../MyProfile/components";
-import {B2BProductAssets} from './Product';
-import {B2BPropertyAssets} from './Property';
-export const  B2BAssets = [ ...B2BProductAssets, ...B2BPropertyAssets]; 
+import { B2BProductAssets } from "./Product";
+import { B2BPropertyAssets } from "./Property";
+import PostProduct from "./PostProduct";
+export const B2BAssets = [...B2BProductAssets, ...B2BPropertyAssets];
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
@@ -43,19 +44,14 @@ const B2BStackNavigation = () => {
           },
           title: "B2B",
           headerLeft: () => {
-            return (
-              <HeaderBackButton
-                image={require("./assets/b2b.png")}
-                onPress={() => navigation.pop()}
-              />
-            );
+            return <HeaderBackButton image={require("./assets/b2b.png")} />;
           },
           headerRight: () => {
             return (
               <Box marginHorizontal="s">
                 <RoundedBorderButton
                   label="Post Product"
-                  onPress={() => console.log("PostProduct page Here")}
+                  onPress={() => navigation.navigate("PostProduct")}
                 />
               </Box>
             );
@@ -63,6 +59,15 @@ const B2BStackNavigation = () => {
         })}
         name="B2b"
         component={B2BTabNavigation}
+      />
+      <Stack.Screen
+        options={{
+          headerLeft: () => (
+            <HeaderBackButton image={require("./assets/b2b.png")} />
+          ),
+        }}
+        name="PostProduct"
+        component={PostProduct}
       />
     </Stack.Navigator>
   );

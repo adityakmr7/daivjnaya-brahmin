@@ -5,7 +5,7 @@ import { theme, Box, Text, HeaderBackButton } from "../components";
 import { AppRoutes } from "../components/NavigationRoutes";
 import { HomeScreen } from "./HomeScreen";
 import { RectButton } from "react-native-gesture-handler";
-import { Image, Platform, View } from "react-native";
+import { Image, View } from "react-native";
 import NewScreenStack from "./NewScreen";
 import { Notification } from "./Notifications";
 import EventScreen from "./EventScreen";
@@ -15,11 +15,10 @@ import CommunityStack from "./communityHub/index";
 import { RoundedBorderButton } from "./MyProfile/components";
 import { Register } from "./Register";
 import MatrimonyStack from "./Matrimony";
-import B2b from "./B2B";
 import B2BStackNavigation from "./B2B";
 import JewelleryStack from "./Jewellery";
 import CareerTab from "./Careers";
-import Pricing from './GoldAndSilverPricing';
+import Pricing from "./GoldAndSilverPricing";
 export const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = () => {
@@ -32,7 +31,7 @@ const AppNavigation = () => {
       }}
     >
       <AppStack.Screen
-        options={({ navigation, route }) => ({
+        options={({ navigation }) => ({
           headerLeft: () => {
             return (
               <View style={{ paddingLeft: 22 }}>
@@ -118,7 +117,7 @@ const AppNavigation = () => {
         component={EventScreen}
       />
       <AppStack.Screen
-        options={{ headerStyle: { elevation: 1 } }}
+        options={{ headerStyle: { elevation: 0 } }}
         name="NewsEvent"
         component={NewsAndEventsStack}
       />
@@ -131,7 +130,7 @@ const AppNavigation = () => {
       />
       {/* // ? Nested Community */}
       <AppStack.Screen
-        options={({ navigation, route }) => ({
+        options={({ navigation }) => ({
           title: "Community Hub",
           headerRight: () => {
             return (
@@ -159,16 +158,24 @@ const AppNavigation = () => {
         component={B2BStackNavigation}
       />
       <AppStack.Screen
-        options={{
+        options={({ navigation }) => ({
           headerLeft: () => (
             <HeaderBackButton image={require("./assets/jwelIcon.png")} />
           ),
-        }}
+          headerRight: () => (
+            <Box marginHorizontal="s">
+              <RoundedBorderButton
+                label="Register"
+                onPress={() => navigation.navigate("Register")}
+              />
+            </Box>
+          ),
+        })}
         name="Jewellery"
         component={JewelleryStack}
       />
       <AppStack.Screen name="Careers" component={CareerTab} />
-      <AppStack.Screen name="Pricing" component={Pricing}/>
+      <AppStack.Screen name="Pricing" component={Pricing} />
     </AppStack.Navigator>
   );
 };

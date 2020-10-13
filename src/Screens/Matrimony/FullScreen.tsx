@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from "react";
 import { Dimensions, Image, StyleSheet } from "react-native";
-import { Box, Text } from "../../components";
+import { Box } from "../../components";
 import { MatrimonyStackNavigationProps } from "./MatrimonyRoutes";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
@@ -9,7 +9,6 @@ const FullScreen = ({
   route,
 }: MatrimonyStackNavigationProps<"FullScreen">) => {
   const { title, img } = route.params;
-  console.log({ title, img });
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: title,
@@ -27,7 +26,7 @@ const FullScreen = ({
           width: wWidth,
           ...StyleSheet.absoluteFillObject,
         }}
-        source={require("./assets/image-1.png")}
+        source={img}
       />
     </Box>
   );
