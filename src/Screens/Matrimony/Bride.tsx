@@ -9,7 +9,7 @@ export const BrideList = [
     title: "Full Name",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("./assets/bride-1.png"),
+    image: require("../../../assets/images/bride-1.png"),
     btn: "View full details",
   },
   {
@@ -17,7 +17,7 @@ export const BrideList = [
     title: "Full Name",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("./assets/bride-2.png"),
+    image: require("../../../assets/images/bride-2.png"),
     btn: "View full details",
   },
   {
@@ -25,7 +25,7 @@ export const BrideList = [
     title: "Full Name",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("./assets/bride-3.png"),
+    image: require("../../../assets/images/bride-3.png"),
     btn: "View full details",
   },
   {
@@ -33,7 +33,7 @@ export const BrideList = [
     title: "Full Name",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("./assets/bride-4.png"),
+    image: require("../../../assets/images/bride-4.png"),
     btn: "View full details",
   },
 ];

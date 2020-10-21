@@ -1,50 +1,46 @@
-import React from 'react';
-import { Dimensions, Image,StyleSheet} from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { Box ,Text} from '../../../components';
+import React from "react";
+import { Dimensions, Image, StyleSheet } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import { Box, Text } from "../../../components";
 
-
-interface UploadsProps {
-
-
-}
+interface UploadsProps {}
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 const data = [
-    {
-      id: 1,
-      img: require("./assets/upload-1.png"),
-    },
-    {
-      id: 2,
-      img: require("./assets/upload-2.png"),
-    },
-    {
-      id: 3,
-      img: require("./assets/upload-3.png"),
-    },
-    {
-      id: 4,
-      img: require("./assets/upload-4.png"),
-    },
-    {
-      id: 5,
-      img: require("./assets/upload-5.png"),
-    },
-    {
-      id: 6,
-      img: require("./assets/upload-6.png"),
-    },
-    {
-      id: 7,
-      img: require("./assets/upload-7.png"),
-    },
-  ];
-  
+  {
+    id: 1,
+    img: require("../../../../assets/images/upload-1.png"),
+  },
+  {
+    id: 2,
+    img: require("../../../../assets/images/upload-2.png"),
+  },
+  {
+    id: 3,
+    img: require("../../../../assets/images/upload-3.png"),
+  },
+  {
+    id: 4,
+    img: require("../../../../assets/images/upload-4.png"),
+  },
+  {
+    id: 5,
+    img: require("../../../../assets/images/upload-5.png"),
+  },
+  {
+    id: 6,
+    img: require("../../../../assets/images/upload-6.png"),
+  },
+  {
+    id: 7,
+    img: require("../../../../assets/images/upload-7.png"),
+  },
+];
+
 const Uploads = ({}: UploadsProps) => {
-return (
-<Box flex={1}>
+  return (
+    <Box flex={1}>
       <ScrollView>
         <Box flexDirection="row">
           {data.map((item, i) => {
@@ -98,10 +94,7 @@ return (
         </Box>
       </ScrollView>
     </Box>
-)
-}
-
-
-
+  );
+};
 
 export default Uploads;

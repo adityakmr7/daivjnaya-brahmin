@@ -6,35 +6,33 @@ import { ScrollView } from "react-native-gesture-handler";
 
 import { VideoCard } from "./components";
 
-
 export const VideoPost = [
   {
     id: 1,
     user: "Siddharth Revankar",
-    userImage: require("./assets/ak.png"),
+    userImage: require("../../../assets/images/ak.png"),
     date: "17 Jun 2019",
     caption: "Caption here",
-    image: require("./assets/post.png"),
+    image: require("../../../assets/images/post.png"),
     comments: 10,
     likes: 25,
-    video: require("./assets/video.mp4"),
+    video: require("../../../assets/images/video.mp4"),
   },
   {
     id: 2,
     user: "Siddharth Revankar",
-    userImage: require("./assets/pa.png"),
+    userImage: require("../../../assets/images/pa.png"),
     date: "17 Jun 2019",
     caption: "Caption here",
-    image: require("./assets/post.png"),
+    image: require("../../../assets/images/post.png"),
     comments: 10,
     likes: 25,
-    video: require("./assets/video.mp4"),
+    video: require("../../../assets/images/video.mp4"),
   },
 ];
 
-
 const Videos = ({ navigation }) => {
-  const src = require("./assets/post.png");
+  const src = require("../../../assets/images/post.png");
   return (
     <ScrollView>
       <Box flex={1} backgroundColor="iconBackground">

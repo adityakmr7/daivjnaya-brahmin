@@ -44,7 +44,11 @@ const B2BStackNavigation = () => {
           },
           title: "B2B",
           headerLeft: () => {
-            return <HeaderBackButton image={require("./assets/b2b.png")} />;
+            return (
+              <HeaderBackButton
+                image={require("../../../assets/images/b2b.png")}
+              />
+            );
           },
           headerRight: () => {
             return (
@@ -63,7 +67,9 @@ const B2BStackNavigation = () => {
       <Stack.Screen
         options={{
           headerLeft: () => (
-            <HeaderBackButton image={require("./assets/b2b.png")} />
+            <HeaderBackButton
+              image={require("../../../assets/images/b2b.png")}
+            />
           ),
         }}
         name="PostProduct"

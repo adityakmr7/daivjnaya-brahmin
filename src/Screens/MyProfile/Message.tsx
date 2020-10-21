@@ -30,7 +30,7 @@ const Message = ({}: MessageProps) => {
                 <AvatarImage
                   islabel={true}
                   key={i}
-                  image={require("./assets/ak.png")}
+                  image={require("../../../assets/images/ak.png")}
                   label={"Akshay Kumar"}
                   avatarImage={true}
                 />
@@ -49,7 +49,7 @@ const Message = ({}: MessageProps) => {
                 key={i}
                 userName="Full Name"
                 lastMessage="Hi Bro how are you ?"
-                image={require("./assets/ak.png")}
+                image={require("../../../assets/images/ak.png")}
               />
             );
           })}

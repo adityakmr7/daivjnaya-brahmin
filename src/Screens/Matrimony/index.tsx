@@ -7,7 +7,6 @@ import Bride from "./Bride";
 import Vendors from "./Vendors";
 import GroomDetail from "./GroomDetail";
 import {
-  MatrimonyStackNavigationProps,
   MatrimonyStackParamList,
   MatrimonyTabParamList,
 } from "./MatrimonyRoutes";
@@ -50,7 +49,7 @@ const MatrimonyStack = () => {
           headerLeft: () => {
             return (
               <HeaderBackButton
-                image={require("../assets/matrimony-head.png")}
+                image={require("../../../assets/images/matrimony-head.png")}
               />
             );
           },

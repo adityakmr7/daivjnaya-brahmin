@@ -13,7 +13,7 @@ export const VendorList = [
     title: "Full Name",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("./assets/vendor-1.png"),
+    image: require("../../../assets/images/vendor-1.png"),
     btn: "View full details",
   },
   {
@@ -21,7 +21,7 @@ export const VendorList = [
     title: "Full Name",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("./assets/vendor-2.png"),
+    image: require("../../../assets/images/vendor-2.png"),
     btn: "View full details",
   },
   {
@@ -29,7 +29,7 @@ export const VendorList = [
     title: "Full Name",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("./assets/vendor-3.png"),
+    image: require("../../../assets/images/vendor-3.png"),
     btn: "View full details",
   },
   {
@@ -37,7 +37,7 @@ export const VendorList = [
     title: "Full Name",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("./assets/vendor-4.png"),
+    image: require("../../../assets/images/vendor-4.png"),
     btn: "View full details",
   },
 ];

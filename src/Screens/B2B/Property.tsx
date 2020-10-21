@@ -10,7 +10,7 @@ export const PropertyList = [
     title: "Full Name",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("./assets/property-1.png"),
+    image: require("../../../assets/images/property-1.png"),
     btn: "View full details",
   },
   {
@@ -18,7 +18,7 @@ export const PropertyList = [
     title: "Full Name",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("./assets/property-1.png"),
+    image: require("../../../assets/images/property-1.png"),
     btn: "View full details",
   },
   {
@@ -26,13 +26,11 @@ export const PropertyList = [
     title: "Full Name",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("./assets/property-1.png"),
+    image: require("../../../assets/images/property-1.png"),
     btn: "View full details",
   },
 ];
 export const B2BPropertyAssets = PropertyList.map((item, i) => item.image);
-
-
 
 const Property = ({ navigation }: PropertyProps) => {
   return (

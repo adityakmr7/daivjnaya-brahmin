@@ -6,7 +6,7 @@ import { Feather as Icon } from "@expo/vector-icons";
 import CompanyCard from "./components/CompanyCard";
 interface CareerHomeProps {}
 
-export const companyLogo = require("./assets/company-logo.png");
+export const companyLogo = require("../../../assets/images/company-logo.png");
 const image = require("../../../assets/images/img-2.png");
 const { width: wWidth } = Dimensions.get("window");
 const CareerHome = ({}: CareerHomeProps) => {
@@ -57,7 +57,9 @@ const CareerHome = ({}: CareerHomeProps) => {
           </Text>
           <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
             {[1, 2, 3].map((item, index) => {
-              return <NewsSection image={image} key={index} />;
+              return (
+                <NewsSection onPress={() => {}} image={image} key={index} />
+              );
             })}
           </ScrollView>
         </Box>

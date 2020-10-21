@@ -8,7 +8,7 @@ import ListCard from "./components/ListCard";
 const NewsList = [
   {
     id: 1,
-    image: require("./assets/abp.png"),
+    image: require("../../../assets/images/abp.png"),
     title:
       "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis",
     desc:
@@ -16,7 +16,7 @@ const NewsList = [
   },
   {
     id: 2,
-    image: require("./assets/dd.png"),
+    image: require("../../../assets/images/dd.png"),
     title:
       "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis",
     desc:
@@ -24,7 +24,7 @@ const NewsList = [
   },
   {
     id: 3,
-    image: require("./assets/news.png"),
+    image: require("../../../assets/images/news.png"),
     title:
       "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis",
     desc:
@@ -51,14 +51,10 @@ const NewsEvents = ({ navigation }: StackNavigationProps<"NewsEvent">) => {
       <SearchBox {...{ searchText, handleChangeText }} />
       <Box backgroundColor="mainBackground" paddingVertical="s">
         <ScrollView>
-
-        {NewsList.map((data, i) => {
-          return (
-            <ListCard key={data.id} {... {data}}/>
-          );
-        })}
+          {NewsList.map((data, i) => {
+            return <ListCard key={data.id} {...{ data }} />;
+          })}
         </ScrollView>
-
       </Box>
     </Box>
   );

@@ -6,7 +6,7 @@ interface WorkersProps {}
 const workerList = [
   {
     id: 1,
-    image: require("./assets/img-1.png"),
+    image: require("../../../assets/images/jwellary-asset-1.png"),
     title: "Community Name",
     subtitle: "Risus commodo",
     description:
@@ -15,7 +15,7 @@ const workerList = [
   },
   {
     id: 2,
-    image: require("./assets/img-1.png"),
+    image: require("../../../assets/images/jwellary-asset-1.png"),
     title: "Community Name",
     subtitle: "Risus commodo",
     description:
@@ -24,7 +24,7 @@ const workerList = [
   },
   {
     id: 3,
-    image: require("./assets/img-1.png"),
+    image: require("../../../assets/images/jwellary-asset-1.png"),
     title: "Community Name",
     subtitle: "Risus commodo",
     description:
@@ -33,7 +33,7 @@ const workerList = [
   },
   {
     id: 4,
-    image: require("./assets/img-1.png"),
+    image: require("../../../assets/images/jwellary-asset-1.png"),
     title: "Community Name",
     subtitle: "Risus commodo",
     description:
@@ -42,7 +42,6 @@ const workerList = [
   },
 ];
 export const assetsWorker = workerList.map((item, i) => item.image);
-
 
 const Workers = ({}: WorkersProps) => {
   return (

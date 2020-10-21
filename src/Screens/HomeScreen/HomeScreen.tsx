@@ -40,13 +40,13 @@ const Images = [
 
 export const headerAssets = Images.map((img) => img.image);
 export const iconAssets = [
-  require("../assets/briefcase.png"),
-  require("../assets/dna.png"),
-  require("../assets/jwel.png"),
-  require("../assets/meet.png"),
-  require("../assets/profile.png"),
-  require("../assets/shake.png"),
-  require("../assets/sun.png"),
+  require("../../../assets/images/briefcase.png"),
+  require("../../../assets/images/dna.png"),
+  require("../../../assets/images/jwel.png"),
+  require("../../../assets/images/meet.png"),
+  require("../../../assets/images/profile.png"),
+  require("../../../assets/images/shake.png"),
+  require("../../../assets/images/sun.png"),
 ];
 const image = require("../../../assets/images/img-2.png");
 
@@ -72,17 +72,17 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
         >
           <IconNavigator
             onPress={() => navigation.navigate("MyProfile")}
-            image={require("../assets/profile.png")}
+            image={require("../../../assets/images/profile.png")}
             subtitle="My Profile"
           />
           <IconNavigator
             onPress={() => navigation.navigate("CommunityStack")}
-            image={require("../assets/dna.png")}
+            image={require("../../../assets/images/dna.png")}
             subtitle="Daivajnya Samaj…"
           />
           <IconNavigator
             onPress={() => navigation.navigate("Matrimony")}
-            image={require("../assets/meet.png")}
+            image={require("../../../assets/images/meet.png")}
             subtitle="Matrimony"
           />
         </Box>
@@ -95,17 +95,17 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
         >
           <IconNavigator
             onPress={() => navigation.navigate("B2b")}
-            image={require("../assets/shake.png")}
+            image={require("../../../assets/images/shake.png")}
             subtitle="B2B"
           />
           <IconNavigator
             onPress={() => navigation.navigate("Jewellery")}
-            image={require("../assets/jwel.png")}
+            image={require("../../../assets/images/jwel.png")}
             subtitle="Jewellery Mar.."
           />
           <IconNavigator
             onPress={() => navigation.navigate("Careers")}
-            image={require("../assets/briefcase.png")}
+            image={require("../../../assets/images/briefcase.png")}
             subtitle="Careers & Tal.."
           />
         </Box>

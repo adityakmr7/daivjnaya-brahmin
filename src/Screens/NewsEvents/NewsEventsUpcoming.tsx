@@ -7,7 +7,7 @@ interface NewsEventUpcomingProps {}
 const UpcomingList = [
   {
     id: 1,
-    image: require("./assets/abp.png"),
+    image: require("../../../assets/images/abp.png"),
     title:
       "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis",
     desc:
@@ -15,7 +15,7 @@ const UpcomingList = [
   },
   {
     id: 2,
-    image: require("./assets/dd.png"),
+    image: require("../../../assets/images/dd.png"),
     title:
       "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis",
     desc:
@@ -23,7 +23,7 @@ const UpcomingList = [
   },
   {
     id: 3,
-    image: require("./assets/news.png"),
+    image: require("../../../assets/images/news.png"),
     title:
       "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis",
     desc:

@@ -6,7 +6,7 @@ import { combineTabWithStackProps } from "./communityNavigatinProps";
 export const houses = [
   {
     id: 1,
-    image: require("./assets/house1.png"),
+    image: require("../../../assets/images/house1.png"),
     title: "Community Name",
     subtitle: "Risus commodo",
     description:
@@ -15,7 +15,7 @@ export const houses = [
   },
   {
     id: 1,
-    image: require("./assets/house2.png"),
+    image: require("../../../assets/images/house2.png"),
     title: "Community Name",
     subtitle: "Risus commodo",
     description:
@@ -24,7 +24,7 @@ export const houses = [
   },
   {
     id: 1,
-    image: require("./assets/house3.png"),
+    image: require("../../../assets/images/house3.png"),
     title: "Community Name",
     subtitle: "Risus commodo",
     description:
@@ -33,7 +33,7 @@ export const houses = [
   },
   {
     id: 1,
-    image: require("./assets/house4.png"),
+    image: require("../../../assets/images/house4.png"),
     title: "Community Name",
     subtitle: "Risus commodo",
     description:
@@ -46,8 +46,6 @@ interface KarwarProps {
 }
 
 export const assetsKarwar = houses.map((item, i) => item.image);
-
-
 
 const Karwar = ({ navigation }: KarwarProps) => {
   const [searchText, setSearchText] = useState<string>("");

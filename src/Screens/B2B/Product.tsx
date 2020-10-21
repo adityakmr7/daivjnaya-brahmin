@@ -10,7 +10,7 @@ export const ProductList = [
     title: "Full Name",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("./assets/sweet-1.png"),
+    image: require("../../../assets/images/sweet-1.png"),
     btn: "View full details",
   },
   {
@@ -18,7 +18,7 @@ export const ProductList = [
     title: "Full Name",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("./assets/sweet-2.png"),
+    image: require("../../../assets/images/sweet-2.png"),
     btn: "View full details",
   },
   {
@@ -26,12 +26,11 @@ export const ProductList = [
     title: "Full Name",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("./assets/sweet-3.png"),
+    image: require("../../../assets/images/sweet-3.png"),
     btn: "View full details",
   },
 ];
 export const B2BProductAssets = ProductList.map((item, i) => item.image);
-
 
 const Product = ({ navigation }: ProductProps) => {
   return (

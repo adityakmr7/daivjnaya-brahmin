@@ -5,7 +5,7 @@ import { Box, HorizontalCard, SearchBox, Text } from "../../components";
 const shopList = [
   {
     id: 1,
-    image: require("./assets/img-1.png"),
+    image: require("../../../assets/images/jwellary-asset-1.png"),
     title: "Community Name",
     subtitle: "Risus commodo",
     description:
@@ -14,7 +14,7 @@ const shopList = [
   },
   {
     id: 2,
-    image: require("./assets/img-1.png"),
+    image: require("../../../assets/images/jwellary-asset-1.png"),
     title: "Community Name",
     subtitle: "Risus commodo",
     description:
@@ -23,7 +23,7 @@ const shopList = [
   },
   {
     id: 3,
-    image: require("./assets/img-1.png"),
+    image: require("../../../assets/images/jwellary-asset-1.png"),
     title: "Community Name",
     subtitle: "Risus commodo",
     description:
@@ -32,7 +32,7 @@ const shopList = [
   },
   {
     id: 4,
-    image: require("./assets/img-1.png"),
+    image: require("../../../assets/images/jwellary-asset-1.png"),
     title: "Community Name",
     subtitle: "Risus commodo",
     description:
@@ -42,8 +42,6 @@ const shopList = [
 ];
 
 export const assetShop = shopList.map((item, i) => item.image);
-
-
 
 export default function Shop() {
   return (

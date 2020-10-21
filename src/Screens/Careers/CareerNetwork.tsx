@@ -6,7 +6,7 @@ import UserNetWorkCard from "./components/UserNetWorkCard";
 import NetWorkComponentTitle from "./components/NetWorkComponentTitle";
 interface CareerNetworkProps {}
 
-const profileImage = require("./assets/small-image.png");
+const profileImage = require("../../../assets/images/small-image.png");
 
 const CareerNetwork = ({}: CareerNetworkProps) => {
   const [searchText, setSearchText] = useState<string>("");
@@ -30,15 +30,23 @@ const CareerNetwork = ({}: CareerNetworkProps) => {
         />
         <Box>
           {[1, 2].map((item, i) => {
-            return <UserNetWorkCard addButton={false} key={i} {...{ profileImage }} />;
+            return (
+              <UserNetWorkCard
+                addButton={false}
+                key={i}
+                {...{ profileImage }}
+              />
+            );
           })}
         </Box>
       </Box>
       <Box backgroundColor="iconBackground">
         <NetWorkComponentTitle title="People You May Know" onPress={() => {}} />
         <Box>
-          {[1, 2,3,4,5,6,7,8].map((item, i) => {
-            return <UserNetWorkCard addButton={true} key={i} {...{ profileImage }} />;
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((item, i) => {
+            return (
+              <UserNetWorkCard addButton={true} key={i} {...{ profileImage }} />
+            );
           })}
         </Box>
       </Box>

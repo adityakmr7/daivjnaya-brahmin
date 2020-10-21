@@ -35,7 +35,7 @@ const AppNavigation = () => {
           headerLeft: () => {
             return (
               <View style={{ paddingLeft: 22 }}>
-                <Image source={require("./assets/sun.png")} />
+                <Image source={require("../../assets/images/sun.png")} />
               </View>
             );
           },
@@ -160,7 +160,9 @@ const AppNavigation = () => {
       <AppStack.Screen
         options={({ navigation }) => ({
           headerLeft: () => (
-            <HeaderBackButton image={require("./assets/jwelIcon.png")} />
+            <HeaderBackButton
+              image={require("../../assets/images/jwelIcon.png")}
+            />
           ),
           headerRight: () => (
             <Box marginHorizontal="s">

@@ -7,10 +7,10 @@ import CompanyCard from "./components/CompanyCard";
 import NetWorkComponentTitle from "./components/NetWorkComponentTitle";
 
 interface CareerProfileProps {}
-export const companyLogo = require("./assets/company-logo.png");
+export const companyLogo = require("../../../assets/images/company-logo.png");
 
-export const friends = require("./assets/small-image.png");
-const walls = require("./assets/wall.png");
+export const friends = require("../../../assets/images/small-image.png");
+const walls = require("../../../assets/images/wall.png");
 const CareerProfile = ({}: CareerProfileProps) => {
   return (
     <Box flex={1} backgroundColor="iconBackground">

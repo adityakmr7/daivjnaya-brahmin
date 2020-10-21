@@ -8,31 +8,31 @@ interface GalleryProps {}
 const data = [
   {
     id: 1,
-    img: require("./assets/img-1.png"),
+    img: require("../../../../assets/images/gal-img-1.png"),
   },
   {
     id: 2,
-    img: require("./assets/img-2.png"),
+    img: require("../../../../assets/images/gal-img-2.png"),
   },
   {
     id: 3,
-    img: require("./assets/img-3.png"),
+    img: require("../../../../assets/images/gal-img-3.png"),
   },
   {
     id: 4,
-    img: require("./assets/img-4.png"),
+    img: require("../../../../assets/images/gal-img-4.png"),
   },
   {
     id: 5,
-    img: require("./assets/img-5.png"),
+    img: require("../../../../assets/images/gal-img-5.png"),
   },
   {
     id: 6,
-    img: require("./assets/img-6.png"),
+    img: require("../../../../assets/images/gal-img-6.png"),
   },
   {
     id: 7,
-    img: require("./assets/img-7.png"),
+    img: require("../../../../assets/images/gal-img-7.png"),
   },
 ];
 

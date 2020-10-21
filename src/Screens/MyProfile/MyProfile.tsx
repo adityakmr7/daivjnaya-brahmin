@@ -21,33 +21,41 @@ import {
 } from "./components";
 
 export const friends = [
-  { id: 1, src: require("./assets/ak.png"), name: "Akshay Kumar" },
-  { id: 2, src: require("./assets/pa.png"), name: "Anany Panday" },
-  { id: 3, src: require("./assets/sm.png"), name: "Hello world" },
+  {
+    id: 1,
+    src: require("../../../assets/images/ak.png"),
+    name: "Akshay Kumar",
+  },
+  {
+    id: 2,
+    src: require("../../../assets/images/pa.png"),
+    name: "Anany Panday",
+  },
+  { id: 3, src: require("../../../assets/images/sm.png"), name: "Hello world" },
 ];
 
 export const Posts = [
   {
     id: 1,
     user: "Siddharth Revankar",
-    userImage: require("./assets/ak.png"),
+    userImage: require("../../../assets/images/ak.png"),
     date: "17 Jun 2019",
     caption: "Caption here",
-    image: require("./assets/post.png"),
+    image: require("../../../assets/images/post.png"),
     comments: 10,
     likes: 25,
-    video: require("./assets/video.mp4"),
+    video: require("../../../assets/images/video.mp4"),
   },
   {
     id: 2,
     user: "Siddharth Revankar",
-    userImage: require("./assets/pa.png"),
+    userImage: require("../../../assets/images/pa.png"),
     date: "17 Jun 2019",
     caption: "Caption here",
-    image: require("./assets/post.png"),
+    image: require("../../../assets/images/post.png"),
     comments: 10,
     likes: 25,
-    video: require("./assets/video.mp4"),
+    video: require("../../../assets/images/video.mp4"),
   },
 ];
 
