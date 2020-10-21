@@ -17,9 +17,9 @@ const LargeButton = ({ label, onPress }: LargeButtonProps) => {
     >
       <RectButton
         {...{ onPress }}
-        style={{ justifyContent: "center", alignItems: "center" }}
+        style={{ height: 60, justifyContent: "center", alignItems: "center" }}
       >
-        <Box paddingTop="m">
+        <Box>
           <Text color="iconBackground" variant="sectionTitle">
             {label}
           </Text>

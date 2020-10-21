@@ -19,6 +19,7 @@ import B2BStackNavigation from "./B2B";
 import JewelleryStack from "./Jewellery";
 import CareerTab from "./Careers";
 import Pricing from "./GoldAndSilverPricing";
+import AuthNavigation from "./Authentication";
 export const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = () => {
@@ -30,6 +31,11 @@ const AppNavigation = () => {
         },
       }}
     >
+      <AppStack.Screen
+        options={{ headerShown: false }}
+        name="Authentication"
+        component={AuthNavigation}
+      />
       <AppStack.Screen
         options={({ navigation }) => ({
           headerLeft: () => {

@@ -2,6 +2,7 @@ import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 export type AppRoutes = {
+  Authentication: undefined;
   Home: undefined;
   New: undefined;
   Notification: undefined;
@@ -21,7 +22,7 @@ export type AppRoutes = {
   B2b: undefined;
   Careers: undefined;
   Jewellery: undefined;
-  Pricing:undefined;
+  Pricing: undefined;
 };
 
 export type StackNavigationProps<T extends keyof AppRoutes> = {
