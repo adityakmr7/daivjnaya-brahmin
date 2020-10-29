@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Feather as Icon } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
 import { theme, Box, Text, HeaderBackButton } from "../components";
@@ -23,6 +23,8 @@ import AuthNavigation from "./Authentication";
 export const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   return (
     <AppStack.Navigator
       screenOptions={{
@@ -31,159 +33,164 @@ const AppNavigation = () => {
         },
       }}
     >
-      <AppStack.Screen
-        options={{ headerShown: false }}
-        name="Authentication"
-        component={AuthNavigation}
-      />
-      <AppStack.Screen
-        options={({ navigation }) => ({
-          headerLeft: () => {
-            return (
-              <View style={{ paddingLeft: 22 }}>
-                <Image source={require("../../assets/images/sun.png")} />
-              </View>
-            );
-          },
-          headerRight: () => {
-            return (
-              <Box flexDirection={"row"} paddingHorizontal="s">
-                <Box paddingHorizontal="s">
-                  <RectButton
-                    onPress={() => navigation.navigate("Notification")}
-                    style={{
-                      width: 28,
-                      height: 28,
-                      borderRadius: 10,
-                      backgroundColor: "white",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Box
-                      position="absolute"
-                      borderRadius="l"
-                      top={0}
-                      right={0}
-                      width={7}
-                      height={7}
-                      backgroundColor="notificationColor"
-                    />
-                    <Icon name="bell" size={20} color={"black"} />
-                  </RectButton>
-                </Box>
-                <Box>
-                  <RectButton
-                    onPress={() => navigation.navigate("New")}
-                    style={{
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width: 71,
-                      height: 28,
-                      borderRadius: 10,
-                      backgroundColor: "white",
-                    }}
-                  >
-                    <Box flexDirection="row" justifyContent="space-between">
-                      <Text>New</Text>
-                      <Icon style={{ padding: 2 }} name="plus" size={18} />
+      {isAuthenticated ? (
+        <>
+          <AppStack.Screen
+            options={({ navigation }) => ({
+              headerLeft: () => {
+                return (
+                  <View style={{ paddingLeft: 22 }}>
+                    <Image source={require("../../assets/images/sun.png")} />
+                  </View>
+                );
+              },
+              headerRight: () => {
+                return (
+                  <Box flexDirection={"row"} paddingHorizontal="s">
+                    <Box paddingHorizontal="s">
+                      <RectButton
+                        onPress={() => navigation.navigate("Notification")}
+                        style={{
+                          width: 28,
+                          height: 28,
+                          borderRadius: 10,
+                          backgroundColor: "white",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Box
+                          position="absolute"
+                          borderRadius="l"
+                          top={0}
+                          right={0}
+                          width={7}
+                          height={7}
+                          backgroundColor="notificationColor"
+                        />
+                        <Icon name="bell" size={20} color={"black"} />
+                      </RectButton>
                     </Box>
-                  </RectButton>
-                </Box>
-              </Box>
-            );
-          },
+                    <Box>
+                      <RectButton
+                        onPress={() => navigation.navigate("New")}
+                        style={{
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: 71,
+                          height: 28,
+                          borderRadius: 10,
+                          backgroundColor: "white",
+                        }}
+                      >
+                        <Box flexDirection="row" justifyContent="space-between">
+                          <Text>New</Text>
+                          <Icon style={{ padding: 2 }} name="plus" size={18} />
+                        </Box>
+                      </RectButton>
+                    </Box>
+                  </Box>
+                );
+              },
 
-          headerTitle: () => (
-            <Text style={{ fontFamily: "Saman", fontSize: 20 }}>
-              Daivjnaya Brahmin
-            </Text>
-          ),
-          headerStyle: {
-            elevation: 0,
-            backgroundColor: theme.colors.mainBackground,
-          },
-        })}
-        name={"Home"}
-        component={HomeScreen}
-      />
-      <AppStack.Screen
-        options={{ headerStyle: { elevation: 1 } }}
-        name="New"
-        component={NewScreenStack}
-      />
-      <AppStack.Screen
-        options={{ headerStyle: { elevation: 1 } }}
-        name="Notification"
-        component={Notification}
-      />
-      <AppStack.Screen
-        options={{ headerStyle: { elevation: 1 } }}
-        name="Event"
-        component={EventScreen}
-      />
-      <AppStack.Screen
-        options={{ headerStyle: { elevation: 0 } }}
-        name="NewsEvent"
-        component={NewsAndEventsStack}
-      />
-      <AppStack.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="MyProfile"
-        component={TabNavigation}
-      />
-      {/* // ? Nested Community */}
-      <AppStack.Screen
-        options={({ navigation }) => ({
-          title: "Community Hub",
-          headerRight: () => {
-            return (
-              <Box marginHorizontal="s">
-                <RoundedBorderButton
-                  label="For Members"
-                  onPress={() => navigation.navigate("Register")}
+              headerTitle: () => (
+                <Text style={{ fontFamily: "Saman", fontSize: 20 }}>
+                  Daivjnaya Brahmin
+                </Text>
+              ),
+              headerStyle: {
+                elevation: 0,
+                backgroundColor: theme.colors.mainBackground,
+              },
+            })}
+            name={"Home"}
+            component={HomeScreen}
+          />
+          <AppStack.Screen
+            options={{ headerStyle: { elevation: 1 } }}
+            name="New"
+            component={NewScreenStack}
+          />
+          <AppStack.Screen
+            options={{ headerStyle: { elevation: 1 } }}
+            name="Notification"
+            component={Notification}
+          />
+          <AppStack.Screen
+            options={{ headerStyle: { elevation: 1 } }}
+            name="Event"
+            component={EventScreen}
+          />
+          <AppStack.Screen
+            options={{ headerStyle: { elevation: 0 } }}
+            name="NewsEvent"
+            component={NewsAndEventsStack}
+          />
+          <AppStack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="MyProfile"
+            component={TabNavigation}
+          />
+          {/* // ? Nested Community */}
+          <AppStack.Screen
+            options={({ navigation }) => ({
+              title: "Community Hub",
+              headerRight: () => {
+                return (
+                  <Box marginHorizontal="s">
+                    <RoundedBorderButton
+                      label="For Members"
+                      onPress={() => navigation.navigate("Register")}
+                    />
+                  </Box>
+                );
+              },
+            })}
+            name="CommunityStack"
+            component={CommunityStack}
+          />
+          <AppStack.Screen name="Register" component={Register} />
+          <AppStack.Screen
+            name="Matrimony"
+            options={{ headerShown: false }}
+            component={MatrimonyStack}
+          />
+          <AppStack.Screen
+            options={{ headerShown: false }}
+            name="B2b"
+            component={B2BStackNavigation}
+          />
+          <AppStack.Screen
+            options={({ navigation }) => ({
+              headerLeft: () => (
+                <HeaderBackButton
+                  image={require("../../assets/images/jwelIcon.png")}
                 />
-              </Box>
-            );
-          },
-        })}
-        name="CommunityStack"
-        component={CommunityStack}
-      />
-      <AppStack.Screen name="Register" component={Register} />
-      <AppStack.Screen
-        name="Matrimony"
-        options={{ headerShown: false }}
-        component={MatrimonyStack}
-      />
-      <AppStack.Screen
-        options={{ headerShown: false }}
-        name="B2b"
-        component={B2BStackNavigation}
-      />
-      <AppStack.Screen
-        options={({ navigation }) => ({
-          headerLeft: () => (
-            <HeaderBackButton
-              image={require("../../assets/images/jwelIcon.png")}
-            />
-          ),
-          headerRight: () => (
-            <Box marginHorizontal="s">
-              <RoundedBorderButton
-                label="Register"
-                onPress={() => navigation.navigate("Register")}
-              />
-            </Box>
-          ),
-        })}
-        name="Jewellery"
-        component={JewelleryStack}
-      />
-      <AppStack.Screen name="Careers" component={CareerTab} />
-      <AppStack.Screen name="Pricing" component={Pricing} />
+              ),
+              headerRight: () => (
+                <Box marginHorizontal="s">
+                  <RoundedBorderButton
+                    label="Register"
+                    onPress={() => navigation.navigate("Register")}
+                  />
+                </Box>
+              ),
+            })}
+            name="Jewellery"
+            component={JewelleryStack}
+          />
+          <AppStack.Screen name="Careers" component={CareerTab} />
+          <AppStack.Screen name="Pricing" component={Pricing} />
+        </>
+      ) : (
+        <AppStack.Screen
+          options={{ headerShown: false }}
+          name="Authentication"
+          component={AuthNavigation}
+        />
+      )}
     </AppStack.Navigator>
   );
 };

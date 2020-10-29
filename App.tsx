@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@shopify/restyle";
 import React from "react";
+import { Provider } from "react-redux";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Box, LoadAssets, theme, Text } from "./src/components";
 import AppNavigation from "./src/Screens";
@@ -10,9 +11,16 @@ import { assetShop } from "./src/Screens/Jewellery/Shop";
 import { assetsVendor } from "./src/Screens/Jewellery/Vendors";
 import { assetsWorker } from "./src/Screens/Jewellery/Workers";
 import { NotificationAssets } from "./src/Screens/Notifications";
-const assets = [...headerAssets, ...iconAssets, ...assetsKarwar, 
-  ...assetsVendor, ...assetShop, ...assetsWorker, ...NotificationAssets,
-  ...B2BAssets
+import { store } from "./src/store";
+const assets = [
+  ...headerAssets,
+  ...iconAssets,
+  ...assetsKarwar,
+  ...assetsVendor,
+  ...assetShop,
+  ...assetsWorker,
+  ...NotificationAssets,
+  ...B2BAssets,
 ];
 const fonts = {
   Saman: require("./assets/fonts/Samarkan.ttf"),
@@ -23,12 +31,14 @@ const fonts = {
 
 export default function App() {
   return (
-    <ThemeProvider {...{ theme }}>
-      <LoadAssets {...{ fonts, assets }}>
-        <SafeAreaProvider>
-          <AppNavigation />
-        </SafeAreaProvider>
-      </LoadAssets>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider {...{ theme }}>
+        <LoadAssets {...{ fonts, assets }}>
+          <SafeAreaProvider>
+            <AppNavigation />
+          </SafeAreaProvider>
+        </LoadAssets>
+      </ThemeProvider>
+    </Provider>
   );
 }
