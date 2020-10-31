@@ -38,6 +38,7 @@ const fonts = {
  * if available then @isAuthenticated
  * else !@isAuthenticated
  */
+
 function lookForToken() {
   const _res = new restServices();
   _res

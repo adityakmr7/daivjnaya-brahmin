@@ -14,7 +14,6 @@ interface SignupProps {
   userSignUp: (
     email: string,
     password: string,
-
     firstName: string,
     lastName: string,
     navigation: any
@@ -23,8 +22,9 @@ interface SignupProps {
 
 const validationSchema = Yup.object().shape({
   password: Yup.string().required(),
-  email: Yup.string().required(),
-  fName: Yup.string().required(), //TODO: Validate Email
+  email: Yup.string().required(), // TODO: email validation
+  fName: Yup.string().required(),
+  phoneNumber: Yup.string().required(),
 });
 
 const SignUp = ({ navigation, userSignUp }: SignupProps) => {
@@ -42,13 +42,15 @@ const SignUp = ({ navigation, userSignUp }: SignupProps) => {
       password: "",
       fName: "",
       email: "",
+      phoneNumber: "",
       callback: false,
     },
     onSubmit: (values) => {
-      const { email, password, fName } = values;
+      const { email, password, fName, phoneNumber } = values;
       const fullName = fName.split(" ");
       const firstName = fullName[0];
       const lastName = fullName[1];
+
       userSignUp(email, password, firstName, lastName, navigation);
 
       // navigation.navigate("Home");
@@ -67,7 +69,7 @@ const SignUp = ({ navigation, userSignUp }: SignupProps) => {
         borderTopRightRadius="l"
         width={wWidth}
         backgroundColor="iconBackground"
-        flex={1}
+        flex={1.5}
       >
         <Box marginHorizontal="l">
           <Box>
@@ -96,6 +98,15 @@ const SignUp = ({ navigation, userSignUp }: SignupProps) => {
               onBlur={handleBlur("password")}
               error={errors.password}
               touched={touched.password}
+            />
+          </Box>
+          <Box>
+            <TextField
+              placeholder="Phone Number"
+              onChangeText={handleChange("phoneNumber")}
+              onBlur={handleBlur("phoneNumber")}
+              error={errors.phoneNumber}
+              touched={touched.phoneNumber}
             />
           </Box>
           <LargeButton onPress={handleSubmit} label={"SING UP"} />

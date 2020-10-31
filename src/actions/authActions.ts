@@ -68,4 +68,6 @@ export const logoutUser = () => (dispatch: any) => {
   dispatch({
     type: LOGOUT_USER,
   });
+  let _res = new restServices();
+  _res.removeAccessToken();
 };
