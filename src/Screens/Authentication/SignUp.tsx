@@ -7,6 +7,7 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { combineAuthStackProps } from ".";
 import { userSignup } from "../../actions/authActions";
 import { connect } from "react-redux";
+
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface SignupProps {
@@ -16,15 +17,16 @@ interface SignupProps {
     password: string,
     firstName: string,
     lastName: string,
+    phoneNumber: string,
     navigation: any
   ) => void;
 }
 
 const validationSchema = Yup.object().shape({
-  password: Yup.string().required(),
-  email: Yup.string().required(), // TODO: email validation
+  password: Yup.string().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/).required(),
+  email: Yup.string().email().required(),
   fName: Yup.string().required(),
-  phoneNumber: Yup.string().required(),
+  phoneNumber: Yup.string().length(10).required(),
 });
 
 const SignUp = ({ navigation, userSignUp }: SignupProps) => {
@@ -45,13 +47,23 @@ const SignUp = ({ navigation, userSignUp }: SignupProps) => {
       phoneNumber: "",
       callback: false,
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const { email, password, fName, phoneNumber } = values;
       const fullName = fName.split(" ");
       const firstName = fullName[0];
       const lastName = fullName[1];
-
-      userSignUp(email, password, firstName, lastName, navigation);
+      try {
+        userSignUp(
+          email,
+          password,
+          firstName,
+          lastName,
+          phoneNumber,
+          navigation
+        );
+      } catch (e) {
+        console.log(e);
+      }
 
       // navigation.navigate("Home");
     },
@@ -135,8 +147,12 @@ const mapDispatchToProps = (dispatch: any) => ({
     password: string,
     firstName: string,
     lastName: string,
+    phoneNumber: string,
     navigation: any
-  ) => dispatch(userSignup(email, password, firstName, lastName, navigation)),
+  ) =>
+    dispatch(
+      userSignup(email, password, firstName, lastName, phoneNumber, navigation)
+    ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

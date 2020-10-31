@@ -2,6 +2,8 @@ import {
   USER_AUTHORIZED,
   LOGIN_USER,
   LOGOUT_USER,
+  USER_SIGN_UP,
+  USER_SIGN_UP_ERROR,
 } from "./constants/authConstant";
 import { LOGIN_USER_TOKEN, SIGN_IN_USER } from "./../api/endpoints";
 import axios, { AxiosPromise, AxiosRequestConfig, AxiosResponse } from "axios";
@@ -12,21 +14,41 @@ export const userSignup = (
   password: string,
   firstName: string,
   lastName: string,
+  phoneNumber: string,
   navigation: any
 ) => (dispatch: any) => {
-  const data = {
+  var data = JSON.stringify({
     email: email,
-    password: password,
     firstName: firstName,
     lastName: lastName,
+    password: password,
+    phoneNumber: phoneNumber,
+  });
+
+  let config: AxiosRequestConfig = {
+    method: "post",
+    url: "http://3.128.29.232/signup",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: data,
   };
-  axios
-    .post(SIGN_IN_USER, data)
+  axios(config)
     .then((res) => {
-      console.log(res);
-      navigation.replace("Home");
+      // Add Snackbar here
+      dispatch({
+        type: USER_SIGN_UP,
+        payload: res.data,
+      });
+      navigation.navigate("login");
     })
-    .catch((err) => console.log("error", err));
+    .catch((err) => {
+      console.log("errorRes", err);
+      dispatch({
+        type: USER_SIGN_UP_ERROR,
+        message: "Error Signup",
+      });
+    });
 };
 
 export const userLogin = (email: string, password: string, navigation: any) => (

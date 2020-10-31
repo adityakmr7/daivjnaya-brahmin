@@ -5,11 +5,13 @@ import { USER_SIGN_UP } from "../actions/constants/authConstant";
 export type AuthState = {
   readonly isAuthenticated: boolean;
   readonly userData: {};
+  readonly errorMessage: string;
 };
 
 const initialState: AuthState = {
   isAuthenticated: false,
   userData: {},
+  errorMessage: "",
 };
 
 const authReducer = (state = initialState, action: any) => {
