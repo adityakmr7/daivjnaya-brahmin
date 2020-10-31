@@ -15,7 +15,7 @@ import { NotificationAssets } from "./src/Screens/Notifications";
 import { store } from "./src/store";
 import { logoutUser, userAuthorized } from "./src/actions/authActions";
 import restServices from "./src/services/restServices";
-import { Token } from "client-oauth2";
+
 const assets = [
   ...headerAssets,
   ...iconAssets,
@@ -63,6 +63,8 @@ function App() {
       <ThemeProvider {...{ theme }}>
         <LoadAssets {...{ fonts, assets }}>
           <SafeAreaProvider>
+            
+
             <AppNavigation />
           </SafeAreaProvider>
         </LoadAssets>

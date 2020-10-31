@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions } from "react-native";
+import { Dimensions, ToastAndroid } from "react-native";
 import { Box, LargeButton, Text, TextField } from "../../components";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -41,8 +41,17 @@ const Login = ({ navigation, getLogin }: LoginProps) => {
       // console.log(values);
       try {
         getLogin(values.email, values.password, navigation);
+        ToastAndroid.showWithGravity(
+          "Welcome Back",
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM
+        );
       } catch (e) {
-        console.log(e);
+        ToastAndroid.showWithGravity(
+          "Login Error",
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM
+        );
       }
     },
   });

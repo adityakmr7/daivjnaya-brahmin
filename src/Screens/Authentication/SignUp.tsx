@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions } from "react-native";
+import { Dimensions, ToastAndroid } from "react-native";
 import { Box, LargeButton, Text, TextField } from "../../components";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -7,7 +7,6 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { combineAuthStackProps } from ".";
 import { userSignup } from "../../actions/authActions";
 import { connect } from "react-redux";
-
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface SignupProps {
@@ -23,7 +22,11 @@ interface SignupProps {
 }
 
 const validationSchema = Yup.object().shape({
-  password: Yup.string().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/).required(),
+  password: Yup.string()
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/
+    )
+    .required(),
   email: Yup.string().email().required(),
   fName: Yup.string().required(),
   phoneNumber: Yup.string().length(10).required(),
@@ -61,8 +64,19 @@ const SignUp = ({ navigation, userSignUp }: SignupProps) => {
           phoneNumber,
           navigation
         );
+        console.log("triggered");
+        ToastAndroid.showWithGravity(
+          "Account Created, Please Login",
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM
+        );
       } catch (e) {
         console.log(e);
+        ToastAndroid.showWithGravity(
+          "Account Not Created Try Again",
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM
+        );
       }
 
       // navigation.navigate("Home");
