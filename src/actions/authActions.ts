@@ -1,5 +1,11 @@
+import {
+  USER_AUTHORIZED,
+  LOGIN_USER,
+  LOGOUT_USER,
+} from "./constants/authConstant";
 import { LOGIN_USER_TOKEN, SIGN_IN_USER } from "./../api/endpoints";
 import axios, { AxiosPromise, AxiosRequestConfig, AxiosResponse } from "axios";
+import restServices from "../services/restServices";
 
 export const userSignup = (
   email: string,
@@ -14,7 +20,6 @@ export const userSignup = (
     firstName: firstName,
     lastName: lastName,
   };
-  console.log("userData", data);
   axios
     .post(SIGN_IN_USER, data)
     .then((res) => {
@@ -41,8 +46,26 @@ export const userLogin = (email: string, password: string, navigation: any) => (
     },
     data: data,
   };
-
   axios(config)
-    .then((res: AxiosResponse) => console.log("responseServer", res.data))
+    .then((res: AxiosResponse) => {
+      dispatch({
+        type: LOGIN_USER,
+        payload: res.data,
+      });
+      const _rest = new restServices();
+      _rest.saveToken(res.data);
+    })
     .catch((err) => console.log("errorResponse", err));
+};
+
+export const userAuthorized = () => (dispatch: any) => {
+  dispatch({
+    type: USER_AUTHORIZED,
+  });
+};
+
+export const logoutUser = () => (dispatch: any) => {
+  dispatch({
+    type: LOGOUT_USER,
+  });
 };

@@ -1,13 +1,15 @@
-import { USER_SIGN_UP } from "../constants/authConstant";
+import { LOGIN_USER, LOGOUT_USER } from "../actions/constants/authConstant";
+import { USER_AUTHORIZED } from "../actions/constants/authConstant";
+import { USER_SIGN_UP } from "../actions/constants/authConstant";
 
 export type AuthState = {
   readonly isAuthenticated: boolean;
-  readonly access_token: string;
+  readonly userData: {};
 };
 
 const initialState: AuthState = {
   isAuthenticated: false,
-  access_token: "",
+  userData: {},
 };
 
 const authReducer = (state = initialState, action: any) => {
@@ -15,6 +17,23 @@ const authReducer = (state = initialState, action: any) => {
     case USER_SIGN_UP:
       return {
         ...state,
+      };
+    case LOGIN_USER:
+      return {
+        ...state,
+        isAuthenticated: true,
+        userData: action.payload,
+      };
+    case LOGOUT_USER:
+      return {
+        ...state,
+        isAuthenticated: false,
+        userData: null,
+      };
+    case USER_AUTHORIZED:
+      return {
+        ...state,
+        isAuthenticated: true,
       };
     default:
       return {

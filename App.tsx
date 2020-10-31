@@ -11,7 +11,11 @@ import { assetShop } from "./src/Screens/Jewellery/Shop";
 import { assetsVendor } from "./src/Screens/Jewellery/Vendors";
 import { assetsWorker } from "./src/Screens/Jewellery/Workers";
 import { NotificationAssets } from "./src/Screens/Notifications";
+
 import { store } from "./src/store";
+import { logoutUser, userAuthorized } from "./src/actions/authActions";
+import restServices from "./src/services/restServices";
+import { Token } from "client-oauth2";
 const assets = [
   ...headerAssets,
   ...iconAssets,
@@ -28,6 +32,29 @@ const fonts = {
   SFProTextRegular: require("./assets/fonts/SF-Pro-Text-Regular.otf"),
   SFProTextSemiBold: require("./assets/fonts/SF-Pro-Text-Semibold.otf"),
 };
+
+/**
+ * check if accessToken is available already
+ * if available then @isAuthenticated
+ * else !@isAuthenticated
+ */
+function lookForToken() {
+  const _res = new restServices();
+  _res
+    .getToken()
+    .then((res) => {
+      console.log("tokenToken", res);
+      if (res.access_token) {
+        store.dispatch<any>(userAuthorized());
+      } else {
+        store.dispatch<any>(logoutUser());
+      }
+    })
+    .catch((err) => {
+      store.dispatch<any>(logoutUser());
+    });
+}
+lookForToken();
 
 function App() {
   return (
