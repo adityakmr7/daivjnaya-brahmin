@@ -5,11 +5,20 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { combineAuthStackProps } from ".";
-
+import { userSignup } from "../../actions/authActions";
+import { connect } from "react-redux";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
-interface LoginProps {
+interface SignupProps {
   navigation: combineAuthStackProps<"SignUp">;
+  userSignUp: (
+    email: string,
+    password: string,
+
+    firstName: string,
+    lastName: string,
+    navigation: any
+  ) => void;
 }
 
 const validationSchema = Yup.object().shape({
@@ -18,7 +27,7 @@ const validationSchema = Yup.object().shape({
   fName: Yup.string().required(), //TODO: Validate Email
 });
 
-const SignUp = ({ navigation }: LoginProps) => {
+const SignUp = ({ navigation, userSignUp }: SignupProps) => {
   const {
     handleChange,
     handleBlur,
@@ -36,8 +45,13 @@ const SignUp = ({ navigation }: LoginProps) => {
       callback: false,
     },
     onSubmit: (values) => {
-      navigation.navigate("Home");
-      console.log(values);
+      const { email, password, fName } = values;
+      const fullName = fName.split(" ");
+      const firstName = fullName[0];
+      const lastName = fullName[1];
+      userSignUp(email, password, firstName, lastName, navigation);
+
+      // navigation.navigate("Home");
     },
   });
   return (
@@ -84,7 +98,7 @@ const SignUp = ({ navigation }: LoginProps) => {
               touched={touched.password}
             />
           </Box>
-          <LargeButton onPress={handleSubmit} label={"LOGIN"} />
+          <LargeButton onPress={handleSubmit} label={"SING UP"} />
           <Box paddingVertical="s" alignItems="center">
             <TouchableWithoutFeedback
               onPress={() => navigation.navigate("login")}
@@ -100,4 +114,18 @@ const SignUp = ({ navigation }: LoginProps) => {
   );
 };
 
-export default SignUp;
+function mapStateToProps(state: any) {
+  return { ...state };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  userSignUp: (
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+    navigation: any
+  ) => dispatch(userSignup(email, password, firstName, lastName, navigation)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

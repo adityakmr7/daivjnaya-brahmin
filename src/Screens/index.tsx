@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Feather as Icon } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
 import { theme, Box, Text, HeaderBackButton } from "../components";
@@ -20,11 +20,10 @@ import JewelleryStack from "./Jewellery";
 import CareerTab from "./Careers";
 import Pricing from "./GoldAndSilverPricing";
 import AuthNavigation from "./Authentication";
+import { connect } from "react-redux";
 export const AppStack = createStackNavigator<AppRoutes>();
 
-const AppNavigation = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+const AppNavigation = (props: any) => {
   return (
     <AppStack.Navigator
       screenOptions={{
@@ -33,7 +32,7 @@ const AppNavigation = () => {
         },
       }}
     >
-      {isAuthenticated ? (
+      {props.isAuthenticated ? (
         <>
           <AppStack.Screen
             options={({ navigation }) => ({
@@ -195,4 +194,15 @@ const AppNavigation = () => {
   );
 };
 
-export default AppNavigation;
+function mapStateToProps(state: any) {
+  const { isAuthenticated } = state.auth;
+  return {
+    isAuthenticated,
+  };
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppNavigation);

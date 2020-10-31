@@ -2,7 +2,7 @@ import { ThemeProvider } from "@shopify/restyle";
 import React from "react";
 import { Provider } from "react-redux";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Box, LoadAssets, theme, Text } from "./src/components";
+import { LoadAssets, theme } from "./src/components";
 import AppNavigation from "./src/Screens";
 import { B2BAssets } from "./src/Screens/B2B";
 import { assetsKarwar } from "./src/Screens/communityHub/Karwar";
@@ -29,7 +29,7 @@ const fonts = {
   SFProTextSemiBold: require("./assets/fonts/SF-Pro-Text-Semibold.otf"),
 };
 
-export default function App() {
+function App() {
   return (
     <Provider store={store}>
       <ThemeProvider {...{ theme }}>
@@ -42,3 +42,5 @@ export default function App() {
     </Provider>
   );
 }
+
+export default App;

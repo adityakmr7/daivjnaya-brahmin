@@ -4,20 +4,23 @@ import { Box, LargeButton, Text, TextField } from "../../components";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { combineAuthStackProps } from ".";
+import { combineAuthStackProps } from "./index";
+import { connect } from "react-redux";
+import { userLogin } from "../../actions/authActions";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface LoginProps {
   navigation: combineAuthStackProps<"login">;
+  getLogin: (email: string, password: string, navigation: any) => void;
 }
 
 const validationSchema = Yup.object().shape({
   password: Yup.string().required(),
-  fName: Yup.string().required(), //TODO: Validate Email
+  email: Yup.string().required(), //TODO: Validate Email
 });
 
-const Login = ({ navigation }: LoginProps) => {
+const Login = ({ navigation, getLogin }: LoginProps) => {
   const {
     handleChange,
     handleBlur,
@@ -30,12 +33,17 @@ const Login = ({ navigation }: LoginProps) => {
     validationSchema,
     initialValues: {
       password: "",
-      fName: "",
+      email: "",
       callback: false,
     },
-    onSubmit: (values) => {
-      navigation.navigate("Home");
-      console.log(values);
+    onSubmit: async (values) => {
+      //navigation.navigate("Home");
+      // console.log(values);
+      try {
+        getLogin(values.email, values.password, navigation);
+      } catch (e) {
+        console.log(e);
+      }
     },
   });
   return (
@@ -56,11 +64,11 @@ const Login = ({ navigation }: LoginProps) => {
         <Box marginHorizontal="l">
           <Box>
             <TextField
-              onChangeText={handleChange("fName")}
-              placeholder="Full Name"
-              onBlur={handleBlur("fName")}
-              error={errors.fName}
-              touched={touched.fName}
+              onChangeText={handleChange("email")}
+              placeholder="email"
+              onBlur={handleBlur("email")}
+              error={errors.email}
+              touched={touched.email}
             />
           </Box>
           <Box>
@@ -93,4 +101,15 @@ const Login = ({ navigation }: LoginProps) => {
   );
 };
 
-export default Login;
+function mapStateToProps(state: any) {
+  return { ...state };
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    getLogin: (email: string, password: string, navigation: any) =>
+      dispatch(userLogin(email, password, navigation)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
