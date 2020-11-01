@@ -8,6 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import SeeAllFriends from "./SeeAllFriends";
 import { AppRoutes } from "../../components/NavigationRoutes";
 import GalleryStack from "./Gallery";
+import EditProfile from "./EditProfile";
 const Tab = createBottomTabNavigator();
 
 const AppStack = createStackNavigator<AppRoutes>();
@@ -23,6 +24,11 @@ const ProfileStack = () => {
     <AppStack.Navigator initialRouteName="Profile">
       <AppStack.Screen name="Profile" component={MyProfile} />
       <AppStack.Screen name="FriendList" component={SeeAllFriends} />
+      <AppStack.Screen
+        name="EditProfile"
+        options={{ title: "Edit Profile" }}
+        component={EditProfile}
+      />
     </AppStack.Navigator>
   );
 };

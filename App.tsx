@@ -66,6 +66,9 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
+    if (error.response.status !== 401) {
+      return Promise.reject(error);
+    }
     if (error.response && error.response.status === 401) {
       console.log("token expired");
       const _rest = new restServices();
@@ -75,10 +78,9 @@ axios.interceptors.response.use(
           console.log("interceptor", res);
           let data = new FormData();
           data.append("grant_type", "refresh_token");
-          data.append("refresh_token", res.refresh_token);
+          data.append("refresh_token", res);
           const base64 = require("base-64");
           const hash = "Basic " + base64.encode("karthik:karthik");
-
           let config: AxiosRequestConfig = {
             method: "post",
             url: "http://3.128.29.232/oauth/token",
@@ -87,19 +89,19 @@ axios.interceptors.response.use(
             },
             data: data,
           };
+          console.log("inteceptordata", data);
           axios(config)
-            .then((res) => {
-              console.log("interceptorlog", res.data);
+            .then((response) => {
+              console.log("interceptorlogResponse", response.data);
+              _rest.saveToken(response.data);
             })
             .catch((err) => {
-              console.log("interceptorlog", err);
+              _rest.removeAccessToken();
             });
         })
         .catch((err) => {
-          console.log(err);
+          _rest.removeAccessToken();
         });
-    } else {
-      // Do Something here
     }
   }
 );

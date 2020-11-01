@@ -82,7 +82,7 @@ const MyProfile = ({
       headerShown: false,
     });
   }, [navigation]);
-  const refRBSheet = useRef();
+  const refRBSheet = useRef<any | undefined>();
   const handleDrawer = () => refRBSheet.current.open();
   // "loading": false,
   // "userProfileData"
@@ -141,7 +141,12 @@ const MyProfile = ({
               top: 80,
             }}
           >
-            <RoundedBorderButton label={"Edit Profile"} onPress={() => {}} />
+            <RoundedBorderButton
+              label={"Edit Profile"}
+              onPress={() =>
+                navigation.navigate("EditProfile", { ...userProfileData })
+              }
+            />
           </Box>
         </Box>
         <IntroSection {...{ firstName, lastName, location, work, workAt }} />

@@ -30,6 +30,7 @@ class restServices {
   saveToken = async (value: {}) => {
     try {
       await AsyncStorage.setItem("userData", JSON.stringify(value));
+      console.log("saveToken Triggered");
     } catch (e) {
       console.log(e);
     }

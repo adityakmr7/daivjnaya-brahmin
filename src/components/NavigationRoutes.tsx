@@ -13,7 +13,21 @@ export type AppRoutes = {
   Register: undefined;
   FriendList: { username: string };
   Videos: undefined;
+
+  //profile
   Profile: undefined;
+  EditProfile: {
+    email: string;
+    firstName: string;
+    isEnabled: string;
+    lastName: string;
+    location: string;
+    phoneNumber: string;
+    studyAt: string;
+    uId: string;
+    work: string;
+    workAt: string;
+  };
   Gallery: undefined;
   Message: undefined;
   //Matrimony
