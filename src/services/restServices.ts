@@ -27,6 +27,17 @@ class restServices {
     axios(config);
   };
 
+  put = async (url: string) => {
+    let config: AxiosRequestConfig = {
+      method: "put",
+      url: this.baseUrl + url,
+      headers: {
+        Authorization: "Bearer " + (await this.getAccessToken()),
+      },
+    };
+    axios(config);
+  };
+
   saveToken = async (value: {}) => {
     try {
       await AsyncStorage.setItem("userData", JSON.stringify(value));

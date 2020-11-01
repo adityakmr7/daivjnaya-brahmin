@@ -1,28 +1,46 @@
 import React from "react";
 import { Box, CheckBox, LargeButton, Text, TextField } from "../../components";
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Keyboard, KeyboardAvoidingView } from "react-native";
 import {
   ScrollView,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
-import { StackNavigationProps } from "../../components/NavigationRoutes";
-interface EditProfileProps {}
+import {
+  AppRoutes,
+  StackNavigationProps,
+} from "../../components/NavigationRoutes";
+import { editProfile } from "../../actions/userActions";
+import { connect } from "react-redux";
+import { RouteProp } from "@react-navigation/native";
+interface EditProfileProps {
+  navigation: StackNavigationProps<"EditProfile">;
+  route: StackNavigationProps<"EditProfile">;
+  editProfile: () => void;
+}
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required(),
-  lastName: Yup.string().required(),
-  phoneNumber: Yup.string().length(10).required(),
-  location: Yup.string().required(),
-  studyAt: Yup.string().required(),
-  workAt: Yup.string().required(),
-  work: Yup.string().required(),
-  bio: Yup.string().required(),
+  firstName: Yup.string(),
+  lastName: Yup.string(),
+  phoneNumber: Yup.string().length(10),
+  location: Yup.string(),
+  studyAt: Yup.string(),
+  workAt: Yup.string(),
+  work: Yup.string(),
+  bio: Yup.string(),
 });
+// StackNavigationProps<"EditProfile">
+
 const EditProfile = ({
   navigation,
   route,
-}: StackNavigationProps<"EditProfile">) => {
+  editProfile,
+}: {
+  navigation: StackNavigationProps<"EditProfile">;
+  route: RouteProp<AppRoutes, "EditProfile">;
+  editProfile: (data: {}) => void;
+}) => {
+  // const { navigation, route, editProfile } = props;
   const {
     email,
     firstName,
@@ -34,7 +52,6 @@ const EditProfile = ({
     work,
     workAt,
   } = route.params;
-  console.log("paramData", route.params);
 
   const {
     handleChange,
@@ -57,8 +74,12 @@ const EditProfile = ({
       bio: "",
       callback: false,
     },
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      try {
+        editProfile(values);
+      } catch (e) {
+        console.log("error Here", e);
+      }
     },
   });
   return (
@@ -150,4 +171,12 @@ const EditProfile = ({
   );
 };
 
-export default EditProfile;
+function mapStateToProps(state: any) {
+  return { ...state };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  editProfile: (data: {}) => dispatch(editProfile(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);

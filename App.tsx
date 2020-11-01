@@ -75,24 +75,34 @@ axios.interceptors.response.use(
       _rest
         .getRefreshToken()
         .then((res) => {
-          console.log("interceptor", res);
           let data = new FormData();
           data.append("grant_type", "refresh_token");
           data.append("refresh_token", res);
           const base64 = require("base-64");
           const hash = "Basic " + base64.encode("karthik:karthik");
-          let config: AxiosRequestConfig = {
-            method: "post",
-            url: "http://3.128.29.232/oauth/token",
-            headers: {
-              Authorization: hash,
-            },
-            data: data,
+          let myHeaders = new Headers();
+          myHeaders.append("Authorization", hash);
+
+          var requestOptions: any = {
+            method: "POST",
+            headers: myHeaders,
+            body: data,
+            redirect: "follow",
           };
-          console.log("inteceptordata", data);
-          axios(config)
+
+          // let config: AxiosRequestConfig = {
+          //   method: "post",
+          //   url: "http://3.128.29.232/oauth/token",
+          //   headers: {
+          //     Authorization: hash,
+          //   },
+          //   data: data,
+          // };
+          // console.log("interceptorData", data);
+          fetch("http://3.128.29.232/oauth/token", requestOptions)
+            .then((response) => response.json())
             .then((response) => {
-              console.log("interceptorlogResponse", response.data);
+              console.log("interceptorResponse", response.data);
               _rest.saveToken(response.data);
             })
             .catch((err) => {

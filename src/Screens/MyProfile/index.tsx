@@ -11,7 +11,7 @@ import GalleryStack from "./Gallery";
 import EditProfile from "./EditProfile";
 const Tab = createBottomTabNavigator();
 
-const AppStack = createStackNavigator<AppRoutes>();
+export const AppStack = createStackNavigator<AppRoutes>();
 const VideoStack = () => {
   return (
     <AppStack.Navigator>
