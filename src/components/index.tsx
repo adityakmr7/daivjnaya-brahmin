@@ -9,3 +9,4 @@ export { default as TextField } from "./TextField";
 export { default as AvatarImage } from "./AvatarImage";
 export { default as HeaderBackButton } from "./HeaderBackButton";
 export { default as HorizontalCard } from "./HorizontalCard";
+export { default as Loading } from "./Loading";

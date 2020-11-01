@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { Box, Text, HorizontalCard } from "../../components";
+import { connect } from "react-redux";
+import { getAllMatrimonyProfile } from "../../actions/matrimonyActions";
+import { Box, Text, HorizontalCard, Loading } from "../../components";
 import { combineTabWithStackProps } from "./MatrimonyRoutes";
 
 export const BrideList = [
@@ -40,8 +42,23 @@ export const BrideList = [
 
 interface BrideProps {
   navigation: combineTabWithStackProps<"Bride">;
+  brideList: {
+    loading: boolean;
+    matrimonyProfileList: [];
+    error: string;
+  };
+  getAllBride: (gender: string) => void;
 }
-const Bride = ({ navigation }: BrideProps) => {
+const Bride = ({ navigation, brideList, getAllBride }: BrideProps) => {
+  useEffect(() => {
+    getAllBride("FEMALE");
+  }, [getAllBride]);
+
+  const { loading, matrimonyProfileList, error } = brideList;
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <ScrollView>
       <Box backgroundColor="iconBackground" flex={1}>
@@ -65,4 +82,14 @@ const Bride = ({ navigation }: BrideProps) => {
   );
 };
 
-export default Bride;
+function mapStateToProps(state: any) {
+  return {
+    brideList: state.matrimony,
+  };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  getAllBride: (gender: string) => dispatch(getAllMatrimonyProfile(gender)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Bride);
