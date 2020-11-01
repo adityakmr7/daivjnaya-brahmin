@@ -1,15 +1,31 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 // import AsyncStorage from "@react-native-community/async-storage";
 import { AsyncStorage } from "react-native";
 class restServices {
   baseUrl = "http://3.128.29.232";
 
-  get(url: string) {
-    axios
-      .get(this.baseUrl + url)
-      .then((res) => res)
-      .catch((err) => console.log(err));
-  }
+  get = async (url: string) => {
+    let config: AxiosRequestConfig = {
+      method: "get",
+      url: this.baseUrl + url,
+      headers: {
+        Authorization: "Bearer " + (await this.getAccessToken()),
+      },
+    };
+    return axios(config)
+  };
+
+  post = async (url: string, data: {}) => {
+    let config: AxiosRequestConfig = {
+      method: "post",
+      url: this.baseUrl + url,
+      headers: {
+        Authorization: "Bearer" + (await this.getAccessToken()),
+      },
+      data: data,
+    };
+    axios(config)
+  };
 
   saveToken = async (value: {}) => {
     try {
@@ -24,6 +40,25 @@ class restServices {
       let data: any = JSON.parse(userData);
       console.log("getToken", data);
       return data;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  getRefreshToken = async () => {
+    try {
+      let userData: any = await AsyncStorage.getItem("userData");
+      let data: any = JSON.parse(userData);
+      return data["refresh_token"];
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  getAccessToken = async () => {
+    try {
+      let userData: any = await AsyncStorage.getItem("userData");
+      let data: any = JSON.parse(userData);
+      
+      return data["access_token"];
     } catch (e) {
       console.log(e);
     }

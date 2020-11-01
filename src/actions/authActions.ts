@@ -5,7 +5,7 @@ import {
   USER_SIGN_UP,
   USER_SIGN_UP_ERROR,
 } from "./constants/authConstant";
-import { LOGIN_USER_TOKEN, SIGN_IN_USER } from "./../api/endpoints";
+import { _sign_in_user, _login_user } from "./../api/endpoints";
 import axios, { AxiosPromise, AxiosRequestConfig, AxiosResponse } from "axios";
 import restServices from "../services/restServices";
 
@@ -62,7 +62,7 @@ export const userLogin = (email: string, password: string, navigation: any) => (
   data.append("grant_type", "password");
   let config: AxiosRequestConfig = {
     method: "post",
-    url: LOGIN_USER_TOKEN,
+    url: _login_user,
     headers: {
       Authorization: hash,
     },

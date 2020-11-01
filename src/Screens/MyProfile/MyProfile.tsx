@@ -1,11 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { Image, Platform } from "react-native";
 import { Box, Text } from "../../components";
 import { StackNavigationProps } from "../../components/NavigationRoutes";
 import { Feather as Icon } from "@expo/vector-icons";
 import RBSheet from "react-native-raw-bottom-sheet";
-
+import { connect } from "react-redux";
 import {
   RectButton,
   ScrollView,
@@ -19,6 +19,7 @@ import {
   PostCard,
   RoundedBorderButton,
 } from "./components";
+import { getUserDetail } from "../../actions/userActions";
 
 export const friends = [
   {
@@ -65,7 +66,12 @@ export const profileAssets = Posts.map((item) => [
   item.video,
 ]);
 
-const MyProfile = ({ navigation }: StackNavigationProps<"MyProfile">) => {
+interface MyProfileProps {
+  navigation: StackNavigationProps<"MyProfile"> | any;
+  getUserDetail: () => void;
+}
+
+const MyProfile = ({ navigation, getUserDetail }: MyProfileProps) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
@@ -73,6 +79,11 @@ const MyProfile = ({ navigation }: StackNavigationProps<"MyProfile">) => {
   }, [navigation]);
   const refRBSheet = useRef();
   const handleDrawer = () => refRBSheet.current.open();
+
+  useEffect(() => {
+    getUserDetail();
+  }, []);
+
   return (
     <Box flex={1} backgroundColor="iconBackground">
       <StatusBar translucent={true} />
@@ -178,4 +189,12 @@ const MyProfile = ({ navigation }: StackNavigationProps<"MyProfile">) => {
   );
 };
 
-export default MyProfile;
+function mapStateToProps(state: any) {
+  return { ...state };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  getUserDetail: () => dispatch(getUserDetail()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);

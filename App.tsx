@@ -15,7 +15,7 @@ import { NotificationAssets } from "./src/Screens/Notifications";
 import { store } from "./src/store";
 import { logoutUser, userAuthorized } from "./src/actions/authActions";
 import restServices from "./src/services/restServices";
-
+import axios, { AxiosRequestConfig } from "axios";
 const assets = [
   ...headerAssets,
   ...iconAssets,
@@ -57,14 +57,59 @@ function lookForToken() {
 }
 lookForToken();
 
+/**
+ *  For refresh token This function
+ */
+
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      console.log("token expired");
+      const _rest = new restServices();
+      _rest
+        .getRefreshToken()
+        .then((res) => {
+          console.log("interceptor", res);
+          let data = new FormData();
+          data.append("grant_type", "refresh_token");
+          data.append("refresh_token", res.refresh_token);
+          const base64 = require("base-64");
+          const hash = "Basic " + base64.encode("karthik:karthik");
+
+          let config: AxiosRequestConfig = {
+            method: "post",
+            url: "http://3.128.29.232/oauth/token",
+            headers: {
+              Authorization: hash,
+            },
+            data: data,
+          };
+          axios(config)
+            .then((res) => {
+              console.log("interceptorlog", res.data);
+            })
+            .catch((err) => {
+              console.log("interceptorlog", err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      // Do Something here
+    }
+  }
+);
+
 function App() {
   return (
     <Provider store={store}>
       <ThemeProvider {...{ theme }}>
         <LoadAssets {...{ fonts, assets }}>
           <SafeAreaProvider>
-            
-
             <AppNavigation />
           </SafeAreaProvider>
         </LoadAssets>
