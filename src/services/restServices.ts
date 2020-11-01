@@ -12,7 +12,7 @@ class restServices {
         Authorization: "Bearer " + (await this.getAccessToken()),
       },
     };
-    return axios(config)
+    return axios(config);
   };
 
   post = async (url: string, data: {}) => {
@@ -20,11 +20,11 @@ class restServices {
       method: "post",
       url: this.baseUrl + url,
       headers: {
-        Authorization: "Bearer" + (await this.getAccessToken()),
+        Authorization: "Bearer " + (await this.getAccessToken()),
       },
       data: data,
     };
-    axios(config)
+    axios(config);
   };
 
   saveToken = async (value: {}) => {
@@ -57,7 +57,7 @@ class restServices {
     try {
       let userData: any = await AsyncStorage.getItem("userData");
       let data: any = JSON.parse(userData);
-      
+
       return data["access_token"];
     } catch (e) {
       console.log(e);

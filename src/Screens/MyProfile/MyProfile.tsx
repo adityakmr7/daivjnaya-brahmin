@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useLayoutEffect, useRef } from "react";
-import { Image, Platform } from "react-native";
+import { ActivityIndicator, Image, Platform } from "react-native";
 import { Box, Text } from "../../components";
 import { StackNavigationProps } from "../../components/NavigationRoutes";
 import { Feather as Icon } from "@expo/vector-icons";
@@ -69,9 +69,14 @@ export const profileAssets = Posts.map((item) => [
 interface MyProfileProps {
   navigation: StackNavigationProps<"MyProfile"> | any;
   getUserDetail: () => void;
+  profileData: any;
 }
 
-const MyProfile = ({ navigation, getUserDetail }: MyProfileProps) => {
+const MyProfile = ({
+  navigation,
+  getUserDetail,
+  profileData,
+}: MyProfileProps) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
@@ -79,11 +84,28 @@ const MyProfile = ({ navigation, getUserDetail }: MyProfileProps) => {
   }, [navigation]);
   const refRBSheet = useRef();
   const handleDrawer = () => refRBSheet.current.open();
-
+  // "loading": false,
+  // "userProfileData"
   useEffect(() => {
     getUserDetail();
   }, []);
-
+  const { loading, userProfileData } = profileData;
+  const {
+    firstName,
+    lastName,
+    location,
+    email,
+    work,
+    workAt,
+    phoneNumber,
+  } = userProfileData;
+  if (loading) {
+    return (
+      <Box flex={1} justifyContent="center" alignItems="center">
+        <ActivityIndicator />
+      </Box>
+    );
+  }
   return (
     <Box flex={1} backgroundColor="iconBackground">
       <StatusBar translucent={true} />
@@ -122,7 +144,7 @@ const MyProfile = ({ navigation, getUserDetail }: MyProfileProps) => {
             <RoundedBorderButton label={"Edit Profile"} onPress={() => {}} />
           </Box>
         </Box>
-        <IntroSection />
+        <IntroSection {...{ firstName, lastName, location, work, workAt }} />
         <Box
           paddingTop="xl"
           paddingHorizontal="s"
@@ -190,7 +212,9 @@ const MyProfile = ({ navigation, getUserDetail }: MyProfileProps) => {
 };
 
 function mapStateToProps(state: any) {
-  return { ...state };
+  return {
+    profileData: state.profile,
+  };
 }
 
 const mapDispatchToProps = (dispatch: any) => ({

@@ -1,5 +1,8 @@
-import { USER_DATA_LOADING , USER_DATA_SUCCESS,USER_DATA_ERROR} from "./constants/userConstants";
-import axios from "axios";
+import {
+  USER_DATA_LOADING,
+  USER_DATA_SUCCESS,
+  USER_DATA_ERROR,
+} from "./constants/userConstants";
 import restServices from "../services/restServices";
 import { _user_get_user } from "../api/endpoints";
 export const getUserDetail = () => (dispatch: any) => {
@@ -12,13 +15,13 @@ export const getUserDetail = () => (dispatch: any) => {
     .then((res) => {
       dispatch({
         type: USER_DATA_SUCCESS,
-        payload: res.data
-      })
+        payload: res.data,
+      });
     })
     .catch((err) => {
       dispatch({
         type: USER_DATA_ERROR,
-        error: err
-      })
+        error: err,
+      });
     });
 };
