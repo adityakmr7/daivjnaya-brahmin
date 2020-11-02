@@ -27,7 +27,7 @@ export const userSignup = (
 
   let config: AxiosRequestConfig = {
     method: "post",
-    url: "http://3.128.29.232/signup",
+    url: "http://3.128.109.207/signup",
     headers: {
       "Content-Type": "application/json",
     },
@@ -76,7 +76,7 @@ export const userLogin = (email: string, password: string, navigation: any) => (
       });
       const _rest = new restServices();
       _rest.saveToken(res.data);
-      //navigation.navigate('Home')
+      navigation.navigate("Home");
     })
     .catch((err) => console.log("errorResponse", err));
 };

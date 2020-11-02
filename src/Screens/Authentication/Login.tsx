@@ -1,5 +1,6 @@
 import React from "react";
-import { Dimensions, ToastAndroid } from "react-native";
+
+import { Dimensions, Image, ToastAndroid } from "react-native";
 import { Box, LargeButton, Text, TextField } from "../../components";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -7,7 +8,6 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { combineAuthStackProps } from "./index";
 import { connect } from "react-redux";
 import { userLogin } from "../../actions/authActions";
-
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface LoginProps {
@@ -62,7 +62,20 @@ const Login = ({ navigation, getLogin }: LoginProps) => {
       justifyContent="center"
       alignItems="center"
     >
-      <Box flex={1}></Box>
+      <Box
+        justifyContent="center"
+        alignItems="center"
+        height={wHeight / 2}
+        width={wWidth}
+        flex={1}
+      >
+        <Box style={{ marginTop: 100 }} height={wHeight / 3} width={wWidth / 2}>
+          <Image
+            style={{ height: "100%", width: "100%" }}
+            source={require("../../../assets/login-logo.png")}
+          />
+        </Box>
+      </Box>
       <Box
         borderTopLeftRadius="l"
         borderTopRightRadius="l"

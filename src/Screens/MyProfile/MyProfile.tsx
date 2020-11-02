@@ -129,12 +129,17 @@ const MyProfile = ({
           style={{ marginTop: 115, marginLeft: 20 }}
           flexDirection="row"
         >
-          <Box borderRadius="xl" height={140} width={140}>
-            <Image
-              style={{ height: 140, width: 140, borderRadius: 140 / 2 }}
-              source={friends[0].src}
-            />
-          </Box>
+          <TouchableWithoutFeedback
+            onPress={() => console.log("touched profile")}
+          >
+            <Box borderRadius="xl" height={140} width={140}>
+              <Image
+                style={{ height: 140, width: 140, borderRadius: 140 / 2 }}
+                source={friends[0].src}
+              />
+            </Box>
+          </TouchableWithoutFeedback>
+
           <Box
             style={{
               position: "relative",
