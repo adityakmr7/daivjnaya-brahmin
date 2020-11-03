@@ -140,130 +140,131 @@ const MyProfile = ({
         <ActivityIndicator />
       </Box>
     );
-  }
-  return (
-    <Box flex={1} backgroundColor="iconBackground">
-      <StatusBar translucent={true} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Box width={wWidth} height={20}>
-          <Image
-            height={20}
-            width={wWidth}
-            source={require("./assets/wall.png")}
-          />
-          <RectButton
-            onPress={() => navigation.pop()}
-            style={{ position: "absolute", top: 40, left: 10 }}
-          >
-            <Icon
-              size={30}
-              name={Platform.OS === "android" ? "arrow-left" : "chevron-left"}
-              color="white"
+  } else {
+    return (
+      <Box flex={1} backgroundColor="iconBackground">
+        <StatusBar translucent={true} />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Box width={wWidth} height={20}>
+            <Image
+              height={20}
+              width={wWidth}
+              source={require("./assets/wall.png")}
             />
-          </RectButton>
-        </Box>
-        <Box
-          marginHorizontal="xl"
-          justifyContent="space-between"
-          style={{ marginTop: 115, marginLeft: 20 }}
-          flexDirection="row"
-        >
-          <TouchableWithoutFeedback onPress={() => handleProfileUpdate()}>
-            <Box borderRadius="xl" height={140} width={140}>
-              {profileImage ? (
-                <Image
-                  style={{ height: 140, width: 140, borderRadius: 140 / 2 }}
-                  source={{ uri: profileImage }}
-                />
-              ) : (
-                <Box
-                  height={"100%"}
-                  width={"100%"}
-                  style={{ backgroundColor: "grey" }}
-                ></Box>
-              )}
-            </Box>
-          </TouchableWithoutFeedback>
+            <RectButton
+              onPress={() => navigation.pop()}
+              style={{ position: "absolute", top: 40, left: 10 }}
+            >
+              <Icon
+                size={30}
+                name={Platform.OS === "android" ? "arrow-left" : "chevron-left"}
+                color="white"
+              />
+            </RectButton>
+          </Box>
+          <Box
+            marginHorizontal="xl"
+            justifyContent="space-between"
+            style={{ marginTop: 115, marginLeft: 20 }}
+            flexDirection="row"
+          >
+            <TouchableWithoutFeedback onPress={() => handleProfileUpdate()}>
+              <Box borderRadius="xl" height={140} width={140}>
+                {profileImage ? (
+                  <Image
+                    style={{ height: 140, width: 140, borderRadius: 140 / 2 }}
+                    source={{ uri: profileImage }}
+                  />
+                ) : (
+                  <Box
+                    height={"100%"}
+                    width={"100%"}
+                    style={{ backgroundColor: "grey" }}
+                  ></Box>
+                )}
+              </Box>
+            </TouchableWithoutFeedback>
 
-          <Box
-            style={{
-              position: "relative",
-              top: 80,
-            }}
-          >
-            <RoundedBorderButton
-              label={"Edit Profile"}
-              onPress={() =>
-                navigation.navigate("EditProfile", { ...userProfileData })
-              }
-            />
+            <Box
+              style={{
+                position: "relative",
+                top: 80,
+              }}
+            >
+              <RoundedBorderButton
+                label={"Edit Profile"}
+                onPress={() =>
+                  navigation.navigate("EditProfile", { ...userProfileData })
+                }
+              />
+            </Box>
           </Box>
-        </Box>
-        <IntroSection {...userProfileData} />
-        <Box
-          paddingTop="xl"
-          paddingHorizontal="s"
-          flexDirection="row"
-          justifyContent="space-between"
-        >
-          <Box>
-            <Text variant="mainIconSubTitle">Friends</Text>
-            <Text fontSize={13} variant="silentText">
-              100 friends
-            </Text>
-          </Box>
-          <TouchableWithoutFeedback
-            onPress={() =>
-              navigation.navigate("FriendList", {
-                username: Posts[0].user,
-              })
-            }
-          >
-            <Text variant="seeAll">See all</Text>
-          </TouchableWithoutFeedback>
-        </Box>
-        <Box paddingHorizontal="s" paddingTop="l">
+          {userProfileData && <IntroSection {...userProfileData} />}
           <Box
-            marginBottom="s"
+            paddingTop="xl"
+            paddingHorizontal="s"
             flexDirection="row"
             justifyContent="space-between"
           >
-            {friends.map((item, i) => {
-              return <FriendsThumbnail key={i} {...{ item }} />;
-            })}
+            <Box>
+              <Text variant="mainIconSubTitle">Friends</Text>
+              <Text fontSize={13} variant="silentText">
+                100 friends
+              </Text>
+            </Box>
+            <TouchableWithoutFeedback
+              onPress={() =>
+                navigation.navigate("FriendList", {
+                  username: Posts[0].user,
+                })
+              }
+            >
+              <Text variant="seeAll">See all</Text>
+            </TouchableWithoutFeedback>
           </Box>
-          <Box flexDirection="row" justifyContent="space-between">
-            {friends.map((item, i) => {
-              return <FriendsThumbnail key={i} {...{ item }} />;
-            })}
+          <Box paddingHorizontal="s" paddingTop="l">
+            <Box
+              marginBottom="s"
+              flexDirection="row"
+              justifyContent="space-between"
+            >
+              {friends.map((item, i) => {
+                return <FriendsThumbnail key={i} {...{ item }} />;
+              })}
+            </Box>
+            <Box flexDirection="row" justifyContent="space-between">
+              {friends.map((item, i) => {
+                return <FriendsThumbnail key={i} {...{ item }} />;
+              })}
+            </Box>
           </Box>
-        </Box>
-        <CreatePost src={friends[0].src} />
-        <Box height={3} backgroundColor="mainBackground" />
-        {Posts.map((post, index) => {
-          return (
-            <PostCard onPress={handleDrawer} key={post.id} {...{ post }} />
-          );
-        })}
-        <Box backgroundColor="mainBackground" height={10} />
-        <RBSheet
-          ref={refRBSheet}
-          closeOnDragDown={true}
-          closeOnPressMask={false}
-          customStyles={{
-            wrapper: {
-              backgroundColor: "transparent",
-            },
-            draggableIcon: {
-              backgroundColor: "#000",
-            },
-          }}
-        >
-          <BottomDrawerComponent />
-        </RBSheet>
-      </ScrollView>
-    </Box>
-  );
+          <CreatePost src={friends[0].src} />
+          <Box height={3} backgroundColor="mainBackground" />
+          {Posts.map((post, index) => {
+            return (
+              <PostCard onPress={handleDrawer} key={post.id} {...{ post }} />
+            );
+          })}
+          <Box backgroundColor="mainBackground" height={10} />
+          <RBSheet
+            ref={refRBSheet}
+            closeOnDragDown={true}
+            closeOnPressMask={false}
+            customStyles={{
+              wrapper: {
+                backgroundColor: "transparent",
+              },
+              draggableIcon: {
+                backgroundColor: "#000",
+              },
+            }}
+          >
+            <BottomDrawerComponent />
+          </RBSheet>
+        </ScrollView>
+      </Box>
+    );
+  }
 };
 
 function mapStateToProps(state: any) {

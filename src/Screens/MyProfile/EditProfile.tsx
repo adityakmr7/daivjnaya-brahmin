@@ -158,6 +158,22 @@ const EditProfile = ({
                 placeholder="Live"
               />
               <TextField
+                value={values.designation}
+                onChangeText={handleChange("designation")}
+                onBlur={handleBlur("designation")}
+                error={errors.designation}
+                touched={touched.designation}
+                placeholder="Designation"
+              />
+              <TextField
+                value={values.livesIn}
+                onChangeText={handleChange("livesIn")}
+                onBlur={handleBlur("livesIn")}
+                error={errors.livesIn}
+                touched={touched.livesIn}
+                placeholder="lives In"
+              />
+              <TextField
                 value={values.bio}
                 onChangeText={handleChange("bio")}
                 onBlur={handleBlur("bio")}

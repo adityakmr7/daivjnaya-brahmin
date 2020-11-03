@@ -3,11 +3,14 @@ import { Box, Text } from "../../../components";
 import { Feather as Icon } from "@expo/vector-icons";
 import { userProfileProps } from "../interfaces";
 
-interface IntroSectionProps {
-  userProfileData: userProfileProps;
-}
-const IntroSection = ({ userProfileData }: IntroSectionProps) => {
-  const { firstName, lastName, companyName, city, address } = userProfileData;
+const IntroSection = ({
+  firstName,
+  lastName,
+  companyName,
+  city,
+  address,
+}: userProfileProps) => {
+  // const { firstName, lastName, companyName, city, address } = userProfileData;
   return (
     <Box paddingHorizontal="m" paddingVertical="s">
       <Text variant="sectionTitle">
