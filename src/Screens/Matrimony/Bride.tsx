@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { getAllMatrimonyProfile } from "../../actions/matrimonyActions";
@@ -50,7 +50,7 @@ interface BrideProps {
   getAllBride: (gender: string) => void;
 }
 const Bride = ({ navigation, brideList, getAllBride }: BrideProps) => {
-  useEffect(() => {
+  useLayoutEffect(() => {
     getAllBride("FEMALE");
   }, [getAllBride]);
 

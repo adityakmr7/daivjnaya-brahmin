@@ -87,10 +87,10 @@ export const userAuthorized = () => (dispatch: any) => {
   });
 };
 
-export const logoutUser = () => (dispatch: any) => {
+export const logoutUser = () => async (dispatch: any) => {
   dispatch({
     type: LOGOUT_USER,
   });
   let _res = new restServices();
-  _res.removeAccessToken();
+  await _res.removeAccessToken();
 };

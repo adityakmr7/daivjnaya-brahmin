@@ -20,3 +20,8 @@ export const _matrimony_get_all_profile = "/matrimony/profile/all";
 export const _matrimony_delete_single_profile = "/matrimony/profile/";
 export const _matrimony_get_single_profile = "/matrimony/profile/";
 export const _matrimony_update_single_profile = "/matrimony/profile/";
+
+/**
+ * Post Controller
+ *
+ */

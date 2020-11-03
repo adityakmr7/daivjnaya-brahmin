@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ActivityIndicator, Image, Platform } from "react-native";
 import { Box, Text } from "../../components";
 import { StackNavigationProps } from "../../components/NavigationRoutes";
@@ -19,8 +19,12 @@ import {
   PostCard,
   RoundedBorderButton,
 } from "./components";
-import { getUserDetail } from "../../actions/userActions";
-
+import {
+  getUserDetail,
+  updateUserProfilePicture,
+} from "../../actions/userActions";
+import { getAllPost } from "../../actions/postActions";
+import * as ImagePicker from "expo-image-picker";
 export const friends = [
   {
     id: 1,
@@ -69,25 +73,31 @@ export const profileAssets = Posts.map((item) => [
 interface MyProfileProps {
   navigation: StackNavigationProps<"MyProfile"> | any;
   getUserDetail: () => void;
+  getPostList: () => void;
+  updateProfile: (url: string) => void;
   profileData: any;
 }
 
 const MyProfile = ({
   navigation,
   getUserDetail,
+  getPostList,
   profileData,
+  updateProfile,
 }: MyProfileProps) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
   }, [navigation]);
+  const [profileImage, setProfileImage] = useState<string>("");
   const refRBSheet = useRef<any | undefined>();
   const handleDrawer = () => refRBSheet.current.open();
   // "loading": false,
   // "userProfileData"
   useEffect(() => {
     getUserDetail();
+    getPostList();
   }, []);
   const { loading, userProfileData } = profileData;
   const {
@@ -99,6 +109,28 @@ const MyProfile = ({
     workAt,
     phoneNumber,
   } = userProfileData;
+
+  const handleProfileUpdate = async () => {
+    if (Platform.OS !== "web") {
+      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+      if (status !== "granted") {
+        alert("Sorry, we need camera Permissions");
+      } else {
+        const result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+          //base64: true,
+        });
+
+        if (!result.cancelled) {
+          setProfileImage(result.uri);
+          updateProfile(result.uri);
+        }
+      }
+    }
+  };
   if (loading) {
     return (
       <Box flex={1} justifyContent="center" alignItems="center">
@@ -129,13 +161,11 @@ const MyProfile = ({
           style={{ marginTop: 115, marginLeft: 20 }}
           flexDirection="row"
         >
-          <TouchableWithoutFeedback
-            onPress={() => console.log("touched profile")}
-          >
+          <TouchableWithoutFeedback onPress={() => handleProfileUpdate()}>
             <Box borderRadius="xl" height={140} width={140}>
               <Image
                 style={{ height: 140, width: 140, borderRadius: 140 / 2 }}
-                source={friends[0].src}
+                source={profileImage ? { uri: profileImage } : friends[0].src}
               />
             </Box>
           </TouchableWithoutFeedback>
@@ -229,6 +259,8 @@ function mapStateToProps(state: any) {
 
 const mapDispatchToProps = (dispatch: any) => ({
   getUserDetail: () => dispatch(getUserDetail()),
+  getPostList: () => dispatch(getAllPost()),
+  updateProfile: (url: string) => dispatch(updateUserProfilePicture(url)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);

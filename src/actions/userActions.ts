@@ -6,6 +6,7 @@ import {
   USER_EDIT_PROFILE_SUCCESS,
   USER_EDIT_PROFILE_ERROR,
 } from "./constants/userConstants";
+import axios, { AxiosRequestConfig } from "axios";
 import restServices from "../services/restServices";
 import { _user_get_user } from "../api/endpoints";
 export const getUserDetail = () => (dispatch: any) => {
@@ -30,11 +31,11 @@ export const getUserDetail = () => (dispatch: any) => {
 };
 
 export const editProfile = (data: {}) => (dispatch: any) => {
-  console.log("editData", data);
   const _rest = new restServices();
   _rest
     .put(
-      `${_user_update_user}?firstName=${data.firstName}&lastName=${data.lastName}&phoneNumber=${data.phoneNumber}&location=${data.location}&studyAt=${data.studyAt}&workAt=${data.workAt}&work=${data.work}&bio=${data.bio}`
+      `${_user_update_user}?firstName=${data.firstName}&lastName=${data.lastName}&phoneNumber=${data.phoneNumber}&location=${data.location}&studyAt=${data.studyAt}&workAt=${data.workAt}&work=${data.work}&bio=${data.bio}`,
+      {}
     )
     .then((res) => {
       dispatch({
@@ -47,5 +48,42 @@ export const editProfile = (data: {}) => (dispatch: any) => {
         type: USER_EDIT_PROFILE_ERROR,
         error: err,
       });
+    });
+};
+
+//Forgot password
+export const updatePassword = (data: string) => async (dispatch: any) => {
+  const _rest = new restServices();
+  _rest
+    .put("/user/password", data)
+    .then((res) => console.log("updatePass", res))
+    .catch((err) => console.log("updatePass", err));
+};
+
+// Error giving 400 error
+export const updateUserProfilePicture = (url: string) => async (
+  dispatch: any
+) => {
+  var data = new FormData();
+
+  data.append("profilepic", url);
+
+  const _rest = new restServices();
+  const token = await _rest.getAccessToken();
+  var config: AxiosRequestConfig = {
+    method: "put",
+    url: "http://3.128.109.207/user/profilePic",
+    headers: {
+      Authorization: "Bearer " + token,
+      "Content-Type": "multipart/form-data",
+    },
+    data: data,
+  };
+  axios(config)
+    .then((res) => {
+      console.log("profileUpdate", res);
+    })
+    .catch((err) => {
+      console.log("profileupdate", err);
     });
 };

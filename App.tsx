@@ -65,53 +65,75 @@ axios.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => {
+  async (error) => {
     if (error.response.status !== 401) {
       return Promise.reject(error);
     }
     if (error.response && error.response.status === 401) {
       console.log("token expired");
+
       const _rest = new restServices();
-      _rest
-        .getRefreshToken()
-        .then((res) => {
-          let data = new FormData();
-          data.append("grant_type", "refresh_token");
-          data.append("refresh_token", res);
-          const base64 = require("base-64");
-          const hash = "Basic " + base64.encode("karthik:karthik");
-          let myHeaders = new Headers();
-          myHeaders.append("Authorization", hash);
+      const base64 = require("base-64");
+      const hash = "Basic " + base64.encode("karthik:karthik");
+      let myHeaders = new Headers();
+      myHeaders.append("Authorization", hash);
 
-          var requestOptions: any = {
-            method: "POST",
-            headers: myHeaders,
-            body: data,
-            redirect: "follow",
-          };
-
-          // let config: AxiosRequestConfig = {
-          //   method: "post",
-          //   url: "http://3.128.29.232/oauth/token",
-          //   headers: {
-          //     Authorization: hash,
-          //   },
-          //   data: data,
-          // };
-          // console.log("interceptorData", data);
-          fetch("http://3.128.109.207/oauth/token", requestOptions)
-            .then((response) => response.json())
-            .then((response) => {
-              console.log("interceptorResponse", response.data);
-              _rest.saveToken(response.data);
-            })
-            .catch((err) => {
-              _rest.removeAccessToken();
-            });
+      let data = new FormData();
+      data.append("grant_type", "refresh_token");
+      data.append("refresh_token", await _rest.getRefreshToken());
+      var requestOptions: any = {
+        method: "POST",
+        headers: myHeaders,
+        body: data,
+        redirect: "follow",
+      };
+      fetch("http://3.128.109.207/oauth/token", requestOptions)
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.error) {
+            store.dispatch(logoutUser());
+          } else {
+            console.log("interceptor", result);
+            _rest.saveToken(result.data);
+          }
+          // console.log("interceptor", result);
+          // _rest.saveToken(result.data);
         })
-        .catch((err) => {
-          _rest.removeAccessToken();
+        .catch((error) => {
+          console.log("inter", error);
+          store.dispatch(logoutUser());
         });
+
+      // _rest
+      //   .getRefreshToken()
+      //   .then((res) => {
+      //     const base64 = require("base-64");
+      //     const hash = "Basic " + base64.encode("karthik:karthik");
+      //     let myHeaders = new Headers();
+      //     myHeaders.append("Authorization", hash);
+
+      //     let data = new FormData();
+      //     data.append("grant_type", "refresh_token");
+      //     data.append("refresh_token", res);
+      //     var requestOptions: any = {
+      //       method: "POST",
+      //       headers: myHeaders,
+      //       body: data,
+      //       redirect: "follow",
+      //     };
+      //     fetch("http://3.128.109.207/oauth/token", requestOptions)
+      //       .then((response) => response.json())
+      //       .then((result) => {
+      //         console.log("interceptorResponse", result);
+      //         _rest.saveToken(result.data);
+      //       })
+      //       .catch((er) => {
+      //         _rest.removeAccessToken();
+      //       });
+      //   })
+      // .catch((err) => {
+      //   _rest.removeAccessToken();
+      // });
     }
   }
 );

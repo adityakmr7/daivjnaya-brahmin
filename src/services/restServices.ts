@@ -24,10 +24,10 @@ class restServices {
       },
       data: data,
     };
-    axios(config);
+    return axios(config);
   };
 
-  put = async (url: string) => {
+  put = async (url: string, data: any) => {
     let config: AxiosRequestConfig = {
       method: "put",
       url: this.baseUrl + url,
@@ -35,7 +35,7 @@ class restServices {
         Authorization: "Bearer " + (await this.getAccessToken()),
       },
     };
-    axios(config);
+    return axios(config);
   };
 
   saveToken = async (value: {}) => {
