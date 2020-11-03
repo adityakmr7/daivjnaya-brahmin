@@ -2,6 +2,8 @@ import {
   USER_DATA_ERROR,
   USER_DATA_LOADING,
   USER_DATA_SUCCESS,
+  USER_PROFILE_PICTURE_ERROR,
+  USER_PROFILE_PICTURE_SUCCESS,
 } from "./../actions/constants/userConstants";
 
 const initialState = {
@@ -29,6 +31,17 @@ const userReducer = (state = initialState, action: any) => {
         loading: true,
         error: "Network Error",
       };
+    case USER_PROFILE_PICTURE_SUCCESS:
+      return {
+        ...state,
+        status: action.payload,
+      };
+    case USER_PROFILE_PICTURE_ERROR:
+      return {
+        ...state,
+        error: action.error,
+      };
+
     default:
       return {
         ...state,

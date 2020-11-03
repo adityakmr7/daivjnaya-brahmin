@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { ActivityIndicator, Image, Platform } from "react-native";
+import { ActivityIndicator, Dimensions, Image, Platform } from "react-native";
 import { Box, Text } from "../../components";
 import { StackNavigationProps } from "../../components/NavigationRoutes";
 import { Feather as Icon } from "@expo/vector-icons";
@@ -109,7 +109,7 @@ const MyProfile = ({
     workAt,
     phoneNumber,
   } = userProfileData;
-
+  const { width: wWidth } = Dimensions.get("window");
   const handleProfileUpdate = async () => {
     if (Platform.OS !== "web") {
       const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -121,6 +121,7 @@ const MyProfile = ({
           allowsEditing: true,
           aspect: [4, 3],
           quality: 1,
+          base64: true,
           //base64: true,
         });
 
@@ -142,8 +143,12 @@ const MyProfile = ({
     <Box flex={1} backgroundColor="iconBackground">
       <StatusBar translucent={true} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Box height={20}>
-          <Image height={20} source={require("./assets/wall.png")} />
+        <Box width={wWidth} height={20}>
+          <Image
+            height={20}
+            width={wWidth}
+            source={require("./assets/wall.png")}
+          />
           <RectButton
             onPress={() => navigation.pop()}
             style={{ position: "absolute", top: 40, left: 10 }}

@@ -5,6 +5,8 @@ import {
   USER_DATA_ERROR,
   USER_EDIT_PROFILE_SUCCESS,
   USER_EDIT_PROFILE_ERROR,
+  USER_PROFILE_PICTURE_SUCCESS,
+  USER_PROFILE_PICTURE_ERROR,
 } from "./constants/userConstants";
 import axios, { AxiosRequestConfig } from "axios";
 import restServices from "../services/restServices";
@@ -60,14 +62,17 @@ export const updatePassword = (data: string) => async (dispatch: any) => {
     .catch((err) => console.log("updatePass", err));
 };
 
-// Error giving 400 error
 export const updateUserProfilePicture = (url: string) => async (
   dispatch: any
 ) => {
+  const mime = require("mime");
   var data = new FormData();
-
-  data.append("profilepic", url);
-
+  const newImageUri = "file:///" + url.split("file:/").join("");
+  data.append("profilepic", {
+    uri: newImageUri,
+    type: mime.getType(newImageUri),
+    name: newImageUri.split("/").pop(),
+  });
   const _rest = new restServices();
   const token = await _rest.getAccessToken();
   var config: AxiosRequestConfig = {
@@ -81,9 +86,15 @@ export const updateUserProfilePicture = (url: string) => async (
   };
   axios(config)
     .then((res) => {
-      console.log("profileUpdate", res);
+      dispatch({
+        type: USER_PROFILE_PICTURE_SUCCESS,
+        payload: res.data,
+      });
     })
     .catch((err) => {
-      console.log("profileupdate", err);
+      dispatch({
+        type: USER_PROFILE_PICTURE_ERROR,
+        error: err,
+      });
     });
 };
