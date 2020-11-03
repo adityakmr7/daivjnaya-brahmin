@@ -1,21 +1,13 @@
 import React from "react";
 import { Box, Text } from "../../../components";
 import { Feather as Icon } from "@expo/vector-icons";
+import { userProfileProps } from "../interfaces";
 
 interface IntroSectionProps {
-  firstName: string;
-  lastName: string;
-  location: string;
-  work: string;
-  workAt: string;
+  userProfileData: userProfileProps;
 }
-const IntroSection = ({
-  firstName,
-  lastName,
-  location,
-  work,
-  workAt,
-}: IntroSectionProps) => {
+const IntroSection = ({ userProfileData }: IntroSectionProps) => {
+  const { firstName, lastName, companyName, city, address } = userProfileData;
   return (
     <Box paddingHorizontal="m" paddingVertical="s">
       <Text variant="sectionTitle">
@@ -25,15 +17,15 @@ const IntroSection = ({
         <Box>
           <Box flexDirection="row" alignItems="center">
             <Icon name="briefcase" />
-            <Text paddingHorizontal="l">{workAt && workAt}</Text>
+            <Text paddingHorizontal="l">{companyName}</Text>
           </Box>
           <Box flexDirection="row" alignItems="center">
             <Icon name="briefcase" />
-            <Text paddingHorizontal="l">{work && work}</Text>
+            <Text paddingHorizontal="l">{city}</Text>
           </Box>
           <Box flexDirection="row" alignItems="center">
             <Icon name="briefcase" />
-            <Text paddingHorizontal="l">{location && location}</Text>
+            <Text paddingHorizontal="l">{address}</Text>
           </Box>
         </Box>
       </Box>

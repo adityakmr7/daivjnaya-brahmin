@@ -41,17 +41,8 @@ const Login = ({ navigation, getLogin }: LoginProps) => {
       // console.log(values);
       try {
         getLogin(values.email, values.password, navigation);
-        ToastAndroid.showWithGravity(
-          "Welcome Back",
-          ToastAndroid.LONG,
-          ToastAndroid.BOTTOM
-        );
       } catch (e) {
-        ToastAndroid.showWithGravity(
-          "Login Error",
-          ToastAndroid.LONG,
-          ToastAndroid.BOTTOM
-        );
+        console.log(e);
       }
     },
   });

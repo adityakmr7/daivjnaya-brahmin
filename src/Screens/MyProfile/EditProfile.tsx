@@ -14,11 +14,14 @@ import {
 import { editProfile } from "../../actions/userActions";
 import { connect } from "react-redux";
 import { RouteProp } from "@react-navigation/native";
+import { userProfileProps } from "./interfaces";
+
 interface EditProfileProps {
   navigation: StackNavigationProps<"EditProfile">;
   route: StackNavigationProps<"EditProfile">;
-  editProfile: () => void;
+  editProfile: (data: userProfileProps, navigation: any) => void;
 }
+
 const validationSchema = Yup.object().shape({
   firstName: Yup.string(),
   lastName: Yup.string(),
@@ -38,19 +41,23 @@ const EditProfile = ({
 }: {
   navigation: StackNavigationProps<"EditProfile">;
   route: RouteProp<AppRoutes, "EditProfile">;
-  editProfile: (data: {}) => void;
+  editProfile: (data: {}, navigation: any) => void;
 }) => {
   // const { navigation, route, editProfile } = props;
   const {
     email,
     firstName,
     lastName,
-    location,
+    address,
     phoneNumber,
-    studyAt,
-    uId,
-    work,
-    workAt,
+    about,
+    interest,
+    livesIn,
+    pincode,
+    state,
+    companyName,
+    education,
+    designation,
   } = route.params;
 
   const {
@@ -66,17 +73,22 @@ const EditProfile = ({
     initialValues: {
       firstName: firstName !== null ? firstName : "",
       lastName: lastName !== null ? lastName : "",
+      education: education !== null ? education : "",
+      designation: designation !== null ? designation : "",
+      companyName: companyName !== null ? companyName : "",
       phoneNumber: phoneNumber !== null ? phoneNumber : "",
-      location: location !== null ? location : "",
-      studyAt: studyAt !== null ? studyAt : "",
-      workAt: workAt !== null ? workAt : "",
-      work: work !== null ? work : "",
+      about: about !== null ? about : "",
+      address: address !== null ? address : "",
+      interest: interest !== null ? interest : "",
+      livesIn: livesIn !== null ? livesIn : "",
+      pincode: pincode !== null ? pincode : "",
+      state: state !== null ? state : "",
       bio: "",
       callback: false,
     },
     onSubmit: async (values) => {
       try {
-        editProfile(values);
+        editProfile(values, navigation);
       } catch (e) {
         console.log("error Here", e);
       }
@@ -114,36 +126,36 @@ const EditProfile = ({
                 placeholder="Phone Number"
               />
               <TextField
-                value={values.location}
-                onChangeText={handleChange("location")}
-                onBlur={handleBlur("location")}
-                error={errors.location}
-                touched={touched.location}
-                placeholder="Location"
+                value={values.address}
+                onChangeText={handleChange("address")}
+                onBlur={handleBlur("address")}
+                error={errors.address}
+                touched={touched.address}
+                placeholder="Address"
               />
               <TextField
-                value={values.studyAt}
-                onChangeText={handleChange("studyAt")}
-                onBlur={handleBlur("studyAt")}
-                error={errors.studyAt}
-                touched={touched.studyAt}
-                placeholder="Study At"
+                value={values.education}
+                onChangeText={handleChange("education")}
+                onBlur={handleBlur("education")}
+                error={errors.education}
+                touched={touched.education}
+                placeholder="Education"
               />
               <TextField
-                value={values.workAt}
-                onChangeText={handleChange("workAt")}
-                onBlur={handleBlur("workAt")}
-                error={errors.workAt}
-                touched={touched.workAt}
-                placeholder="Work At"
+                value={values.companyName}
+                onChangeText={handleChange("companyName")}
+                onBlur={handleBlur("companyName")}
+                error={errors.companyName}
+                touched={touched.companyName}
+                placeholder="Company Name"
               />
               <TextField
-                value={values.work}
-                onChangeText={handleChange("work")}
-                onBlur={handleBlur("work")}
-                error={errors.work}
-                touched={touched.work}
-                placeholder="Work"
+                value={values.livesIn}
+                onChangeText={handleChange("livesIn")}
+                onBlur={handleBlur("livesIn")}
+                error={errors.livesIn}
+                touched={touched.livesIn}
+                placeholder="Live"
               />
               <TextField
                 value={values.bio}
@@ -176,7 +188,8 @@ function mapStateToProps(state: any) {
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  editProfile: (data: {}) => dispatch(editProfile(data)),
+  editProfile: (data: userProfileProps, navigation: any) =>
+    dispatch(editProfile(data, navigation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);

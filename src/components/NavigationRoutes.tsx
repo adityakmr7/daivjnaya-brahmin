@@ -1,6 +1,6 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-
+import { userProfileProps } from "../Screens/MyProfile/interfaces";
 export type AppRoutes = {
   Authentication: undefined;
   Home: undefined;
@@ -16,18 +16,7 @@ export type AppRoutes = {
 
   //profile
   Profile: undefined;
-  EditProfile: {
-    email: string;
-    firstName: string;
-    isEnabled: string;
-    lastName: string;
-    location: string;
-    phoneNumber: string;
-    studyAt: string;
-    uId: string;
-    work: string;
-    workAt: string;
-  };
+  EditProfile: userProfileProps;
   Gallery: undefined;
   Message: undefined;
   //Matrimony

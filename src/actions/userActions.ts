@@ -11,6 +11,7 @@ import {
 import axios, { AxiosRequestConfig } from "axios";
 import restServices from "../services/restServices";
 import { _user_get_user } from "../api/endpoints";
+import { editDataProps } from "../Screens/MyProfile/EditProfile";
 export const getUserDetail = () => (dispatch: any) => {
   dispatch({
     type: USER_DATA_LOADING,
@@ -32,7 +33,9 @@ export const getUserDetail = () => (dispatch: any) => {
     });
 };
 
-export const editProfile = (data: {}) => (dispatch: any) => {
+export const editProfile = (data: editDataProps, navigation: any) => (
+  dispatch: any
+) => {
   const _rest = new restServices();
   _rest
     .put(
@@ -44,6 +47,7 @@ export const editProfile = (data: {}) => (dispatch: any) => {
         type: USER_EDIT_PROFILE_SUCCESS,
         payload: res.status,
       });
+      navigation.pop();
     })
     .catch((err) => {
       dispatch({

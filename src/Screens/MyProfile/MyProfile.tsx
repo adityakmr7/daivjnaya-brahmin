@@ -25,6 +25,7 @@ import {
 } from "../../actions/userActions";
 import { getAllPost } from "../../actions/postActions";
 import * as ImagePicker from "expo-image-picker";
+import { useIsFocused } from "@react-navigation/native";
 export const friends = [
   {
     id: 1,
@@ -90,25 +91,27 @@ const MyProfile = ({
       headerShown: false,
     });
   }, [navigation]);
+
+  const isFocused = useIsFocused();
+
   const [profileImage, setProfileImage] = useState<string>("");
   const refRBSheet = useRef<any | undefined>();
   const handleDrawer = () => refRBSheet.current.open();
-  // "loading": false,
-  // "userProfileData"
+
   useEffect(() => {
     getUserDetail();
     getPostList();
-  }, []);
+  }, [isFocused]);
+
   const { loading, userProfileData } = profileData;
-  const {
-    firstName,
-    lastName,
-    location,
-    email,
-    work,
-    workAt,
-    phoneNumber,
-  } = userProfileData;
+  const { _links } = userProfileData;
+
+  useEffect(() => {
+    if (_links) {
+      setProfileImage(_links.profilePic.href);
+    }
+  }, [_links]);
+
   const { width: wWidth } = Dimensions.get("window");
   const handleProfileUpdate = async () => {
     if (Platform.OS !== "web") {
@@ -122,7 +125,6 @@ const MyProfile = ({
           aspect: [4, 3],
           quality: 1,
           base64: true,
-          //base64: true,
         });
 
         if (!result.cancelled) {
@@ -168,10 +170,18 @@ const MyProfile = ({
         >
           <TouchableWithoutFeedback onPress={() => handleProfileUpdate()}>
             <Box borderRadius="xl" height={140} width={140}>
-              <Image
-                style={{ height: 140, width: 140, borderRadius: 140 / 2 }}
-                source={profileImage ? { uri: profileImage } : friends[0].src}
-              />
+              {profileImage ? (
+                <Image
+                  style={{ height: 140, width: 140, borderRadius: 140 / 2 }}
+                  source={{ uri: profileImage }}
+                />
+              ) : (
+                <Box
+                  height={"100%"}
+                  width={"100%"}
+                  style={{ backgroundColor: "grey" }}
+                ></Box>
+              )}
             </Box>
           </TouchableWithoutFeedback>
 
@@ -189,7 +199,7 @@ const MyProfile = ({
             />
           </Box>
         </Box>
-        <IntroSection {...{ firstName, lastName, location, work, workAt }} />
+        <IntroSection {...userProfileData} />
         <Box
           paddingTop="xl"
           paddingHorizontal="s"
