@@ -95,6 +95,7 @@ const MyProfile = ({
   const isFocused = useIsFocused();
 
   const [profileImage, setProfileImage] = useState<string>("");
+  const [coverImage, setCoverImage] = useState<string>("");
   const refRBSheet = useRef<any | undefined>();
   const handleDrawer = () => refRBSheet.current.open();
 
@@ -113,6 +114,29 @@ const MyProfile = ({
   }, [_links]);
 
   const { width: wWidth } = Dimensions.get("window");
+
+  const handleCoverUpload = async () => {
+    if (Platform.OS !== "web") {
+      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+      if (status !== "granted") {
+        alert("Sorry, we need camera Permissions");
+      } else {
+        const result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+          base64: true,
+        });
+
+        if (!result.cancelled) {
+          setCoverImage(result.uri);
+          //updateCoverImage(result.uri);
+        }
+      }
+    }
+  };
+
   const handleProfileUpdate = async () => {
     if (Platform.OS !== "web") {
       const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -146,11 +170,13 @@ const MyProfile = ({
         <StatusBar translucent={true} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Box width={wWidth} height={20}>
-            <Image
-              height={20}
-              width={wWidth}
-              source={require("./assets/wall.png")}
-            />
+            <TouchableWithoutFeedback onPress={() => handleCoverUpload()}>
+              <Image
+                height={20}
+                width={wWidth}
+                source={require("./assets/wall.png")}
+              />
+            </TouchableWithoutFeedback>
             <RectButton
               onPress={() => navigation.pop()}
               style={{ position: "absolute", top: 40, left: 10 }}
@@ -277,6 +303,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   getUserDetail: () => dispatch(getUserDetail()),
   getPostList: () => dispatch(getAllPost()),
   updateProfile: (url: string) => dispatch(updateUserProfilePicture(url)),
+  //updateCoverImage: (url:string) =>dispatch(updateCoverProfile(url));
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);
