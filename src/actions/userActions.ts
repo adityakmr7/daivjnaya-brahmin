@@ -11,7 +11,7 @@ import {
 import axios, { AxiosRequestConfig } from "axios";
 import restServices from "../services/restServices";
 import { _user_get_user } from "../api/endpoints";
-import { editDataProps } from "../Screens/MyProfile/EditProfile";
+import { userProfileProps } from "../Screens/MyProfile/interfaces";
 export const getUserDetail = () => (dispatch: any) => {
   dispatch({
     type: USER_DATA_LOADING,
@@ -33,13 +33,13 @@ export const getUserDetail = () => (dispatch: any) => {
     });
 };
 
-export const editProfile = (data: editDataProps, navigation: any) => (
+export const editProfile = (data: userProfileProps, navigation: any) => (
   dispatch: any
 ) => {
   const _rest = new restServices();
   _rest
     .put(
-      `${_user_update_user}?firstName=${data.firstName}&lastName=${data.lastName}&phoneNumber=${data.phoneNumber}&location=${data.location}&studyAt=${data.studyAt}&workAt=${data.workAt}&work=${data.work}&bio=${data.bio}`,
+      `${_user_update_user}?firstName=${data.firstName}&lastName=${data.lastName}&phoneNumber=${data.phoneNumber}&address=${data.address}&city=${data.city}&state=${data.state}&pincode=${data.pincode}&companyName=${data.companyName}&education=${data.education}&designation=${data.designation}&livesIn=${data.livesIn}&about=${data.about}&interest=${data.interest}`,
       {}
     )
     .then((res) => {

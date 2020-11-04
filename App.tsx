@@ -44,7 +44,6 @@ function lookForToken() {
   _res
     .getToken()
     .then((res) => {
-      console.log("tokenToken", res);
       if (res.access_token) {
         store.dispatch<any>(userAuthorized());
       } else {
@@ -63,6 +62,7 @@ lookForToken();
 
 axios.interceptors.response.use(
   (response) => {
+    console.log("interceptRes", response);
     return response;
   },
   async (error) => {

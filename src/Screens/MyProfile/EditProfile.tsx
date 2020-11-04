@@ -48,16 +48,17 @@ const EditProfile = ({
     email,
     firstName,
     lastName,
-    address,
     phoneNumber,
-    about,
-    interest,
-    livesIn,
-    pincode,
+    address,
+    city,
     state,
+    pincode,
     companyName,
     education,
     designation,
+    livesIn,
+    about,
+    interest,
   } = route.params;
 
   const {
@@ -83,7 +84,7 @@ const EditProfile = ({
       livesIn: livesIn !== null ? livesIn : "",
       pincode: pincode !== null ? pincode : "",
       state: state !== null ? state : "",
-      bio: "",
+      city: city !== null ? city : "",
       callback: false,
     },
     onSubmit: async (values) => {
@@ -134,12 +135,29 @@ const EditProfile = ({
                 placeholder="Address"
               />
               <TextField
-                value={values.education}
-                onChangeText={handleChange("education")}
-                onBlur={handleBlur("education")}
-                error={errors.education}
-                touched={touched.education}
-                placeholder="Education"
+                value={values.city}
+                onChangeText={handleChange("city")}
+                onBlur={handleBlur("city")}
+                error={errors.city}
+                touched={touched.city}
+                placeholder="City"
+              />
+              <TextField
+                value={values.state}
+                onChangeText={handleChange("state")}
+                onBlur={handleBlur("state")}
+                error={errors.state}
+                touched={touched.state}
+                placeholder="State"
+              />
+              <TextField
+                keyboardType="number-pad"
+                value={values.pincode}
+                onChangeText={handleChange("pincode")}
+                onBlur={handleBlur("pincode")}
+                error={errors.pincode}
+                touched={touched.pincode}
+                placeholder="Pincode"
               />
               <TextField
                 value={values.companyName}
@@ -150,12 +168,21 @@ const EditProfile = ({
                 placeholder="Company Name"
               />
               <TextField
-                value={values.livesIn}
-                onChangeText={handleChange("livesIn")}
-                onBlur={handleBlur("livesIn")}
-                error={errors.livesIn}
-                touched={touched.livesIn}
-                placeholder="Live"
+                value={values.education}
+                onChangeText={handleChange("education")}
+                onBlur={handleBlur("education")}
+                error={errors.education}
+                touched={touched.education}
+                placeholder="Education"
+              />
+
+              <TextField
+                value={values.about}
+                onChangeText={handleChange("about")}
+                onBlur={handleBlur("about")}
+                error={errors.about}
+                touched={touched.about}
+                placeholder="About"
               />
               <TextField
                 value={values.designation}
@@ -174,12 +201,20 @@ const EditProfile = ({
                 placeholder="lives In"
               />
               <TextField
-                value={values.bio}
-                onChangeText={handleChange("bio")}
-                onBlur={handleBlur("bio")}
-                error={errors.bio}
-                touched={touched.bio}
-                placeholder="Bio"
+                value={values.interest}
+                onChangeText={handleChange("interest")}
+                onBlur={handleBlur("interest")}
+                error={errors.interest}
+                touched={touched.interest}
+                placeholder="Interest"
+              />
+              <TextField
+                value={values.about}
+                onChangeText={handleChange("about")}
+                onBlur={handleBlur("about")}
+                error={errors.about}
+                touched={touched.about}
+                placeholder="About"
               />
             </Box>
             <Box marginTop="l" flexDirection="row" marginHorizontal="xl">
