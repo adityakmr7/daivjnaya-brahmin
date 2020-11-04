@@ -1,3 +1,4 @@
+import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useLayoutEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
@@ -48,9 +49,10 @@ interface GroomProps {
 }
 
 const Groom = ({ navigation, getAllGroom, groomList }: GroomProps) => {
-  useLayoutEffect(() => {
+  const isFocused = useIsFocused();
+  useEffect(() => {
     getAllGroom("MALE");
-  }, [getAllGroom]);
+  }, [getAllGroom, isFocused]);
 
   const { loading, matrimonyProfileList, error } = groomList;
 

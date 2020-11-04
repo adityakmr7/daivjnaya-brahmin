@@ -38,6 +38,16 @@ class restServices {
     return axios(config);
   };
 
+  delete = async (url: string) => {
+    let config: AxiosRequestConfig = {
+      method: "delete",
+      url: this.baseUrl + url,
+      headers: {
+        Authorization: "Bearer " + (await this.getAccessToken()),
+      },
+    };
+    return axios(config);
+  };
   saveToken = async (value: {}) => {
     try {
       await AsyncStorage.setItem("userData", JSON.stringify(value));

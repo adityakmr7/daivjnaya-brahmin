@@ -1,3 +1,4 @@
+import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useLayoutEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
@@ -50,9 +51,10 @@ interface BrideProps {
   getAllBride: (gender: string) => void;
 }
 const Bride = ({ navigation, brideList, getAllBride }: BrideProps) => {
+  const isFocused = useIsFocused();
   useLayoutEffect(() => {
     getAllBride("FEMALE");
-  }, [getAllBride]);
+  }, [getAllBride, isFocused]);
 
   const { loading, matrimonyProfileList, error } = brideList;
 

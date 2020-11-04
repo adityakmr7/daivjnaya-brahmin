@@ -103,37 +103,6 @@ axios.interceptors.response.use(
           console.log("inter", error);
           store.dispatch(logoutUser());
         });
-
-      // _rest
-      //   .getRefreshToken()
-      //   .then((res) => {
-      //     const base64 = require("base-64");
-      //     const hash = "Basic " + base64.encode("karthik:karthik");
-      //     let myHeaders = new Headers();
-      //     myHeaders.append("Authorization", hash);
-
-      //     let data = new FormData();
-      //     data.append("grant_type", "refresh_token");
-      //     data.append("refresh_token", res);
-      //     var requestOptions: any = {
-      //       method: "POST",
-      //       headers: myHeaders,
-      //       body: data,
-      //       redirect: "follow",
-      //     };
-      //     fetch("http://3.128.109.207/oauth/token", requestOptions)
-      //       .then((response) => response.json())
-      //       .then((result) => {
-      //         console.log("interceptorResponse", result);
-      //         _rest.saveToken(result.data);
-      //       })
-      //       .catch((er) => {
-      //         _rest.removeAccessToken();
-      //       });
-      //   })
-      // .catch((err) => {
-      //   _rest.removeAccessToken();
-      // });
     }
   }
 );
