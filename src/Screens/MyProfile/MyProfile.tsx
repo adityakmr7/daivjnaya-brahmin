@@ -174,7 +174,11 @@ const MyProfile = ({
               <Image
                 height={20}
                 width={wWidth}
-                source={require("./assets/wall.png")}
+                source={
+                  coverImage
+                    ? { uri: coverImage }
+                    : require("./assets/wall.png")
+                }
               />
             </TouchableWithoutFeedback>
             <RectButton
