@@ -70,17 +70,16 @@ const CreatePost = ({ src, submitPost, message }: CreatePostProps) => {
     setPostContent("");
 
     // handlePostSubmit(data);
+    if (message) {
+      ToastAndroid.showWithGravity(
+        "Post Created",
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM
+      );
+    } else {
+      return null;
+    }
   };
-
-  if (message) {
-    ToastAndroid.showWithGravity(
-      "Post Created",
-      ToastAndroid.LONG,
-      ToastAndroid.BOTTOM
-    );
-  } else {
-    return null;
-  }
 
   return (
     <Box paddingTop="l">
