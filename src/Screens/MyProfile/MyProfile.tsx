@@ -181,7 +181,11 @@ const MyProfile = ({
             >
               <Image
                 style={{ width: "100%", height: "100%" }}
-                source={{ uri: coverImage }}
+                source={
+                  coverImage
+                    ? { uri: coverImage }
+                    : require("./assets/wall.png")
+                }
               />
             </TouchableWithoutFeedback>
             <RectButton
@@ -210,10 +214,15 @@ const MyProfile = ({
                   />
                 ) : (
                   <Box
-                    height={"100%"}
-                    width={"100%"}
+                    justifyContent="center"
+                    alignItems="center"
+                    height={140}
+                    width={140}
+                    borderRadius={"xl"}
                     style={{ backgroundColor: "grey" }}
-                  ></Box>
+                  >
+                    <Icon name="plus" size={26} color="white" />
+                  </Box>
                 )}
               </Box>
             </TouchableWithoutFeedback>
