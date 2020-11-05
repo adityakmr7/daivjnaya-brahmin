@@ -18,9 +18,19 @@ export interface PostCardProps {
     likes: number;
     comments: number;
   };
+
+  firstName: string;
+  lastName: string;
+  src: string;
   onPress: () => void;
 }
-const PostCard = ({ post, onPress }: PostCardProps) => {
+const PostCard = ({
+  post,
+  onPress,
+  firstName,
+  lastName,
+  src,
+}: PostCardProps) => {
   return (
     <Box marginVertical="s">
       <Box
@@ -36,12 +46,12 @@ const PostCard = ({ post, onPress }: PostCardProps) => {
                 height: wWidth / 6,
                 borderRadius: wWidth / 2,
               }}
-              source={post.userImage}
+              source={{ uri: src }}
             />
           </Box>
           <Box>
             <Text color="primaryText" variant="cardSubTitle">
-              {post.user}
+              {firstName && firstName} {lastName && lastName}
             </Text>
             <Text variant="cardText" color="grey">
               {post.date}

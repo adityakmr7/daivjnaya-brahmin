@@ -159,7 +159,6 @@ const MyProfile = ({
     }
   };
 
-  const handlePostSubmit = (data: any) => {};
   if (loading) {
     return (
       <Box flex={1} justifyContent="center" alignItems="center">
@@ -273,8 +272,15 @@ const MyProfile = ({
           <CreatePost src={profileImage} />
           <Box height={3} backgroundColor="mainBackground" />
           {Posts.map((post, index) => {
+            console.log("userProfile", userProfileData);
             return (
-              <PostCard onPress={handleDrawer} key={post.id} {...{ post }} />
+              <PostCard
+                src={profileImage}
+                {...userProfileData}
+                onPress={handleDrawer}
+                key={post.id}
+                {...{ post }}
+              />
             );
           })}
           <Box backgroundColor="mainBackground" height={10} />

@@ -33,21 +33,6 @@ export const getAllPost = () => (dispatch: any) => {
     });
 };
 
-// {
-//   "content": "string",
-//   "location": {
-//     "latitude": 0,
-//     "locationName": "string",
-//     "longitude": 0
-//   },
-//   "myMediaFiles": [
-//     {
-//       "type": "image",
-//       "url": "string"
-//     }
-//   ]
-// }
-
 const getMediaUrl = async (source: string) => {
   const mime = require("mime");
   var data = new FormData();

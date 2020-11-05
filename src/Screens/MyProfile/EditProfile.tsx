@@ -217,7 +217,7 @@ const EditProfile = ({
               />
             </Box>
             <Box marginBottom="l">
-              <LargeButton onPress={handleSubmit} label="EDIT PROFILE" />
+              <LargeButton onPress={handleSubmit} label="Save" />
             </Box>
           </TouchableWithoutFeedback>
         </ScrollView>
