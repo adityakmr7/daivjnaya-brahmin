@@ -19,9 +19,9 @@ export type userProfileProps = {
 };
 
 export type postDataType = {
-  content: string;
-  latitude: string;
-  longitude: string;
-  location: string;
-  url: string;
+  content: string | null;
+  latitude: string | null;
+  longitude: string | null;
+  location: string | null;
+  url: string | null;
 };

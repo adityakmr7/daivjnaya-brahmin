@@ -272,7 +272,6 @@ const MyProfile = ({
           <CreatePost src={profileImage} />
           <Box height={3} backgroundColor="mainBackground" />
           {Posts.map((post, index) => {
-            console.log("userProfile", userProfileData);
             return (
               <PostCard
                 src={profileImage}

@@ -40,14 +40,23 @@ const PostCard = ({
       >
         <Box flexDirection="row" alignItems="center">
           <Box paddingRight="s">
-            <Image
-              style={{
-                width: wWidth / 6,
-                height: wWidth / 6,
-                borderRadius: wWidth / 2,
-              }}
-              source={{ uri: src }}
-            />
+            {src ? (
+              <Image
+                style={{
+                  width: wWidth / 6,
+                  height: wWidth / 6,
+                  borderRadius: wWidth / 2,
+                }}
+                source={{ uri: src }}
+              />
+            ) : (
+              <Box
+                backgroundColor="grey"
+                width={wWidth / 6}
+                height={wWidth / 6}
+                borderRadius={"l"}
+              />
+            )}
           </Box>
           <Box>
             <Text color="primaryText" variant="cardSubTitle">
