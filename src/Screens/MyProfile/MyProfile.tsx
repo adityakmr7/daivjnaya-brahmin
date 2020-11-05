@@ -21,6 +21,7 @@ import {
 } from "./components";
 import {
   getUserDetail,
+  updateCoverProfile,
   updateUserProfilePicture,
 } from "../../actions/userActions";
 import { getAllPost } from "../../actions/postActions";
@@ -77,6 +78,7 @@ interface MyProfileProps {
   getPostList: () => void;
   updateProfile: (url: string) => void;
   profileData: any;
+  updateCoverImage: (url: string) => void;
 }
 
 const MyProfile = ({
@@ -85,6 +87,7 @@ const MyProfile = ({
   getPostList,
   profileData,
   updateProfile,
+  updateCoverImage,
 }: MyProfileProps) => {
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -110,6 +113,7 @@ const MyProfile = ({
   useEffect(() => {
     if (_links) {
       setProfileImage(_links.profilePic.href);
+      setCoverImage(_links.coverPic.href);
     }
   }, [_links]);
 
@@ -131,7 +135,7 @@ const MyProfile = ({
 
         if (!result.cancelled) {
           setCoverImage(result.uri);
-          //updateCoverImage(result.uri);
+          updateCoverImage(result.uri);
         }
       }
     }
@@ -158,7 +162,7 @@ const MyProfile = ({
       }
     }
   };
-
+  console.log("coverImage", coverImage);
   if (loading) {
     return (
       <Box flex={1} justifyContent="center" alignItems="center">
@@ -170,16 +174,14 @@ const MyProfile = ({
       <Box flex={1} backgroundColor="iconBackground">
         <StatusBar translucent={true} />
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Box width={wWidth} height={20}>
-            <TouchableWithoutFeedback onPress={() => handleCoverUpload()}>
+          <Box width={wWidth} height={200}>
+            <TouchableWithoutFeedback
+              style={{ height: "100%" }}
+              onPress={() => handleCoverUpload()}
+            >
               <Image
-                height={20}
-                width={wWidth}
-                source={
-                  coverImage
-                    ? { uri: coverImage }
-                    : require("./assets/wall.png")
-                }
+                style={{ width: wWidth, height: "100%" }}
+                source={{ uri: coverImage }}
               />
             </TouchableWithoutFeedback>
             <RectButton
@@ -196,7 +198,7 @@ const MyProfile = ({
           <Box
             marginHorizontal="xl"
             justifyContent="space-between"
-            style={{ marginTop: 115, marginLeft: 20 }}
+            style={{ marginTop: -70, marginLeft: 20 }}
             flexDirection="row"
           >
             <TouchableWithoutFeedback onPress={() => handleProfileUpdate()}>
@@ -314,7 +316,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   getUserDetail: () => dispatch(getUserDetail()),
   getPostList: () => dispatch(getAllPost()),
   updateProfile: (url: string) => dispatch(updateUserProfilePicture(url)),
-  //updateCoverImage: (url:string) =>dispatch(updateCoverProfile(url));
+  updateCoverImage: (url: string) => dispatch(updateCoverProfile(url)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);

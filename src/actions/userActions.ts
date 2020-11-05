@@ -7,6 +7,8 @@ import {
   USER_EDIT_PROFILE_ERROR,
   USER_PROFILE_PICTURE_SUCCESS,
   USER_PROFILE_PICTURE_ERROR,
+  UPDATE_COVER_IMAGE_SUCCESS,
+  UPDATE_COVER_IMAGE_ERROR,
 } from "./constants/userConstants";
 import axios, { AxiosRequestConfig } from "axios";
 import restServices from "../services/restServices";
@@ -103,43 +105,37 @@ export const updateUserProfilePicture = (url: string) => async (
     });
 };
 
-/**
- *
- * @param url TODO: find API
- */
-// export const updateCoverProfile = (url: string) => async (
-//   dispatch: any
-// ) => {
-//   const mime = require("mime");
-//   var data = new FormData();
-//   const newImageUri = "file:///" + url.split("file:/").join("");
-//   data.append("profilepic", {
-//     uri: newImageUri,
-//     type: mime.getType(newImageUri),
-//     name: newImageUri.split("/").pop(),
-//   });
-//   const _rest = new restServices();
-//   const token = await _rest.getAccessToken();
-//   var config: AxiosRequestConfig = {
-//     method: "put",
-//     url: "http://3.128.109.207/user/profilePic",
-//     headers: {
-//       Authorization: "Bearer " + token,
-//       "Content-Type": "multipart/form-data",
-//     },
-//     data: data,
-//   };
-//   axios(config)
-//     .then((res) => {
-//       dispatch({
-//         type: USER_PROFILE_PICTURE_SUCCESS,
-//         payload: res.data,
-//       });
-//     })
-//     .catch((err) => {
-//       dispatch({
-//         type: USER_PROFILE_PICTURE_ERROR,
-//         error: err,
-//       });
-//     });
-// };
+export const updateCoverProfile = (url: string) => async (dispatch: any) => {
+  const mime = require("mime");
+  var data = new FormData();
+  const newImageUri = "file:///" + url.split("file:/").join("");
+  data.append("profilepic", {
+    uri: newImageUri,
+    type: mime.getType(newImageUri),
+    name: newImageUri.split("/").pop(),
+  });
+  const _rest = new restServices();
+  const token = await _rest.getAccessToken();
+  var config: AxiosRequestConfig = {
+    method: "put",
+    url: "http://3.128.109.207/user/coverPic",
+    headers: {
+      Authorization: "Bearer " + token,
+      "Content-Type": "multipart/form-data",
+    },
+    data: data,
+  };
+  axios(config)
+    .then((res) => {
+      dispatch({
+        type: UPDATE_COVER_IMAGE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: UPDATE_COVER_IMAGE_ERROR,
+        error: err,
+      });
+    });
+};

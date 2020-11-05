@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Text } from "../../../components";
-import { Feather as Icon } from "@expo/vector-icons";
+import { Feather as Icon, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { userProfileProps } from "../interfaces";
 
 const IntroSection = ({
@@ -19,15 +19,19 @@ const IntroSection = ({
       <Box>
         <Box>
           <Box flexDirection="row" alignItems="center">
-            <Icon name="briefcase" />
+            <Ionicons name="ios-school" size={20} color="black" />
             <Text paddingHorizontal="l">{companyName}</Text>
           </Box>
           <Box flexDirection="row" alignItems="center">
-            <Icon name="briefcase" />
+            <MaterialIcons name="business-center" size={20} color="black" />
             <Text paddingHorizontal="l">{city}</Text>
           </Box>
           <Box flexDirection="row" alignItems="center">
-            <Icon name="briefcase" />
+            <MaterialIcons
+              name="store-mall-directory"
+              size={20}
+              color="black"
+            />
             <Text paddingHorizontal="l">{address}</Text>
           </Box>
         </Box>
