@@ -158,6 +158,8 @@ const MyProfile = ({
       }
     }
   };
+
+  const handlePostSubmit = (data: any) => {};
   if (loading) {
     return (
       <Box flex={1} justifyContent="center" alignItems="center">
@@ -268,7 +270,7 @@ const MyProfile = ({
               })}
             </Box>
           </Box>
-          <CreatePost src={friends[0].src} />
+          <CreatePost handlePostSubmit={handlePostSubmit} src={profileImage} />
           <Box height={3} backgroundColor="mainBackground" />
           {Posts.map((post, index) => {
             return (

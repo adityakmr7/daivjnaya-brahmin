@@ -10,5 +10,8 @@ export const POST_POST_SUCCESS = "POST_POST_SUCCESS";
 export const POST_POST_ERROR = "POST_POST_ERROR";
 
 /**
- *
+ * create post post
  */
+
+export const CREATE_POST_POST = "CREATE_POST_POST";
+export const CREATE_POST_POST_ERROR = "CREATE_POST_POST_ERROR";

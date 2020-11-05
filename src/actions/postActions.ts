@@ -29,8 +29,37 @@ export const getAllPost = () => (dispatch: any) => {
     });
 };
 
+// {
+//   "content": "string",
+//   "location": {
+//     "latitude": 0,
+//     "locationName": "string",
+//     "longitude": 0
+//   },
+//   "myMediaFiles": [
+//     {
+//       "type": "image",
+//       "url": "string"
+//     }
+//   ]
+// }
+
 export const addPost = (data: {}) => (dispatch: any) => {
   const _rest = new restServices();
+  const postContent = {
+    content: data.content,
+    location: {
+      latitude: 0,
+      locationName: "hello",
+      longitude: 0,
+    },
+    myMediaFiles: [
+      {
+        url: "",
+        type: "image",
+      },
+    ],
+  };
   _rest
     .post("/post", data)
     .then((res) => {
@@ -93,6 +122,66 @@ export const createPostMedia = (data: string) => (dispatch: any) => {
   const _rest = new restServices();
   _rest
     .post(`/post/media`, data)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => console.log(err));
+};
+
+export const deletePostById = (postId: string) => (dispatch: any) => {
+  const _rest = new restServices();
+  _rest
+    .delete(`/post/${postId}`)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getPostById = (postId: string) => (dispatch: any) => {
+  const _rest = new restServices();
+  _rest
+    .get(`/post/${postId}`)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => console.log(err));
+};
+
+export const postIdComment = (postId: string, data: any) => (dispatch: any) => {
+  const _rest = new restServices();
+  _rest
+    .post(`/post/${postId}/comment`, data)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => console.log(err));
+};
+
+export const postIdDeleteLike = (postId: string) => (dispatch: any) => {
+  const _rest = new restServices();
+  _rest
+    .delete(`/post/${postId}/like`)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => console.log(err));
+};
+
+export const postIdPostLike = (postId: string) => (dispatch: any) => {
+  const _rest = new restServices();
+  _rest
+    .post(`/post/${postId}/like`, {})
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getPostIdLike = (postId: string) => (dispatch: any) => {
+  const _rest = new restServices();
+  _rest
+    .get(`/post/${postId}/like`)
     .then((res) => {
       console.log(res);
     })
