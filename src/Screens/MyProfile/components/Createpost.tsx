@@ -1,26 +1,37 @@
 import React, { useState } from "react";
-import { Dimensions, Image, Platform } from "react-native";
 import {
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  Platform,
+  ToastAndroid,
+} from "react-native";
+import {
+  RectButton,
   TextInput,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { Box, Text } from "../../../components";
 import { Feather as Icon } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-
+import { addPost } from "../../../actions/postActions";
+import { connect } from "react-redux";
+import { postDataType } from "../interfaces";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface CreatePostProps {
   src: string;
-  handlePostSubmit: (data: any) => void;
+  submitPost: (data: postDataType) => void;
+  message: string;
 }
-const CreatePost = ({ src, handlePostSubmit }: CreatePostProps) => {
+const CreatePost = ({ src, submitPost, message }: CreatePostProps) => {
   const [postContent, setPostContent] = useState<string>("");
   const [postImage, setPostImage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const handlePostContent = (text: string) => {
-    setPostContent(text);
-  };
+  // const handlePostContent = (text: string) => {
+  //   setPostContent(text);
+  // };
 
   const handlePostImage = async () => {
     if (Platform.OS !== "web") {
@@ -44,14 +55,32 @@ const CreatePost = ({ src, handlePostSubmit }: CreatePostProps) => {
     }
   };
 
-  const handlePostLocation = async () => {};
+  // const handlePostLocation = async () => {};
   const handleSubmit = () => {
-    const data = {
-      postContent,
-      postImage,
+    const data: postDataType = {
+      content: postContent,
+      url: postImage,
+      location: "London",
+      longitude: "45",
+      latitude: "12",
     };
-    handlePostSubmit(data);
+    setLoading(true);
+    submitPost(data);
+    setLoading(false);
+    setPostContent("");
+
+    // handlePostSubmit(data);
   };
+
+  if (message) {
+    ToastAndroid.showWithGravity(
+      "Post Created",
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM
+    );
+  } else {
+    return null;
+  }
 
   return (
     <Box paddingTop="l">
@@ -78,9 +107,9 @@ const CreatePost = ({ src, handlePostSubmit }: CreatePostProps) => {
             placeholder="Post a status update..."
             defaultValue={postContent}
           />
-          <TouchableWithoutFeedback onPress={() => handleSubmit()}>
-            <Icon name="image" size={26} />
-          </TouchableWithoutFeedback>
+          <RectButton onPress={() => handleSubmit()}>
+            {loading ? <ActivityIndicator /> : <Text>Post</Text>}
+          </RectButton>
         </Box>
       </Box>
       <Box
@@ -126,4 +155,14 @@ const CreatePost = ({ src, handlePostSubmit }: CreatePostProps) => {
   );
 };
 
-export default CreatePost;
+function mapStateToProps(state: any) {
+  return {
+    message: state.post.postCreationMessage,
+  };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  submitPost: (data: postDataType) => dispatch(addPost(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreatePost);

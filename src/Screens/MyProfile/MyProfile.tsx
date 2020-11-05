@@ -270,7 +270,7 @@ const MyProfile = ({
               })}
             </Box>
           </Box>
-          <CreatePost handlePostSubmit={handlePostSubmit} src={profileImage} />
+          <CreatePost src={profileImage} />
           <Box height={3} backgroundColor="mainBackground" />
           {Posts.map((post, index) => {
             return (

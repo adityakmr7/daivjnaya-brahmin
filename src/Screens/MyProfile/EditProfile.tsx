@@ -208,14 +208,6 @@ const EditProfile = ({
                 touched={touched.interest}
                 placeholder="Interest"
               />
-              <TextField
-                value={values.about}
-                onChangeText={handleChange("about")}
-                onBlur={handleBlur("about")}
-                error={errors.about}
-                touched={touched.about}
-                placeholder="About"
-              />
             </Box>
             <Box marginTop="l" flexDirection="row" marginHorizontal="xl">
               <CheckBox

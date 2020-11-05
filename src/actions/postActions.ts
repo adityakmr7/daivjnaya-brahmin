@@ -1,10 +1,14 @@
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import restServices from "../services/restServices";
 import {
   GET_ALL_POST_ERROR,
   GET_ALL_POST_LOADING,
   GET_ALL_POST_SUCCESS,
+  POST_POST_ERROR,
+  POST_POST_SUCCESS,
 } from "./constants/postConstant";
-
+import axios from "axios";
+import { postDataType } from "../Screens/MyProfile/interfaces";
 export const getAllPost = () => (dispatch: any) => {
   dispatch({
     type: GET_ALL_POST_LOADING,
@@ -44,28 +48,60 @@ export const getAllPost = () => (dispatch: any) => {
 //   ]
 // }
 
-export const addPost = (data: {}) => (dispatch: any) => {
+const getMediaUrl = async (source: string) => {
+  const mime = require("mime");
+  var data = new FormData();
+  const newImageUri = "file:///" + source.split("file:/").join("");
+  data.append("file", {
+    uri: newImageUri,
+    type: mime.getType(newImageUri),
+    name: newImageUri.split("/").pop(),
+  });
   const _rest = new restServices();
+  const token = await _rest.getAccessToken();
+  var config: AxiosRequestConfig = {
+    method: "post",
+    url: "http://3.128.109.207/post/media",
+    headers: {
+      Authorization: "Bearer " + token,
+      "Content-Type": "multipart/form-data",
+    },
+    data: data,
+  };
+  return axios(config);
+};
+
+export const addPost = (postData: postDataType) => async (dispatch: any) => {
+  const _rest = new restServices();
+  const imageUrl = await getMediaUrl(postData.url);
   const postContent = {
-    content: data.content,
+    content: postData.content,
     location: {
-      latitude: 0,
-      locationName: "hello",
-      longitude: 0,
+      latitude: postData.latitude,
+      locationName: postData.location,
+      longitude: postData.longitude,
     },
     myMediaFiles: [
       {
-        url: "",
+        url: imageUrl.data.url,
         type: "image",
       },
     ],
   };
   _rest
-    .post("/post", data)
+    .post("/post", postContent)
     .then((res) => {
-      console.log(res);
+      dispatch({
+        type: POST_POST_SUCCESS,
+        payload: res.data,
+      });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      dispatch({
+        type: POST_POST_ERROR,
+        error: err,
+      });
+    });
 };
 
 export const deletePostComment = (id: number) => (dispatch: any) => {

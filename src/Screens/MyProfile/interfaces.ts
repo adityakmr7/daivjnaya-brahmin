@@ -17,3 +17,11 @@ export type userProfileProps = {
   pincode: string;
   state: string;
 };
+
+export type postDataType = {
+  content: string;
+  latitude: string;
+  longitude: string;
+  location: string;
+  url: string;
+};
