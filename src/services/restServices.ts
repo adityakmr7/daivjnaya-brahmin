@@ -92,6 +92,27 @@ class restServices {
       console.log(e);
     }
   };
+  getMediaUrl = async (source: string) => {
+    const mime = require("mime");
+    var data = new FormData();
+    const newImageUri = "file:///" + source.split("file:/").join("");
+    data.append("file", {
+      uri: newImageUri,
+      type: mime.getType(newImageUri),
+      name: newImageUri.split("/").pop(),
+    });
+    const token = await this.getAccessToken();
+    var config: AxiosRequestConfig = {
+      method: "post",
+      url: `${this.baseUrl}/post/media`,
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "multipart/form-data",
+      },
+      data: data,
+    };
+    return axios(config);
+  };
 }
 
 export default restServices;

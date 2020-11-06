@@ -14,6 +14,7 @@ import { RoundedBorderButton } from "../MyProfile/components";
 import BrideDetail from "./BrideDetail";
 import VendorDetail from "./VendorDetail";
 import FullScreen from "./FullScreen";
+import MatrimonyRegister from "./MatrimonyRegister";
 
 const Stack = createStackNavigator<MatrimonyStackParamList>();
 const Tab = createMaterialTopTabNavigator<MatrimonyTabParamList>();
@@ -58,7 +59,7 @@ const MatrimonyStack = () => {
               <Box marginHorizontal="s">
                 <RoundedBorderButton
                   label="Register"
-                  onPress={() => navigation.navigate("Register")}
+                  onPress={() => navigation.navigate("MatrimonyRegister")}
                 />
               </Box>
             );
@@ -67,6 +68,7 @@ const MatrimonyStack = () => {
         name="Matrimony"
         component={MatrimonyTab}
       />
+      <Stack.Screen name="MatrimonyRegister" component={MatrimonyRegister} />
       <Stack.Screen name="GroomDetail" component={GroomDetail} />
       <Stack.Screen name="BrideDetail" component={BrideDetail} />
       <Stack.Screen name="VendorDetail" component={VendorDetail} />

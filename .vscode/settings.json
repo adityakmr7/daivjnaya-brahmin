@@ -1,16 +1,20 @@
 {
-    "cSpell.words": [
-        "Borderless",
-        "Chaturthi",
-        "Formik",
-        "Ganesh",
-        "Jewellery",
-        "Karawar",
-        "Karwar",
-        "Samaj",
-        "amet",
-        "karthik",
-        "profilepic",
-        "signup"
-    ]
+  "terminal.integrated.localEchoLatencyThreshold": 30,
+  "terminal.integrated.localEchoStyle": "dim",
+  "editor.suggest.showStatusBar": true,
+
+  "cSpell.words": [
+    "Borderless",
+    "Chaturthi",
+    "Formik",
+    "Ganesh",
+    "Jewellery",
+    "Karawar",
+    "Karwar",
+    "Samaj",
+    "amet",
+    "karthik",
+    "profilepic",
+    "signup"
+  ]
 }

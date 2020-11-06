@@ -16,6 +16,7 @@ export type MatrimonyStackParamList = {
   GroomDetail: { id: number };
   BrideDetail: { id: number };
   VendorDetail: { id: number };
+  MatrimonyRegister: undefined;
   FullScreen: {
     title: string;
     img: number;
