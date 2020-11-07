@@ -68,7 +68,11 @@ const MatrimonyStack = () => {
         name="Matrimony"
         component={MatrimonyTab}
       />
-      <Stack.Screen name="MatrimonyRegister" component={MatrimonyRegister} />
+      <Stack.Screen
+        options={{ title: "Register" }}
+        name="MatrimonyRegister"
+        component={MatrimonyRegister}
+      />
       <Stack.Screen name="GroomDetail" component={GroomDetail} />
       <Stack.Screen name="BrideDetail" component={BrideDetail} />
       <Stack.Screen name="VendorDetail" component={VendorDetail} />
