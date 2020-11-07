@@ -4,6 +4,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { getAllMatrimonyProfile } from "../../actions/matrimonyActions";
 import { Box, Text, HorizontalCard, Loading } from "../../components";
+import { createMatrimonyProps } from "./interface";
 import { combineTabWithStackProps } from "./MatrimonyRoutes";
 
 interface GroomProps {
@@ -37,13 +38,13 @@ const Groom = ({ navigation, getAllGroom, groomList }: GroomProps) => {
         <Box backgroundColor="iconBackground" flex={1}>
           <Box>
             {_embedded &&
-              _embedded.profileResourceList.map((data, i) => {
+              _embedded.profileResourceList.map((data: any, i) => {
                 return (
                   <HorizontalCard
                     key={i}
                     onPress={() =>
                       navigation.navigate("GroomDetail", {
-                        id: data.id,
+                        id: data.pid,
                       })
                     }
                     {...{ data }}

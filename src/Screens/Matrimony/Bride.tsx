@@ -35,13 +35,13 @@ const Bride = ({ navigation, brideList, getAllBride }: BrideProps) => {
       {_embedded ? (
         <Box backgroundColor="iconBackground" flex={1}>
           <Box>
-            {_embedded.profileResourceList.map((data, i) => {
+            {_embedded.profileResourceList.map((data: any, i) => {
               return (
                 <HorizontalCard
                   key={i}
                   onPress={() =>
                     navigation.navigate("BrideDetail", {
-                      id: data.id,
+                      id: data.pid,
                     })
                   }
                   {...{ data }}
