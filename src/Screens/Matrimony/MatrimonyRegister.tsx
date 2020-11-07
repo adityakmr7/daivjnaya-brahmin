@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Box, CheckBox, LargeButton, Text, TextField } from "../../components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+
 import {
+  Dimensions,
+  Image,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -32,15 +35,24 @@ interface MatrimonyRegisterProps {
   registerMatrimony: (data: createMatrimonyProps) => void;
 }
 
+const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string(),
-  lastName: Yup.string(),
-  phoneNumber: Yup.string().length(10),
-  location: Yup.string(),
-  studyAt: Yup.string(),
-  workAt: Yup.string(),
-  work: Yup.string(),
-  bio: Yup.string(),
+  firstName: Yup.string().required(),
+  lastName: Yup.string().required(),
+  phoneNumber: Yup.string().length(10).required(),
+  location: Yup.string().required(),
+  studyAt: Yup.string().required(),
+  workAt: Yup.string().required(),
+  work: Yup.string().required(),
+  bio: Yup.string().required(),
+  email: Yup.string().email().required(),
+  companyName: Yup.string().required(),
+  designation: Yup.string().required(),
+  education: Yup.string().required(),
+  livesIn: Yup.string().required(),
+  about: Yup.string().required(),
+  interest: Yup.string().required(),
+  gender: Yup.string().required(),
 });
 // StackNavigationProps<"EditProfile">
 
@@ -88,7 +100,7 @@ const MatrimonyRegister = ({
         livesIn: values.livesIn,
         about: values.about,
         interest: values.interest,
-        gender: values.gender,
+        gender: values.gender.toUpperCase(),
       };
       registerMatrimony(val);
       if (created === true) {
@@ -234,6 +246,19 @@ const MatrimonyRegister = ({
                 touched={touched.gender}
                 placeholder="Gender"
               />
+              {imageUri ? (
+                <Box
+                  marginVertical="m"
+                  height={300}
+                  width={wWidth - 60}
+                  marginHorizontal="s"
+                >
+                  <Image
+                    style={{ width: "100%", height: "100%" }}
+                    source={{ uri: imageUri }}
+                  />
+                </Box>
+              ) : null}
               <Box
                 style={{ shadowOffset: { width: 0, height: 5 } }}
                 shadowColor="greyish"
