@@ -1,16 +1,14 @@
 import React from "react";
 import { Dimensions, Image } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import {
+  RectButton,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
+import { horizontalCardDataType } from "../Screens/Matrimony/interface";
 import { Box, Text } from "./Theme";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 interface HorizontalCardProps {
-  data: {
-    image: number;
-    title: string;
-    description: string;
-    subtitle?: string;
-    btn: string;
-  };
+  data: horizontalCardDataType;
   onPress: () => void;
 }
 const HorizontalCard = ({ data, onPress }: HorizontalCardProps) => {
@@ -24,17 +22,32 @@ const HorizontalCard = ({ data, onPress }: HorizontalCardProps) => {
         marginVertical="s"
       >
         <Box>
-          <Image style={{ height: 139, width: 108 }} source={data.image} />
+          <Image
+            style={{ height: 139, width: 108 }}
+            source={
+              data.image
+                ? data.image
+                : { uri: data.images[0]._links.image.href }
+            }
+          />
         </Box>
         <Box width={wWidth / 2}>
-          <Text variant="sectionTitle">{data.title}</Text>
+          <Text variant="sectionTitle">
+            {data.firstName} {data.lastName}
+          </Text>
           <Text color="primaryText" variant="cardText">
-            Risus commodo
+            {data.livesIn}
           </Text>
           <Text paddingVertical="s" color="primaryText" variant="cardText">
-            {data.description}
+            {data.about}
           </Text>
-          <Text>{data.btn}</Text>
+          <RectButton
+            onPress={() => {
+              console.log("View Full Detail");
+            }}
+          >
+            <Text>View Full Detail</Text>
+          </RectButton>
         </Box>
       </Box>
       <Box

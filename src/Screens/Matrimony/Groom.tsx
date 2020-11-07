@@ -43,7 +43,11 @@ interface GroomProps {
   getAllGroom: (gender: string) => void;
   groomList: {
     loading: boolean;
-    matrimonyProfileList: [];
+    matrimonyProfileList: {
+      _embedded: {
+        profileResourceList: [];
+      };
+    };
     error: string;
   };
 }
@@ -55,7 +59,7 @@ const Groom = ({ navigation, getAllGroom, groomList }: GroomProps) => {
   }, [getAllGroom, isFocused]);
 
   const { loading, matrimonyProfileList, error } = groomList;
-
+  const { _embedded } = matrimonyProfileList;
   if (loading) {
     return <Loading />;
   }
@@ -63,19 +67,20 @@ const Groom = ({ navigation, getAllGroom, groomList }: GroomProps) => {
     <ScrollView>
       <Box backgroundColor="iconBackground" flex={1}>
         <Box>
-          {GroomList.map((data, i) => {
-            return (
-              <HorizontalCard
-                key={i}
-                onPress={() =>
-                  navigation.navigate("GroomDetail", {
-                    id: data.id,
-                  })
-                }
-                {...{ data }}
-              />
-            );
-          })}
+          {_embedded &&
+            _embedded.profileResourceList.map((data, i) => {
+              return (
+                <HorizontalCard
+                  key={i}
+                  onPress={() =>
+                    navigation.navigate("GroomDetail", {
+                      id: data.id,
+                    })
+                  }
+                  {...{ data }}
+                />
+              );
+            })}
         </Box>
       </Box>
     </ScrollView>

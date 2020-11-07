@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { Box, HorizontalCard, Text } from "../../components";
+import { Box, Text } from "../../components";
 
 interface VendorsProps {}
 const vendorList = [
@@ -47,7 +47,7 @@ const Vendors = ({}: VendorsProps) => {
   return (
     <ScrollView>
       <Box backgroundColor="iconBackground" flex={1}>
-        {vendorList.map((data, i) => {
+        {/* {vendorList.map((data, i) => {
           return (
             <HorizontalCard
               key={i}
@@ -55,7 +55,7 @@ const Vendors = ({}: VendorsProps) => {
               {...{ data }}
             />
           );
-        })}
+        })} */}
       </Box>
     </ScrollView>
   );

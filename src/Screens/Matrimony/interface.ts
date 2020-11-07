@@ -12,3 +12,21 @@ export type createMatrimonyProps = {
   interest: string;
   gender: "MALE" | "FEMALE";
 };
+export type horizontalCardDataType = {
+  about: string;
+  companyName: string;
+  creationDate: number;
+  designation: string;
+  education: string;
+  email: string;
+  firstName: string;
+  gender: string;
+  images: any;
+  interest: string;
+  lastName: string;
+  livesIn: string;
+  pId: number;
+  phoneNumber: string;
+  updatedDate: number;
+  btn: string;
+};
