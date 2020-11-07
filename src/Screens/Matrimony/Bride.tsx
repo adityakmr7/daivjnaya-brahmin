@@ -41,7 +41,7 @@ const Bride = ({ navigation, brideList, getAllBride }: BrideProps) => {
                   key={i}
                   onPress={() =>
                     navigation.navigate("BrideDetail", {
-                      id: data.pid,
+                      id: data.pId,
                     })
                   }
                   {...{ data }}

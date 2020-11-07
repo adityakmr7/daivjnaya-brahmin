@@ -37,3 +37,9 @@ export type MatrimonyStackNavigationProps<
   navigation: StackNavigationProp<MatrimonyStackParamList, T>;
   route: RouteProp<MatrimonyStackParamList, T>;
 };
+
+export type MatrimonyStackRouteProps<
+  T extends keyof MatrimonyStackParamList
+> = {
+  route: RouteProp<MatrimonyStackParamList, T>;
+};

@@ -9,6 +9,9 @@ import {
   MATRIMONY_CREATED_ERROR,
   MATRIMONY_CREATED_SUCCESS,
   GET_ALL_MATRIMONY_BRIDE_ERROR,
+  GET_MATRIMONY_PROFILE_BY_ID_LOADING,
+  GET_MATRIMONY_PROFILE_BY_ID_SUCCESS,
+  GET_MATRIMONY_PROFILE_BY_ID_ERROR,
 } from "./constants/matrimonyConstants";
 
 /**
@@ -97,6 +100,31 @@ export const createMatrimonyProfile = (data: createMatrimonyProps) => async (
     .catch((err) => {
       dispatch({
         type: MATRIMONY_CREATED_ERROR,
+        error: err,
+      });
+    });
+};
+
+export const getMatrimonyProfileById = (pid: number) => async (
+  dispatch: any
+) => {
+  dispatch({
+    type: GET_MATRIMONY_PROFILE_BY_ID_LOADING,
+  });
+
+  const _rest = new restServices();
+  _rest
+    .get(`/matrimony/profile/${pid}`)
+    .then((res) => {
+      console.log("detailData", res);
+      dispatch({
+        type: GET_MATRIMONY_PROFILE_BY_ID_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_MATRIMONY_PROFILE_BY_ID_ERROR,
         error: err,
       });
     });

@@ -44,7 +44,7 @@ const Groom = ({ navigation, getAllGroom, groomList }: GroomProps) => {
                     key={i}
                     onPress={() =>
                       navigation.navigate("GroomDetail", {
-                        id: data.pid,
+                        id: data.pId,
                       })
                     }
                     {...{ data }}

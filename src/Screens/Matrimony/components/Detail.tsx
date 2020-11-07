@@ -2,20 +2,21 @@ import React from "react";
 import { Dimensions, Image } from "react-native";
 import { Box, Text } from "../../../components";
 import { Feather as Icon } from "@expo/vector-icons";
+import { createMatrimonyProps } from "../interface";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface DetailProps {
-  data: {
-    image: number;
-    title: string;
-  };
+  data: createMatrimonyProps;
 }
 const Detail = ({ data }: DetailProps) => {
   return (
     <>
       <Box height={wHeight * 0.7}>
-        <Image style={{ height: "100%", width: "100%" }} source={data.image} />
+        <Image
+          style={{ height: "100%", width: "100%" }}
+          source={{ uri: data.images[0]._links.image.href }}
+        />
         <Box
           bottom={0}
           right={30}
@@ -32,9 +33,12 @@ const Detail = ({ data }: DetailProps) => {
       </Box>
       <Box paddingHorizontal="xl">
         <Text variant="seeAll">Info</Text>
-        <Text variant="sectionTitle">{data.title}</Text>
+        <Text variant="sectionTitle">
+          {data.firstName}
+          {""} {data.lastName}
+        </Text>
         <Text color="grey" variant="mainIconSubTitle">
-          Designation
+          {data.designation}
         </Text>
 
         <Box
@@ -45,7 +49,7 @@ const Detail = ({ data }: DetailProps) => {
         >
           <Icon size={15} name="briefcase" />
           <Text paddingHorizontal="mx">
-            Chef at <Text>Healthy eats</Text>
+            Chef at <Text>{data.companyName}</Text>
           </Text>
         </Box>
 
@@ -56,7 +60,7 @@ const Detail = ({ data }: DetailProps) => {
         >
           <Icon size={15} name="briefcase" />
           <Text paddingHorizontal="mx">
-            Studied at <Text>National College</Text>
+            Studied at <Text>{data.education}</Text>
           </Text>
         </Box>
 
@@ -68,11 +72,7 @@ const Detail = ({ data }: DetailProps) => {
         >
           <Icon size={15} name="map-pin" />
           <Text paddingHorizontal="mx">
-            Studied at
-            <Text>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Laboriosam, repellendus.
-            </Text>
+            <Text>{data.about}</Text>
           </Text>
         </Box>
 
@@ -83,7 +83,7 @@ const Detail = ({ data }: DetailProps) => {
         >
           <Icon size={15} name="home" />
           <Text paddingHorizontal="mx">
-            Lives in <Text>Baad, Kanwar</Text>
+            Lives in <Text>{data.livesIn}</Text>
           </Text>
         </Box>
 
@@ -95,7 +95,7 @@ const Detail = ({ data }: DetailProps) => {
         >
           <Icon size={15} name="mail" />
           <Text paddingHorizontal="mx">
-            Email <Text>helllo@gmail.com</Text>
+            Email <Text>{data.email}</Text>
           </Text>
         </Box>
         <Box
@@ -106,7 +106,7 @@ const Detail = ({ data }: DetailProps) => {
         >
           <Icon size={15} name="phone" />
           <Text paddingHorizontal="mx">
-            Phone <Text>+91 8956 8597 859</Text>
+            Phone <Text>{data.phoneNumber}</Text>
           </Text>
         </Box>
       </Box>

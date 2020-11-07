@@ -3,6 +3,9 @@ import {
   GET_ALL_MATRIMONY_ERROR,
   GET_ALL_MATRIMONY_LOADING,
   GET_ALL_MATRIMONY_SUCCESS,
+  GET_MATRIMONY_PROFILE_BY_ID_ERROR,
+  GET_MATRIMONY_PROFILE_BY_ID_LOADING,
+  GET_MATRIMONY_PROFILE_BY_ID_SUCCESS,
   MATRIMONY_CREATED_ERROR,
   MATRIMONY_CREATED_SUCCESS,
 } from "./../actions/constants/matrimonyConstants";
@@ -11,6 +14,8 @@ const initialState = {
   loading: false,
   matrimonyProfileList: [],
   matrimonyBrideProfileList: [],
+  matrimonyDetailProfile: [],
+  detailLoading: false,
   error: "",
   created: false,
 };
@@ -45,6 +50,22 @@ const matrimonyReducer = (state = initialState, action: any) => {
         ...state,
         created: true,
         successMessage: action.payload,
+      };
+    case GET_MATRIMONY_PROFILE_BY_ID_LOADING:
+      return {
+        ...state,
+        detailLoading: true,
+      };
+    case GET_MATRIMONY_PROFILE_BY_ID_SUCCESS:
+      return {
+        ...state,
+        matrimonyDetailProfile: action.payload,
+        detailLoading: false,
+      };
+    case GET_MATRIMONY_PROFILE_BY_ID_ERROR:
+      return {
+        ...state,
+        detailLoading: true,
       };
     case MATRIMONY_CREATED_ERROR:
       return {

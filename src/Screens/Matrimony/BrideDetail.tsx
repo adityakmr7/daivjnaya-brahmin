@@ -1,6 +1,6 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import {
   MatrimonyStackNavigationProps,
   MatrimonyStackParamList,
@@ -13,13 +13,29 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import Detail from "./components/Detail";
+import { connect } from "react-redux";
+import { getMatrimonyProfileById } from "../../actions/matrimonyActions";
+import { createMatrimonyProps } from "./interface";
+import { ActivityIndicator } from "react-native";
+
+interface BrideDetailProps {
+  navigation: MatrimonyStackNavigationProps<"BrideDetail">;
+  route: MatrimonyStackNavigationProps<"BrideDetail">;
+  getBrideDetail: (pId: number) => void;
+  matrimonyDetail: {
+    detailLoading: boolean;
+    matrimonyDetailProfile: createMatrimonyProps;
+  };
+}
 
 const BrideDetail = ({
   navigation,
   route,
-}: MatrimonyStackNavigationProps<"BrideDetail">) => {
+  getBrideDetail,
+  matrimonyDetail,
+}: BrideDetailProps) => {
   const id = route.params.id;
-  const data = BrideList.filter((item) => item.id === id)[0];
+  // const data = BrideList.filter((item) => item.id === id)[0];
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTransparent: true,
@@ -32,8 +48,8 @@ const BrideDetail = ({
           <TouchableWithoutFeedback
             onPress={() =>
               navigation.navigate("FullScreen", {
-                title: data.title,
-                img: data.image,
+                title: "Hello world",
+                img: "",
               })
             }
           >
@@ -43,13 +59,35 @@ const BrideDetail = ({
       ),
     });
   }, [navigation]);
+  useEffect(() => {
+    getBrideDetail(id);
+  }, [id]);
+
+  const { detailLoading, matrimonyDetailProfile } = matrimonyDetail;
+  if (detailLoading) {
+    return (
+      <Box flex={1} justifyContent="center" alignItems="center">
+        <ActivityIndicator />
+      </Box>
+    );
+  }
   return (
     <Box flex={1}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Detail {...{ data }} />
+        <Detail data={matrimonyDetailProfile} />
       </ScrollView>
     </Box>
   );
 };
 
-export default BrideDetail;
+function mapStateToProps(state: any) {
+  return {
+    matrimonyDetail: state.matrimony,
+  };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  getBrideDetail: (pId: number) => dispatch(getMatrimonyProfileById(pId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BrideDetail);
