@@ -1,12 +1,14 @@
 import React from "react";
+import { ActivityIndicator } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import { Box, Text } from "./Theme";
 
 interface LargeButtonProps {
   label: string;
   onPress: () => void;
+  loading?: boolean;
 }
-const LargeButton = ({ label, onPress }: LargeButtonProps) => {
+const LargeButton = ({ label, onPress, loading }: LargeButtonProps) => {
   return (
     <Box
       marginTop="xxl"
@@ -16,14 +18,18 @@ const LargeButton = ({ label, onPress }: LargeButtonProps) => {
       borderRadius="s"
     >
       <RectButton
-        {...{ onPress }}
+        onPress={onPress}
         style={{ height: 60, justifyContent: "center", alignItems: "center" }}
       >
-        <Box>
-          <Text color="iconBackground" variant="sectionTitle">
-            {label}
-          </Text>
-        </Box>
+        {loading ? (
+          <ActivityIndicator />
+        ) : (
+          <Box>
+            <Text color="iconBackground" variant="sectionTitle">
+              {label}
+            </Text>
+          </Box>
+        )}
       </RectButton>
     </Box>
   );

@@ -37,22 +37,22 @@ interface MatrimonyRegisterProps {
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required(),
-  lastName: Yup.string().required(),
-  phoneNumber: Yup.string().length(10).required(),
-  location: Yup.string().required(),
-  studyAt: Yup.string().required(),
-  workAt: Yup.string().required(),
-  work: Yup.string().required(),
-  bio: Yup.string().required(),
-  email: Yup.string().email().required(),
-  companyName: Yup.string().required(),
-  designation: Yup.string().required(),
-  education: Yup.string().required(),
-  livesIn: Yup.string().required(),
-  about: Yup.string().required(),
-  interest: Yup.string().required(),
-  gender: Yup.string().required(),
+  firstName: Yup.string(),
+  lastName: Yup.string(),
+  phoneNumber: Yup.string().length(10),
+  location: Yup.string(),
+  studyAt: Yup.string(),
+  workAt: Yup.string(),
+  work: Yup.string(),
+  bio: Yup.string(),
+  email: Yup.string().email(),
+  companyName: Yup.string(),
+  designation: Yup.string(),
+  education: Yup.string(),
+  livesIn: Yup.string(),
+  about: Yup.string(),
+  interest: Yup.string(),
+  gender: Yup.string(),
 });
 // StackNavigationProps<"EditProfile">
 
@@ -63,6 +63,7 @@ const MatrimonyRegister = ({
   matrimonyState,
 }: MatrimonyRegisterProps) => {
   const [imageUri, setImageUri] = useState("");
+  const [loading, setLoading] = useState(false);
   const { created } = matrimonyState;
   const {
     handleChange,
@@ -102,14 +103,16 @@ const MatrimonyRegister = ({
         interest: values.interest,
         gender: values.gender.toUpperCase(),
       };
+
       registerMatrimony(val);
+
       if (created === true) {
         ToastAndroid.showWithGravity(
           "User Created",
           ToastAndroid.LONG,
           ToastAndroid.BOTTOM
         );
-      } else {
+      } else if (created === false) {
         ToastAndroid.showWithGravity(
           "Failed Try Again",
           ToastAndroid.LONG,
@@ -282,7 +285,11 @@ const MatrimonyRegister = ({
             </Box>
             <Box marginTop="l" flexDirection="row" marginHorizontal="xl"></Box>
             <Box marginBottom="l">
-              <LargeButton onPress={handleSubmit} label="Save" />
+              <LargeButton
+                loading={loading}
+                onPress={handleSubmit}
+                label="Save"
+              />
             </Box>
           </TouchableWithoutFeedback>
         </ScrollView>

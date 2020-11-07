@@ -1,4 +1,5 @@
 import {
+  GET_ALL_MATRIMONY_BRIDE_SUCCESS,
   GET_ALL_MATRIMONY_ERROR,
   GET_ALL_MATRIMONY_LOADING,
   GET_ALL_MATRIMONY_SUCCESS,
@@ -9,6 +10,7 @@ import {
 const initialState = {
   loading: false,
   matrimonyProfileList: [],
+  matrimonyBrideProfileList: [],
   error: "",
   created: false,
 };
@@ -25,6 +27,12 @@ const matrimonyReducer = (state = initialState, action: any) => {
         ...state,
         loading: false,
         matrimonyProfileList: action.payload,
+      };
+    case GET_ALL_MATRIMONY_BRIDE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        matrimonyBrideProfileList: action.payload,
       };
     case GET_ALL_MATRIMONY_ERROR:
       return {

@@ -2,50 +2,19 @@ import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useLayoutEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { getAllMatrimonyProfile } from "../../actions/matrimonyActions";
+import { getAllMatrimonyBrideProfile } from "../../actions/matrimonyActions";
 import { Box, Text, HorizontalCard, Loading } from "../../components";
 import { combineTabWithStackProps } from "./MatrimonyRoutes";
-
-export const BrideList = [
-  {
-    id: 1,
-    title: "Full Name",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("../../../assets/images/bride-1.png"),
-    btn: "View full details",
-  },
-  {
-    id: 2,
-    title: "Full Name",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("../../../assets/images/bride-2.png"),
-    btn: "View full details",
-  },
-  {
-    id: 3,
-    title: "Full Name",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("../../../assets/images/bride-3.png"),
-    btn: "View full details",
-  },
-  {
-    id: 3,
-    title: "Full Name",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("../../../assets/images/bride-4.png"),
-    btn: "View full details",
-  },
-];
 
 interface BrideProps {
   navigation: combineTabWithStackProps<"Bride">;
   brideList: {
     loading: boolean;
-    matrimonyProfileList: [];
+    matrimonyBrideProfileList: {
+      _embedded: {
+        profileResourceList: [];
+      };
+    };
     error: string;
   };
   getAllBride: (gender: string) => void;
@@ -56,30 +25,41 @@ const Bride = ({ navigation, brideList, getAllBride }: BrideProps) => {
     getAllBride("FEMALE");
   }, [getAllBride, isFocused]);
 
-  const { loading, matrimonyProfileList, error } = brideList;
-
+  const { loading, matrimonyBrideProfileList, error } = brideList;
+  const { _embedded } = matrimonyBrideProfileList;
   if (loading) {
     return <Loading />;
   }
   return (
     <ScrollView>
-      <Box backgroundColor="iconBackground" flex={1}>
-        <Box>
-          {BrideList.map((data, i) => {
-            return (
-              <HorizontalCard
-                key={i}
-                onPress={() =>
-                  navigation.navigate("BrideDetail", {
-                    id: data.id,
-                  })
-                }
-                {...{ data }}
-              />
-            );
-          })}
+      {_embedded ? (
+        <Box backgroundColor="iconBackground" flex={1}>
+          <Box>
+            {_embedded.profileResourceList.map((data, i) => {
+              return (
+                <HorizontalCard
+                  key={i}
+                  onPress={() =>
+                    navigation.navigate("BrideDetail", {
+                      id: data.id,
+                    })
+                  }
+                  {...{ data }}
+                />
+              );
+            })}
+          </Box>
         </Box>
-      </Box>
+      ) : (
+        <Box
+          height={"100%"}
+          flex={1}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Text>Its Empty</Text>
+        </Box>
+      )}
     </ScrollView>
   );
 };
@@ -91,7 +71,8 @@ function mapStateToProps(state: any) {
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  getAllBride: (gender: string) => dispatch(getAllMatrimonyProfile(gender)),
+  getAllBride: (gender: string) =>
+    dispatch(getAllMatrimonyBrideProfile("FEMALE")),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bride);

@@ -6,38 +6,6 @@ import { getAllMatrimonyProfile } from "../../actions/matrimonyActions";
 import { Box, Text, HorizontalCard, Loading } from "../../components";
 import { combineTabWithStackProps } from "./MatrimonyRoutes";
 
-export const GroomList = [
-  {
-    id: 1,
-    title: "Full Name",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("../../../assets/images/image-1.png"),
-    btn: "View full details",
-    fulImage: require("../../../assets/images/full-image-1.png"),
-  },
-  {
-    id: 2,
-    title: "Full Name",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("../../../assets/images/image-2.png"),
-    btn: "View full details",
-    fulImage: require("../../../assets/images/full-image-1.png"),
-  },
-  {
-    id: 3,
-    title: "Full Name",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("../../../assets/images/image-3.png"),
-    btn: "View full details",
-    fulImage: require("../../../assets/images/full-image-1.png"),
-  },
-];
-
-export const GroomAssets = GroomList.map((data, i) => [data.image]);
-
 interface GroomProps {
   navigation: combineTabWithStackProps<"Groom">;
   getAllGroom: (gender: string) => void;
@@ -65,24 +33,30 @@ const Groom = ({ navigation, getAllGroom, groomList }: GroomProps) => {
   }
   return (
     <ScrollView>
-      <Box backgroundColor="iconBackground" flex={1}>
-        <Box>
-          {_embedded &&
-            _embedded.profileResourceList.map((data, i) => {
-              return (
-                <HorizontalCard
-                  key={i}
-                  onPress={() =>
-                    navigation.navigate("GroomDetail", {
-                      id: data.id,
-                    })
-                  }
-                  {...{ data }}
-                />
-              );
-            })}
+      {_embedded ? (
+        <Box backgroundColor="iconBackground" flex={1}>
+          <Box>
+            {_embedded &&
+              _embedded.profileResourceList.map((data, i) => {
+                return (
+                  <HorizontalCard
+                    key={i}
+                    onPress={() =>
+                      navigation.navigate("GroomDetail", {
+                        id: data.id,
+                      })
+                    }
+                    {...{ data }}
+                  />
+                );
+              })}
+          </Box>
         </Box>
-      </Box>
+      ) : (
+        <Box flex={1} justifyContent="center" alignItems="center">
+          <Text>List Empty</Text>
+        </Box>
+      )}
     </ScrollView>
   );
 };
@@ -94,7 +68,7 @@ function mapStateToProps(state: any) {
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  getAllGroom: (gender: string) => dispatch(getAllMatrimonyProfile(gender)),
+  getAllGroom: (gender: string) => dispatch(getAllMatrimonyProfile("MALE")),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Groom);
