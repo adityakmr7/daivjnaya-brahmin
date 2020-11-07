@@ -89,7 +89,7 @@ const MatrimonyRegister = ({
       gender: "",
     },
     onSubmit: async (values) => {
-      const val = {
+      const val: createMatrimonyProps = {
         image: imageUri,
         firstName: values.firstName,
         lastName: values.lastName,
@@ -103,7 +103,7 @@ const MatrimonyRegister = ({
         interest: values.interest,
         gender: values.gender.toUpperCase(),
       };
-
+      //TODO: add picker here
       registerMatrimony(val);
 
       if (created === true) {

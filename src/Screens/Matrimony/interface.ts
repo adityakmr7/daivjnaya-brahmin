@@ -10,7 +10,7 @@ export type createMatrimonyProps = {
   livesIn: string;
   about: string;
   interest: string;
-  gender: "MALE" | "FEMALE";
+  gender: string;
 };
 export type horizontalCardDataType = {
   about: string;
