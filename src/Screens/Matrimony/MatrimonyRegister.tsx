@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, CheckBox, LargeButton, Text, TextField } from "../../components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Keyboard, KeyboardAvoidingView } from "react-native";
 import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ToastAndroid,
+} from "react-native";
+import { Feather as Icon } from "@expo/vector-icons";
+import {
+  RectButton,
   ScrollView,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
@@ -17,10 +24,11 @@ import { Picker } from "@react-native-picker/picker";
 import { connect } from "react-redux";
 import { createMatrimonyProps } from "./interface";
 import { createMatrimonyProfile } from "../../actions/matrimonyActions";
-
+import * as ImagePicker from "expo-image-picker";
 interface MatrimonyRegisterProps {
   navigation: StackNavigationProps<"EditProfile">;
   route: StackNavigationProps<"EditProfile">;
+  matrimonyState: any;
   registerMatrimony: (data: createMatrimonyProps) => void;
 }
 
@@ -40,9 +48,10 @@ const MatrimonyRegister = ({
   navigation,
   route,
   registerMatrimony,
+  matrimonyState,
 }: MatrimonyRegisterProps) => {
-  // const { navigation, route, editProfile } = props;
-
+  const [imageUri, setImageUri] = useState("");
+  const { created } = matrimonyState;
   const {
     handleChange,
     handleBlur,
@@ -67,10 +76,58 @@ const MatrimonyRegister = ({
       gender: "",
     },
     onSubmit: async (values) => {
-      // Emplement
-      registerMatrimony(values);
+      const val = {
+        image: imageUri,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        phoneNumber: values.phoneNumber,
+        companyName: values.companyName,
+        designation: values.designation,
+        education: values.education,
+        livesIn: values.livesIn,
+        about: values.about,
+        interest: values.interest,
+        gender: values.gender,
+      };
+      registerMatrimony(val);
+      if (created === true) {
+        ToastAndroid.showWithGravity(
+          "User Created",
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM
+        );
+      } else {
+        ToastAndroid.showWithGravity(
+          "Failed Try Again",
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM
+        );
+      }
     },
   });
+
+  const handleImageUpload = async () => {
+    if (Platform.OS !== "web") {
+      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+      if (status !== "granted") {
+        alert("Sorry, we need camera Permissions");
+      } else {
+        const result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+          base64: true,
+        });
+
+        if (!result.cancelled) {
+          setImageUri(result.uri);
+        }
+      }
+    }
+  };
+
   return (
     <Box flex={1} flexDirection="column">
       <KeyboardAvoidingView>
@@ -177,6 +234,26 @@ const MatrimonyRegister = ({
                 touched={touched.gender}
                 placeholder="Gender"
               />
+              <Box
+                style={{ shadowOffset: { width: 0, height: 5 } }}
+                shadowColor="greyish"
+                elevation={1}
+                marginHorizontal="xl"
+                borderRadius="s"
+                marginTop="xxl"
+              >
+                <RectButton
+                  onPress={() => handleImageUpload()}
+                  style={{ height: 40, width: "100%" }}
+                >
+                  <Box flexDirection="row" paddingTop="s" paddingLeft="l">
+                    <Icon size={20} style={{ paddingRight: 5 }} name="upload" />
+                    <Text color="primaryText" variant="cardText">
+                      Upload Files
+                    </Text>
+                  </Box>
+                </RectButton>
+              </Box>
             </Box>
             <Box marginTop="l" flexDirection="row" marginHorizontal="xl"></Box>
             <Box marginBottom="l">
@@ -190,7 +267,9 @@ const MatrimonyRegister = ({
 };
 
 function mapStateToProps(state: any) {
-  return { ...state };
+  return {
+    matrimonyState: state.matrimony,
+  };
 }
 
 const mapDispatchToProps = (dispatch: any) => ({

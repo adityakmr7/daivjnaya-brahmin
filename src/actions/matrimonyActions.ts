@@ -5,6 +5,8 @@ import {
   GET_ALL_MATRIMONY_ERROR,
   GET_ALL_MATRIMONY_LOADING,
   GET_ALL_MATRIMONY_SUCCESS,
+  MATRIMONY_CREATED_ERROR,
+  MATRIMONY_CREATED_SUCCESS,
 } from "./constants/matrimonyConstants";
 
 /**
@@ -19,7 +21,6 @@ export const getAllMatrimonyProfile = (gender: string) => (dispatch: any) => {
   _rest
     .get(_matrimony_get_all_profile + `/?gender=${gender}`)
     .then((res) => {
-      console.log("matrimony", res);
       dispatch({
         type: GET_ALL_MATRIMONY_SUCCESS,
         payload: res.data,
@@ -39,8 +40,13 @@ export const createMatrimonyProfile = (data: createMatrimonyProps) => async (
   const _rest = new restServices();
   const image = await _rest.getMediaUrl(data.image);
 
-  const dataToSend = {
-    imageUrl: image,
+  const dataToSend = JSON.stringify({
+    images: [
+      {
+        image: image.data.url,
+      },
+    ],
+
     firstName: data.firstName,
     lastName: data.lastName,
     email: data.email,
@@ -52,14 +58,19 @@ export const createMatrimonyProfile = (data: createMatrimonyProps) => async (
     about: data.about,
     interest: data.interest,
     gender: data.gender,
-  };
-
+  });
   _rest
     .post("/matrimony/profile", dataToSend)
     .then((res) => {
-      console.log("matrimoy", res);
+      dispatch({
+        type: MATRIMONY_CREATED_SUCCESS,
+        payload: res.data,
+      });
     })
     .catch((err) => {
-      console.log("matrimonyErr", err);
+      dispatch({
+        type: MATRIMONY_CREATED_ERROR,
+        error: err,
+      });
     });
 };

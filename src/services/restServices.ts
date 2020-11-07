@@ -21,6 +21,7 @@ class restServices {
       url: this.baseUrl + url,
       headers: {
         Authorization: "Bearer " + (await this.getAccessToken()),
+        "Content-Type": "application/json",
       },
       data: data,
     };
