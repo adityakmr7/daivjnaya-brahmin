@@ -172,7 +172,7 @@ const MyProfile = ({
   } else {
     return (
       <Box flex={1} backgroundColor="iconBackground">
-        <StatusBar translucent={true} />
+        <StatusBar backgroundColor="white" />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Box width={wWidth} height={200}>
             <TouchableWithoutFeedback
