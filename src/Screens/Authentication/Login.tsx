@@ -8,11 +8,14 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { combineAuthStackProps } from "./index";
 import { connect } from "react-redux";
 import { userLogin } from "../../actions/authActions";
+import { useToast } from "react-native-styled-toast";
+
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface LoginProps {
   navigation: combineAuthStackProps<"login">;
   getLogin: (email: string, password: string, navigation: any) => void;
+  authentication: { errorMessage: boolean; loading: boolean };
 }
 
 const validationSchema = Yup.object().shape({
@@ -20,7 +23,7 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().required(), //TODO: Validate Email
 });
 
-const Login = ({ navigation, getLogin }: LoginProps) => {
+const Login = ({ navigation, getLogin, authentication }: LoginProps) => {
   const {
     handleChange,
     handleBlur,
@@ -41,11 +44,22 @@ const Login = ({ navigation, getLogin }: LoginProps) => {
       // console.log(values);
       try {
         getLogin(values.email, values.password, navigation);
+        if (errorMessage) {
+          toast({
+            message: "Username of password might be wrong",
+            bg: "background",
+            color: "text",
+            accentColor: "main",
+          });
+        }
       } catch (e) {
         console.log(e);
       }
     },
   });
+  const { errorMessage, loading } = authentication;
+  const { toast } = useToast();
+
   return (
     <Box
       backgroundColor="primaryText"
@@ -94,7 +108,11 @@ const Login = ({ navigation, getLogin }: LoginProps) => {
               touched={touched.password}
             />
           </Box>
-          <LargeButton onPress={handleSubmit} label={"LOGIN"} />
+          <LargeButton
+            loading={loading}
+            onPress={handleSubmit}
+            label={"LOGIN"}
+          />
           <Box paddingVertical="m" alignItems="center">
             <TouchableWithoutFeedback>
               <Text variant="seeAll">Forgot Password ?</Text>
@@ -115,7 +133,9 @@ const Login = ({ navigation, getLogin }: LoginProps) => {
 };
 
 function mapStateToProps(state: any) {
-  return { ...state };
+  return {
+    authentication: state.auth,
+  };
 }
 
 const mapDispatchToProps = (dispatch: any) => {

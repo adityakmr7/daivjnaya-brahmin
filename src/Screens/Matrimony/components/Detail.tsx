@@ -2,21 +2,27 @@ import React from "react";
 import { Dimensions, Image } from "react-native";
 import { Box, Text } from "../../../components";
 import { Feather as Icon } from "@expo/vector-icons";
-import { createMatrimonyProps } from "../interface";
+import { createMatrimonyProps, horizontalCardDataType } from "../interface";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface DetailProps {
-  data: createMatrimonyProps;
+  data: horizontalCardDataType;
 }
 const Detail = ({ data }: DetailProps) => {
   return (
     <>
       <Box height={wHeight * 0.7}>
-        <Image
-          style={{ height: "100%", width: "100%" }}
-          source={{ uri: data.images[0]._links.image.href }}
-        />
+        {data.images ? (
+          <Image
+            style={{ height: "100%", width: "100%" }}
+            source={{ uri: data.images[0]._links.image.href }}
+          />
+        ) : (
+          <Box style={{ height: "100%", width: "100%" }}>
+            <Text>No Image Found</Text>
+          </Box>
+        )}
         <Box
           bottom={0}
           right={30}

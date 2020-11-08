@@ -22,7 +22,7 @@ const LargeButton = ({ label, onPress, loading }: LargeButtonProps) => {
         style={{ height: 60, justifyContent: "center", alignItems: "center" }}
       >
         {loading ? (
-          <ActivityIndicator />
+          <ActivityIndicator color="white" />
         ) : (
           <Box>
             <Text color="iconBackground" variant="sectionTitle">

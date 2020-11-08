@@ -11,7 +11,8 @@ import { assetShop } from "./src/Screens/Jewellery/Shop";
 import { assetsVendor } from "./src/Screens/Jewellery/Vendors";
 import { assetsWorker } from "./src/Screens/Jewellery/Workers";
 import { NotificationAssets } from "./src/Screens/Notifications";
-
+import { ThemeProvider as StyleThemeProvider } from "styled-components";
+import { ToastProvider } from "react-native-styled-toast";
 import { store } from "./src/store";
 import { logoutUser, userAuthorized } from "./src/actions/authActions";
 import restServices from "./src/services/restServices";
@@ -107,13 +108,31 @@ axios.interceptors.response.use(
   }
 );
 
+const toastTheme = {
+  space: [0, 4, 8, 12, 16, 20, 24, 32, 40, 48],
+  colors: {
+    main: "#D4AF37",
+    text: "#0A0A0A",
+    background: "#FFF",
+    border: "#E2E8F0",
+    muted: "#F0F1F3",
+    success: "#7DBE31",
+    error: "#F20000",
+    info: "#6EAAF7",
+  },
+};
+
 function App() {
   return (
     <Provider store={store}>
       <ThemeProvider {...{ theme }}>
         <LoadAssets {...{ fonts, assets }}>
           <SafeAreaProvider>
-            <AppNavigation />
+            <StyleThemeProvider theme={toastTheme}>
+              <ToastProvider offset={20}>
+                <AppNavigation />
+              </ToastProvider>
+            </StyleThemeProvider>
           </SafeAreaProvider>
         </LoadAssets>
       </ThemeProvider>

@@ -5,7 +5,6 @@ import {
   MatrimonyStackNavigationProps,
   MatrimonyStackParamList,
 } from "./MatrimonyRoutes";
-import { BrideList } from "./Bride";
 import { Feather as Icon } from "@expo/vector-icons";
 import { Box, Text } from "../../components";
 import {
@@ -15,16 +14,16 @@ import {
 import Detail from "./components/Detail";
 import { connect } from "react-redux";
 import { getMatrimonyProfileById } from "../../actions/matrimonyActions";
-import { createMatrimonyProps } from "./interface";
+import { createMatrimonyProps, horizontalCardDataType } from "./interface";
 import { ActivityIndicator } from "react-native";
 
 interface BrideDetailProps {
-  navigation: MatrimonyStackNavigationProps<"BrideDetail">;
-  route: MatrimonyStackNavigationProps<"BrideDetail">;
+  navigation: StackNavigationProp<MatrimonyStackParamList, "BrideDetail">;
+  route: RouteProp<MatrimonyStackParamList, "BrideDetail">;
   getBrideDetail: (pId: number) => void;
   matrimonyDetail: {
     detailLoading: boolean;
-    matrimonyDetailProfile: createMatrimonyProps;
+    matrimonyDetailProfile: horizontalCardDataType;
   };
 }
 
@@ -35,7 +34,7 @@ const BrideDetail = ({
   matrimonyDetail,
 }: BrideDetailProps) => {
   const id = route.params.id;
-  // const data = BrideList.filter((item) => item.id === id)[0];
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTransparent: true,
@@ -48,8 +47,8 @@ const BrideDetail = ({
           <TouchableWithoutFeedback
             onPress={() =>
               navigation.navigate("FullScreen", {
-                title: "Hello world",
-                img: "",
+                title: matrimonyDetailProfile.firstName,
+                img: matrimonyDetailProfile.images[0]._links.image.href,
               })
             }
           >

@@ -4,6 +4,8 @@ import {
   LOGOUT_USER,
   USER_SIGN_UP,
   USER_SIGN_UP_ERROR,
+  LOGIN_USER_ERROR,
+  LOGIN_USER_LOADING,
 } from "./constants/authConstant";
 import { _sign_in_user, _login_user } from "./../api/endpoints";
 import axios, { AxiosPromise, AxiosRequestConfig, AxiosResponse } from "axios";
@@ -54,6 +56,9 @@ export const userSignup = (
 export const userLogin = (email: string, password: string, navigation: any) => (
   dispatch: any
 ) => {
+  dispatch({
+    type: LOGIN_USER_LOADING,
+  });
   const base64 = require("base-64");
   const hash = "Basic " + base64.encode("karthik:karthik");
   let data = new FormData();
@@ -78,7 +83,12 @@ export const userLogin = (email: string, password: string, navigation: any) => (
       _rest.saveToken(res.data);
       navigation.navigate("Home");
     })
-    .catch((err) => console.log("errorResponse", err));
+    .catch((err) => {
+      dispatch({
+        type: LOGIN_USER_ERROR,
+        error: err,
+      });
+    });
 };
 
 export const userAuthorized = () => (dispatch: any) => {
