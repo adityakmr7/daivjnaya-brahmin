@@ -20,10 +20,9 @@ interface BrideProps {
   getAllBride: (gender: string) => void;
 }
 const Bride = ({ navigation, brideList, getAllBride }: BrideProps) => {
-  const isFocused = useIsFocused();
-  useLayoutEffect(() => {
+  useEffect(() => {
     getAllBride("FEMALE");
-  }, [getAllBride, isFocused]);
+  }, [getAllBride]);
 
   const { loading, matrimonyBrideProfileList, error } = brideList;
   const { _embedded } = matrimonyBrideProfileList;

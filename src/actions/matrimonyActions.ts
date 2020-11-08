@@ -116,7 +116,6 @@ export const getMatrimonyProfileById = (pid: number) => async (
   _rest
     .get(`/matrimony/profile/${pid}`)
     .then((res) => {
-      console.log("detailData", res);
       dispatch({
         type: GET_MATRIMONY_PROFILE_BY_ID_SUCCESS,
         payload: res.data,

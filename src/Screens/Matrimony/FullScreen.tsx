@@ -26,7 +26,7 @@ const FullScreen = ({
           width: wWidth,
           ...StyleSheet.absoluteFillObject,
         }}
-        source={img}
+        source={{ uri: img }}
       />
     </Box>
   );

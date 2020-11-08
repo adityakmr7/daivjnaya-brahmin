@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect } from "react";
 import { Box, Text } from "../../components";
 import {
   MatrimonyStackNavigationProps,
+  MatrimonyStackParamList,
   MatrimonyStackRouteProps,
 } from "./MatrimonyRoutes";
 import { Feather as Icon } from "@expo/vector-icons";
@@ -16,10 +17,11 @@ import { connect } from "react-redux";
 import { getMatrimonyProfileById } from "../../actions/matrimonyActions";
 import { createMatrimonyProps } from "./interface";
 import { ActivityIndicator } from "react-native";
+import { NavigationProp, RouteProp } from "@react-navigation/native";
 
 interface GroomDetailProps {
-  navigation: MatrimonyStackNavigationProps<"GroomDetail">;
-  route: MatrimonyStackRouteProps<"GroomDetail">;
+  navigation: NavigationProp<MatrimonyStackParamList, "GroomDetail">;
+  route: RouteProp<MatrimonyStackParamList, "GroomDetail">;
   getGroomDetail: (pId: number) => void;
 
   matrimonyDetail: {
@@ -35,7 +37,10 @@ const GroomDetail = ({
   matrimonyDetail,
 }: GroomDetailProps) => {
   const id = route.params.id;
-  //const data = GroomList.filter((item) => item.id === id)[0];
+  const { detailLoading, matrimonyDetailProfile } = matrimonyDetail;
+
+  const { firstName, lastName, images } = matrimonyDetailProfile;
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTransparent: true,
@@ -48,8 +53,8 @@ const GroomDetail = ({
           <TouchableWithoutFeedback
             onPress={() =>
               navigation.navigate("FullScreen", {
-                title: data.title,
-                img: data.image,
+                title: `${firstName} ${lastName}`,
+                img: images[0]._links.image.href,
               })
             }
           >
@@ -64,7 +69,6 @@ const GroomDetail = ({
     getGroomDetail(id);
   }, [id]);
 
-  const { detailLoading, matrimonyDetailProfile } = matrimonyDetail;
   if (detailLoading) {
     return (
       <Box flex={1} justifyContent="center" alignItems="center">
