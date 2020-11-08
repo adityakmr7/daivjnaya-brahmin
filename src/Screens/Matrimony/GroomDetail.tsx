@@ -6,7 +6,6 @@ import {
   MatrimonyStackRouteProps,
 } from "./MatrimonyRoutes";
 import { Feather as Icon } from "@expo/vector-icons";
-import { GroomList } from "./Groom";
 import {
   RectButton,
   ScrollView,

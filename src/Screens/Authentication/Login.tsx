@@ -40,8 +40,6 @@ const Login = ({ navigation, getLogin, authentication }: LoginProps) => {
       callback: false,
     },
     onSubmit: async (values) => {
-      //navigation.navigate("Home");
-      // console.log(values);
       try {
         getLogin(values.email, values.password, navigation);
         if (errorMessage) {

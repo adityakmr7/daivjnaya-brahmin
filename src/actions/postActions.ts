@@ -18,14 +18,12 @@ export const getAllPost = () => (dispatch: any) => {
   _rest
     .get("/post")
     .then((res) => {
-      console.log("post", res);
       dispatch({
         type: GET_ALL_POST_SUCCESS,
         payload: res.data,
       });
     })
     .catch((err) => {
-      console.log(err);
       dispatch({
         type: GET_ALL_POST_ERROR,
         error: err,
