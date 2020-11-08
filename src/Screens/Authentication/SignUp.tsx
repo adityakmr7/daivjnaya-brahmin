@@ -7,10 +7,14 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { combineAuthStackProps } from ".";
 import { userSignup } from "../../actions/authActions";
 import { connect } from "react-redux";
+import { useToast } from "react-native-styled-toast";
+
+import { AuthState } from "../../reducers/authReducer";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface SignupProps {
   navigation: combineAuthStackProps<"SignUp">;
+  userSignupState: AuthState;
   userSignUp: (
     email: string,
     password: string,
@@ -32,7 +36,9 @@ const validationSchema = Yup.object().shape({
   phoneNumber: Yup.string().length(10).required(),
 });
 
-const SignUp = ({ navigation, userSignUp }: SignupProps) => {
+const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
+  const { signUpLoading, signUpError, successMessage } = userSignupState;
+  const { toast } = useToast();
   const {
     handleChange,
     handleBlur,
@@ -64,19 +70,24 @@ const SignUp = ({ navigation, userSignUp }: SignupProps) => {
           phoneNumber,
           navigation
         );
-        console.log("triggered");
-        ToastAndroid.showWithGravity(
-          "Account Created, Please Login",
-          ToastAndroid.LONG,
-          ToastAndroid.BOTTOM
-        );
+        if (signUpError) {
+          toast({
+            message: "Error Please Try Again",
+            bg: "background",
+            color: "text",
+            accentColor: "main",
+          });
+        }
+        if (successMessage) {
+          toast({
+            message: "User Created Please Login",
+            bg: "background",
+            color: "text",
+            accentColor: "main",
+          });
+        }
       } catch (e) {
         console.log(e);
-        ToastAndroid.showWithGravity(
-          "Account Not Created Try Again",
-          ToastAndroid.LONG,
-          ToastAndroid.BOTTOM
-        );
       }
 
       // navigation.navigate("Home");
@@ -148,7 +159,11 @@ const SignUp = ({ navigation, userSignUp }: SignupProps) => {
               touched={touched.phoneNumber}
             />
           </Box>
-          <LargeButton onPress={handleSubmit} label={"SING UP"} />
+          <LargeButton
+            loading={signUpLoading}
+            onPress={handleSubmit}
+            label={"SING UP"}
+          />
           <Box paddingVertical="s" alignItems="center">
             <TouchableWithoutFeedback
               onPress={() => navigation.navigate("login")}
@@ -165,7 +180,9 @@ const SignUp = ({ navigation, userSignUp }: SignupProps) => {
 };
 
 function mapStateToProps(state: any) {
-  return { ...state };
+  return {
+    userSignupState: state.auth,
+  };
 }
 
 const mapDispatchToProps = (dispatch: any) => ({

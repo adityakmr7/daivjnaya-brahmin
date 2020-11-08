@@ -6,6 +6,7 @@ import {
   USER_SIGN_UP_ERROR,
   LOGIN_USER_ERROR,
   LOGIN_USER_LOADING,
+  USER_SIGN_UP_LOADING,
 } from "./constants/authConstant";
 import { _sign_in_user, _login_user } from "./../api/endpoints";
 import axios, { AxiosPromise, AxiosRequestConfig, AxiosResponse } from "axios";
@@ -19,6 +20,9 @@ export const userSignup = (
   phoneNumber: string,
   navigation: any
 ) => (dispatch: any) => {
+  dispatch({
+    type: USER_SIGN_UP_LOADING,
+  });
   var data = JSON.stringify({
     email: email,
     firstName: firstName,
@@ -45,7 +49,6 @@ export const userSignup = (
       navigation.navigate("login");
     })
     .catch((err) => {
-      console.log("errorRes", err);
       dispatch({
         type: USER_SIGN_UP_ERROR,
         message: "Error Signup",

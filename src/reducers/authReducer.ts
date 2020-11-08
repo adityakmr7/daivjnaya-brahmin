@@ -1,4 +1,8 @@
-import { LOGIN_USER_LOADING } from "./../actions/constants/authConstant";
+import {
+  LOGIN_USER_LOADING,
+  USER_SIGN_UP_ERROR,
+  USER_SIGN_UP_LOADING,
+} from "./../actions/constants/authConstant";
 import {
   LOGIN_USER,
   LOGIN_USER_ERROR,
@@ -12,6 +16,9 @@ export type AuthState = {
   readonly userData: {};
   readonly errorMessage: boolean;
   readonly loading: boolean;
+  readonly signUpLoading: boolean;
+  readonly signUpError: boolean;
+  readonly successMessage: string;
 };
 
 const initialState: AuthState = {
@@ -19,6 +26,9 @@ const initialState: AuthState = {
   userData: {},
   errorMessage: false,
   loading: false,
+  signUpLoading: false,
+  signUpError: false,
+  successMessage: "",
 };
 
 const authReducer = (state = initialState, action: any) => {
@@ -26,6 +36,18 @@ const authReducer = (state = initialState, action: any) => {
     case USER_SIGN_UP:
       return {
         ...state,
+        signUpLoading: false,
+        successMessage: action.payload,
+      };
+    case USER_SIGN_UP_LOADING:
+      return {
+        ...state,
+        signUpLoading: true,
+      };
+    case USER_SIGN_UP_ERROR:
+      return {
+        ...state,
+        signUpError: true,
       };
     case LOGIN_USER:
       return {

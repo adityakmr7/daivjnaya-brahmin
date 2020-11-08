@@ -20,7 +20,7 @@ interface LoginProps {
 
 const validationSchema = Yup.object().shape({
   password: Yup.string().required(),
-  email: Yup.string().required(), //TODO: Validate Email
+  email: Yup.string().email().required(),
 });
 
 const Login = ({ navigation, getLogin, authentication }: LoginProps) => {
