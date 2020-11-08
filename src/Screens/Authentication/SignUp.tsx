@@ -76,6 +76,9 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
             bg: "background",
             color: "text",
             accentColor: "main",
+            iconFamily: "Feather",
+            iconName: "alert-triangle",
+            iconColor: "error",
           });
         }
         if (successMessage) {
@@ -84,6 +87,9 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
             bg: "background",
             color: "text",
             accentColor: "main",
+            iconFamily: "Feather",
+            iconName: "check-circle",
+            iconColor: "error",
           });
         }
       } catch (e) {

@@ -46,10 +46,13 @@ const Login = ({ navigation, getLogin, authentication }: LoginProps) => {
         getLogin(values.email, values.password, navigation);
         if (errorMessage) {
           toast({
-            message: "Username of password might be wrong",
+            message: "Wrong username or password!",
             bg: "background",
             color: "text",
             accentColor: "main",
+            iconFamily: "Feather",
+            iconName: "alert-triangle",
+            iconColor: "error",
           });
         }
       } catch (e) {
