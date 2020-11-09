@@ -8,7 +8,6 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { postDataProps } from "../interfaces";
-import moment from "moment";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 export interface PostCardProps {

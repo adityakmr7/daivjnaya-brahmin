@@ -28,6 +28,7 @@ import { getAllPost } from "../../actions/postActions";
 import * as ImagePicker from "expo-image-picker";
 import { useIsFocused } from "@react-navigation/native";
 import PostListComponent from "./components/PostListComponent";
+import { getAllFriends } from "../../actions/friendsActions";
 export const friends = [
   {
     id: 1,
@@ -81,6 +82,8 @@ interface MyProfileProps {
   profileData: any;
   getAllPost: any;
   updateCoverImage: (url: string) => void;
+  allFriends: () => void;
+  friendList: any; //  TODO: update with props
 }
 
 const MyProfile = ({
@@ -91,6 +94,8 @@ const MyProfile = ({
   updateProfile,
   updateCoverImage,
   getAllPost,
+  allFriends,
+  friendList,
 }: MyProfileProps) => {
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -108,10 +113,13 @@ const MyProfile = ({
   useEffect(() => {
     getUserDetail();
     getPostList();
+    allFriends();
   }, [isFocused]);
 
   const { loading, userProfileData } = profileData;
   const { _links, firstName, lastName } = userProfileData;
+  // TODO: wait for some friends to be added
+  // const {} = friendList;
 
   useEffect(() => {
     if (_links) {
@@ -329,6 +337,7 @@ function mapStateToProps(state: any) {
   return {
     profileData: state.profile,
     getAllPost: state.post,
+    friendList: state.friend,
   };
 }
 
@@ -337,6 +346,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   getPostList: () => dispatch(getAllPost()),
   updateProfile: (url: string) => dispatch(updateUserProfilePicture(url)),
   updateCoverImage: (url: string) => dispatch(updateCoverProfile(url)),
+  allFriends: () => dispatch(getAllFriends()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);
