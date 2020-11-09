@@ -2,11 +2,13 @@ import React from "react";
 import { Dimensions, Image } from "react-native";
 import { Box, Text } from "../../../components";
 import { Feather as Icon } from "@expo/vector-icons";
+import Moment from "react-moment";
 import {
   RectButton,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { postDataProps } from "../interfaces";
+import moment from "moment";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 export interface PostCardProps {
@@ -53,7 +55,11 @@ const PostCard = ({ post, onPress, userProfileData }: PostCardProps) => {
               {firstName && firstName} {lastName && lastName}
             </Text>
             <Text variant="cardText" color="grey">
-              {post.createdDate}
+              <Moment
+                element={Text}
+                format="MMMM Do YYYY"
+                date={post.createdDate}
+              />
             </Text>
           </Box>
         </Box>
