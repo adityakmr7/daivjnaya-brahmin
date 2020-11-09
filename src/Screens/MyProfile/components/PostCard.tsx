@@ -6,30 +6,11 @@ import {
   RectButton,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
+import { postDataProps } from "../interfaces";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 export interface PostCardProps {
-  post: {
-    content: string;
-    createdDate: number;
-    files: [
-      {
-        _links: { url: { href: string } };
-      }
-    ];
-    isLiked: boolean;
-    lastModifiedDate: number;
-    location: {
-      latitude: number;
-      locationId: number;
-      locationName: string;
-      longitude: number;
-      postId: number;
-      totalComments: number;
-      totalLikes: number;
-      username: string;
-    };
-  };
+  post: postDataProps;
   userProfileData: any;
   firstName: string;
   lastName: string;

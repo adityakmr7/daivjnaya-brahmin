@@ -25,3 +25,25 @@ export type postDataType = {
   location: string | null;
   url: string | null;
 };
+
+export type postDataProps = {
+  content: string;
+  createdDate: number;
+  files: [
+    {
+      _links: { url: { href: string } };
+    }
+  ];
+  isLiked: boolean;
+  lastModifiedDate: number;
+  location: {
+    latitude: number;
+    locationId: number;
+    locationName: string;
+    longitude: number;
+    postId: number;
+    totalComments: number;
+    totalLikes: number;
+    username: string;
+  };
+};

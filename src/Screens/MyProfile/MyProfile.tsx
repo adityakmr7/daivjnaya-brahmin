@@ -111,7 +111,7 @@ const MyProfile = ({
   }, [isFocused]);
 
   const { loading, userProfileData } = profileData;
-  const { _links } = userProfileData;
+  const { _links, firstName, lastName } = userProfileData;
 
   useEffect(() => {
     if (_links) {
@@ -266,7 +266,7 @@ const MyProfile = ({
             <TouchableWithoutFeedback
               onPress={() =>
                 navigation.navigate("FriendList", {
-                  username: Posts[0].user,
+                  username: `${firstName} ${lastName}`,
                 })
               }
             >
@@ -303,17 +303,6 @@ const MyProfile = ({
             />
           )}
 
-          {/* {Posts.map((post, index) => {
-            return (
-              <PostCard
-                src={profileImage}
-                {...userProfileData}
-                onPress={handleDrawer}
-                key={post.id}
-                {...{ post }}
-              />
-            );
-          })} */}
           <Box backgroundColor="mainBackground" height={10} />
           <RBSheet
             ref={refRBSheet}
