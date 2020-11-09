@@ -27,6 +27,7 @@ import {
 import { getAllPost } from "../../actions/postActions";
 import * as ImagePicker from "expo-image-picker";
 import { useIsFocused } from "@react-navigation/native";
+import PostListComponent from "./components/PostListComponent";
 export const friends = [
   {
     id: 1,
@@ -78,6 +79,7 @@ interface MyProfileProps {
   getPostList: () => void;
   updateProfile: (url: string) => void;
   profileData: any;
+  getAllPost: any;
   updateCoverImage: (url: string) => void;
 }
 
@@ -88,6 +90,7 @@ const MyProfile = ({
   profileData,
   updateProfile,
   updateCoverImage,
+  getAllPost,
 }: MyProfileProps) => {
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -101,7 +104,7 @@ const MyProfile = ({
   const [coverImage, setCoverImage] = useState<string>("");
   const refRBSheet = useRef<any | undefined>();
   const handleDrawer = () => refRBSheet.current.open();
-
+  const { postList, postLoading } = getAllPost;
   useEffect(() => {
     getUserDetail();
     getPostList();
@@ -179,14 +182,20 @@ const MyProfile = ({
               style={{ height: "100%" }}
               onPress={() => handleCoverUpload()}
             >
-              <Image
-                style={{ width: "100%", height: "100%" }}
-                source={
-                  coverImage
-                    ? { uri: coverImage }
-                    : require("./assets/wall.png")
-                }
-              />
+              {coverImage !== "" ? (
+                <Image
+                  style={{ width: "100%", height: "100%" }}
+                  source={{ uri: coverImage }}
+                />
+              ) : (
+                <Box
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: "white",
+                  }}
+                ></Box>
+              )}
             </TouchableWithoutFeedback>
             <RectButton
               onPress={() => navigation.pop()}
@@ -195,7 +204,7 @@ const MyProfile = ({
               <Icon
                 size={30}
                 name={Platform.OS === "android" ? "arrow-left" : "chevron-left"}
-                color="white"
+                color="grey"
               />
             </RectButton>
           </Box>
@@ -207,7 +216,7 @@ const MyProfile = ({
           >
             <TouchableWithoutFeedback onPress={() => handleProfileUpdate()}>
               <Box borderRadius="xl" height={140} width={140}>
-                {profileImage ? (
+                {profileImage !== "" ? (
                   <Image
                     style={{ height: 140, width: 140, borderRadius: 140 / 2 }}
                     source={{ uri: profileImage }}
@@ -282,7 +291,19 @@ const MyProfile = ({
           </Box>
           <CreatePost src={profileImage} />
           <Box height={3} backgroundColor="mainBackground" />
-          {Posts.map((post, index) => {
+          {postLoading ? (
+            <Box>
+              <Text>loading...</Text>
+            </Box>
+          ) : (
+            <PostListComponent
+              postList={postList}
+              userProfileData={userProfileData}
+              onPress={handleDrawer}
+            />
+          )}
+
+          {/* {Posts.map((post, index) => {
             return (
               <PostCard
                 src={profileImage}
@@ -292,7 +313,7 @@ const MyProfile = ({
                 {...{ post }}
               />
             );
-          })}
+          })} */}
           <Box backgroundColor="mainBackground" height={10} />
           <RBSheet
             ref={refRBSheet}
@@ -318,6 +339,7 @@ const MyProfile = ({
 function mapStateToProps(state: any) {
   return {
     profileData: state.profile,
+    getAllPost: state.post,
   };
 }
 

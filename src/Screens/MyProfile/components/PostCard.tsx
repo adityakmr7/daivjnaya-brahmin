@@ -10,27 +10,34 @@ const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 export interface PostCardProps {
   post: {
-    image: number;
-    user: string;
-    userImage: number;
-    date: string;
-    caption: string;
-    likes: number;
-    comments: number;
+    content: string;
+    createdDate: number;
+    files: [
+      {
+        _links: { url: { href: string } };
+      }
+    ];
+    isLiked: boolean;
+    lastModifiedDate: number;
+    location: {
+      latitude: number;
+      locationId: number;
+      locationName: string;
+      longitude: number;
+      postId: number;
+      totalComments: number;
+      totalLikes: number;
+      username: string;
+    };
   };
-
+  userProfileData: any;
   firstName: string;
   lastName: string;
-  src: string;
   onPress: () => void;
 }
-const PostCard = ({
-  post,
-  onPress,
-  firstName,
-  lastName,
-  src,
-}: PostCardProps) => {
+const PostCard = ({ post, onPress, userProfileData }: PostCardProps) => {
+  const { _links, firstName, lastName } = userProfileData;
+
   return (
     <Box marginVertical="s">
       <Box
@@ -40,14 +47,16 @@ const PostCard = ({
       >
         <Box flexDirection="row" alignItems="center">
           <Box paddingRight="s">
-            {src ? (
+            {_links !== "" ? (
               <Image
                 style={{
                   width: wWidth / 6,
                   height: wWidth / 6,
                   borderRadius: wWidth / 2,
                 }}
-                source={{ uri: src }}
+                source={{
+                  uri: _links.profilePic.href,
+                }}
               />
             ) : (
               <Box
@@ -63,7 +72,7 @@ const PostCard = ({
               {firstName && firstName} {lastName && lastName}
             </Text>
             <Text variant="cardText" color="grey">
-              {post.date}
+              {post.createdDate}
             </Text>
           </Box>
         </Box>
@@ -75,13 +84,19 @@ const PostCard = ({
       </Box>
       <Box>
         <Text marginVertical="s" marginHorizontal="s">
-          {post.caption}
+          {post.content}
         </Text>
         <Box>
-          <Image
-            style={{ width: wWidth, height: wWidth }}
-            source={post.image}
-          />
+          {post.files &&
+          post.files[0] &&
+          post.files[0]._links &&
+          post.files[0]._links.url &&
+          post.files[0]._links.url.href ? (
+            <Image
+              style={{ width: wWidth, height: wWidth }}
+              source={{ uri: post.files[0]._links.url.href }}
+            />
+          ) : null}
         </Box>
         <Box
           marginHorizontal="s"
@@ -92,12 +107,12 @@ const PostCard = ({
           <Box flexDirection="row" alignItems="center">
             <Icon size={15} name="thumbs-up" />
             <Text variant="cardText" color="grey" paddingHorizontal="s">
-              You and {post.likes} othes
+              You and {post.isLiked} othes
             </Text>
           </Box>
           <Box>
             <Text variant="cardText" color="grey">
-              {post.comments} Comments
+              Comments
             </Text>
           </Box>
         </Box>

@@ -18,6 +18,8 @@ export const getAllPost = () => (dispatch: any) => {
   _rest
     .get("/post")
     .then((res) => {
+      console.log("postList", res.data);
+
       dispatch({
         type: GET_ALL_POST_SUCCESS,
         payload: res.data,

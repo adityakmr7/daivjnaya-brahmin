@@ -7,7 +7,7 @@ import {
 } from "./../actions/constants/postConstant";
 
 const initialState = {
-  loading: false,
+  postLoading: false,
   postList: [],
   error: "",
   postCreationMessage: false,
@@ -18,18 +18,18 @@ const postReducer = (state = initialState, action: any) => {
     case GET_ALL_POST_LOADING:
       return {
         ...state,
-        loading: true,
+        postLoading: true,
       };
     case GET_ALL_POST_SUCCESS:
       return {
         ...state,
-        loading: false,
+        postLoading: false,
         postList: action.payload,
       };
     case GET_ALL_POST_ERROR:
       return {
         ...state,
-        loading: true,
+        postLoading: true,
         error: "Network Error",
       };
     case POST_POST_SUCCESS:
