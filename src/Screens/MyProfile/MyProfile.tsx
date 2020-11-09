@@ -165,7 +165,7 @@ const MyProfile = ({
       }
     }
   };
-  console.log("coverImage", coverImage);
+
   if (loading) {
     return (
       <Box flex={1} justifyContent="center" alignItems="center">
@@ -292,8 +292,8 @@ const MyProfile = ({
           <CreatePost src={profileImage} />
           <Box height={3} backgroundColor="mainBackground" />
           {postLoading ? (
-            <Box>
-              <Text>loading...</Text>
+            <Box flex={1} justifyContent="center" alignItems="center">
+              <ActivityIndicator />
             </Box>
           ) : (
             <PostListComponent
