@@ -2,8 +2,12 @@ import {
   GET_ALL_POST_ERROR,
   GET_ALL_POST_LOADING,
   GET_ALL_POST_SUCCESS,
+  POST_LIKED_ERROR,
+  POST_LIKED_SUCCESS,
   POST_POST_ERROR,
   POST_POST_SUCCESS,
+  POST_UN_LIKED_ERROR,
+  POST_UN_LIKED_SUCCESS,
 } from "./../actions/constants/postConstant";
 
 const initialState = {
@@ -11,6 +15,7 @@ const initialState = {
   postList: [],
   error: "",
   postCreationMessage: false,
+  postLikedMessage: "",
 };
 
 const postReducer = (state = initialState, action: any) => {
@@ -41,6 +46,26 @@ const postReducer = (state = initialState, action: any) => {
       return {
         ...state,
         postCreationMessage: true,
+      };
+    case POST_LIKED_SUCCESS:
+      return {
+        ...state,
+        postLikedMessage: action.payload.status,
+      };
+    case POST_LIKED_ERROR:
+      return {
+        ...state,
+        postLikedMessage: "",
+      };
+    case POST_UN_LIKED_SUCCESS:
+      return {
+        ...state,
+        postUnLikedMessage: action.payload.status,
+      };
+    case POST_UN_LIKED_ERROR:
+      return {
+        ...state,
+        postUnLikedMessage: "",
       };
     default:
       return {

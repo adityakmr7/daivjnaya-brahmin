@@ -15,6 +15,8 @@ export interface PostCardProps {
   post: postDataProps;
   userProfileData: any;
   onPress: () => void;
+  postLikedMessage: string;
+  postUnLikedMessage: string;
   handlePostLikeDisLike: (isLiked: boolean, pId: number) => void;
 }
 const PostCard = ({
@@ -22,6 +24,8 @@ const PostCard = ({
   onPress,
   userProfileData,
   handlePostLikeDisLike,
+  postLikedMessage,
+  postUnLikedMessage,
 }: PostCardProps) => {
   const { _links, firstName, lastName } = userProfileData;
 
@@ -98,7 +102,7 @@ const PostCard = ({
           <Box flexDirection="row" alignItems="center">
             <Icon size={15} name="thumbs-up" />
             <Text variant="cardText" color="grey" paddingHorizontal="s">
-              {post.isLiked
+              {post.isLiked || postLikedMessage !== ""
                 ? `You and ${post.totalLikes} others`
                 : `${post.totalLikes}`}
             </Text>

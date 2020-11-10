@@ -70,7 +70,10 @@ axios.interceptors.response.use(
     if (error.response.status !== 401) {
       return Promise.reject(error);
     }
-    if (error.response && error.response.status === 401) {
+    if (
+      (error.response && error.response.status === 401) ||
+      error.response.status === 500
+    ) {
       console.log("token expired");
 
       const _rest = new restServices();

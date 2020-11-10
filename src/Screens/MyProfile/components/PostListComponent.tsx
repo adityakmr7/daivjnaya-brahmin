@@ -11,17 +11,20 @@ interface PostListComponentProps {
   userProfileData: any;
   makePostLike: (pId: number) => void;
   makePostUnLike: (pId: number) => void;
+  postLikedMessage: string;
+  postUnLikedMessage: string;
 }
 const PostListComponent = ({
   postList,
   userProfileData,
   makePostLike,
   makePostUnLike,
+  postLikedMessage,
+  postUnLikedMessage,
   onPress,
 }: PostListComponentProps) => {
   const { _embedded } = postList;
   const handlePostLikeDisLike = (isLiked: boolean, pId: number) => {
-    // TODO: like dislike ui changes needed
     if (isLiked) {
       makePostUnLike(pId);
     } else {
@@ -41,6 +44,8 @@ const PostListComponent = ({
           (post: postDataProps, i: number) => {
             return (
               <PostCard
+                postLikedMessage={postLikedMessage}
+                postUnLikedMessage={postUnLikedMessage}
                 handlePostLikeDisLike={handlePostLikeDisLike}
                 userProfileData={userProfileData}
                 onPress={onPress}
@@ -57,7 +62,8 @@ const PostListComponent = ({
 
 function mapStateToProps(state: any) {
   return {
-    ...state,
+    postLikedMessage: state.post.postLikedMessage,
+    postUnLikedMessage: state.post.postUnLikedMessage,
   };
 }
 

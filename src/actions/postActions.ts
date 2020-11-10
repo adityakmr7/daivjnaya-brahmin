@@ -14,6 +14,7 @@ import {
 } from "./constants/postConstant";
 import axios from "axios";
 import { postDataType } from "../Screens/MyProfile/interfaces";
+import { ActionSheetIOS } from "react-native";
 export const getAllPost = () => (dispatch: any) => {
   dispatch({
     type: GET_ALL_POST_LOADING,
@@ -189,6 +190,7 @@ export const postIdDeleteLike = (postId: number) => (dispatch: any) => {
   _rest
     .delete(`/post/${postId}/like`)
     .then((res) => {
+      console.log("postDeleteLike", res.data);
       dispatch({
         type: POST_UN_LIKED_SUCCESS,
         payload: res.data,
@@ -208,8 +210,11 @@ export const postIdPostLike = (postId: number) => (dispatch: any) => {
   _rest
     .postWithNoData(`/post/${postId}/like`)
     .then((res) => {
+      console.log("postIdLiked", res.data);
+
       dispatch({
         type: POST_LIKED_SUCCESS,
+        payload: res.data,
       });
     })
     .catch((err) => {
