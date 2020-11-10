@@ -28,6 +28,18 @@ class restServices {
     return axios(config);
   };
 
+  postWithNoData = async (url: string) => {
+    let config: AxiosRequestConfig = {
+      method: "post",
+      url: this.baseUrl + url,
+      headers: {
+        Authorization: "Bearer " + (await this.getAccessToken()),
+        "Content-Type": "application/json",
+      },
+    };
+    return axios(config);
+  };
+
   put = async (url: string, data: any) => {
     let config: AxiosRequestConfig = {
       method: "put",

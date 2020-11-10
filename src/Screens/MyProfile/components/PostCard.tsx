@@ -8,17 +8,23 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { postDataProps } from "../interfaces";
+
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 export interface PostCardProps {
   post: postDataProps;
   userProfileData: any;
-  firstName: string;
-  lastName: string;
   onPress: () => void;
+  handlePostLikeDisLike: (pId: number) => void;
 }
-const PostCard = ({ post, onPress, userProfileData }: PostCardProps) => {
+const PostCard = ({
+  post,
+  onPress,
+  userProfileData,
+  handlePostLikeDisLike,
+}: PostCardProps) => {
   const { _links, firstName, lastName } = userProfileData;
+  console.log("postDaa", post);
 
   return (
     <Box marginVertical="s">
@@ -93,12 +99,14 @@ const PostCard = ({ post, onPress, userProfileData }: PostCardProps) => {
           <Box flexDirection="row" alignItems="center">
             <Icon size={15} name="thumbs-up" />
             <Text variant="cardText" color="grey" paddingHorizontal="s">
-              You and {post.isLiked} othes
+              {post.isLiked
+                ? `You and ${post.totalLikes} others`
+                : `${post.totalLikes}`}
             </Text>
           </Box>
           <Box>
             <Text variant="cardText" color="grey">
-              Comments
+              {post.totalComments} Comments
             </Text>
           </Box>
         </Box>
@@ -109,10 +117,17 @@ const PostCard = ({ post, onPress, userProfileData }: PostCardProps) => {
           flexDirection="row"
           justifyContent="space-between"
         >
-          <RectButton style={{ flexDirection: "row", alignItems: "center" }}>
-            <Icon size={20} name="thumbs-up" />
+          <RectButton
+            onPress={() => handlePostLikeDisLike(post.postId)}
+            style={{ flexDirection: "row", alignItems: "center" }}
+          >
+            <Icon
+              size={20}
+              name="thumbs-up"
+              color={post.isLiked ? "#90caf9" : "black"}
+            />
             <Text paddingHorizontal="s" variant="mainIconSubTitle">
-              Like
+              {post.isLiked ? "UnLike" : "Like"}
             </Text>
           </RectButton>
           <RectButton style={{ flexDirection: "row", alignItems: "center" }}>

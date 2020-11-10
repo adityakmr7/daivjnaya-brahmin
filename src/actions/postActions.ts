@@ -1,9 +1,12 @@
+import { postDataProps } from "./../Screens/MyProfile/interfaces";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import restServices from "../services/restServices";
 import {
   GET_ALL_POST_ERROR,
   GET_ALL_POST_LOADING,
   GET_ALL_POST_SUCCESS,
+  POST_LIKED_ERROR,
+  POST_LIKED_SUCCESS,
   POST_POST_ERROR,
   POST_POST_SUCCESS,
 } from "./constants/postConstant";
@@ -189,14 +192,23 @@ export const postIdDeleteLike = (postId: string) => (dispatch: any) => {
     .catch((err) => console.log(err));
 };
 
-export const postIdPostLike = (postId: string) => (dispatch: any) => {
+export const postIdPostLike = (postId: number) => (dispatch: any) => {
   const _rest = new restServices();
+
   _rest
-    .post(`/post/${postId}/like`, {})
+    .postWithNoData(`/post/${postId}/like`)
     .then((res) => {
       console.log(res);
+      dispatch({
+        type: POST_LIKED_SUCCESS,
+      });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      dispatch({
+        type: POST_LIKED_ERROR,
+        error: err,
+      });
+    });
 };
 
 export const getPostIdLike = (postId: string) => (dispatch: any) => {

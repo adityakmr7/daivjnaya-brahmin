@@ -24,7 +24,7 @@ import {
   updateCoverProfile,
   updateUserProfilePicture,
 } from "../../actions/userActions";
-import { getAllPost } from "../../actions/postActions";
+import { getAllPost, postIdPostLike } from "../../actions/postActions";
 import * as ImagePicker from "expo-image-picker";
 import { useIsFocused } from "@react-navigation/native";
 import PostListComponent from "./components/PostListComponent";
@@ -347,6 +347,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   updateProfile: (url: string) => dispatch(updateUserProfilePicture(url)),
   updateCoverImage: (url: string) => dispatch(updateCoverProfile(url)),
   allFriends: () => dispatch(getAllFriends()),
+  likePost: (postId: number) => dispatch(postIdPostLike(postId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);

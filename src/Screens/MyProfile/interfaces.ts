@@ -41,9 +41,9 @@ export type postDataProps = {
     locationId: number;
     locationName: string;
     longitude: number;
-    postId: number;
-    totalComments: number;
-    totalLikes: number;
-    username: string;
   };
+  postId: number;
+  totalComments: number;
+  totalLikes: number;
+  username: string;
 };
