@@ -190,7 +190,6 @@ export const postIdDeleteLike = (postId: number) => (dispatch: any) => {
   _rest
     .delete(`/post/${postId}/like`)
     .then((res) => {
-      console.log("postDeleteLike", res.data);
       dispatch({
         type: POST_UN_LIKED_SUCCESS,
         payload: res.data,
@@ -210,8 +209,6 @@ export const postIdPostLike = (postId: number) => (dispatch: any) => {
   _rest
     .postWithNoData(`/post/${postId}/like`)
     .then((res) => {
-      console.log("postIdLiked", res.data);
-
       dispatch({
         type: POST_LIKED_SUCCESS,
         payload: res.data,
@@ -224,6 +221,8 @@ export const postIdPostLike = (postId: number) => (dispatch: any) => {
       });
     });
 };
+
+// ! No clue about this what this does
 
 export const getPostIdLike = (postId: string) => (dispatch: any) => {
   const _rest = new restServices();

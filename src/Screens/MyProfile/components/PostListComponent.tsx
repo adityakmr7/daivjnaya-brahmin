@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { postIdDeleteLike, postIdPostLike } from "../../../actions/postActions";
 import { Box, Text } from "../../../components";
@@ -25,7 +25,7 @@ const PostListComponent = ({
 }: PostListComponentProps) => {
   const { _embedded } = postList;
   const handlePostLikeDisLike = (isLiked: boolean, pId: number) => {
-    if (isLiked) {
+    if (isLiked === true || postLikedMessage !== "") {
       makePostUnLike(pId);
     } else {
       makePostLike(pId);

@@ -130,7 +130,7 @@ const PostCard = ({
               color={post.isLiked ? "#90caf9" : "black"}
             />
             <Text paddingHorizontal="s" variant="mainIconSubTitle">
-              {post.isLiked ? "UnLike" : "Like"}
+              {post.isLiked || postUnLikedMessage === "" ? "UnLike" : "Like"}
             </Text>
           </RectButton>
           <RectButton style={{ flexDirection: "row", alignItems: "center" }}>
