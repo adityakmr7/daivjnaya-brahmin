@@ -1,4 +1,6 @@
+import AsyncStorage from "@react-native-community/async-storage";
 import { combineReducers } from "redux";
+import { persistReducer } from "redux-persist";
 import authReducer from "./authReducer";
 import friendReducer from "./friendReducer";
 import matrimonyReducer from "./matrimonyReducer";

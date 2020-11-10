@@ -13,10 +13,12 @@ import { assetsWorker } from "./src/Screens/Jewellery/Workers";
 import { NotificationAssets } from "./src/Screens/Notifications";
 import { ThemeProvider as StyleThemeProvider } from "styled-components";
 import { ToastProvider } from "react-native-styled-toast";
-import { store } from "./src/store";
+import { store, persistor } from "./src/store";
 import { logoutUser, userAuthorized } from "./src/actions/authActions";
 import restServices from "./src/services/restServices";
 import axios, { AxiosRequestConfig } from "axios";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 const assets = [
   ...headerAssets,
   ...iconAssets,
@@ -128,17 +130,19 @@ const toastTheme = {
 function App() {
   return (
     <Provider store={store}>
-      <ThemeProvider {...{ theme }}>
-        <LoadAssets {...{ fonts, assets }}>
-          <SafeAreaProvider>
-            <StyleThemeProvider theme={toastTheme}>
-              <ToastProvider offset={20}>
-                <AppNavigation />
-              </ToastProvider>
-            </StyleThemeProvider>
-          </SafeAreaProvider>
-        </LoadAssets>
-      </ThemeProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider {...{ theme }}>
+          <LoadAssets {...{ fonts, assets }}>
+            <SafeAreaProvider>
+              <StyleThemeProvider theme={toastTheme}>
+                <ToastProvider offset={20}>
+                  <AppNavigation />
+                </ToastProvider>
+              </StyleThemeProvider>
+            </SafeAreaProvider>
+          </LoadAssets>
+        </ThemeProvider>
+      </PersistGate>
     </Provider>
   );
 }
