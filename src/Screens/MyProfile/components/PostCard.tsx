@@ -15,7 +15,7 @@ export interface PostCardProps {
   post: postDataProps;
   userProfileData: any;
   onPress: () => void;
-  handlePostLikeDisLike: (pId: number) => void;
+  handlePostLikeDisLike: (isLiked: boolean, pId: number) => void;
 }
 const PostCard = ({
   post,
@@ -24,7 +24,6 @@ const PostCard = ({
   handlePostLikeDisLike,
 }: PostCardProps) => {
   const { _links, firstName, lastName } = userProfileData;
-  console.log("postDaa", post);
 
   return (
     <Box marginVertical="s">
@@ -118,7 +117,7 @@ const PostCard = ({
           justifyContent="space-between"
         >
           <RectButton
-            onPress={() => handlePostLikeDisLike(post.postId)}
+            onPress={() => handlePostLikeDisLike(post.isLiked, post.postId)}
             style={{ flexDirection: "row", alignItems: "center" }}
           >
             <Icon

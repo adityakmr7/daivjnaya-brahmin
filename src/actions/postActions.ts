@@ -9,6 +9,8 @@ import {
   POST_LIKED_SUCCESS,
   POST_POST_ERROR,
   POST_POST_SUCCESS,
+  POST_UN_LIKED_ERROR,
+  POST_UN_LIKED_SUCCESS,
 } from "./constants/postConstant";
 import axios from "axios";
 import { postDataType } from "../Screens/MyProfile/interfaces";
@@ -182,14 +184,22 @@ export const postIdComment = (postId: string, data: any) => (dispatch: any) => {
     .catch((err) => console.log(err));
 };
 
-export const postIdDeleteLike = (postId: string) => (dispatch: any) => {
+export const postIdDeleteLike = (postId: number) => (dispatch: any) => {
   const _rest = new restServices();
   _rest
     .delete(`/post/${postId}/like`)
     .then((res) => {
-      console.log(res);
+      dispatch({
+        type: POST_UN_LIKED_SUCCESS,
+        payload: res.data,
+      });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      dispatch({
+        type: POST_UN_LIKED_ERROR,
+        error: err,
+      });
+    });
 };
 
 export const postIdPostLike = (postId: number) => (dispatch: any) => {
@@ -198,7 +208,6 @@ export const postIdPostLike = (postId: number) => (dispatch: any) => {
   _rest
     .postWithNoData(`/post/${postId}/like`)
     .then((res) => {
-      console.log(res);
       dispatch({
         type: POST_LIKED_SUCCESS,
       });

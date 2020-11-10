@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { postIdPostLike } from "../../../actions/postActions";
+import { postIdDeleteLike, postIdPostLike } from "../../../actions/postActions";
 import { Box, Text } from "../../../components";
 import { postDataProps } from "../interfaces";
 import PostCard from "./PostCard";
@@ -10,18 +10,23 @@ interface PostListComponentProps {
   onPress: () => void;
   userProfileData: any;
   makePostLike: (pId: number) => void;
+  makePostUnLike: (pId: number) => void;
 }
 const PostListComponent = ({
   postList,
   userProfileData,
   makePostLike,
+  makePostUnLike,
   onPress,
 }: PostListComponentProps) => {
   const { _embedded } = postList;
-  const handlePostLikeDisLike = (pId: number) => {
-    // TODO: handle post like dislike here
-
-    makePostLike(pId);
+  const handlePostLikeDisLike = (isLiked: boolean, pId: number) => {
+    // TODO: like dislike ui changes needed
+    if (isLiked) {
+      makePostUnLike(pId);
+    } else {
+      makePostLike(pId);
+    }
   };
   //TODO: use FLatList here
   return (
@@ -58,5 +63,6 @@ function mapStateToProps(state: any) {
 
 const mapDispatchToProps = (dispatch: any) => ({
   makePostLike: (pId: number) => dispatch(postIdPostLike(pId)),
+  makePostUnLike: (pId: number) => dispatch(postIdDeleteLike(pId)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(PostListComponent);
