@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { postDataProps } from "../interfaces";
+import { useNavigation } from "@react-navigation/native";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
@@ -18,6 +19,7 @@ export interface PostCardProps {
   postLikedMessage: string;
   postUnLikedMessage: string;
   handlePostLikeDisLike: (isLiked: boolean, pId: number) => void;
+  handleComment: (postId: number) => void;
 }
 const PostCard = ({
   post,
@@ -26,6 +28,7 @@ const PostCard = ({
   handlePostLikeDisLike,
   postLikedMessage,
   postUnLikedMessage,
+  handleComment,
 }: PostCardProps) => {
   const { _links, firstName, lastName } = userProfileData;
 
@@ -133,7 +136,10 @@ const PostCard = ({
               {post.isLiked || postUnLikedMessage === "" ? "UnLike" : "Like"}
             </Text>
           </RectButton>
-          <RectButton style={{ flexDirection: "row", alignItems: "center" }}>
+          <RectButton
+            onPress={() => handleComment(post.postId)}
+            style={{ flexDirection: "row", alignItems: "center" }}
+          >
             <Icon size={20} name="message-square" />
             <Text paddingHorizontal="s" variant="mainIconSubTitle">
               Comment

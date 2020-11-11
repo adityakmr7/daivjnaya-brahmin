@@ -9,6 +9,7 @@ import SeeAllFriends from "./SeeAllFriends";
 import { AppRoutes } from "../../components/NavigationRoutes";
 import GalleryStack from "./Gallery";
 import EditProfile from "./EditProfile";
+import Comment from "./Comment";
 const Tab = createBottomTabNavigator();
 
 export const AppStack = createStackNavigator<AppRoutes>();
@@ -23,6 +24,8 @@ const ProfileStack = () => {
   return (
     <AppStack.Navigator initialRouteName="Profile">
       <AppStack.Screen name="Profile" component={MyProfile} />
+      <AppStack.Screen name="Comment" component={Comment} />
+
       <AppStack.Screen name="FriendList" component={SeeAllFriends} />
       <AppStack.Screen
         name="EditProfile"

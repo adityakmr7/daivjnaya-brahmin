@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { postIdDeleteLike, postIdPostLike } from "../../../actions/postActions";
@@ -24,6 +25,8 @@ const PostListComponent = ({
   onPress,
 }: PostListComponentProps) => {
   const { _embedded } = postList;
+  const navigation = useNavigation();
+
   const handlePostLikeDisLike = (isLiked: boolean, pId: number) => {
     if (isLiked === true || postLikedMessage !== "") {
       makePostUnLike(pId);
@@ -31,6 +34,12 @@ const PostListComponent = ({
       makePostLike(pId);
     }
   };
+  const handleComment = (postId: number) => {
+    navigation.navigate("Comment", {
+      postId,
+    });
+  };
+
   //TODO: use FLatList here
   return (
     <Box>
@@ -44,6 +53,7 @@ const PostListComponent = ({
           (post: postDataProps, i: number) => {
             return (
               <PostCard
+                handleComment={handleComment}
                 postLikedMessage={postLikedMessage}
                 postUnLikedMessage={postUnLikedMessage}
                 handlePostLikeDisLike={handlePostLikeDisLike}

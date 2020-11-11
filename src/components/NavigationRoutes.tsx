@@ -17,6 +17,7 @@ export type AppRoutes = {
   //profile
   Profile: undefined;
   EditProfile: userProfileProps;
+  Comment: { postId: number };
   Gallery: undefined;
   Message: undefined;
   //Matrimony
