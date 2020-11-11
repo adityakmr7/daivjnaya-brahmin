@@ -66,7 +66,9 @@ lookForToken();
 axios.interceptors.response.use(
   (response) => {
     console.log("interceptRes", response);
-
+    if (response.status === 401) {
+      store.dispatch(logoutUser());
+    }
     return response;
   },
   async (error) => {

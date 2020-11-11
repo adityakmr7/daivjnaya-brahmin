@@ -21,6 +21,7 @@ import CareerTab from "./Careers";
 import Pricing from "./GoldAndSilverPricing";
 import AuthNavigation from "./Authentication";
 import { connect } from "react-redux";
+import { logoutUser } from "../actions/authActions";
 export const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = (props: any) => {
@@ -70,32 +71,34 @@ const AppNavigation = (props: any) => {
                         <Icon name="bell" size={20} color={"black"} />
                       </RectButton>
                     </Box>
-                    {/* <Box>
+                    <Box>
                       <RectButton
-                        onPress={() => navigation.navigate("New")}
+                        onPress={() => props.logout()}
                         style={{
                           alignItems: "center",
                           justifyContent: "center",
-                          width: 71,
-                          height: 28,
-                          borderRadius: 10,
-                          backgroundColor: "white",
                         }}
                       >
                         <Box flexDirection="row" justifyContent="space-between">
-                          <Text>New</Text>
-                          <Icon style={{ padding: 2 }} name="plus" size={18} />
+                          {/* <Text>New</Text> */}
+                          <Icon
+                            style={{ padding: 2 }}
+                            name="log-out"
+                            size={20}
+                            color="black"
+                          />
                         </Box>
                       </RectButton>
-                    </Box> */}
+                    </Box>
                   </Box>
                 );
               },
 
               headerTitle: () => (
-                <Text style={{ fontFamily: "Saman", fontSize: 20 }}>
-                  Daivjnaya Brahmin
-                </Text>
+                <Image source={require("../../assets/home-logo.png")} />
+                // <Text style={{ fontFamily: "Saman", fontSize: 20 }}>
+                //   Daivjnaya Brahmin
+                // </Text>
               ),
               headerStyle: {
                 elevation: 0,
@@ -202,7 +205,9 @@ function mapStateToProps(state: any) {
 }
 
 const mapDispatchToProps = (dispatch: any) => {
-  return {};
+  return {
+    logout: () => dispatch(logoutUser()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppNavigation);

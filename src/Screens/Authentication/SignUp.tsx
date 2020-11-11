@@ -61,7 +61,7 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
       const fullName = fName.split(" ");
       const firstName = fullName[0];
       const lastName = fullName[1];
-      try {
+      if (values.callback === true) {
         userSignUp(
           email,
           password,
@@ -70,31 +70,40 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
           phoneNumber,
           navigation
         );
-        if (signUpError) {
-          toast({
-            message: "Error Please Try Again",
-            bg: "background",
-            color: "text",
-            accentColor: "main",
-            iconFamily: "Feather",
-            iconName: "alert-triangle",
-            iconColor: "error",
-          });
-        }
-        if (successMessage) {
-          toast({
-            message: "User Created Please Login",
-            bg: "background",
-            color: "text",
-            accentColor: "main",
-            iconFamily: "Feather",
-            iconName: "check-circle",
-            iconColor: "error",
-          });
-        }
-      } catch (e) {
-        console.log(e);
+      } else {
+        toast({
+          message: "Accept Terms and Conditions",
+          bg: "background",
+          color: "text",
+          accentColor: "main",
+          iconFamily: "Feather",
+          iconName: "alert-triangle",
+          iconColor: "error",
+        });
       }
+
+      // if (signUpError) {
+      //   toast({
+      //     message: "Error Please Try Again",
+      //     bg: "background",
+      //     color: "text",
+      //     accentColor: "main",
+      //     iconFamily: "Feather",
+      //     iconName: "alert-triangle",
+      //     iconColor: "error",
+      //   });
+      // }
+      // if (successMessage) {
+      //   toast({
+      //     message: "User Created Please Login",
+      //     bg: "background",
+      //     color: "text",
+      //     accentColor: "main",
+      //     iconFamily: "Feather",
+      //     iconName: "check-circle",
+      //     iconColor: "error",
+      //   });
+      // }
 
       // navigation.navigate("Home");
     },
@@ -158,6 +167,7 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
           </Box>
           <Box>
             <TextField
+              keyboardType="name-phone-pad"
               placeholder="Phone Number"
               onChangeText={handleChange("phoneNumber")}
               onBlur={handleBlur("phoneNumber")}
@@ -165,17 +175,17 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
               touched={touched.phoneNumber}
             />
           </Box>
-          <Box marginTop="l" flexDirection="row" marginHorizontal="xl">
+          <Box marginTop="l" flexDirection="row">
             <CheckBox
               checked={values.callback}
               onChange={() => setFieldValue("callback", !values.callback)}
-              label="Get a Callback"
+              label="Term and conditions"
             />
           </Box>
           <LargeButton
             loading={signUpLoading}
             onPress={handleSubmit}
-            label={"SING UP"}
+            label={"SIGN UP"}
           />
           <Box paddingVertical="s" alignItems="center">
             <TouchableWithoutFeedback
