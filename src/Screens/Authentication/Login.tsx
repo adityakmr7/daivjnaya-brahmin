@@ -9,6 +9,7 @@ import { combineAuthStackProps } from "./index";
 import { connect } from "react-redux";
 import { userLogin } from "../../actions/authActions";
 import { useToast } from "react-native-styled-toast";
+import { Feather as Icon } from "@expo/vector-icons";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 

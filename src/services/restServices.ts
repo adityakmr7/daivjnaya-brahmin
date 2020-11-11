@@ -7,6 +7,7 @@ class restServices {
   get = async (url: string) => {
     let config: AxiosRequestConfig = {
       method: "get",
+      timeout: 15000,
       url: this.baseUrl + url,
       headers: {
         Authorization: "Bearer " + (await this.getAccessToken()),
@@ -18,6 +19,7 @@ class restServices {
   post = async (url: string, data: {}) => {
     let config: AxiosRequestConfig = {
       method: "post",
+      timeout: 15000,
       url: this.baseUrl + url,
       headers: {
         Authorization: "Bearer " + (await this.getAccessToken()),
@@ -31,6 +33,7 @@ class restServices {
   postWithNoData = async (url: string) => {
     let config: AxiosRequestConfig = {
       method: "post",
+      timeout: 15000,
       url: this.baseUrl + url,
       headers: {
         Authorization: "Bearer " + (await this.getAccessToken()),
@@ -43,6 +46,7 @@ class restServices {
   put = async (url: string, data: any) => {
     let config: AxiosRequestConfig = {
       method: "put",
+      timeout: 15000,
       url: this.baseUrl + url,
       headers: {
         Authorization: "Bearer " + (await this.getAccessToken()),
@@ -54,6 +58,7 @@ class restServices {
   delete = async (url: string) => {
     let config: AxiosRequestConfig = {
       method: "delete",
+      timeout: 15000,
       url: this.baseUrl + url,
       headers: {
         Authorization: "Bearer " + (await this.getAccessToken()),

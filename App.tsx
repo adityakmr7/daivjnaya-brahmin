@@ -66,6 +66,7 @@ lookForToken();
 axios.interceptors.response.use(
   (response) => {
     console.log("interceptRes", response);
+
     return response;
   },
   async (error) => {
