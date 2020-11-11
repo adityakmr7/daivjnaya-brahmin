@@ -43,37 +43,6 @@ export const friends = [
   { id: 3, src: require("../../../assets/images/sm.png"), name: "Hello world" },
 ];
 
-export const Posts = [
-  {
-    id: 1,
-    user: "Siddharth Revankar",
-    userImage: require("../../../assets/images/ak.png"),
-    date: "17 Jun 2019",
-    caption: "Caption here",
-    image: require("../../../assets/images/post.png"),
-    comments: 10,
-    likes: 25,
-    video: require("../../../assets/images/video.mp4"),
-  },
-  {
-    id: 2,
-    user: "Siddharth Revankar",
-    userImage: require("../../../assets/images/pa.png"),
-    date: "17 Jun 2019",
-    caption: "Caption here",
-    image: require("../../../assets/images/post.png"),
-    comments: 10,
-    likes: 25,
-    video: require("../../../assets/images/video.mp4"),
-  },
-];
-
-export const profileAssets = Posts.map((item) => [
-  item.image,
-  item.userImage,
-  item.video,
-]);
-
 interface MyProfileProps {
   navigation: StackNavigationProps<"MyProfile"> | any;
   getUserDetail: () => void;

@@ -16,8 +16,8 @@ import { ToastProvider } from "react-native-styled-toast";
 import { store, persistor } from "./src/store";
 import { logoutUser, userAuthorized } from "./src/actions/authActions";
 import restServices from "./src/services/restServices";
-import axios, { AxiosRequestConfig } from "axios";
-import { persistStore } from "redux-persist";
+import axios from "axios";
+
 import { PersistGate } from "redux-persist/integration/react";
 const assets = [
   ...headerAssets,

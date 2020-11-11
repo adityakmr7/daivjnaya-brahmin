@@ -70,7 +70,7 @@ const AppNavigation = (props: any) => {
                         <Icon name="bell" size={20} color={"black"} />
                       </RectButton>
                     </Box>
-                    <Box>
+                    {/* <Box>
                       <RectButton
                         onPress={() => navigation.navigate("New")}
                         style={{
@@ -87,7 +87,7 @@ const AppNavigation = (props: any) => {
                           <Icon style={{ padding: 2 }} name="plus" size={18} />
                         </Box>
                       </RectButton>
-                    </Box>
+                    </Box> */}
                   </Box>
                 );
               },

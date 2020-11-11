@@ -38,7 +38,7 @@ const PostCard = ({
       >
         <Box flexDirection="row" alignItems="center">
           <Box paddingRight="s">
-            {_links !== "" ? (
+            {_links && _links !== "" ? (
               <Image
                 style={{
                   width: wWidth / 6,

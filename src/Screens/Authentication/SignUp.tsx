@@ -1,6 +1,6 @@
 import React from "react";
 import { Dimensions, Image, ToastAndroid } from "react-native";
-import { Box, LargeButton, Text, TextField } from "../../components";
+import { Box, CheckBox, LargeButton, Text, TextField } from "../../components";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
@@ -163,6 +163,13 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
               onBlur={handleBlur("phoneNumber")}
               error={errors.phoneNumber}
               touched={touched.phoneNumber}
+            />
+          </Box>
+          <Box marginTop="l" flexDirection="row" marginHorizontal="xl">
+            <CheckBox
+              checked={values.callback}
+              onChange={() => setFieldValue("callback", !values.callback)}
+              label="Get a Callback"
             />
           </Box>
           <LargeButton
