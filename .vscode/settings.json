@@ -2,6 +2,10 @@
   "terminal.integrated.localEchoLatencyThreshold": 30,
   "terminal.integrated.localEchoStyle": "dim",
   "editor.suggest.showStatusBar": true,
+  "workbench.colorCustomizations": {
+    "sideBar.background": "#0000",
+    "activityBar.background": "#0000"
+  },
 
   "cSpell.words": [
     "Borderless",

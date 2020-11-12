@@ -20,6 +20,7 @@ export interface PostCardProps {
   postUnLikedMessage: string;
   handlePostLikeDisLike: (isLiked: boolean, pId: number) => void;
   handleComment: (postId: number) => void;
+  handlePostShare: (postId: number) => void;
 }
 const PostCard = ({
   post,
@@ -29,6 +30,7 @@ const PostCard = ({
   postLikedMessage,
   postUnLikedMessage,
   handleComment,
+  handlePostShare,
 }: PostCardProps) => {
   const { _links, firstName, lastName } = userProfileData;
 
@@ -145,7 +147,10 @@ const PostCard = ({
               Comment
             </Text>
           </RectButton>
-          <RectButton style={{ flexDirection: "row", alignItems: "center" }}>
+          <RectButton
+            onPress={() => handlePostShare(post.postId)}
+            style={{ flexDirection: "row", alignItems: "center" }}
+          >
             <Icon size={20} name="share" />
             <Text paddingHorizontal="s" variant="mainIconSubTitle">
               Share

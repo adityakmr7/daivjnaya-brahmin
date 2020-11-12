@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
-import AsyncStorage from "@react-native-community/async-storage";
-// import { AsyncStorage } from "react-native";
+// import AsyncStorage from "@react-native-community/async-storage";
+import { AsyncStorage } from "react-native";
 class restServices {
   baseUrl = "http://3.128.109.207";
 

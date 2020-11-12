@@ -39,6 +39,7 @@ const PostListComponent = ({
       postId,
     });
   };
+  const handlePostShare = (postId: number) => {};
 
   //TODO: use FLatList here
   return (
@@ -53,6 +54,7 @@ const PostListComponent = ({
           (post: postDataProps, i: number) => {
             return (
               <PostCard
+                handlePostShare={handlePostShare}
                 handleComment={handleComment}
                 postLikedMessage={postLikedMessage}
                 postUnLikedMessage={postUnLikedMessage}

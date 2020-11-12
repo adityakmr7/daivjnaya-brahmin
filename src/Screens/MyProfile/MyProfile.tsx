@@ -162,7 +162,7 @@ const MyProfile = ({
               {coverImage !== "" ? (
                 <Image
                   style={{ width: "100%", height: "100%" }}
-                  source={{ uri: coverImage }}
+                  source={{ uri: coverImage !== "" ? coverImage : undefined }}
                 />
               ) : (
                 <Box
@@ -196,7 +196,9 @@ const MyProfile = ({
                 {profileImage !== "" ? (
                   <Image
                     style={{ height: 140, width: 140, borderRadius: 140 / 2 }}
-                    source={{ uri: profileImage }}
+                    source={{
+                      uri: profileImage !== "" ? profileImage : undefined,
+                    }}
                   />
                 ) : (
                   <Box
