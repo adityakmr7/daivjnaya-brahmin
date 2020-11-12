@@ -64,7 +64,7 @@ const MatrimonyRegister = ({
 }: MatrimonyRegisterProps) => {
   const [imageUri, setImageUri] = useState("");
   const [loading, setLoading] = useState(false);
-  const { created } = matrimonyState;
+  const { successMessage, createError, createLoading } = matrimonyState;
   const {
     handleChange,
     handleBlur,
@@ -106,13 +106,13 @@ const MatrimonyRegister = ({
       //TODO: add picker here
       registerMatrimony(val);
 
-      if (created === true) {
+      if (successMessage !== "") {
         ToastAndroid.showWithGravity(
           "User Created",
           ToastAndroid.LONG,
           ToastAndroid.BOTTOM
         );
-      } else if (created === false) {
+      } else if (createError !== "") {
         ToastAndroid.showWithGravity(
           "Failed Try Again",
           ToastAndroid.LONG,
@@ -286,7 +286,7 @@ const MatrimonyRegister = ({
             <Box marginTop="l" flexDirection="row" marginHorizontal="xl"></Box>
             <Box marginBottom="l">
               <LargeButton
-                loading={loading}
+                loading={createLoading}
                 onPress={handleSubmit}
                 label="Save"
               />

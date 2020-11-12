@@ -12,6 +12,7 @@ import {
   GET_MATRIMONY_PROFILE_BY_ID_LOADING,
   GET_MATRIMONY_PROFILE_BY_ID_SUCCESS,
   GET_MATRIMONY_PROFILE_BY_ID_ERROR,
+  MATRIMONY_CREATING,
 } from "./constants/matrimonyConstants";
 
 /**
@@ -67,6 +68,9 @@ export const getAllMatrimonyBrideProfile = (gender: string = "FEMALE") => (
 export const createMatrimonyProfile = (data: createMatrimonyProps) => async (
   dispatch: any
 ) => {
+  dispatch({
+    type: MATRIMONY_CREATING,
+  });
   const _rest = new restServices();
   const image = await _rest.getMediaUrl(data.image);
 

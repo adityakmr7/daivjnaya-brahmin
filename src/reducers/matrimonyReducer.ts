@@ -8,6 +8,7 @@ import {
   GET_MATRIMONY_PROFILE_BY_ID_SUCCESS,
   MATRIMONY_CREATED_ERROR,
   MATRIMONY_CREATED_SUCCESS,
+  MATRIMONY_CREATING,
 } from "./../actions/constants/matrimonyConstants";
 
 const initialState = {
@@ -17,7 +18,8 @@ const initialState = {
   matrimonyDetailProfile: [],
   detailLoading: false,
   error: "",
-  created: false,
+  createLoading: false,
+  createError: "",
 };
 
 const matrimonyReducer = (state = initialState, action: any) => {
@@ -45,12 +47,7 @@ const matrimonyReducer = (state = initialState, action: any) => {
         loading: true,
         error: "Network Error",
       };
-    case MATRIMONY_CREATED_SUCCESS:
-      return {
-        ...state,
-        created: true,
-        successMessage: action.payload,
-      };
+
     case GET_MATRIMONY_PROFILE_BY_ID_LOADING:
       return {
         ...state,
@@ -67,10 +64,25 @@ const matrimonyReducer = (state = initialState, action: any) => {
         ...state,
         detailLoading: true,
       };
+    case MATRIMONY_CREATING:
+      return {
+        ...state,
+        createLoading: true,
+        successMessage: "",
+        createError: "",
+      };
+    case MATRIMONY_CREATED_SUCCESS:
+      return {
+        ...state,
+        createLoading: false,
+        successMessage: action.payload.status,
+      };
     case MATRIMONY_CREATED_ERROR:
       return {
         ...state,
-        created: false,
+        createLoading: true,
+        successMessage: "",
+        createError: action.error,
       };
     default:
       return {
