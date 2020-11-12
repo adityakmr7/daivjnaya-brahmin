@@ -28,6 +28,8 @@ import { connect } from "react-redux";
 import { createMatrimonyProps } from "./interface";
 import { createMatrimonyProfile } from "../../actions/matrimonyActions";
 import * as ImagePicker from "expo-image-picker";
+import { useToast } from "react-native-styled-toast";
+
 interface MatrimonyRegisterProps {
   navigation: StackNavigationProps<"EditProfile">;
   route: StackNavigationProps<"EditProfile">;
@@ -62,6 +64,7 @@ const MatrimonyRegister = ({
   registerMatrimony,
   matrimonyState,
 }: MatrimonyRegisterProps) => {
+  const { toast } = useToast();
   const [imageUri, setImageUri] = useState("");
   const [loading, setLoading] = useState(false);
   const { successMessage, createError, createLoading } = matrimonyState;
@@ -107,17 +110,25 @@ const MatrimonyRegister = ({
       registerMatrimony(val);
 
       if (successMessage !== "") {
-        ToastAndroid.showWithGravity(
-          "User Created",
-          ToastAndroid.LONG,
-          ToastAndroid.BOTTOM
-        );
+        toast({
+          message: "Profile Created!",
+          bg: "background",
+          color: "text",
+          accentColor: "main",
+          iconFamily: "Feather",
+          iconName: "check-circle",
+          iconColor: "success",
+        });
       } else if (createError !== "") {
-        ToastAndroid.showWithGravity(
-          "Failed Try Again",
-          ToastAndroid.LONG,
-          ToastAndroid.BOTTOM
-        );
+        toast({
+          message: "Please Try Again",
+          bg: "background",
+          color: "text",
+          accentColor: "main",
+          iconFamily: "Feather",
+          iconName: "alert-triangle",
+          iconColor: "error",
+        });
       }
     },
   });

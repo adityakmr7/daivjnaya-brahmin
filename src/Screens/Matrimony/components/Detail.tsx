@@ -54,8 +54,8 @@ const Detail = ({ data }: DetailProps) => {
           paddingVertical="s"
         >
           <Icon size={15} name="briefcase" />
-          <Text paddingHorizontal="mx">
-            Chef at <Text>{data.companyName}</Text>
+          <Text fontWeight="bold" paddingHorizontal="mx">
+            Work At : <Text fontWeight="300">{data.companyName}</Text>
           </Text>
         </Box>
 
@@ -65,8 +65,8 @@ const Detail = ({ data }: DetailProps) => {
           flexDirection="row"
         >
           <Icon size={15} name="briefcase" />
-          <Text paddingHorizontal="mx">
-            Studied at <Text>{data.education}</Text>
+          <Text fontWeight="bold" paddingHorizontal="mx">
+            Studied at : <Text fontWeight="300">{data.education}</Text>
           </Text>
         </Box>
 
@@ -77,8 +77,8 @@ const Detail = ({ data }: DetailProps) => {
           flexDirection="row"
         >
           <Icon size={15} name="map-pin" />
-          <Text paddingHorizontal="mx">
-            <Text>{data.about}</Text>
+          <Text fontWeight="bold" paddingHorizontal="mx">
+            <Text fontWeight="300">{data.about}</Text>
           </Text>
         </Box>
 
@@ -88,8 +88,8 @@ const Detail = ({ data }: DetailProps) => {
           flexDirection="row"
         >
           <Icon size={15} name="home" />
-          <Text paddingHorizontal="mx">
-            Lives in <Text>{data.livesIn}</Text>
+          <Text fontWeight="bold" paddingHorizontal="mx">
+            Lives in : <Text fontWeight="300">{data.livesIn}</Text>
           </Text>
         </Box>
 
@@ -100,8 +100,8 @@ const Detail = ({ data }: DetailProps) => {
           flexDirection="row"
         >
           <Icon size={15} name="mail" />
-          <Text paddingHorizontal="mx">
-            Email <Text>{data.email}</Text>
+          <Text fontWeight="bold" paddingHorizontal="mx">
+            Email : <Text fontWeight="300">{data.email}</Text>
           </Text>
         </Box>
         <Box
@@ -111,8 +111,8 @@ const Detail = ({ data }: DetailProps) => {
           flexDirection="row"
         >
           <Icon size={15} name="phone" />
-          <Text paddingHorizontal="mx">
-            Phone <Text>{data.phoneNumber}</Text>
+          <Text fontWeight="bold" paddingHorizontal="mx">
+            Phone : <Text fontWeight="300">{data.phoneNumber}</Text>
           </Text>
         </Box>
       </Box>
