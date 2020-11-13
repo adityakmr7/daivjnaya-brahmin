@@ -137,19 +137,7 @@ const AppNavigation = (props: any) => {
           />
           {/* // ? Nested Community */}
           <AppStack.Screen
-            options={({ navigation }) => ({
-              title: "Community Hub",
-              headerRight: () => {
-                return (
-                  <Box marginHorizontal="s">
-                    <RoundedBorderButton
-                      label="For Members"
-                      onPress={() => navigation.navigate("Register")}
-                    />
-                  </Box>
-                );
-              },
-            })}
+            options={{ headerShown: false }}
             name="CommunityStack"
             component={CommunityStack}
           />

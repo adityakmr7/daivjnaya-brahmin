@@ -13,6 +13,7 @@ export type StackRoutesList = {
   CommunityHub: undefined;
   KarawarDetail: { id: number };
   CommunityMember: undefined;
+  CommunityRegister: undefined;
 };
 export type CommunityNavProps<T extends keyof StackRoutesList> = {
   navigation: BottomTabNavigationProp<StackRoutesList, T>;
