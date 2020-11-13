@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Dimensions, Image, ToastAndroid } from "react-native";
 import { Box, LargeButton, Text, TextField } from "../../components";
@@ -16,7 +16,11 @@ const { width: wWidth, height: wHeight } = Dimensions.get("window");
 interface LoginProps {
   navigation: combineAuthStackProps<"login">;
   getLogin: (email: string, password: string, navigation: any) => void;
-  authentication: { errorMessage: boolean; loading: boolean };
+  authentication: {
+    loginLoading: boolean;
+    loginSuccess: string;
+    loginError: string;
+  };
 }
 
 const validationSchema = Yup.object().shape({
@@ -26,7 +30,7 @@ const validationSchema = Yup.object().shape({
 
 const Login = ({ navigation, getLogin, authentication }: LoginProps) => {
   const { toast } = useToast();
-  const { errorMessage, loading } = authentication;
+  const { loginLoading, loginSuccess, loginError } = authentication;
 
   const {
     handleChange,
@@ -44,25 +48,36 @@ const Login = ({ navigation, getLogin, authentication }: LoginProps) => {
       callback: false,
     },
     onSubmit: async (values) => {
-      try {
-        getLogin(values.email, values.password, navigation);
-        if (errorMessage) {
-          toast({
-            message: "Wrong username or password!",
-            bg: "background",
-            color: "text",
-            accentColor: "main",
-            iconFamily: "Feather",
-            iconName: "alert-triangle",
-            iconColor: "error",
-          });
-        }
-      } catch (e) {
-        console.log(e);
-      }
+      getLogin(values.email, values.password, navigation);
+      // if (loginError !== "" && loginSuccess === "") {
+      //   console.log("HelloFromIf");
+      //   toast({
+      //     message: "Wrong username or password!",
+      //     bg: "background",
+      //     color: "text",
+      //     accentColor: "main",
+      //     iconFamily: "Feather",
+      //     iconName: "alert-triangle",
+      //     iconColor: "error",
+      //   });
+      // }
     },
   });
 
+  useEffect(() => {
+    if (loginError !== "" && loginSuccess === "") {
+      console.log("HelloFromIf");
+      toast({
+        message: "Wrong username or password!",
+        bg: "background",
+        color: "text",
+        accentColor: "main",
+        iconFamily: "Feather",
+        iconName: "alert-triangle",
+        iconColor: "error",
+      });
+    }
+  }, [loginError, loginSuccess]);
   return (
     <Box
       backgroundColor="primaryText"
@@ -95,7 +110,7 @@ const Login = ({ navigation, getLogin, authentication }: LoginProps) => {
           <Box>
             <TextField
               onChangeText={handleChange("email")}
-              placeholder="email"
+              placeholder="Email"
               onBlur={handleBlur("email")}
               error={errors.email}
               touched={touched.email}
@@ -112,7 +127,7 @@ const Login = ({ navigation, getLogin, authentication }: LoginProps) => {
             />
           </Box>
           <LargeButton
-            loading={loading}
+            loading={loginLoading}
             onPress={handleSubmit}
             label={"LOGIN"}
           />
