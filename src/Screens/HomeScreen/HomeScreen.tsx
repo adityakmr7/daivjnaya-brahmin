@@ -78,7 +78,7 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
           <IconNavigator
             onPress={() => navigation.navigate("CommunityStack")}
             image={require("../../../assets/images/dna.png")}
-            subtitle="Daivajnya Samaj…"
+            subtitle="Daivajnya Samaj"
           />
           <IconNavigator
             onPress={() => navigation.navigate("Matrimony")}
@@ -101,12 +101,12 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
           <IconNavigator
             onPress={() => navigation.navigate("Jewellery")}
             image={require("../../../assets/images/jwel.png")}
-            subtitle="Jewellery Mar.."
+            subtitle="Jewellery Market"
           />
           <IconNavigator
             onPress={() => navigation.navigate("Careers")}
             image={require("../../../assets/images/briefcase.png")}
-            subtitle="Careers & Tal.."
+            subtitle="Careers & Talent"
           />
         </Box>
         <SectionHeader
