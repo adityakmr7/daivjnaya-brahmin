@@ -153,21 +153,7 @@ const AppNavigation = (props: any) => {
             component={B2BStackNavigation}
           />
           <AppStack.Screen
-            options={({ navigation }) => ({
-              headerLeft: () => (
-                <HeaderBackButton
-                  image={require("../../assets/images/jwelIcon.png")}
-                />
-              ),
-              headerRight: () => (
-                <Box marginHorizontal="s">
-                  <RoundedBorderButton
-                    label="Register"
-                    onPress={() => navigation.navigate("Register")}
-                  />
-                </Box>
-              ),
-            })}
+            options={{ headerShown: false }}
             name="Jewellery"
             component={JewelleryStack}
           />
