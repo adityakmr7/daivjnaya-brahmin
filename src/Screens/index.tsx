@@ -40,7 +40,7 @@ const AppNavigation = (props: any) => {
               headerLeft: () => {
                 return (
                   <View style={{ paddingLeft: 22 }}>
-                    <Image source={require("../../assets/images/sun.png")} />
+                    <Image source={require("../../assets/sun.png")} />
                   </View>
                 );
               },

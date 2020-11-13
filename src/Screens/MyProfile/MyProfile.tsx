@@ -71,7 +71,6 @@ const MyProfile = ({
       headerShown: false,
     });
   }, [navigation]);
-
   const isFocused = useIsFocused();
 
   const [profileImage, setProfileImage] = useState<string>("");
@@ -88,7 +87,7 @@ const MyProfile = ({
   const { loading, userProfileData } = profileData;
   const { _links, firstName, lastName } = userProfileData;
   // TODO: wait for some friends to be added
-  // const {} = friendList;
+  // const {loading:friendLoading,allFriendList,error} = friendList;
 
   useEffect(() => {
     if (_links) {
@@ -142,7 +141,7 @@ const MyProfile = ({
       }
     }
   };
-
+  console.log("FriendList", friendList);
   if (loading) {
     return (
       <Box flex={1} justifyContent="center" alignItems="center">
