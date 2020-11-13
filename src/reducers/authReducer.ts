@@ -17,7 +17,7 @@ export type AuthState = {
   readonly errorMessage: boolean;
   readonly loading: boolean;
   readonly signUpLoading: boolean;
-  readonly signUpError: boolean;
+  readonly signUpError: string;
   readonly successMessage: string;
 };
 
@@ -27,27 +27,32 @@ const initialState: AuthState = {
   errorMessage: false,
   loading: false,
   signUpLoading: false,
-  signUpError: false,
+  signUpError: "",
   successMessage: "",
 };
 
 const authReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case USER_SIGN_UP:
-      return {
-        ...state,
-        signUpLoading: false,
-        successMessage: action.payload,
-      };
     case USER_SIGN_UP_LOADING:
       return {
         ...state,
         signUpLoading: true,
+        signUpError: "",
+        successMessage: "",
       };
+    case USER_SIGN_UP:
+      return {
+        ...state,
+        signUpLoading: false,
+        signUpError: "",
+        successMessage: action.payload.status,
+      };
+
     case USER_SIGN_UP_ERROR:
       return {
         ...state,
-        signUpError: true,
+        signUpLoading: true,
+        signUpError: action.error,
       };
     case LOGIN_USER:
       return {

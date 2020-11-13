@@ -2,7 +2,7 @@ import React from "react";
 import { Dimensions, Image, ToastAndroid } from "react-native";
 import { Box, CheckBox, LargeButton, Text, TextField } from "../../components";
 import * as Yup from "yup";
-import { useFormik } from "formik";
+import { ErrorMessage, useFormik } from "formik";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { combineAuthStackProps } from ".";
 import { userSignup } from "../../actions/authActions";
@@ -70,6 +70,27 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
           phoneNumber,
           navigation
         );
+        if (successMessage !== "" && signUpError === "") {
+          toast({
+            message: "User Created Please Login",
+            bg: "background",
+            color: "text",
+            accentColor: "main",
+            iconFamily: "Feather",
+            iconName: "check-circle",
+            iconColor: "success",
+          });
+        } else if (successMessage === "" && signUpError !== "") {
+          toast({
+            message: "SignUp Failed",
+            bg: "background",
+            color: "text",
+            accentColor: "main",
+            iconFamily: "Feather",
+            iconName: "alert-triangle",
+            iconColor: "error",
+          });
+        }
       } else {
         toast({
           message: "Accept Terms and Conditions",
@@ -81,29 +102,6 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
           iconColor: "error",
         });
       }
-
-      // if (signUpError) {
-      //   toast({
-      //     message: "Error Please Try Again",
-      //     bg: "background",
-      //     color: "text",
-      //     accentColor: "main",
-      //     iconFamily: "Feather",
-      //     iconName: "alert-triangle",
-      //     iconColor: "error",
-      //   });
-      // }
-      // if (successMessage) {
-      //   toast({
-      //     message: "User Created Please Login",
-      //     bg: "background",
-      //     color: "text",
-      //     accentColor: "main",
-      //     iconFamily: "Feather",
-      //     iconName: "check-circle",
-      //     iconColor: "error",
-      //   });
-      // }
 
       // navigation.navigate("Home");
     },
@@ -167,7 +165,7 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
           </Box>
           <Box>
             <TextField
-              keyboardType="name-phone-pad"
+              keyboardType="number-pad"
               placeholder="Phone Number"
               onChangeText={handleChange("phoneNumber")}
               onBlur={handleBlur("phoneNumber")}
