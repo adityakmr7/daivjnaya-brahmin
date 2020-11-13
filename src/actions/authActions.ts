@@ -84,7 +84,7 @@ export const userLogin = (email: string, password: string, navigation: any) => (
       });
       const _rest = new restServices();
       _rest.saveToken(res.data);
-      navigation.navigate("Home");
+      // navigation.navigate("Home");
     })
     .catch((err) => {
       dispatch({
