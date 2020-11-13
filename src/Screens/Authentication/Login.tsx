@@ -25,6 +25,9 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = ({ navigation, getLogin, authentication }: LoginProps) => {
+  const { toast } = useToast();
+  const { errorMessage, loading } = authentication;
+
   const {
     handleChange,
     handleBlur,
@@ -59,8 +62,6 @@ const Login = ({ navigation, getLogin, authentication }: LoginProps) => {
       }
     },
   });
-  const { errorMessage, loading } = authentication;
-  const { toast } = useToast();
 
   return (
     <Box
