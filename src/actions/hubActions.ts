@@ -1,3 +1,4 @@
+import { postNewHubProps } from "./../Screens/communityHub/interfaces";
 import restServices from "../services/restServices";
 import * as constant from "./constants/hubConstant";
 
@@ -23,18 +24,6 @@ export const getAllHub = () => (dispatch: any) => {
         error: err,
       });
     });
-};
-
-type postNewHubProps = {
-  city: string;
-  email: string;
-  location: {
-    latitude: number;
-    locationName: string;
-    longitude: number;
-  };
-  name: string;
-  phoneNumber: string;
 };
 
 export const postNewHub = (data: postNewHubProps) => (dispatch: any) => {

@@ -5,7 +5,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Keyboard, KeyboardAvoidingView } from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
-interface RegisterProps {}
+import { connect } from "react-redux";
+import { postNewHubProps } from "./interfaces";
+import { postNewHub } from "../../actions/hubActions";
+interface RegisterProps {
+  createNewHub: (data: postNewHubProps) => void;
+}
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required(),
@@ -15,7 +20,7 @@ const validationSchema = Yup.object().shape({
   city: Yup.string().required(),
   tellUs: Yup.number().required(),
 });
-const CommunityRegister = ({}: RegisterProps) => {
+const CommunityRegister = ({ createNewHub }: RegisterProps) => {
   const {
     handleChange,
     handleBlur,
@@ -29,14 +34,24 @@ const CommunityRegister = ({}: RegisterProps) => {
     initialValues: {
       name: "",
       contact: "",
-      community: "",
+
       email: "",
       city: "",
-      tellUs: "",
-      callback: false,
     },
     onSubmit: (values) => {
       console.log(values);
+      const data: postNewHubProps = {
+        city: values.city,
+        email: values.email,
+        name: values.name,
+        phoneNumber: values.contact,
+        location: {
+          latitude: 56,
+          longitude: 59,
+          locationName: "London",
+        },
+      };
+      createNewHub(data);
     },
   });
 
@@ -60,13 +75,7 @@ const CommunityRegister = ({}: RegisterProps) => {
               touched={touched.contact}
               placeholder="Contact Number"
             />
-            <TextField
-              onChangeText={handleChange("community")}
-              onBlur={handleBlur("community")}
-              error={errors.community}
-              touched={touched.community}
-              placeholder="Community Name"
-            />
+
             <TextField
               keyboardType="email-address"
               onChangeText={handleChange("email")}
@@ -83,22 +92,8 @@ const CommunityRegister = ({}: RegisterProps) => {
               touched={touched.city}
               placeholder="City"
             />
-            <TextField
-              keyboardType="default"
-              onChangeText={handleChange("tellUs")}
-              onBlur={handleBlur("tellUs")}
-              error={errors.tellUs}
-              touched={touched.tellUs}
-              placeholder="Tell Us About Yourself"
-            />
           </Box>
-          <Box marginVertical="xxl" flexDirection="row" marginHorizontal="xl">
-            <CheckBox
-              checked={values.callback}
-              onChange={() => setFieldValue("callback", !values.callback)}
-              label="Get a Callback"
-            />
-          </Box>
+
           <LargeButton onPress={handleSubmit} label="SEND REQUEST" />
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
@@ -106,4 +101,14 @@ const CommunityRegister = ({}: RegisterProps) => {
   );
 };
 
-export default CommunityRegister;
+function mapStateToProps(state: any) {
+  return {
+    ...state,
+  };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  createNewHub: (data: postNewHubProps) => dispatch(postNewHub(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommunityRegister);
