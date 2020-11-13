@@ -1,10 +1,7 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import {
-  createStackNavigator,
-  HeaderBackButton,
-} from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { Box, useTheme } from "../../components";
+import { Box, useTheme, HeaderBackButton } from "../../components";
 import { RoundedBorderButton } from "../MyProfile/components";
 import {
   JewelleryStackParamList,
