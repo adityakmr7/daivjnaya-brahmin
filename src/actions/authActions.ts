@@ -1,6 +1,6 @@
 import {
   USER_AUTHORIZED,
-  LOGIN_USER,
+  LOGIN_USER_SUCCESS,
   LOGOUT_USER,
   USER_SIGN_UP,
   USER_SIGN_UP_ERROR,
@@ -79,7 +79,7 @@ export const userLogin = (email: string, password: string, navigation: any) => (
   axios(config)
     .then((res: AxiosResponse) => {
       dispatch({
-        type: LOGIN_USER,
+        type: LOGIN_USER_SUCCESS,
         payload: res.data,
       });
       const _rest = new restServices();
