@@ -38,7 +38,7 @@ const GroomDetail = ({
   const id = route.params.id;
   const { detailLoading, matrimonyDetailProfile } = matrimonyDetail;
 
-  const { firstName, lastName, images } = matrimonyDetailProfile;
+  const { firstName, lastName, images, pId } = matrimonyDetailProfile;
 
   console.log("Groom-DetailImage", images);
   useLayoutEffect(() => {
@@ -53,8 +53,8 @@ const GroomDetail = ({
           <TouchableWithoutFeedback
             onPress={() =>
               navigation.navigate("FullScreen", {
-                title: `${firstName} ${lastName}`,
-                img: images[0]._links.image.href,
+                id: id,
+                gender: "MALE",
               })
             }
           >

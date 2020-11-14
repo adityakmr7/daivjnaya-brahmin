@@ -18,8 +18,8 @@ export type MatrimonyStackParamList = {
   VendorDetail: { id: number };
   MatrimonyRegister: undefined;
   FullScreen: {
-    title: string;
-    img: number;
+    id: number;
+    gender: string;
   };
   Bride: undefined;
 };

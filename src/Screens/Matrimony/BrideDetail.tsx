@@ -34,7 +34,7 @@ const BrideDetail = ({
   matrimonyDetail,
 }: BrideDetailProps) => {
   const id = route.params.id;
-
+  const { detailLoading, matrimonyDetailProfile } = matrimonyDetail;
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTransparent: true,
@@ -47,8 +47,8 @@ const BrideDetail = ({
           <TouchableWithoutFeedback
             onPress={() =>
               navigation.navigate("FullScreen", {
-                title: matrimonyDetailProfile.firstName,
-                img: matrimonyDetailProfile.images[0]._links.image.href,
+                id: id,
+                gender: "FEMALE",
               })
             }
           >
@@ -62,7 +62,6 @@ const BrideDetail = ({
     getBrideDetail(id);
   }, [id]);
 
-  const { detailLoading, matrimonyDetailProfile } = matrimonyDetail;
   if (detailLoading) {
     return (
       <Box flex={1} justifyContent="center" alignItems="center">

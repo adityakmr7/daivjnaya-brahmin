@@ -1,5 +1,5 @@
-import React from "react";
-import { Dimensions, Image, ToastAndroid } from "react-native";
+import React, { useEffect } from "react";
+import { Dimensions, Image } from "react-native";
 import { Box, CheckBox, LargeButton, Text, TextField } from "../../components";
 import * as Yup from "yup";
 import { ErrorMessage, useFormik } from "formik";
@@ -70,27 +70,6 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
           phoneNumber,
           navigation
         );
-        if (successMessage !== "" && signUpError === "") {
-          toast({
-            message: "User Created Please Login",
-            bg: "background",
-            color: "text",
-            accentColor: "main",
-            iconFamily: "Feather",
-            iconName: "check-circle",
-            iconColor: "success",
-          });
-        } else if (successMessage === "" && signUpError !== "") {
-          toast({
-            message: "SignUp Failed",
-            bg: "background",
-            color: "text",
-            accentColor: "main",
-            iconFamily: "Feather",
-            iconName: "alert-triangle",
-            iconColor: "error",
-          });
-        }
       } else {
         toast({
           message: "Accept Terms and Conditions",
@@ -106,6 +85,31 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
       // navigation.navigate("Home");
     },
   });
+
+  useEffect(() => {
+    if (successMessage !== "" && signUpError === "") {
+      toast({
+        message: "User Created Please Login",
+        bg: "background",
+        color: "text",
+        accentColor: "main",
+        iconFamily: "Feather",
+        iconName: "check-circle",
+        iconColor: "success",
+      });
+    } else if (successMessage === "" && signUpError !== "") {
+      toast({
+        message: "SignUp Failed",
+        bg: "background",
+        color: "text",
+        accentColor: "main",
+        iconFamily: "Feather",
+        iconName: "alert-triangle",
+        iconColor: "error",
+      });
+    }
+  }, [successMessage, signUpError]);
+
   return (
     <Box
       backgroundColor="primaryText"
