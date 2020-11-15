@@ -55,7 +55,6 @@ const PostListComponent = ({
     />
   );
 
-  //TODO: use FLatList here
   return (
     <Box>
       {!_embedded ? (
