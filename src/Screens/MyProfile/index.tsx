@@ -59,7 +59,7 @@ const TabNavigation = ({}) => {
           let iconName: string = "";
 
           if (route.name === "Profile") {
-            iconName = focused ? "home" : "home";
+            iconName = focused ? "user" : "user";
           } else if (route.name === "Videos") {
             iconName = focused ? "users" : "users";
           } else if (route.name === "Gallery") {
