@@ -29,6 +29,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useIsFocused } from "@react-navigation/native";
 import PostListComponent from "./components/PostListComponent";
 import { getAllFriends } from "../../actions/friendsActions";
+import { userProfileProps } from "./interfaces";
 export const friends = [
   {
     id: 1,
@@ -87,8 +88,8 @@ const MyProfile = ({
   const { loading, userProfileData } = profileData;
   const { _links, firstName, lastName } = userProfileData;
   // TODO: wait for some friends to be added
-  // const {loading:friendLoading,allFriendList,error} = friendList;
-
+  const { loading: friendLoading, allFriendList, error } = friendList;
+  const { _embedded } = allFriendList;
   useEffect(() => {
     if (_links) {
       setProfileImage(_links.profilePic.href);
@@ -141,7 +142,7 @@ const MyProfile = ({
       }
     }
   };
-  console.log("FriendList", friendList);
+  console.log("myfriend", _embedded);
   if (loading) {
     return (
       <Box flex={1} justifyContent="center" alignItems="center">
@@ -252,20 +253,26 @@ const MyProfile = ({
             </TouchableWithoutFeedback>
           </Box>
           <Box paddingHorizontal="s" paddingTop="l">
-            <Box
-              marginBottom="s"
-              flexDirection="row"
-              justifyContent="space-between"
-            >
-              {friends.map((item, i) => {
-                return <FriendsThumbnail key={i} {...{ item }} />;
-              })}
-            </Box>
-            <Box flexDirection="row" justifyContent="space-between">
-              {friends.map((item, i) => {
-                return <FriendsThumbnail key={i} {...{ item }} />;
-              })}
-            </Box>
+            {_embedded ? (
+              <Box
+                marginBottom="s"
+                flexDirection="row"
+                justifyContent="space-between"
+              >
+                {_embedded &&
+                  _embedded.userResourceList.map(
+                    (item: userProfileProps, i: number) => {
+                      if (i < 3) {
+                        return <FriendsThumbnail key={i} {...{ item }} />;
+                      }
+                    }
+                  )}
+              </Box>
+            ) : (
+              <Box>
+                <Text>No Friends</Text>
+              </Box>
+            )}
           </Box>
           <CreatePost src={profileImage} />
           <Box height={3} backgroundColor="mainBackground" />
