@@ -16,7 +16,6 @@ import {
   CreatePost,
   FriendsThumbnail,
   IntroSection,
-  PostCard,
   RoundedBorderButton,
 } from "./components";
 import {
@@ -58,13 +57,15 @@ const MyProfile = ({
   allFriends,
   friendList,
 }: MyProfileProps) => {
+  const { width: wWidth } = Dimensions.get("window");
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
   }, [navigation]);
   const isFocused = useIsFocused();
-
+  const [allPost, setAllPost] = useState("");
   const [profileImage, setProfileImage] = useState<string>("");
   const [coverImage, setCoverImage] = useState<string>("");
   const refRBSheet = useRef<any | undefined>();
@@ -87,8 +88,11 @@ const MyProfile = ({
     }
   }, [_links]);
 
-  const { width: wWidth } = Dimensions.get("window");
-
+  useEffect(() => {
+    if (postList !== "") {
+      setAllPost(postList);
+    }
+  }, [setAllPost]);
   const handleCoverUpload = async () => {
     if (Platform.OS !== "web") {
       const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -272,7 +276,7 @@ const MyProfile = ({
             </Box>
           ) : (
             <PostListComponent
-              postList={postList}
+              postList={allPost}
               userProfileData={userProfileData}
               onPress={handleDrawer}
             />

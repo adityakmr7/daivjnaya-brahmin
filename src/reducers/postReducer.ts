@@ -12,7 +12,7 @@ import {
 
 const initialState = {
   postLoading: false,
-  postList: [],
+  postList: "",
   error: "",
   postCreationMessage: false,
   postLikedMessage: "",
