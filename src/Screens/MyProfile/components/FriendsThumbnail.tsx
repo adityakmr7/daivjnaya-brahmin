@@ -1,26 +1,28 @@
 import React from "react";
 import { Dimensions, Image } from "react-native";
 import { Box, Text } from "../../../components";
-import { userProfileProps } from "../interfaces";
+import { friendListProps, userProfileProps } from "../interfaces";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface FriendsThumbnailProps {
-  item: userProfileProps;
+  item: friendListProps;
 }
 const FriendsThumbnail = ({ item }: FriendsThumbnailProps) => {
   console.log("friendThumbnail", item);
   return (
     <React.Fragment>
       <Box>
-        {/* <Image
-          style={{
-            width: wWidth / 3 - 15,
-            height: wWidth / 4,
-            borderRadius: 10,
-          }}
-          source={item.src}
-        /> */}
+        {item._links ? (
+          <Image
+            style={{
+              width: wWidth / 3 - 15,
+              height: wWidth / 4,
+              borderRadius: 10,
+            }}
+            source={{ uri: item._links.profilePic.href }}
+          />
+        ) : null}
         <Box>
           <Text variant="mainIconSubTitle">
             {item.firstName} {item.lastName}

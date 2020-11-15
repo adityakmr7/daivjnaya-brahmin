@@ -10,7 +10,8 @@ import { Feather as Icon } from "@expo/vector-icons";
 import { getAllFriends } from "../../actions/friendsActions";
 import { connect } from "react-redux";
 import { RouteProp } from "@react-navigation/native";
-import { userProfileProps } from "./interfaces";
+import { friendListProps, userProfileProps } from "./interfaces";
+import { FlatList } from "react-native-gesture-handler";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 interface SeeAllFriendsProps {
@@ -18,7 +19,7 @@ interface SeeAllFriendsProps {
   route: RouteProp<AppRoutes, "FriendList">;
   allFriends: () => void;
   friendList: {
-    allFriendList: { _embedded: { userResourceList: [userProfileProps] } };
+    allFriendList: { _embedded: { userResourceList: [friendListProps] } };
     loading: boolean;
     error: string;
   };
@@ -47,6 +48,41 @@ const SeeAllFriends = ({
   const handleChangeText = (text: string) => {
     console.log(text);
   };
+
+  const renderItem = ({ item }: { item: friendListProps }) => {
+    return (
+      <Box
+        marginVertical="m"
+        flexDirection="row"
+        justifyContent="space-between"
+      >
+        <Box flexDirection="row" alignItems="center">
+          {item._links ? (
+            <Image
+              style={{
+                width: wWidth / 6,
+                height: wWidth / 6,
+                borderRadius: wWidth / 12,
+              }}
+              source={{ uri: item._links.profilePic.href }}
+            />
+          ) : null}
+          <Box paddingHorizontal="s">
+            <Text variant="sectionTitle">
+              {item.firstName} {item.lastName}
+            </Text>
+            <Text fontSize={10} variant="silentText">
+              5 mutual Friends
+            </Text>
+          </Box>
+        </Box>
+        <Box>
+          <Icon size={26} name="more-horizontal" />
+        </Box>
+      </Box>
+    );
+  };
+
   return (
     <Box flex={1}>
       <SearchBox {...{ searchText, handleChangeText }} />
@@ -54,39 +90,18 @@ const SeeAllFriends = ({
         <Text variant="silentText" color="primaryText">
           {`${_embedded ? _embedded.userResourceList.length : 0} Friends`}
         </Text>
-        {_embedded.userResourceList.map(
-          (friend: userProfileProps, i: number) => {
-            return (
-              <Box
-                key={i}
-                marginVertical="m"
-                flexDirection="row"
-                justifyContent="space-between"
-              >
-                <Box flexDirection="row" alignItems="center">
-                  {/* <Image
-                  style={{
-                    width: wWidth / 6,
-                    height: wWidth / 6,
-                    borderRadius: wWidth / 12,
-                  }}
-                  source={friend.src}
-                /> */}
-                  <Box paddingHorizontal="s">
-                    <Text variant="sectionTitle">
-                      {friend.firstName} {friend.lastName}
-                    </Text>
-                    <Text fontSize={10} variant="silentText">
-                      5 mutual Friends
-                    </Text>
-                  </Box>
-                </Box>
-                <Box>
-                  <Icon size={26} name="more-horizontal" />
-                </Box>
-              </Box>
-            );
-          }
+        {_embedded && _embedded.userResourceList ? (
+          <FlatList
+            style={{ marginBottom: 30 }}
+            showsVerticalScrollIndicator={false}
+            data={_embedded.userResourceList}
+            renderItem={renderItem}
+            keyExtractor={(item: friendListProps) => item.uId.toString()}
+          />
+        ) : (
+          <Box>
+            <Text>No Friends Yet</Text>
+          </Box>
         )}
       </Box>
     </Box>

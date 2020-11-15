@@ -28,7 +28,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useIsFocused } from "@react-navigation/native";
 import PostListComponent from "./components/PostListComponent";
 import { getAllFriends } from "../../actions/friendsActions";
-import { userProfileProps } from "./interfaces";
+import { friendListProps, userProfileProps } from "./interfaces";
 
 interface MyProfileProps {
   navigation: StackNavigationProps<"MyProfile"> | any;
@@ -40,7 +40,7 @@ interface MyProfileProps {
   updateCoverImage: (url: string) => void;
   allFriends: () => void;
   friendList: {
-    allFriendList: { _embedded: { userResourceList: [userProfileProps] } };
+    allFriendList: { _embedded: { userResourceList: [friendListProps] } };
     loading: boolean;
     error: string;
   };
@@ -250,7 +250,7 @@ const MyProfile = ({
               >
                 {_embedded &&
                   _embedded.userResourceList.map(
-                    (item: userProfileProps, i: number) => {
+                    (item: friendListProps, i: number) => {
                       if (i < 3) {
                         return <FriendsThumbnail key={i} {...{ item }} />;
                       }
