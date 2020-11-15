@@ -229,7 +229,7 @@ const MyProfile = ({
             <Box>
               <Text variant="mainIconSubTitle">Friends</Text>
               <Text fontSize={13} variant="silentText">
-                {`${_embedded ? _embedded.userResourceList.length : 0} friends`}
+                {`${_embedded ? _embedded.userResourceList.length : 0} Friends`}
               </Text>
             </Box>
             <TouchableWithoutFeedback
