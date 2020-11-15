@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React from "react";
+import { FlatList } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { postIdDeleteLike, postIdPostLike } from "../../../actions/postActions";
 import { Box, Text } from "../../../components";
@@ -41,6 +42,19 @@ const PostListComponent = ({
   };
   const handlePostShare = (postId: number) => {};
 
+  const renderItem = ({ item }: { item: postDataProps }) => (
+    <PostCard
+      handlePostShare={handlePostShare}
+      handleComment={handleComment}
+      postLikedMessage={postLikedMessage}
+      postUnLikedMessage={postUnLikedMessage}
+      handlePostLikeDisLike={handlePostLikeDisLike}
+      userProfileData={userProfileData}
+      onPress={onPress}
+      post={item}
+    />
+  );
+
   //TODO: use FLatList here
   return (
     <Box>
@@ -49,24 +63,11 @@ const PostListComponent = ({
           <Text>No Post Yet</Text>
         </Box>
       ) : (
-        _embedded &&
-        _embedded.normalPostResourceList.map(
-          (post: postDataProps, i: number) => {
-            return (
-              <PostCard
-                handlePostShare={handlePostShare}
-                handleComment={handleComment}
-                postLikedMessage={postLikedMessage}
-                postUnLikedMessage={postUnLikedMessage}
-                handlePostLikeDisLike={handlePostLikeDisLike}
-                userProfileData={userProfileData}
-                onPress={onPress}
-                key={i}
-                post={post}
-              />
-            );
-          }
-        )
+        <FlatList
+          data={_embedded.normalPostResourceList}
+          keyExtractor={(item: postDataProps) => item.postId.toString()}
+          renderItem={renderItem}
+        />
       )}
     </Box>
   );

@@ -65,7 +65,7 @@ const MyProfile = ({
     });
   }, [navigation]);
   const isFocused = useIsFocused();
-  const [allPost, setAllPost] = useState("");
+
   const [profileImage, setProfileImage] = useState<string>("");
   const [coverImage, setCoverImage] = useState<string>("");
   const refRBSheet = useRef<any | undefined>();
@@ -88,11 +88,6 @@ const MyProfile = ({
     }
   }, [_links]);
 
-  useEffect(() => {
-    if (postList !== "") {
-      setAllPost(postList);
-    }
-  }, [setAllPost]);
   const handleCoverUpload = async () => {
     if (Platform.OS !== "web") {
       const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -276,7 +271,7 @@ const MyProfile = ({
             </Box>
           ) : (
             <PostListComponent
-              postList={allPost}
+              postList={postList}
               userProfileData={userProfileData}
               onPress={handleDrawer}
             />
