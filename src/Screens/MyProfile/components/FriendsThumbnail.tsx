@@ -22,7 +22,9 @@ const FriendsThumbnail = ({ item }: FriendsThumbnailProps) => {
           source={item.src}
         /> */}
         <Box>
-          <Text variant="mainIconSubTitle">{item.firstName}</Text>
+          <Text variant="mainIconSubTitle">
+            {item.firstName} {item.lastName}
+          </Text>
         </Box>
       </Box>
     </React.Fragment>

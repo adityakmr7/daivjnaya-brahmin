@@ -30,19 +30,6 @@ import { useIsFocused } from "@react-navigation/native";
 import PostListComponent from "./components/PostListComponent";
 import { getAllFriends } from "../../actions/friendsActions";
 import { userProfileProps } from "./interfaces";
-export const friends = [
-  {
-    id: 1,
-    src: require("../../../assets/images/ak.png"),
-    name: "Akshay Kumar",
-  },
-  {
-    id: 2,
-    src: require("../../../assets/images/pa.png"),
-    name: "Anany Panday",
-  },
-  { id: 3, src: require("../../../assets/images/sm.png"), name: "Hello world" },
-];
 
 interface MyProfileProps {
   navigation: StackNavigationProps<"MyProfile"> | any;
@@ -53,7 +40,11 @@ interface MyProfileProps {
   getAllPost: any;
   updateCoverImage: (url: string) => void;
   allFriends: () => void;
-  friendList: any; //  TODO: update with props
+  friendList: {
+    allFriendList: { _embedded: { userResourceList: [userProfileProps] } };
+    loading: boolean;
+    error: string;
+  };
 }
 
 const MyProfile = ({
@@ -87,7 +78,6 @@ const MyProfile = ({
 
   const { loading, userProfileData } = profileData;
   const { _links, firstName, lastName } = userProfileData;
-  // TODO: wait for some friends to be added
   const { loading: friendLoading, allFriendList, error } = friendList;
   const { _embedded } = allFriendList;
   useEffect(() => {
@@ -142,7 +132,7 @@ const MyProfile = ({
       }
     }
   };
-  console.log("myfriend", _embedded);
+
   if (loading) {
     return (
       <Box flex={1} justifyContent="center" alignItems="center">
