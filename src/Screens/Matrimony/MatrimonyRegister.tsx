@@ -22,8 +22,7 @@ import {
   StackNavigationProps,
 } from "../../components/NavigationRoutes";
 
-import { RouteProp } from "@react-navigation/native";
-import { Picker } from "@react-native-picker/picker";
+import { Picker } from "@react-native-community/picker";
 import { connect } from "react-redux";
 import { createMatrimonyProps } from "./interface";
 import { createMatrimonyProfile } from "../../actions/matrimonyActions";
@@ -243,23 +242,23 @@ const MatrimonyRegister = ({
                 placeholder="Interest"
               />
 
-              {/* <Picker
+              <Picker
                 selectedValue={values.gender}
                 onValueChange={(itemValue, itemIndex) =>
                   setFieldValue("gender", itemValue)
                 }
               >
-                <Picker.Item label="Male" value="male" />
-                <Picker.Item label="Female" value="female" />
-              </Picker> */}
-              <TextField
+                <Picker.Item label="Male" value="MALE" />
+                <Picker.Item label="Female" value="FEMALE" />
+              </Picker>
+              {/* <TextField
                 value={values.gender}
                 onChangeText={handleChange("gender")}
                 onBlur={handleBlur("gender")}
                 error={errors.gender}
                 touched={touched.gender}
                 placeholder="Gender"
-              />
+              /> */}
               {imageUri ? (
                 <Box
                   marginVertical="m"

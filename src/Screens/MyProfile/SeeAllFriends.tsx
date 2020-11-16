@@ -92,7 +92,6 @@ const SeeAllFriends = ({
         </Text>
         {_embedded && _embedded.userResourceList ? (
           <FlatList
-            style={{ marginBottom: 30 }}
             showsVerticalScrollIndicator={false}
             data={_embedded.userResourceList}
             renderItem={renderItem}

@@ -24,7 +24,7 @@ const FriendsThumbnail = ({ item }: FriendsThumbnailProps) => {
           />
         ) : null}
         <Box>
-          <Text variant="mainIconSubTitle">
+          <Text textAlign="center" variant="mainIconSubTitle">
             {item.firstName} {item.lastName}
           </Text>
         </Box>
