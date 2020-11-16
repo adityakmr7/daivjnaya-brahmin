@@ -75,7 +75,7 @@ const MyProfile = ({
     getUserDetail();
     getPostList();
     allFriends();
-  }, [isFocused]);
+  }, []);
 
   const { loading, userProfileData } = profileData;
   const { _links, firstName, lastName } = userProfileData;

@@ -53,7 +53,7 @@ const PostListComponent = ({
       post={item}
     />
   );
-  console.log("componentPostList", postList);
+
   return (
     <Box>
       {postList.length === 0 ? (

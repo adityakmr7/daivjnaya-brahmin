@@ -9,7 +9,6 @@ interface FriendsThumbnailProps {
   item: friendListProps;
 }
 const FriendsThumbnail = ({ item }: FriendsThumbnailProps) => {
-  console.log("friendThumbnail", item);
   return (
     <React.Fragment>
       <Box>
