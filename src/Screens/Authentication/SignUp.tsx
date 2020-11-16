@@ -258,8 +258,14 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
               touched={touched.firstName}
             />
           </Box>
+          <Box marginVertical="s">
+            <Text variant="profileAction">Choose Your Surname</Text>
+          </Box>
 
           <Picker
+            style={{
+              height: 30,
+            }}
             selectedValue={values.lastName}
             onValueChange={(itemValue, itemIndex) =>
               setFieldValue("lastName", itemValue)
@@ -275,16 +281,6 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
               );
             })}
           </Picker>
-
-          {/* <Box>
-            <TextField
-              onChangeText={handleChange("lastName")}
-              placeholder="Last Name"
-              onBlur={handleBlur("lastName")}
-              error={errors.lastName}
-              touched={touched.lastName}
-            />
-          </Box> */}
           <Box>
             <TextField
               keyboardType="email-address"
