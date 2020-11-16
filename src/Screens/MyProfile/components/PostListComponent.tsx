@@ -25,7 +25,6 @@ const PostListComponent = ({
   postUnLikedMessage,
   onPress,
 }: PostListComponentProps) => {
-  const { _embedded } = postList;
   const navigation = useNavigation();
 
   const handlePostLikeDisLike = (isLiked: boolean, pId: number) => {
@@ -54,16 +53,16 @@ const PostListComponent = ({
       post={item}
     />
   );
-
+  console.log("componentPostList", postList);
   return (
     <Box>
-      {!_embedded ? (
+      {postList === "" ? (
         <Box>
           <Text>No Post Yet</Text>
         </Box>
       ) : (
         <FlatList
-          data={_embedded.normalPostResourceList}
+          data={postList}
           keyExtractor={(item: postDataProps) => item.postId.toString()}
           renderItem={renderItem}
         />

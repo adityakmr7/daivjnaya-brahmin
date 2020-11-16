@@ -29,7 +29,7 @@ const postReducer = (state = initialState, action: any) => {
       return {
         ...state,
         postLoading: false,
-        postList: action.payload,
+        postList: action.payload._embedded.normalPostResourceList,
       };
     case GET_ALL_POST_ERROR:
       return {
