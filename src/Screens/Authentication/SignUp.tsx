@@ -147,6 +147,7 @@ const validationSchema = Yup.object().shape({
     .required(),
   email: Yup.string().email().required(),
   firstName: Yup.string().required(),
+  lastName: Yup.string().required(),
   phoneNumber: Yup.string().length(10).required(),
 });
 
@@ -229,7 +230,7 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
       <Box
         justifyContent="center"
         alignItems="center"
-        height={wHeight / 2}
+        height={wHeight}
         width={wWidth}
         flex={1}
       >
@@ -245,7 +246,7 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
         borderTopRightRadius="l"
         width={wWidth}
         backgroundColor="iconBackground"
-        flex={1.5}
+        flex={2.5}
       >
         <Box marginHorizontal="l">
           <Box>
@@ -286,6 +287,7 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
           </Box> */}
           <Box>
             <TextField
+              keyboardType="email-address"
               placeholder="Email"
               onChangeText={handleChange("email")}
               onBlur={handleBlur("email")}
