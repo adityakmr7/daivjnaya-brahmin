@@ -22,9 +22,10 @@ interface GroomProps {
 }
 
 const Groom = ({ navigation, getAllGroom, groomList }: GroomProps) => {
+  const isFocused = useIsFocused();
   useEffect(() => {
     getAllGroom("MALE");
-  }, [getAllGroom]);
+  }, [getAllGroom, isFocused]);
 
   const { loading, matrimonyProfileList, error } = groomList;
   const { _embedded } = matrimonyProfileList;
