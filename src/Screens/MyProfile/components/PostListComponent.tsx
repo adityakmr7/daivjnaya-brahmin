@@ -56,7 +56,7 @@ const PostListComponent = ({
   console.log("componentPostList", postList);
   return (
     <Box>
-      {postList === "" ? (
+      {postList.length === 0 ? (
         <Box>
           <Text>No Post Yet</Text>
         </Box>

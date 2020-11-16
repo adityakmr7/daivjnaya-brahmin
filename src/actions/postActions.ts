@@ -190,9 +190,10 @@ export const postIdDeleteLike = (postId: number) => (dispatch: any) => {
   _rest
     .delete(`/post/${postId}/like`)
     .then((res) => {
+      const { data } = res;
       dispatch({
         type: POST_UN_LIKED_SUCCESS,
-        payload: res.data,
+        payload: { value: data, id: postId },
       });
     })
     .catch((err) => {
@@ -209,9 +210,11 @@ export const postIdPostLike = (postId: number) => (dispatch: any) => {
   _rest
     .postWithNoData(`/post/${postId}/like`)
     .then((res) => {
+      const { data } = res;
+
       dispatch({
         type: POST_LIKED_SUCCESS,
-        payload: res.data,
+        payload: { data, postId },
       });
     })
     .catch((err) => {

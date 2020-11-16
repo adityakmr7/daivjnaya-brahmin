@@ -12,7 +12,7 @@ import {
 
 const initialState = {
   postLoading: false,
-  postList: "",
+  postList: [],
   error: "",
   postCreationMessage: false,
   postLikedMessage: "",
@@ -48,9 +48,20 @@ const postReducer = (state = initialState, action: any) => {
         postCreationMessage: true,
       };
     case POST_LIKED_SUCCESS:
+      const { data, postId } = action.payload;
+      const { postList } = state;
+      // data.postId
+      // const getById = postList.findIndex((item) => {
+      //   return item.postId === postId;
+      // });
+      const newPostList = postList.map((item) =>
+        item.postId === postId ? { ...item, isLiked: true } : item
+      );
+      // console.log("getById", (postList[getById].isLiked = true));
       return {
         ...state,
-        postLikedMessage: action.payload.status,
+        postLikedMessage: data.status,
+        postList: [...newPostList],
       };
     case POST_LIKED_ERROR:
       return {
@@ -58,9 +69,16 @@ const postReducer = (state = initialState, action: any) => {
         postLikedMessage: "",
       };
     case POST_UN_LIKED_SUCCESS:
+      const { value, id } = action.payload;
+      const { postList: list } = state;
+      const updatedPostList = list.map((item) =>
+        item.postId === id ? { ...item, isLiked: false } : item
+      );
+      // console.log("getById", (postList[getById].isLiked = true));
       return {
         ...state,
         postUnLikedMessage: action.payload.status,
+        postList: updatedPostList,
       };
     case POST_UN_LIKED_ERROR:
       return {
