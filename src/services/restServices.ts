@@ -103,6 +103,16 @@ class restServices {
       console.log(e);
     }
   };
+  getExpireTime = async () => {
+    try {
+      let userData: any = await AsyncStorage.getItem("userData");
+      let data: any = JSON.parse(userData);
+
+      return data["expires_in"];
+    } catch (e) {
+      console.log(e);
+    }
+  };
   removeAccessToken = async () => {
     try {
       await AsyncStorage.removeItem("userData");

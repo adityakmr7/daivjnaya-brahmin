@@ -145,8 +145,10 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
               touched={touched.firstName}
             />
           </Box>
-          <Box marginVertical="s">
-            <Text variant="profileAction">Choose Your Surname</Text>
+          <Box marginTop="l" marginBottom="s">
+            <Text variant="cardText" color="primaryText">
+              Choose Your Surname
+            </Text>
           </Box>
 
           <Picker
