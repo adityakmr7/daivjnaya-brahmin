@@ -50,6 +50,8 @@ const CommunityRegister = ({ createNewHub }: RegisterProps) => {
       facilities: "",
       longitude: "",
       latitude: "",
+      callback: false,
+      tmc: false,
     },
     onSubmit: (values) => {
       console.log(values);
@@ -249,6 +251,22 @@ const CommunityRegister = ({ createNewHub }: RegisterProps) => {
                 touched={touched.facilities}
                 placeholder="Facilities"
               />
+              <Box
+                marginVertical="l"
+                flexDirection="row"
+                justifyContent="space-between"
+              >
+                <CheckBox
+                  checked={values.tmc}
+                  onChange={() => setFieldValue("tmc", !values.tmc)}
+                  label="Accept TMC"
+                />
+                <CheckBox
+                  checked={values.callback}
+                  onChange={() => setFieldValue("callback", !values.callback)}
+                  label="Get a Callback"
+                />
+              </Box>
             </Box>
 
             <LargeButton onPress={handleSubmit} label="REGISTER" />
