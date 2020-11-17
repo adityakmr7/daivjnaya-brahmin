@@ -34,6 +34,15 @@ const CommunityHub = ({}) => {
     </Tab.Navigator>
   );
 };
+
+const CommunityRegisterStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="CommunityRegister" component={CommunityRegister} />
+    </Stack.Navigator>
+  );
+};
+
 const CommunityStack = () => {
   return (
     <Stack.Navigator
@@ -47,7 +56,7 @@ const CommunityStack = () => {
             <Box marginHorizontal="s">
               <RoundedBorderButton
                 label="For Members"
-                onPress={() => navigation.navigate("Register")}
+                onPress={() => navigation.navigate("CommunityRegister")}
               />
             </Box>
           );
@@ -55,8 +64,10 @@ const CommunityStack = () => {
       })}
     >
       <Stack.Screen name="CommunityHub" component={CommunityHub} />
-      <Stack.Screen name="CommunityRegister" component={CommunityRegister} />
-
+      <Stack.Screen
+        name="CommunityRegister"
+        component={CommunityRegisterStack}
+      />
       <Stack.Screen name="KarawarDetail" component={KarawarDetail} />
       <Stack.Screen name="CommunityMember" component={CommunityMember} />
     </Stack.Navigator>
