@@ -38,7 +38,11 @@ const CommunityHub = ({}) => {
 const CommunityRegisterStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="CommunityRegister" component={CommunityRegister} />
+      <Stack.Screen
+        options={{ title: "Register" }}
+        name="CommunityRegister"
+        component={CommunityRegister}
+      />
     </Stack.Navigator>
   );
 };
@@ -65,6 +69,7 @@ const CommunityStack = () => {
     >
       <Stack.Screen name="CommunityHub" component={CommunityHub} />
       <Stack.Screen
+        options={{ headerShown: false }}
         name="CommunityRegister"
         component={CommunityRegisterStack}
       />
