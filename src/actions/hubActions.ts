@@ -26,16 +26,42 @@ export const getAllHub = () => (dispatch: any) => {
     });
 };
 
-export const postNewHub = (data: postNewHubProps) => (dispatch: any) => {
+export const postNewHub = (data: any, images: []) => async (dispatch: any) => {
   dispatch({
     type: constant.POST_ALL_HUB_LOADING,
   });
+  console.log("postNewHubImage", images);
 
+  const dataToSend = JSON.stringify({
+    about: data.aboutHub,
+    address: {
+      addressLine1: data.address1,
+      addressLine2: data.address2,
+      city: data.city,
+      country: data.country,
+      latitude: data.latitude,
+      longitude: data.longitude,
+      pincode: data.pinCode,
+      state: data.state,
+    },
+    city: data.city,
+    cover: data.cover,
+    email: data.email,
+    facilities: data.facilities,
+    gallery: images,
+    hubName: data.communityName,
+    isAcceptTmc: data.tmc,
+    isCallback: data.callback,
+    phoneNumber: data.contactNumber,
+    yourName: data.fullName,
+  });
+  console.log("dataToSend", dataToSend);
   const _rest = new restServices();
   _rest
-    .post("/hub", data)
+    .post("/hub", dataToSend)
     .then((res) => {
       console.log("gettting Hube", res);
+
       dispatch({
         type: constant.POST_ALL_HUB_SUCCESS,
         payload: res.data,

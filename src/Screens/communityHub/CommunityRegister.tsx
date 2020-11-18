@@ -4,27 +4,43 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
+import * as ImagePicker from "expo-image-picker";
+import * as Location from "expo-location";
 import { Box, LargeButton, Text, CheckBox, TextField } from "../../components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Button, Keyboard, KeyboardAvoidingView } from "react-native";
+import {
+  ActivityIndicator,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { postNewHubProps } from "./interfaces";
 import { postNewHub } from "../../actions/hubActions";
+import restServices from "../../services/restServices";
 interface RegisterProps {
-  createNewHub: (data: postNewHubProps) => void;
+  createNewHub: (data: postNewHubProps, images: []) => void;
 }
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required(),
-  contact: Yup.string().length(10).required(),
-  community: Yup.string().required(),
-  email: Yup.string().required(), //TODO: Validate Email
-  city: Yup.string().required(),
-  tellUs: Yup.number().required(),
+  name: Yup.string(),
+  contact: Yup.string().length(10),
+  community: Yup.string(),
+  email: Yup.string(), //TODO:, Validate Email
+  city: Yup.string(),
+  tellUs: Yup.number(),
 });
 const CommunityRegister = ({ createNewHub }: RegisterProps) => {
+  const [galleryImage, setGalleryImage] = useState<any[]>([]);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [imageLoadingState, setImageLoadingState] = useState<any>({
+    first: false,
+    second: false,
+    third: false,
+  });
+
   const {
     handleChange,
     handleBlur,
@@ -54,22 +70,67 @@ const CommunityRegister = ({ createNewHub }: RegisterProps) => {
       tmc: false,
     },
     onSubmit: (values) => {
-      console.log(values);
-      // const data: postNewHubProps = {
-      //   city: values.city,
-      //   email: values.email,
-      //   name: values.name,
-      //   phoneNumber: values.contact,
-      //   location: {
-      //     latitude: 56,
-      //     longitude: 59,
-      //     locationName: "London",
-      //   },
-      // };
-      // createNewHub(data);
+      if (values.callback === true && values.tmc === true) {
+        createNewHub(values, galleryImage);
+      }
     },
   });
+  const handleImageUpload = async () => {
+    if (Platform.OS !== "web") {
+      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+      if (status !== "granted") {
+        alert("Sorry, we need camera Permissions");
+      } else {
+        const result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+          base64: true,
+        });
 
+        if (!result.cancelled) {
+          // TODO: set Image upload Here
+          //result.uri
+          return result.uri;
+        }
+      }
+    }
+  };
+
+  React.useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+      }
+      let location = await Location.getCurrentPositionAsync({});
+      const { latitude, longitude, accuracy } = location.coords;
+      setFieldValue("latitude", latitude.toFixed(2));
+      setFieldValue("longitude", longitude.toFixed(2));
+    })();
+  }, []);
+
+  var _rest = new restServices();
+  const handleFistImage = async () => {
+    const url: any = await handleImageUpload();
+    const imageUrl = await _rest.getMediaUrl(url);
+
+    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+  };
+  const handleSecondImage = async () => {
+    const url: any = await handleImageUpload();
+    const imageUrl = await _rest.getMediaUrl(url);
+    // stateCopy[0] = imageUrl.data.url;
+    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+  };
+  const handleImageThree = async () => {
+    const url: any = await handleImageUpload();
+    const imageUrl = await _rest.getMediaUrl(url);
+    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+  };
+
+  console.log("gallyerCopmo", galleryImage);
   return (
     <Box flex={1} marginBottom="l" flexDirection="column">
       <ScrollView>
@@ -174,7 +235,10 @@ const CommunityRegister = ({ createNewHub }: RegisterProps) => {
                 >
                   <Text variant="silentText">Gallery</Text>
                   <Box flexDirection="row" justifyContent="space-between">
-                    <RectButton style={{ margin: 5 }}>
+                    <RectButton
+                      onPress={() => handleFistImage()}
+                      style={{ margin: 5 }}
+                    >
                       <Box
                         width={40}
                         height={40}
@@ -186,7 +250,10 @@ const CommunityRegister = ({ createNewHub }: RegisterProps) => {
                         <Icon name="plus" size={10} />
                       </Box>
                     </RectButton>
-                    <RectButton style={{ margin: 5 }}>
+                    <RectButton
+                      onPress={() => handleSecondImage()}
+                      style={{ margin: 5 }}
+                    >
                       <Box
                         width={40}
                         height={40}
@@ -198,7 +265,10 @@ const CommunityRegister = ({ createNewHub }: RegisterProps) => {
                         <Icon name="plus" size={10} />
                       </Box>
                     </RectButton>
-                    <RectButton style={{ margin: 5 }}>
+                    <RectButton
+                      onPress={() => handleImageThree()}
+                      style={{ margin: 5 }}
+                    >
                       <Box
                         width={40}
                         height={40}
@@ -221,10 +291,12 @@ const CommunityRegister = ({ createNewHub }: RegisterProps) => {
                       onBlur={handleBlur("latitude")}
                       error={errors.latitude}
                       touched={touched.latitude}
+                      value={values.latitude}
                       placeholder="Latitude"
                     />
                     <TextField
                       keyboardType="numeric"
+                      value={values.longitude}
                       onChangeText={handleChange("longitude")}
                       onBlur={handleBlur("longitude")}
                       error={errors.longitude}
@@ -284,7 +356,8 @@ function mapStateToProps(state: any) {
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  createNewHub: (data: postNewHubProps) => dispatch(postNewHub(data)),
+  createNewHub: (data: postNewHubProps, images: []) =>
+    dispatch(postNewHub(data, images)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommunityRegister);
