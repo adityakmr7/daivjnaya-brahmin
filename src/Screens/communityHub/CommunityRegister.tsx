@@ -130,7 +130,6 @@ const CommunityRegister = ({ createNewHub }: RegisterProps) => {
     setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
   };
 
-  console.log("gallyerCopmo", galleryImage);
   return (
     <Box flex={1} marginBottom="l" flexDirection="column">
       <ScrollView>

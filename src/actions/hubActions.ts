@@ -55,20 +55,17 @@ export const postNewHub = (data: any, images: []) => async (dispatch: any) => {
     phoneNumber: data.contactNumber,
     yourName: data.fullName,
   });
-  console.log("dataToSend", dataToSend);
+
   const _rest = new restServices();
   _rest
     .post("/hub", dataToSend)
     .then((res) => {
-      console.log("gettting Hube", res);
-
       dispatch({
         type: constant.POST_ALL_HUB_SUCCESS,
         payload: res.data,
       });
     })
     .catch((err) => {
-      console.log("eror Hub", err);
       dispatch({
         type: constant.POST_ALL_HUB_ERROR,
         error: err,
