@@ -3,16 +3,25 @@ import {
   FlatList,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
-import { Box, SearchBox, Text } from "../../components";
+import { Box, HorizontalCard, SearchBox, Text } from "../../components";
 import { connect } from "react-redux";
-import { getAllState } from "../../actions/hubActions";
+import { getAllState, filterHubByCityIsActive } from "../../actions/hubActions";
+import { ActivityIndicator } from "react-native";
 
 interface CommunityMemberProps {
   states: any;
   getAllStates: () => void;
+  getFilteredData: (state: string, city: string, isActivated: boolean) => void;
+
+  stateData: any;
 }
 
-const CommunityMember = ({ states, getAllStates }: CommunityMemberProps) => {
+const CommunityMember = ({
+  states,
+  getAllStates,
+  getFilteredData,
+  stateData,
+}: CommunityMemberProps) => {
   useEffect(() => {
     getAllStates();
   }, []);
@@ -25,10 +34,12 @@ const CommunityMember = ({ states, getAllStates }: CommunityMemberProps) => {
   useEffect(() => {
     if (states.length > 0) {
       setSelectedTab(states[0]);
+      getFilteredData(states[0], "", false);
     }
   }, []);
   const handleTabClick = (item: string) => {
     setSelectedTab(item);
+    getFilteredData(item, "", false);
   };
   const renderItem = ({ item }: { item: any }) => {
     return (
@@ -65,6 +76,26 @@ const CommunityMember = ({ states, getAllStates }: CommunityMemberProps) => {
         />
       </Box>
       <SearchBox handleChangeText={handleChangeText} searchText={searchText} />
+
+      <Box marginVertical="xl">
+        {stateData.length > 0 ? (
+          stateData.map((data, i) => {
+            return (
+              <HorizontalCard
+                key={i}
+                // onPress={() =>
+                //   navigation.navigate("KarawarDetail", { id: data.id })
+                // }
+                {...{ data }}
+              />
+            );
+          })
+        ) : (
+          <Box flex={1} justifyContent="center" alignItems="center">
+            <ActivityIndicator />
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 };
@@ -72,11 +103,14 @@ const CommunityMember = ({ states, getAllStates }: CommunityMemberProps) => {
 function mapStateToProps(state: any) {
   return {
     states: state.hub.allStates,
+    stateData: state.hub.filterByStateData,
   };
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
   getAllStates: () => dispatch(getAllState()),
+  getFilteredData: (state: string, city: string, isActivated: boolean) =>
+    dispatch(filterHubByCityIsActive(state, city, isActivated)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommunityMember);

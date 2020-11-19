@@ -4,6 +4,8 @@ import {
   POST_ALL_HUB_ERROR,
   GET_ALL_STATE_LOADING,
   GET_ALL_STATE_SUCCESS,
+  GET_ALL_HUB_POST_FILTER_LOADING,
+  GET_ALL_HUB_POST_FILTER_SUCCESS,
 } from "./../actions/constants/hubConstant";
 
 const initialState = {
@@ -11,6 +13,7 @@ const initialState = {
   createError: "",
   createSuccess: "",
   allStates: [],
+  filterByStateData: [],
 };
 
 export default (state = initialState, action: any) => {
@@ -45,7 +48,15 @@ export default (state = initialState, action: any) => {
         ...state,
         allStates: action.payload.stringList,
       };
-
+    case GET_ALL_HUB_POST_FILTER_LOADING:
+      return {
+        ...state,
+      };
+    case GET_ALL_HUB_POST_FILTER_SUCCESS:
+      return {
+        ...state,
+        filterByStateData: action.payload._embedded.hubResourceList,
+      };
     default:
       return {
         ...state,

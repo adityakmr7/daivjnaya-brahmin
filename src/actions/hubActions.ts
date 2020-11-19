@@ -95,25 +95,25 @@ export const getAllState = () => (dispatch: any) => {
     });
 };
 
-export const filterHubByCityIsActive = (city: string, isActivated: boolean) => (
-  dispatch: any
-) => {
+export const filterHubByCityIsActive = (
+  state: string,
+  city: string,
+  isActivated: boolean
+) => (dispatch: any) => {
   dispatch({
     type: constant.GET_ALL_HUB_POST_FILTER_LOADING,
   });
 
   const _rest = new restServices();
   _rest
-    .get(`/hub/filter?city=${city}&isActivated=${isActivated}`)
+    .get(`/hub/filter?state=${state}&city=${city}&isActivated=${isActivated}`)
     .then((res) => {
-      console.log("gettting Hube", res);
       dispatch({
         type: constant.GET_ALL_HUB_POST_FILTER_SUCCESS,
         payload: res.data,
       });
     })
     .catch((err) => {
-      console.log("eror Hub", err);
       dispatch({
         type: constant.GET_ALL_HUB_POST_FILTER_ERROR,
         error: err,

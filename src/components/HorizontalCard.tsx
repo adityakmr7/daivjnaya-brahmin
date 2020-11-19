@@ -9,9 +9,10 @@ import { Box, Text } from "./Theme";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 interface HorizontalCardProps {
   data: horizontalCardDataType;
-  onPress: () => void;
+  onPress?: () => void;
 }
 const HorizontalCard = ({ data, onPress }: HorizontalCardProps) => {
+  console.log("horizontalCardData", data);
   return (
     <TouchableWithoutFeedback {...{ onPress }}>
       <Box
@@ -22,24 +23,22 @@ const HorizontalCard = ({ data, onPress }: HorizontalCardProps) => {
         marginVertical="s"
       >
         <Box>
-          <Image
+          {/* <Image
             style={{ height: 139, width: 108 }}
             source={
               data.image
                 ? data.image
                 : { uri: data.images[0]._links.image.href }
             }
-          />
+          /> */}
         </Box>
         <Box width={wWidth / 2}>
-          <Text variant="sectionTitle">
-            {data.firstName} {data.lastName}
-          </Text>
+          <Text variant="sectionTitle">{data.address.state}</Text>
           <Text color="primaryText" variant="cardText">
-            {data.livesIn}
+            {data.address.livesIn}
           </Text>
           <Text paddingVertical="s" color="primaryText" variant="cardText">
-            {data.about}
+            {data.about ? data.about : ""}
           </Text>
           <RectButton
             onPress={() => {
