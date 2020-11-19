@@ -5,7 +5,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { LoadAssets, theme } from "./src/components";
 import AppNavigation from "./src/Screens";
 import { B2BAssets } from "./src/Screens/B2B";
-import { assetsKarwar } from "./src/Screens/communityHub/Karwar";
+
 import { headerAssets, iconAssets } from "./src/Screens/HomeScreen";
 import { assetShop } from "./src/Screens/Jewellery/Shop";
 import { assetsVendor } from "./src/Screens/Jewellery/Vendors";
@@ -22,7 +22,6 @@ import { PersistGate } from "redux-persist/integration/react";
 const assets = [
   ...headerAssets,
   ...iconAssets,
-  ...assetsKarwar,
   ...assetsVendor,
   ...assetShop,
   ...assetsWorker,

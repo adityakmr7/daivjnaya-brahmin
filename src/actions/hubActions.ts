@@ -30,7 +30,6 @@ export const postNewHub = (data: any, images: []) => async (dispatch: any) => {
   dispatch({
     type: constant.POST_ALL_HUB_LOADING,
   });
-  console.log("postNewHubImage", images);
 
   const dataToSend = JSON.stringify({
     about: data.aboutHub,
@@ -68,6 +67,29 @@ export const postNewHub = (data: any, images: []) => async (dispatch: any) => {
     .catch((err) => {
       dispatch({
         type: constant.POST_ALL_HUB_ERROR,
+        error: err,
+      });
+    });
+};
+
+export const getAllState = () => (dispatch: any) => {
+  dispatch({
+    type: "GET_ALL_STATE_LOADING",
+  });
+
+  const _rest = new restServices();
+  _rest
+    .get("/hub/state")
+    .then((res) => {
+      console.log("getAllstate", res);
+      dispatch({
+        type: "GET_ALL_STATE_SUCCESS",
+        payload: res._embedded,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: "GET_ALL_STATE_ERROR",
         error: err,
       });
     });

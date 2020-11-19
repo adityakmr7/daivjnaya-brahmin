@@ -1,5 +1,5 @@
 import React from "react";
-import Karwar, { assetsKarwar } from "./Karwar";
+import Karwar from "./Karwar";
 import Hubli from "./Hubli";
 import Bangalore from "./Bangalore";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
@@ -50,6 +50,7 @@ const CommunityRegisterStack = () => {
 const CommunityStack = () => {
   return (
     <Stack.Navigator
+      initialRouteName="CommunityMember"
       screenOptions={({ navigation }) => ({
         headerStyle: {
           elevation: 0,
@@ -67,6 +68,8 @@ const CommunityStack = () => {
         },
       })}
     >
+      <Stack.Screen name="CommunityMember" component={CommunityMember} />
+
       <Stack.Screen name="CommunityHub" component={CommunityHub} />
       <Stack.Screen
         options={{ headerShown: false }}
@@ -74,7 +77,6 @@ const CommunityStack = () => {
         component={CommunityRegisterStack}
       />
       <Stack.Screen name="KarawarDetail" component={KarawarDetail} />
-      <Stack.Screen name="CommunityMember" component={CommunityMember} />
     </Stack.Navigator>
   );
 };
