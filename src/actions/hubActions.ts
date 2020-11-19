@@ -74,7 +74,7 @@ export const postNewHub = (data: any, images: []) => async (dispatch: any) => {
 
 export const getAllState = () => (dispatch: any) => {
   dispatch({
-    type: "GET_ALL_STATE_LOADING",
+    type: constant.GET_ALL_STATE_LOADING,
   });
 
   const _rest = new restServices();
@@ -83,13 +83,13 @@ export const getAllState = () => (dispatch: any) => {
     .then((res) => {
       console.log("getAllstate", res);
       dispatch({
-        type: "GET_ALL_STATE_SUCCESS",
-        payload: res._embedded,
+        type: constant.GET_ALL_STATE_SUCCESS,
+        payload: res.data._embedded,
       });
     })
     .catch((err) => {
       dispatch({
-        type: "GET_ALL_STATE_ERROR",
+        type: constant.GET_ALL_STATE_ERROR,
         error: err,
       });
     });
