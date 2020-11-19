@@ -22,7 +22,7 @@ export const getAllPost = () => (dispatch: any) => {
 
   const _rest = new restServices();
   _rest
-    .get("/post")
+    .get("/post?sort=createdDate,desc")
     .then((res) => {
       console.log("postList", res.data);
 
