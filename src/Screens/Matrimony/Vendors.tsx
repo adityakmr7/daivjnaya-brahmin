@@ -50,7 +50,7 @@ const Vendors = ({
   return (
     <ScrollView>
       <Box backgroundColor="iconBackground" flex={1}>
-        <Box>
+        {/* <Box>
           {VendorList.map((data, i) => {
             return (
               <HorizontalCard
@@ -64,7 +64,7 @@ const Vendors = ({
               />
             );
           })}
-        </Box>
+        </Box> */}
       </Box>
     </ScrollView>
   );

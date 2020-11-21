@@ -13,6 +13,7 @@ interface HorizontalCardProps {
   onPress?: () => void;
 }
 const HorizontalCard = ({ item, onPress }: HorizontalCardProps) => {
+  console.log("Horizontal", item);
   return (
     <TouchableWithoutFeedback {...{ onPress }}>
       <Box
@@ -46,9 +47,11 @@ const HorizontalCard = ({ item, onPress }: HorizontalCardProps) => {
           </Box>
         )}
         <Box width={wWidth / 2}>
-          <Text variant="sectionTitle">{item.address.state}</Text>
+          <Text variant="sectionTitle">
+            {item.address ? item.address.state : item.firstName}
+          </Text>
           <Text color="primaryText" variant="cardText">
-            {item.address.livesIn}
+            {item.address ? item.address.livesIn : item.livesIn}
           </Text>
           <Text paddingVertical="s" color="primaryText" variant="cardText">
             {item.about ? item.about : ""}

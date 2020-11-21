@@ -38,16 +38,16 @@ const Groom = ({ navigation, getAllGroom, groomList }: GroomProps) => {
         <Box backgroundColor="iconBackground" flex={1}>
           <Box>
             {_embedded &&
-              _embedded.profileResourceList.map((data: any, i) => {
+              _embedded.profileResourceList.map((item: any, i) => {
                 return (
                   <HorizontalCard
                     key={i}
                     onPress={() =>
                       navigation.navigate("GroomDetail", {
-                        id: data.pId,
+                        id: item.pId,
                       })
                     }
-                    {...{ data }}
+                    {...{ item }}
                   />
                 );
               })}
