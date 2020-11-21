@@ -77,12 +77,14 @@ axios.interceptors.response.use(
   },
   async (error) => {
     if (error.response.status !== 401) {
+      console.log("Error 401");
       return Promise.reject(error);
     }
     if (
       (error.response && error.response.status === 401) ||
       error.response.status === 500
     ) {
+      console.log("Error 500");
       makeRefreshTokenCall();
     }
   }
@@ -133,6 +135,9 @@ const toastTheme = {
     info: "#6EAAF7",
   },
 };
+
+// const _rest = new restServices();
+// _rest.removeAccessToken();
 
 function App() {
   return (

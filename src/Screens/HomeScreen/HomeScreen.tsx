@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ScrollView,
   TouchableWithoutFeedback,
@@ -8,8 +8,14 @@ import MainCard from "./MainCard";
 import { Dimensions, Image } from "react-native";
 import SectionHeader from "./components/SectionHeader";
 import IconNavigator from "./components/IconNavigator";
-import { StackNavigationProps } from "../../components/NavigationRoutes";
+import {
+  AppRoutes,
+  StackNavigationProps,
+} from "../../components/NavigationRoutes";
 import NewsAndEventsSection from "./components/NewsAndEventsSection";
+import { connect } from "react-redux";
+import { getAllNews } from "../../actions/newsActions";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const Images = [
@@ -50,7 +56,16 @@ export const iconAssets = [
   require("../../../assets/images/sun.png"),
 ];
 
-const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
+interface HomeScreenProps {
+  navigation: StackNavigationProp<AppRoutes, "Home">;
+  news: any;
+  getNews: () => void;
+}
+
+const HomeScreen = ({ navigation, news, getNews }: HomeScreenProps) => {
+  useEffect(() => {
+    getNews();
+  }, []);
   return (
     <Box flex={1} backgroundColor="mainBackground">
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -114,7 +129,7 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
           title={"Upcoming News & Events"}
         />
         <Box paddingVertical="l" width={wWidth - 40} marginLeft="l">
-          <NewsAndEventsSection {...{ navigation }} />
+          <NewsAndEventsSection {...{ navigation, news }} />
         </Box>
 
         <SectionHeader
@@ -175,4 +190,14 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
   );
 };
 
-export default HomeScreen;
+function mapStateToProps(state: any) {
+  return {
+    news: state.news,
+  };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  getNews: () => dispatch(getAllNews()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

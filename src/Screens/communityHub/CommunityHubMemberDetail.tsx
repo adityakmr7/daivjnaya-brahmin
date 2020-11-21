@@ -97,19 +97,21 @@ const CommunityHubMemberDetail = ({
           {/* <Text variant="sectionTitle">{house.title}</Text> */}
           <Box flexDirection="row" marginVertical="s">
             <Icon name="map-pin" size={15} />
-            <Text paddingHorizontal="s">{address.addressLine1}</Text>
+            <Text paddingHorizontal="s">
+              {address && address.addressLine1 ? address.addressLine1 : ""}
+            </Text>
           </Box>
           <Box flexDirection="row" marginVertical="s">
             <Icon name="mail" size={15} />
-            <Text paddingHorizontal="s">{email}</Text>
+            <Text paddingHorizontal="s">{email ? email : ""}</Text>
           </Box>
           <Box flexDirection="row" marginVertical="s">
             <Icon name="phone-call" size={15} />
-            <Text paddingHorizontal="s">{phoneNumber}</Text>
+            <Text paddingHorizontal="s">{phoneNumber ? phoneNumber : ""}</Text>
           </Box>
         </Box>
         <Box marginVertical="s" marginHorizontal="xxl">
-          <Text variant="sectionTitle">{hubName}</Text>
+          <Text variant="sectionTitle">{hubName ? hubName : ""}</Text>
         </Box>
 
         {[1, 2, 3].map((_, i) => {
