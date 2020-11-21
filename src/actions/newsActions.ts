@@ -5,14 +5,14 @@ import {
   GET_ALL_NEWS_ERROR,
 } from "./constants/newsConstant";
 
-export const getNews = () => (dispatch: any) => {
+export const getAllNews = () => (dispatch: any) => {
   dispatch({
     type: GET_ALL_NEWS_LOADING,
   });
 
   const _rest = new restServices();
   _rest
-    .get("/news")
+    .get("/news?q=''")
     .then((res) => {
       console.log("getting all news", res);
       dispatch({

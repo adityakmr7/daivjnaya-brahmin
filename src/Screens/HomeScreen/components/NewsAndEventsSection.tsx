@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
+import { connect } from "react-redux";
 import { NewsSection } from "../../../components";
+import { getAllNews } from "../../../actions/newsActions";
 const image = require("../../../../assets/images/img-2.png");
 
 interface NewsAndEventsSectionProps {
   navigation: any;
+  getNews: () => void;
+  news: any;
 }
-const NewsAndEventsSection = ({ navigation }: NewsAndEventsSectionProps) => {
+const NewsAndEventsSection = ({
+  navigation,
+  getNews,
+  news,
+}: NewsAndEventsSectionProps) => {
+  useEffect(() => {
+    getNews();
+  }, []);
+  console.log("newsnews", news);
   return (
     <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
       {[1, 2, 3].map((item, index) => {
@@ -22,4 +34,17 @@ const NewsAndEventsSection = ({ navigation }: NewsAndEventsSectionProps) => {
   );
 };
 
-export default NewsAndEventsSection;
+function mapStateToProps(state: any) {
+  return {
+    news: state.news,
+  };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  getNews: () => dispatch(getAllNews()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NewsAndEventsSection);
