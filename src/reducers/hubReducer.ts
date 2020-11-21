@@ -6,6 +6,9 @@ import {
   GET_ALL_STATE_SUCCESS,
   GET_ALL_HUB_POST_FILTER_LOADING,
   GET_ALL_HUB_POST_FILTER_SUCCESS,
+  GET_ALL_HUB_BY_ID_LOADING,
+  GET_ALL_HUB_BY_ID_SUCCESS,
+  GET_ALL_HUB_BY_ID_ERROR,
 } from "./../actions/constants/hubConstant";
 
 const initialState = {
@@ -14,6 +17,7 @@ const initialState = {
   createSuccess: "",
   allStates: [],
   filterByStateData: [],
+  hubMemberDetail: "",
 };
 
 export default (state = initialState, action: any) => {
@@ -56,6 +60,21 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         filterByStateData: action.payload._embedded.hubResourceList,
+      };
+    case GET_ALL_HUB_BY_ID_LOADING:
+      return {
+        ...state,
+        // by id loading state
+      };
+    case GET_ALL_HUB_BY_ID_SUCCESS:
+      return {
+        ...state,
+        hubMemberDetail: action.payload,
+      };
+    case GET_ALL_HUB_BY_ID_ERROR:
+      return {
+        ...state,
+        // add loading state
       };
     default:
       return {

@@ -121,6 +121,10 @@ export const filterHubByCityIsActive = (
     });
 };
 
+/**
+ * !
+ * No Use Right Now
+ */
 type createMemberProps = {
   hubId: 0;
   type: string;
@@ -153,6 +157,10 @@ export const createNewHubMember = (data: createMemberProps) => (
     });
 };
 
+/**
+ *
+ * @param hid number
+ */
 export const getHubByHid = (hid: number) => (dispatch: any) => {
   dispatch({
     type: constant.GET_ALL_HUB_BY_ID_LOADING,
@@ -162,7 +170,7 @@ export const getHubByHid = (hid: number) => (dispatch: any) => {
   _rest
     .get(`/hub/${hid}`)
     .then((res) => {
-      console.log("gettting Hube", res);
+      console.log("Getting Hub Detail", res);
       dispatch({
         type: constant.GET_ALL_HUB_BY_ID_SUCCESS,
         payload: res.data,
