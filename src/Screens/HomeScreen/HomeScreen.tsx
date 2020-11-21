@@ -63,9 +63,9 @@ interface HomeScreenProps {
 }
 
 const HomeScreen = ({ navigation, news, getNews }: HomeScreenProps) => {
-  useEffect(() => {
-    getNews();
-  }, []);
+  // useEffect(() => {
+  //   getNews();
+  // }, []);
   return (
     <Box flex={1} backgroundColor="mainBackground">
       <ScrollView showsVerticalScrollIndicator={false}>

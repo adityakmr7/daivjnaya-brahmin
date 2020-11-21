@@ -27,8 +27,10 @@ const CommunityMember = ({
   useEffect(() => {
     getAllStates();
   }, []);
+  const { filterByStateData, stateDataLoading } = stateData;
   const [selectedTab, setSelectedTab] = useState("");
   const [searchText, setSearchText] = useState<string>("");
+
   const handleChangeText = (text: string) => {
     setSearchText(text);
   };
@@ -38,7 +40,7 @@ const CommunityMember = ({
       setSelectedTab(states[0]);
       getFilteredData(states[0], "", false);
     }
-  }, []);
+  }, [states, getFilteredData]);
   const handleTabClick = (item: string) => {
     setSelectedTab(item);
     getFilteredData(item, "", false);
@@ -87,20 +89,20 @@ const CommunityMember = ({
         <FlatList
           horizontal={true}
           data={states}
-          keyExtractor={(item) => item.hId}
+          keyExtractor={(item) => item}
           renderItem={renderItem}
         />
       </Box>
       <SearchBox handleChangeText={handleChangeText} searchText={searchText} />
       <Box marginVertical="xl">
-        {stateData.length > 0 ? (
+        {filterByStateData.length > 0 && stateDataLoading === false ? (
           <FlatList
-            data={stateData}
+            data={filterByStateData}
             keyExtractor={(item) => item.hId}
             renderItem={renderListItem}
           />
         ) : (
-          <Box flex={1} justifyContent="center" alignItems="center">
+          <Box justifyContent="center" alignItems="center">
             <ActivityIndicator />
           </Box>
         )}
@@ -112,7 +114,7 @@ const CommunityMember = ({
 function mapStateToProps(state: any) {
   return {
     states: state.hub.allStates,
-    stateData: state.hub.filterByStateData,
+    stateData: state.hub,
   };
 }
 

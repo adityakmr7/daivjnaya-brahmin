@@ -16,6 +16,7 @@ const initialState = {
   createError: "",
   createSuccess: "",
   allStates: [],
+  stateDataLoading: false,
   filterByStateData: [],
   hubMemberDetail: "",
 };
@@ -55,10 +56,12 @@ export default (state = initialState, action: any) => {
     case GET_ALL_HUB_POST_FILTER_LOADING:
       return {
         ...state,
+        stateDataLoading: true,
       };
     case GET_ALL_HUB_POST_FILTER_SUCCESS:
       return {
         ...state,
+        stateDataLoading: false,
         filterByStateData: action.payload._embedded.hubResourceList,
       };
     case GET_ALL_HUB_BY_ID_LOADING:
