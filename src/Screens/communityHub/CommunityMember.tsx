@@ -9,6 +9,7 @@ import { getAllState, filterHubByCityIsActive } from "../../actions/hubActions";
 import { ActivityIndicator } from "react-native";
 
 interface CommunityMemberProps {
+  navigation: any;
   states: any;
   getAllStates: () => void;
   getFilteredData: (state: string, city: string, isActivated: boolean) => void;
@@ -17,6 +18,7 @@ interface CommunityMemberProps {
 }
 
 const CommunityMember = ({
+  navigation,
   states,
   getAllStates,
   getFilteredData,
@@ -71,9 +73,9 @@ const CommunityMember = ({
     return (
       <HorizontalCard
         key={item.hId}
-        // onPress={() =>
-        //   navigation.navigate("KarawarDetail", { id: data.id })
-        // }
+        onPress={() =>
+          navigation.navigate("CommunityHubMemberDetail", { hId: item.hId })
+        }
         {...{ item }}
       />
     );
