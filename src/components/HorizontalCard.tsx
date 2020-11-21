@@ -1,5 +1,6 @@
 import React from "react";
 import { Dimensions, Image } from "react-native";
+import { AntDesign as Icon } from "@expo/vector-icons";
 import {
   RectButton,
   TouchableWithoutFeedback,
@@ -8,11 +9,10 @@ import { horizontalCardDataType } from "../Screens/Matrimony/interface";
 import { Box, Text } from "./Theme";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 interface HorizontalCardProps {
-  data: horizontalCardDataType;
+  item: horizontalCardDataType;
   onPress?: () => void;
 }
-const HorizontalCard = ({ data, onPress }: HorizontalCardProps) => {
-  console.log("horizontalCardData", data);
+const HorizontalCard = ({ item, onPress }: HorizontalCardProps) => {
   return (
     <TouchableWithoutFeedback {...{ onPress }}>
       <Box
@@ -22,23 +22,36 @@ const HorizontalCard = ({ data, onPress }: HorizontalCardProps) => {
         justifyContent="space-between"
         marginVertical="s"
       >
-        <Box>
-          {/* <Image
-            style={{ height: 139, width: 108 }}
-            source={
-              data.image
-                ? data.image
-                : { uri: data.images[0]._links.image.href }
-            }
-          /> */}
-        </Box>
+        {item.images ? (
+          <Box>
+            <Image
+              style={{ height: 139, width: 108 }}
+              source={
+                item.image
+                  ? item.image
+                  : { uri: item.images[0]._links.image.href }
+              }
+            />
+          </Box>
+        ) : (
+          <Box
+            flex={1}
+            justifyContent="center"
+            alignItems="center"
+            backgroundColor="grey"
+            height={139}
+            width={108}
+          >
+            <Icon name="question" size={30} />
+          </Box>
+        )}
         <Box width={wWidth / 2}>
-          <Text variant="sectionTitle">{data.address.state}</Text>
+          <Text variant="sectionTitle">{item.address.state}</Text>
           <Text color="primaryText" variant="cardText">
-            {data.address.livesIn}
+            {item.address.livesIn}
           </Text>
           <Text paddingVertical="s" color="primaryText" variant="cardText">
-            {data.about ? data.about : ""}
+            {item.about ? item.about : ""}
           </Text>
           <RectButton
             onPress={() => {

@@ -18,7 +18,7 @@ export type postNewHubProps = {
     locationName: string;
     longitude: number;
   };
-  gallery: [string];
+  gallery?: [string];
   name: string;
   phoneNumber: string;
   isCallback: boolean;

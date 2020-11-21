@@ -44,6 +44,7 @@ const CommunityMember = ({
   const renderItem = ({ item }: { item: any }) => {
     return (
       <TouchableWithoutFeedback
+        key={item}
         onPress={() => handleTabClick(item)}
         style={{
           width: 100,
@@ -65,31 +66,37 @@ const CommunityMember = ({
       </TouchableWithoutFeedback>
     );
   };
+
+  const renderListItem = ({ item }: { item: any }) => {
+    return (
+      <HorizontalCard
+        key={item.hId}
+        // onPress={() =>
+        //   navigation.navigate("KarawarDetail", { id: data.id })
+        // }
+        {...{ item }}
+      />
+    );
+  };
+
   return (
     <Box>
       <Box backgroundColor="iconBackground">
         <FlatList
           horizontal={true}
           data={states}
-          keyExtractor={(item) => item}
+          keyExtractor={(item) => item.hId}
           renderItem={renderItem}
         />
       </Box>
       <SearchBox handleChangeText={handleChangeText} searchText={searchText} />
-
       <Box marginVertical="xl">
         {stateData.length > 0 ? (
-          stateData.map((data, i) => {
-            return (
-              <HorizontalCard
-                key={i}
-                // onPress={() =>
-                //   navigation.navigate("KarawarDetail", { id: data.id })
-                // }
-                {...{ data }}
-              />
-            );
-          })
+          <FlatList
+            data={stateData}
+            keyExtractor={(item) => item.hId}
+            renderItem={renderListItem}
+          />
         ) : (
           <Box flex={1} justifyContent="center" alignItems="center">
             <ActivityIndicator />
