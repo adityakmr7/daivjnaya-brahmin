@@ -27,6 +27,7 @@
     "expo-image-picker": "~8.3.0",
     "expo-linear-gradient": "~8.2.1",
     "expo-location": "~8.2.1",
+    "expo-notifications": "~0.3.3",
     "expo-status-bar": "^1.0.2",
     "formik": "^2.1.5",
     "mime": "^2.4.6",

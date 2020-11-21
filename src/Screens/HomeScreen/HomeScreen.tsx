@@ -16,6 +16,7 @@ import NewsAndEventsSection from "./components/NewsAndEventsSection";
 import { connect } from "react-redux";
 import { getAllNews } from "../../actions/newsActions";
 import { StackNavigationProp } from "@react-navigation/stack";
+import restServices from "../../services/restServices";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const Images = [
@@ -60,12 +61,10 @@ interface HomeScreenProps {
   navigation: StackNavigationProp<AppRoutes, "Home">;
   news: any;
   getNews: () => void;
+  auth: boolean;
 }
 
-const HomeScreen = ({ navigation, news, getNews }: HomeScreenProps) => {
-  // useEffect(() => {
-  //   getNews();
-  // }, []);
+const HomeScreen = ({ navigation, news, auth }: HomeScreenProps) => {
   return (
     <Box flex={1} backgroundColor="mainBackground">
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -129,7 +128,7 @@ const HomeScreen = ({ navigation, news, getNews }: HomeScreenProps) => {
           title={"Upcoming News & Events"}
         />
         <Box paddingVertical="l" width={wWidth - 40} marginLeft="l">
-          <NewsAndEventsSection {...{ navigation, news }} />
+          <NewsAndEventsSection {...{ navigation }} />
         </Box>
 
         <SectionHeader
@@ -190,14 +189,15 @@ const HomeScreen = ({ navigation, news, getNews }: HomeScreenProps) => {
   );
 };
 
-function mapStateToProps(state: any) {
-  return {
-    news: state.news,
-  };
-}
+// function mapStateToProps(state: any) {
+//   return {
+//     news: state.news,
+//     auth: state.auth.isAuthenticated,
+//   };
+// }
 
-const mapDispatchToProps = (dispatch: any) => ({
-  getNews: () => dispatch(getAllNews()),
-});
+// const mapDispatchToProps = (dispatch: any) => ({
+//   getNews: () => dispatch(getAllNews()),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default HomeScreen;

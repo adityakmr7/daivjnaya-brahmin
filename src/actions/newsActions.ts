@@ -12,7 +12,7 @@ export const getAllNews = () => (dispatch: any) => {
 
   const _rest = new restServices();
   _rest
-    .get("/news?q=''")
+    .get("/news")
     .then((res) => {
       console.log("getting all news", res);
       dispatch({

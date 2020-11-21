@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   loading: false,
-  news: [],
+  news: "",
   error: "",
 };
 
@@ -20,7 +20,7 @@ export default (state = initialState, action: any) => {
     case GET_ALL_NEWS_SUCCESS:
       return {
         ...state,
-        news: action.payload,
+        news: action.payload._embedded.newsResourceList,
         loading: false,
       };
     case GET_ALL_NEWS_ERROR:
