@@ -18,11 +18,11 @@ const NewsAndEventsSection = ({
   isAuthenticated,
   getNews,
 }: NewsAndEventsSectionProps) => {
-  useEffect(() => {
-    if (isAuthenticated) {
-      getNews();
-    }
-  }, [isAuthenticated]);
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     getNews();
+  //   }
+  // }, [isAuthenticated]);
   const { loading, news: newsList } = news;
   const renderItem = ({ item }: { item: any }) => {
     return (

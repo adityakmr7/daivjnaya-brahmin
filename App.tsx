@@ -82,10 +82,7 @@ axios.interceptors.response.use(
       console.log("Error 401");
       return Promise.reject(error);
     }
-    if (
-      (error.response && error.response.status === 401) ||
-      error.response.status === 500
-    ) {
+    if (error.response && error.response.status === 401) {
       console.log("Error 500");
       makeRefreshTokenCall();
     }
