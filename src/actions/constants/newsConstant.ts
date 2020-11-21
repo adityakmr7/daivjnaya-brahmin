@@ -1,0 +1,4 @@
+// @get /news
+export const GET_ALL_NEWS_LOADING = "GET_ALL_NEWS_LOADING";
+export const GET_ALL_NEWS_SUCCESS = "GET_ALL_NEWS_SUCCESS";
+export const GET_ALL_NEWS_ERROR = "GET_ALL_NEWS_ERROR";

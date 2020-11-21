@@ -5,6 +5,7 @@ import authReducer from "./authReducer";
 import friendReducer from "./friendReducer";
 import hubReducer from "./hubReducer";
 import matrimonyReducer from "./matrimonyReducer";
+import newsReducer from "./newsReducer";
 import postReducer from "./postReducer";
 import userReducer from "./userReducer";
 
@@ -15,4 +16,5 @@ export default combineReducers({
   post: postReducer,
   friend: friendReducer,
   hub: hubReducer,
+  news: newsReducer,
 });

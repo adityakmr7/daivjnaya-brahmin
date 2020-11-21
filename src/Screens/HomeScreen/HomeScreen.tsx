@@ -9,6 +9,7 @@ import { Dimensions, Image } from "react-native";
 import SectionHeader from "./components/SectionHeader";
 import IconNavigator from "./components/IconNavigator";
 import { StackNavigationProps } from "../../components/NavigationRoutes";
+import NewsAndEventsSection from "./components/NewsAndEventsSection";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const Images = [
@@ -48,7 +49,6 @@ export const iconAssets = [
   require("../../../assets/images/shake.png"),
   require("../../../assets/images/sun.png"),
 ];
-const image = require("../../../assets/images/img-2.png");
 
 const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
   return (
@@ -114,17 +114,7 @@ const HomeScreen = ({ navigation }: StackNavigationProps<"Home">) => {
           title={"Upcoming News & Events"}
         />
         <Box paddingVertical="l" width={wWidth - 40} marginLeft="l">
-          <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
-            {[1, 2, 3].map((item, index) => {
-              return (
-                <NewsSection
-                  onPress={() => navigation.navigate("NewsEvent")}
-                  image={image}
-                  key={index}
-                />
-              );
-            })}
-          </ScrollView>
+          <NewsAndEventsSection {...{ navigation }} />
         </Box>
 
         <SectionHeader
