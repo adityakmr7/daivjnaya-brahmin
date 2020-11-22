@@ -22,8 +22,11 @@ const NewsSection = ({
 }: NewsSectionProps) => {
   return (
     <TouchableWithoutFeedback {...{ onPress }}>
-      <Box paddingRight="l">
-        <Image width={wWidth} source={{ uri: image }} />
+      <Box paddingRight="l" width={wWidth - 40}>
+        <Image
+          style={{ width: "100%", height: wWidth / 3 }}
+          source={{ uri: image }}
+        />
         <Box style={{ paddingLeft: 3 }} paddingVertical="s">
           {title ? <Text variant="mainIconSubTitle"> News</Text> : null}
           <Text paddingVertical="s" variant="cardText" color="primaryText">

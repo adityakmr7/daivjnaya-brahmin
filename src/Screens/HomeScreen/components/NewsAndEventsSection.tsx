@@ -4,6 +4,7 @@ import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { getAllNews } from "../../../actions/newsActions";
 import { Box, NewsSection } from "../../../components";
+import restServices from "../../../services/restServices";
 const image = require("../../../../assets/images/img-2.png");
 
 interface NewsAndEventsSectionProps {
@@ -15,14 +16,18 @@ interface NewsAndEventsSectionProps {
 const NewsAndEventsSection = ({
   navigation,
   news,
-  isAuthenticated,
   getNews,
 }: NewsAndEventsSectionProps) => {
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     getNews();
-  //   }
-  // }, [isAuthenticated]);
+  useEffect(() => {
+    async function makeRequest() {
+      const _rest = new restServices();
+      const accessToken = await _rest.getAccessToken();
+      if (accessToken) {
+        getNews();
+      }
+    }
+    makeRequest();
+  }, []);
   const { loading, news: newsList } = news;
   const renderItem = ({ item }: { item: any }) => {
     return (
@@ -56,7 +61,6 @@ const NewsAndEventsSection = ({
 function mapStateToProps(state: any) {
   return {
     news: state.news,
-    isAuthenticated: state.auth.isAuthenticated,
   };
 }
 
