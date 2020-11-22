@@ -21,8 +21,7 @@ const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface CreatePostProps {
   src: string;
-  submitPost: (data: postDataType) => void;
-  message: string;
+
   navigation: any;
 }
 const CreatePost = ({ src, navigation }: CreatePostProps) => {
