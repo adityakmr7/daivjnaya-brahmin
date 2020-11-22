@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Dimensions, Image } from "react-native";
+import {
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  Platform,
+  ToastAndroid,
+} from "react-native";
 import {
   RectButton,
   TextInput,
@@ -7,13 +13,72 @@ import {
 } from "react-native-gesture-handler";
 import { Box, Text } from "../../components";
 import { Feather as Icon } from "@expo/vector-icons";
+import { connect } from "react-redux";
+import { addPost } from "../../actions/postActions";
+import { postDataType } from "./interfaces";
+import * as ImagePicker from "expo-image-picker";
+
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
-interface CreatePostProps {}
-const CreatePostScreen = ({ route }: CreatePostProps) => {
+interface CreatePostProps {
+  route: any;
+  submitPost: (data: postDataType) => void;
+  message: string;
+}
+const CreatePostScreen = ({ route, submitPost, message }: CreatePostProps) => {
   const [postContent, setPostContent] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [postImage, setPostImage] = useState<string>("");
+
   const { image, title } = route.params;
 
+  const handlePostImage = async () => {
+    if (Platform.OS !== "web") {
+      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+      if (status !== "granted") {
+        alert("Sorry, we need camera Permissions");
+      } else {
+        const result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+          base64: true,
+        });
+
+        if (!result.cancelled) {
+          setPostImage(result.uri);
+          //updateCoverImage(result.uri);
+        }
+      }
+    }
+  };
+
+  // const handlePostLocation = async () => {};
+  const handleSubmit = () => {
+    const data: postDataType = {
+      content: postContent,
+      url: postImage,
+      location: "London",
+      longitude: "45",
+      latitude: "12",
+    };
+    setLoading(true);
+    submitPost(data);
+    setLoading(false);
+    setPostContent("");
+
+    // handlePostSubmit(data);
+    if (message) {
+      ToastAndroid.showWithGravity(
+        "Post Created",
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM
+      );
+    } else {
+      return null;
+    }
+  };
   return (
     <Box flex={1}>
       <Box>
@@ -38,13 +103,21 @@ const CreatePostScreen = ({ route }: CreatePostProps) => {
             ) : null}
             <TextInput
               onChangeText={(text) => setPostContent(text)}
-              style={{ flex: 2, paddingHorizontal: 20 }}
+              autoFocus={true}
+              style={{
+                paddingHorizontal: 20,
+                width: 250,
+                height: 50,
+
+                marginBottom: 10,
+                // backgroundColor: "#e8e8e8",
+              }}
               placeholder="Post a status update..."
               defaultValue={postContent}
             />
-            {/* <RectButton onPress={() => handleSubmit()}>
-            {loading ? <ActivityIndicator /> : <Text>Post</Text>}
-          </RectButton> */}
+            <RectButton onPress={() => handleSubmit()}>
+              {loading ? <ActivityIndicator /> : <Text>Post</Text>}
+            </RectButton>
           </Box>
         </Box>
         <Box
@@ -61,7 +134,7 @@ const CreatePostScreen = ({ route }: CreatePostProps) => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              // onPress={() => handlePostImage()}
+              onPress={() => handlePostImage()}
             >
               <Icon name="image" color="#39A7EB" size={20} />
               <Text variant="profileAction" paddingHorizontal="s">
@@ -86,9 +159,32 @@ const CreatePostScreen = ({ route }: CreatePostProps) => {
           </Box>
         </Box>
         <Box height={10} backgroundColor="mainBackground" />
+        <Box marginHorizontal="s" paddingVertical="l">
+          <Text>{postContent}</Text>
+          <Box marginVertical="m" marginHorizontal="s">
+            {postImage !== "" ? (
+              <Image
+                style={{ width: wWidth - 40, height: wWidth }}
+                source={{
+                  uri: postImage,
+                }}
+              />
+            ) : null}
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
 };
 
-export default CreatePostScreen;
+function mapStateToProps(state: any) {
+  return {
+    message: state.post.postCreationMessage,
+  };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  submitPost: (data: postDataType) => dispatch(addPost(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreatePostScreen);
