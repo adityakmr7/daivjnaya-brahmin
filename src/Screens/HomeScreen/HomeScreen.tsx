@@ -60,7 +60,6 @@ export const iconAssets = [
 interface HomeScreenProps {
   navigation: StackNavigationProp<AppRoutes, "Home">;
   news: any;
-  getNews: () => void;
   auth: boolean;
 }
 

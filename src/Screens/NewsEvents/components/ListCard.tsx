@@ -4,14 +4,20 @@ import { Box, Text } from "../../../components";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface ListCardProps {
-  data: {
-    id: number;
-    image: number;
+  item: {
     title: string;
-    desc: string;
+    content: string;
+    createDate: number;
+    lastModifiedDate: number;
+    nId: number;
+    _links: {
+      image: {
+        href: string;
+      };
+    };
   };
 }
-const ListCard = ({ data }: ListCardProps) => {
+const ListCard = ({ item }: ListCardProps) => {
   return (
     <Box
       marginVertical="s"
@@ -23,21 +29,25 @@ const ListCard = ({ data }: ListCardProps) => {
       width={wWidth - 20}
       marginHorizontal="s"
     >
-      <Image
-        style={{
-          width: wWidth - 20,
-          height: wWidth / 2,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-        }}
-        source={data.image}
-      />
+      {item._links && item._links.image && item._links.image.href && (
+        <Image
+          style={{
+            width: wWidth - 20,
+            height: wWidth / 2,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+          }}
+          source={{
+            uri: item._links.image.href,
+          }}
+        />
+      )}
       <Box marginVertical="s" marginHorizontal="s">
         <Text variant="silentText" color="primaryText">
-          {data.title}
+          {item.title}
         </Text>
         <Text color="grey" variant="mainIconSubTitle">
-          {data.desc}
+          {item.content}
         </Text>
       </Box>
     </Box>

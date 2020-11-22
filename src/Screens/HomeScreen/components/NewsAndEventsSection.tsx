@@ -9,7 +9,7 @@ const image = require("../../../../assets/images/img-2.png");
 
 interface NewsAndEventsSectionProps {
   navigation: any;
-  isAuthenticated: boolean;
+
   news: any;
   getNews: () => void;
 }

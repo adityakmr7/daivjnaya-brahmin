@@ -38,12 +38,14 @@ const NewsEventsEvents = ({}: NewsEventsEventsProps) => {
   return (
     <Box flex={1}>
       <SearchBox {...{ searchText, handleChangeText }} />
-      <Box backgroundColor="mainBackground" paddingVertical="s">
-        <ScrollView>
-          {EventList.map((data, i) => {
-            return <ListCard key={data.id} {...{ data }} />;
-          })}
-        </ScrollView>
+      <Box
+        flex={1}
+        justifyContent="center"
+        alignItems="center"
+        backgroundColor="mainBackground"
+        paddingVertical="s"
+      >
+        <Text>Coming Soon</Text>
       </Box>
     </Box>
   );

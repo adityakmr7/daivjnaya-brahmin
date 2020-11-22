@@ -1,63 +1,74 @@
-import React, { useState } from "react";
-import { Dimensions, Image } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { StackNavigationProp } from "@react-navigation/stack";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, Dimensions, Image } from "react-native";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
+import { connect } from "react-redux";
+import { getAllNews } from "../../actions/newsActions";
 import { Box, SearchBox, Text } from "../../components";
-import { StackNavigationProps } from "../../components/NavigationRoutes";
+import {
+  AppRoutes,
+  StackNavigationProps,
+} from "../../components/NavigationRoutes";
 import ListCard from "./components/ListCard";
-
-const NewsList = [
-  {
-    id: 1,
-    image: require("../../../assets/images/abp.png"),
-    title:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis",
-    desc:
-      "Morbi a suscipit ipsum. Suspendisse mollis libero ante. Pellentesque finibus convallis nulla vel placerat. Nulla ipsum…",
-  },
-  {
-    id: 2,
-    image: require("../../../assets/images/dd.png"),
-    title:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis",
-    desc:
-      "Morbi a suscipit ipsum. Suspendisse mollis libero ante. Pellentesque finibus convallis nulla vel placerat. Nulla ipsum…",
-  },
-  {
-    id: 3,
-    image: require("../../../assets/images/news.png"),
-    title:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis",
-    desc:
-      "Morbi a suscipit ipsum. Suspendisse mollis libero ante. Pellentesque finibus convallis nulla vel placerat. Nulla ipsum…",
-  },
-];
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
-const NewsEvents = ({ navigation }: StackNavigationProps<"NewsEvent">) => {
+interface NewsEventsProps {
+  navigation: StackNavigationProp<AppRoutes, "NewsEvent">;
+  getNews: () => void;
+  news: any;
+}
+
+const NewsEvents = ({ navigation, getNews, news }: NewsEventsProps) => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       title: "News & Events",
     });
   }, [navigation]);
+  useEffect(() => {
+    getNews();
+  }, []);
 
   const [searchText, setSearchText] = useState<string>("");
   const handleChangeText = (text: string) => {
     setSearchText(text);
   };
+  const { loading, news: newsList } = news;
+
+  const renderItem = ({ item }) => {
+    return <ListCard key={item.nId} {...{ item }} />;
+  };
 
   return (
     <Box flex={1}>
       <SearchBox {...{ searchText, handleChangeText }} />
-      <Box backgroundColor="mainBackground" paddingVertical="s">
-        <ScrollView>
-          {NewsList.map((data, i) => {
-            return <ListCard key={data.id} {...{ data }} />;
-          })}
-        </ScrollView>
-      </Box>
+      {loading ? (
+        <ActivityIndicator />
+      ) : (
+        <Box
+          marginBottom="xs"
+          height={wHeight - 160}
+          backgroundColor="mainBackground"
+          paddingVertical="s"
+        >
+          <FlatList
+            data={newsList}
+            keyExtractor={(item) => item.nId}
+            renderItem={renderItem}
+          />
+        </Box>
+      )}
     </Box>
   );
 };
 
-export default NewsEvents;
+function mapStateToProps(state: any) {
+  return {
+    news: state.news,
+  };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  getNews: () => dispatch(getAllNews()),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(NewsEvents);
