@@ -85,7 +85,6 @@ const CommunityMember = ({
       />
     );
   };
-  console.log("filterByStateData", filterByStateData);
   return (
     <Box>
       <Box backgroundColor="iconBackground">
@@ -102,7 +101,7 @@ const CommunityMember = ({
         {filterByStateData.length > 0 && stateDataLoading === false ? (
           <FlatList
             data={filterByStateData}
-            keyExtractor={(item) => item.hId}
+            keyExtractor={(item) => item.hId.toString()}
             renderItem={renderListItem}
           />
         ) : (

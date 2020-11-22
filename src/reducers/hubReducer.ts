@@ -19,7 +19,10 @@ const initialState = {
   allStates: [],
   stateDataLoading: false,
   filterByStateData: [],
+  hubMemberDetailLoading: false,
+
   hubMemberDetail: "",
+  hubMemberDetailError: "",
 };
 
 export default (state = initialState, action: any) => {
@@ -74,16 +77,19 @@ export default (state = initialState, action: any) => {
     case GET_ALL_HUB_BY_ID_LOADING:
       return {
         ...state,
+        hubMemberDetailLoading: true,
         // by id loading state
       };
     case GET_ALL_HUB_BY_ID_SUCCESS:
       return {
         ...state,
+        hubMemberDetailLoading: false,
         hubMemberDetail: action.payload,
       };
     case GET_ALL_HUB_BY_ID_ERROR:
       return {
         ...state,
+        hubMemberDetailError: action.error,
         // add loading state
       };
     default:
