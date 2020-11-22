@@ -10,6 +10,7 @@ import { AppRoutes } from "../../components/NavigationRoutes";
 import GalleryStack from "./Gallery";
 import EditProfile from "./EditProfile";
 import Comment from "./Comment";
+import CreatePostScreen from "./CreatePostScreen";
 const Tab = createBottomTabNavigator();
 
 export const AppStack = createStackNavigator<AppRoutes>();
@@ -31,6 +32,11 @@ const ProfileStack = () => {
         name="EditProfile"
         options={{ title: "Edit Profile" }}
         component={EditProfile}
+      />
+      <AppStack.Screen
+        name="CreatePost"
+        options={{ title: "Create Post" }}
+        component={CreatePostScreen}
       />
     </AppStack.Navigator>
   );

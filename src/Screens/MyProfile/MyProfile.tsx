@@ -75,7 +75,7 @@ const MyProfile = ({
     getUserDetail();
     getPostList();
     allFriends();
-  }, []);
+  }, [isFocused]);
 
   const { loading, userProfileData } = profileData;
   const { _links, firstName, lastName } = userProfileData;
@@ -263,7 +263,7 @@ const MyProfile = ({
               </Box>
             )}
           </Box>
-          <CreatePost src={profileImage} />
+          <CreatePost src={profileImage} {...{ navigation }} />
           <Box height={3} backgroundColor="mainBackground" />
           {postLoading ? (
             <Box flex={1} justifyContent="center" alignItems="center">

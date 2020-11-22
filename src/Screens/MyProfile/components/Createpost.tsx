@@ -23,8 +23,14 @@ interface CreatePostProps {
   src: string;
   submitPost: (data: postDataType) => void;
   message: string;
+  navigation: any;
 }
-const CreatePost = ({ src, submitPost, message }: CreatePostProps) => {
+const CreatePost = ({
+  src,
+  submitPost,
+  message,
+  navigation,
+}: CreatePostProps) => {
   const [postContent, setPostContent] = useState<string>("");
   const [postImage, setPostImage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -80,6 +86,9 @@ const CreatePost = ({ src, submitPost, message }: CreatePostProps) => {
       return null;
     }
   };
+  const _focusText = () => {
+    navigation.navigate("CreatePost");
+  };
 
   return (
     <Box paddingTop="l">
@@ -101,6 +110,7 @@ const CreatePost = ({ src, submitPost, message }: CreatePostProps) => {
             source={{ uri: src }}
           />
           <TextInput
+            onFocus={_focusText}
             onChangeText={(text) => setPostContent(text)}
             style={{ flex: 2, paddingHorizontal: 20 }}
             placeholder="Post a status update..."

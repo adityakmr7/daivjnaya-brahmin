@@ -174,19 +174,19 @@ async function registerForPushNotificationsAsync() {
 function App() {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <ThemeProvider {...{ theme }}>
-          <LoadAssets {...{ fonts, assets }}>
-            <SafeAreaProvider>
-              <StyleThemeProvider theme={toastTheme}>
-                <ToastProvider offset={20}>
-                  <AppNavigation />
-                </ToastProvider>
-              </StyleThemeProvider>
-            </SafeAreaProvider>
-          </LoadAssets>
-        </ThemeProvider>
-      </PersistGate>
+      {/* <PersistGate loading={null} persistor={persistor}> */}
+      <ThemeProvider {...{ theme }}>
+        <LoadAssets {...{ fonts, assets }}>
+          <SafeAreaProvider>
+            <StyleThemeProvider theme={toastTheme}>
+              <ToastProvider offset={20}>
+                <AppNavigation />
+              </ToastProvider>
+            </StyleThemeProvider>
+          </SafeAreaProvider>
+        </LoadAssets>
+      </ThemeProvider>
+      {/* </PersistGate> */}
     </Provider>
   );
 }
