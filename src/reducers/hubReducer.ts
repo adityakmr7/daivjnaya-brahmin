@@ -9,6 +9,7 @@ import {
   GET_ALL_HUB_BY_ID_LOADING,
   GET_ALL_HUB_BY_ID_SUCCESS,
   GET_ALL_HUB_BY_ID_ERROR,
+  GET_ALL_HUB_POST_FILTER_ERROR,
 } from "./../actions/constants/hubConstant";
 
 const initialState = {
@@ -64,6 +65,12 @@ export default (state = initialState, action: any) => {
         stateDataLoading: false,
         filterByStateData: action.payload._embedded.hubResourceList,
       };
+    case GET_ALL_HUB_POST_FILTER_ERROR:
+      return {
+        ...state,
+        stateDataError: action.error,
+      };
+    // detail
     case GET_ALL_HUB_BY_ID_LOADING:
       return {
         ...state,

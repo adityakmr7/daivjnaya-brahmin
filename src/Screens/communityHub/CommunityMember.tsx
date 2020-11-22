@@ -82,7 +82,7 @@ const CommunityMember = ({
       />
     );
   };
-
+  console.log("filterByStateData", filterByStateData);
   return (
     <Box>
       <Box backgroundColor="iconBackground">
