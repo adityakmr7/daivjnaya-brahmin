@@ -6,7 +6,7 @@ import {
 import { Box, HorizontalCard, SearchBox, Text } from "../../components";
 import { connect } from "react-redux";
 import { getAllState, filterHubByCityIsActive } from "../../actions/hubActions";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, Dimensions } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 
 interface CommunityMemberProps {
@@ -17,7 +17,7 @@ interface CommunityMemberProps {
 
   stateData: any;
 }
-
+const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const CommunityMember = ({
   navigation,
   states,
@@ -97,7 +97,7 @@ const CommunityMember = ({
         />
       </Box>
       <SearchBox handleChangeText={handleChangeText} searchText={searchText} />
-      <Box marginVertical="xl">
+      <Box height={wHeight - 190} marginVertical="xl">
         {filterByStateData.length > 0 && stateDataLoading === false ? (
           <FlatList
             data={filterByStateData}
