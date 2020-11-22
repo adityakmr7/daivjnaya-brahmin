@@ -24,8 +24,14 @@ interface CreatePostProps {
   route: any;
   submitPost: (data: postDataType) => void;
   message: string;
+  navigation: any;
 }
-const CreatePostScreen = ({ route, submitPost, message }: CreatePostProps) => {
+const CreatePostScreen = ({
+  route,
+  submitPost,
+  message,
+  navigation,
+}: CreatePostProps) => {
   const [postContent, setPostContent] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [postImage, setPostImage] = useState<string>("");
@@ -84,7 +90,6 @@ const CreatePostScreen = ({ route, submitPost, message }: CreatePostProps) => {
       <Box>
         <Box marginHorizontal="s">
           {/* <Text variant="mainIconSubTitle">Posts</Text> */}
-
           <Box
             justifyContent="space-between"
             alignItems="center"
