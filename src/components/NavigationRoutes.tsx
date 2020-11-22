@@ -20,7 +20,10 @@ export type AppRoutes = {
   Comment: { postId: number };
   Gallery: undefined;
   Message: undefined;
-  CreatePost: undefined;
+  CreatePostScreen: {
+    image: string;
+    title: string;
+  };
   //Matrimony
   Matrimony: undefined;
   //B2B

@@ -87,7 +87,10 @@ const CreatePost = ({
     }
   };
   const _focusText = () => {
-    navigation.navigate("CreatePost");
+    navigation.navigate("CreatePostScreen", {
+      image: src,
+      title: "hwllo world",
+    });
   };
 
   return (

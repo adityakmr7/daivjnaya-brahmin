@@ -34,7 +34,7 @@ const ProfileStack = () => {
         component={EditProfile}
       />
       <AppStack.Screen
-        name="CreatePost"
+        name="CreatePostScreen"
         options={{ title: "Create Post" }}
         component={CreatePostScreen}
       />
