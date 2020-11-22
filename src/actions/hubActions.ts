@@ -9,9 +9,8 @@ export const getAllHub = () => (dispatch: any) => {
 
   const _rest = new restServices();
   _rest
-    .get("/hub")
+    .get("/hub?sort=createdDate,desc")
     .then((res) => {
-      console.log("gettting Hube", res);
       dispatch({
         type: constant.GET_ALL_HUB_SUCCESS,
         payload: res.data,
@@ -107,9 +106,10 @@ export const filterHubByCityIsActive = (
 
   const _rest = new restServices();
   _rest
-    .get(`/hub/filter?state=${state}&isActivated=${isActivated}`)
+    .get(
+      `/hub/filter?sort=createdDate,desc&state=${state}&isActivated=${isActivated}`
+    )
     .then((res) => {
-      console.log("filterHubByCity", res);
       dispatch({
         type: constant.GET_ALL_HUB_POST_FILTER_SUCCESS,
         payload: res.data,

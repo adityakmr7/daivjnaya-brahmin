@@ -89,6 +89,7 @@ const CommunityMember = ({
     <Box>
       <Box backgroundColor="iconBackground">
         <FlatList
+          showsHorizontalScrollIndicator={false}
           horizontal={true}
           data={states}
           keyExtractor={(item) => item}

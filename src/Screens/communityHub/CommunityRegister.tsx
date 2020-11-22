@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   RectButton,
   ScrollView,
@@ -14,6 +14,7 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  ToastAndroid,
 } from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
 import { connect } from "react-redux";
@@ -22,6 +23,7 @@ import { postNewHub } from "../../actions/hubActions";
 import restServices from "../../services/restServices";
 interface RegisterProps {
   createNewHub: (data: postNewHubProps, images: []) => void;
+  hubState: any;
 }
 
 const validationSchema = Yup.object().shape({
@@ -32,7 +34,7 @@ const validationSchema = Yup.object().shape({
   city: Yup.string(),
   tellUs: Yup.number(),
 });
-const CommunityRegister = ({ createNewHub }: RegisterProps) => {
+const CommunityRegister = ({ createNewHub, hubState }: RegisterProps) => {
   const [galleryImage, setGalleryImage] = useState<any[]>([]);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [imageLoadingState, setImageLoadingState] = useState<any>({
@@ -40,7 +42,7 @@ const CommunityRegister = ({ createNewHub }: RegisterProps) => {
     second: false,
     third: false,
   });
-
+  const { createLoading, createError, createSuccess } = hubState;
   const {
     handleChange,
     handleBlur,
@@ -72,9 +74,18 @@ const CommunityRegister = ({ createNewHub }: RegisterProps) => {
     onSubmit: (values) => {
       if (values.callback === true && values.tmc === true) {
         createNewHub(values, galleryImage);
+        if (createSuccess !== "" && createError === "") {
+          ToastAndroid.showWithGravity(
+            "Member Created",
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM
+          );
+          setGalleryImage([]);
+        }
       }
     },
   });
+
   const handleImageUpload = async () => {
     if (Platform.OS !== "web") {
       const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -208,7 +219,7 @@ const CommunityRegister = ({ createNewHub }: RegisterProps) => {
                 placeholder="Country"
               />
               <TextField
-                keyboardType="default"
+                keyboardType="phone-pad"
                 onChangeText={handleChange("pinCode")}
                 onBlur={handleBlur("pinCode")}
                 error={errors.pinCode}
@@ -350,7 +361,7 @@ const CommunityRegister = ({ createNewHub }: RegisterProps) => {
 
 function mapStateToProps(state: any) {
   return {
-    ...state,
+    hubState: state.hub,
   };
 }
 
