@@ -17,7 +17,7 @@ import { ToastProvider } from "react-native-styled-toast";
 import { store, persistor } from "./src/store";
 import { logoutUser, userAuthorized } from "./src/actions/authActions";
 import restServices from "./src/services/restServices";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import * as Notifications from "expo-notifications";
 import { PersistGate } from "redux-persist/integration/react";
 import { Platform } from "react-native";
@@ -64,11 +64,12 @@ lookForToken();
  *  For refresh token This function
  */
 
-// axios.interceptors.request.use(async (config) => {
+// axios.interceptors.request.use(async (config: AxiosRequestConfig) => {
 //   const _rest = new restServices();
 //   const expireAt = await _rest.getExpireTime();
-//   if()
-// })
+//   console.log("interceptorRequest", expireAt);
+//   return config;
+// });
 
 axios.interceptors.response.use(
   (response) => {

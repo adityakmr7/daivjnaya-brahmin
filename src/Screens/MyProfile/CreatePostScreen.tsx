@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
@@ -36,7 +36,13 @@ const CreatePostScreen = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [postImage, setPostImage] = useState<string>("");
 
-  const { image, title } = route.params;
+  const { image, post } = route.params;
+
+  useEffect(() => {
+    if (post !== "") {
+      setPostImage(post);
+    }
+  }, [post]);
 
   const handlePostImage = async () => {
     if (Platform.OS !== "web") {
@@ -61,28 +67,32 @@ const CreatePostScreen = ({
   };
 
   // const handlePostLocation = async () => {};
-  const handleSubmit = () => {
-    const data: postDataType = {
-      content: postContent,
-      url: postImage,
-      location: "London",
-      longitude: "45",
-      latitude: "12",
-    };
-    setLoading(true);
-    submitPost(data);
-    setLoading(false);
-    setPostContent("");
+  const handleSubmit = async () => {
+    try {
+      const data: postDataType = {
+        content: postContent,
+        url: postImage,
+        location: "London",
+        longitude: "45",
+        latitude: "12",
+      };
+      setLoading(true);
+      submitPost(data);
+      setLoading(false);
+      setPostContent("");
 
-    // handlePostSubmit(data);
-    if (message) {
-      ToastAndroid.showWithGravity(
-        "Post Created",
-        ToastAndroid.LONG,
-        ToastAndroid.BOTTOM
-      );
-    } else {
-      return null;
+      // handlePostSubmit(data);
+      if (message !== "") {
+        ToastAndroid.showWithGravity(
+          "Post Created",
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM
+        );
+      } else {
+        return null;
+      }
+    } catch (err) {
+      console.log("Post Error");
     }
   };
   return (

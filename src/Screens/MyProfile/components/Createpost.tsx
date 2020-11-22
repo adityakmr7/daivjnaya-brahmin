@@ -25,15 +25,9 @@ interface CreatePostProps {
   message: string;
   navigation: any;
 }
-const CreatePost = ({
-  src,
-  submitPost,
-  message,
-  navigation,
-}: CreatePostProps) => {
+const CreatePost = ({ src, navigation }: CreatePostProps) => {
   const [postContent, setPostContent] = useState<string>("");
   const [postImage, setPostImage] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
 
   // const handlePostContent = (text: string) => {
   //   setPostContent(text);
@@ -56,40 +50,19 @@ const CreatePost = ({
         if (!result.cancelled) {
           setPostImage(result.uri);
           //updateCoverImage(result.uri);
+          navigation.navigate("CreatePostScreen", {
+            image: src,
+            post: result.uri,
+          });
         }
       }
     }
   };
 
-  // const handlePostLocation = async () => {};
-  const handleSubmit = () => {
-    const data: postDataType = {
-      content: postContent,
-      url: postImage,
-      location: "London",
-      longitude: "45",
-      latitude: "12",
-    };
-    setLoading(true);
-    submitPost(data);
-    setLoading(false);
-    setPostContent("");
-
-    // handlePostSubmit(data);
-    if (message) {
-      ToastAndroid.showWithGravity(
-        "Post Created",
-        ToastAndroid.LONG,
-        ToastAndroid.BOTTOM
-      );
-    } else {
-      return null;
-    }
-  };
   const _focusText = () => {
     navigation.navigate("CreatePostScreen", {
       image: src,
-      title: "hwllo world",
+      post: postImage,
     });
   };
 
@@ -119,9 +92,6 @@ const CreatePost = ({
             placeholder="Post a status update..."
             defaultValue={postContent}
           />
-          <RectButton onPress={() => handleSubmit()}>
-            {loading ? <ActivityIndicator /> : <Text>Post</Text>}
-          </RectButton>
         </Box>
       </Box>
       <Box
@@ -167,14 +137,4 @@ const CreatePost = ({
   );
 };
 
-function mapStateToProps(state: any) {
-  return {
-    message: state.post.postCreationMessage,
-  };
-}
-
-const mapDispatchToProps = (dispatch: any) => ({
-  submitPost: (data: postDataType) => dispatch(addPost(data)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreatePost);
+export default CreatePost;

@@ -65,7 +65,7 @@ const getMediaUrl = async (source: string) => {
 export const addPost = (postData: postDataType) => async (dispatch: any) => {
   const _rest = new restServices();
   const imageUrl = await getMediaUrl(postData.url);
-  const postContent = {
+  const postContent = JSON.stringify({
     content: postData.content,
     location: {
       latitude: postData.latitude,
@@ -78,7 +78,8 @@ export const addPost = (postData: postDataType) => async (dispatch: any) => {
         type: "image",
       },
     ],
-  };
+  });
+  console.log("postContent", postContent);
   _rest
     .post("/post", postContent)
     .then((res) => {
