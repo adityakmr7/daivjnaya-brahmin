@@ -7,6 +7,7 @@ import { Box, HorizontalCard, SearchBox, Text } from "../../components";
 import { connect } from "react-redux";
 import { getAllState, filterHubByCityIsActive } from "../../actions/hubActions";
 import { ActivityIndicator } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 
 interface CommunityMemberProps {
   navigation: any;
@@ -24,9 +25,10 @@ const CommunityMember = ({
   getFilteredData,
   stateData,
 }: CommunityMemberProps) => {
+  const isFocused = useIsFocused();
   useEffect(() => {
     getAllStates();
-  }, []);
+  }, [isFocused]);
   const { filterByStateData, stateDataLoading } = stateData;
   const [selectedTab, setSelectedTab] = useState("");
   const [searchText, setSearchText] = useState<string>("");

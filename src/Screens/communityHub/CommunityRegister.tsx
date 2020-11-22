@@ -28,7 +28,7 @@ const validationSchema = Yup.object().shape({
   name: Yup.string(),
   contact: Yup.string().length(10),
   community: Yup.string(),
-  email: Yup.string(), //TODO:, Validate Email
+  email: Yup.string().email().required(), //TODO:, Validate Email
   city: Yup.string(),
   tellUs: Yup.number(),
 });

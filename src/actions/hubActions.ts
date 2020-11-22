@@ -54,6 +54,7 @@ export const postNewHub = (data: any, images: []) => async (dispatch: any) => {
     phoneNumber: data.contactNumber,
     yourName: data.fullName,
   });
+  console.log("hubDataToSend", dataToSend);
 
   const _rest = new restServices();
   _rest
