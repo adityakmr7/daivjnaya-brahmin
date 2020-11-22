@@ -22,7 +22,7 @@ const NewsSection = ({
 }: NewsSectionProps) => {
   return (
     <TouchableWithoutFeedback {...{ onPress }}>
-      <Box paddingRight="l" width={wWidth - 40}>
+      <Box paddingRight="l" width={wWidth - 20}>
         <Image
           style={{ width: "100%", height: wWidth / 3 }}
           source={{ uri: image }}
