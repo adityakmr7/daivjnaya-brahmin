@@ -76,6 +76,7 @@ const CommunityMember = ({
   const renderListItem = ({ item }: { item: any }) => {
     return (
       <HorizontalCard
+        community={true}
         key={item.hId}
         onPress={() =>
           navigation.navigate("CommunityHubMemberDetail", { hId: item.hId })

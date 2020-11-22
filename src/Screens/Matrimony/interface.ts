@@ -29,4 +29,10 @@ export type horizontalCardDataType = {
   phoneNumber: string;
   updatedDate: number;
   btn: string;
+  hubGalleries: [];
+  hubName?: string;
+  address: {
+    city: string;
+    livesIn: string;
+  };
 };

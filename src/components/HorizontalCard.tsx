@@ -11,8 +11,9 @@ const { width: wWidth, height: wHeight } = Dimensions.get("window");
 interface HorizontalCardProps {
   item: horizontalCardDataType;
   onPress?: () => void;
+  community?: boolean;
 }
-const HorizontalCard = ({ item, onPress }: HorizontalCardProps) => {
+const HorizontalCard = ({ item, onPress, community }: HorizontalCardProps) => {
   console.log("Horizontal", item);
   return (
     <TouchableWithoutFeedback {...{ onPress }}>
@@ -23,32 +24,35 @@ const HorizontalCard = ({ item, onPress }: HorizontalCardProps) => {
         justifyContent="space-between"
         marginVertical="s"
       >
-        {item.images ? (
-          <Box>
-            <Image
-              style={{ height: 139, width: 108 }}
-              source={
-                item.image
-                  ? item.image
-                  : { uri: item.images[0]._links.image.href }
-              }
-            />
-          </Box>
-        ) : (
-          <Box
-            flex={1}
-            justifyContent="center"
-            alignItems="center"
-            backgroundColor="grey"
-            height={139}
-            width={108}
-          >
-            <Icon name="question" size={30} />
-          </Box>
-        )}
+        {community ? (
+          <>
+            {item.hubGalleries.length > 0 ? (
+              <Box>
+                <Image
+                  style={{ height: 139, width: 108 }}
+                  source={{
+                    uri: item.hubGalleries[0]._links.self.href,
+                  }}
+                />
+              </Box>
+            ) : (
+              <Box
+                flex={1}
+                justifyContent="center"
+                alignItems="center"
+                backgroundColor="grey"
+                height={139}
+                width={108}
+              >
+                <Icon name="question" size={30} />
+              </Box>
+            )}
+          </>
+        ) : null}
         <Box width={wWidth / 2}>
+          <Text variant="sectionTitle">{item.hubName ? item.hubName : ""}</Text>
           <Text variant="sectionTitle">
-            {item.address ? item.address.state : item.firstName}
+            {item.address ? item.address.city : ""}
           </Text>
           <Text color="primaryText" variant="cardText">
             {item.address ? item.address.livesIn : item.livesIn}
@@ -56,13 +60,8 @@ const HorizontalCard = ({ item, onPress }: HorizontalCardProps) => {
           <Text paddingVertical="s" color="primaryText" variant="cardText">
             {item.about ? item.about : ""}
           </Text>
-          <RectButton
-            onPress={() => {
-              console.log("View Full Detail");
-            }}
-          >
-            <Text>View Full Detail</Text>
-          </RectButton>
+
+          <Text>View Full Detail</Text>
         </Box>
       </Box>
       <Box
