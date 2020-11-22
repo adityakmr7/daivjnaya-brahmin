@@ -6,6 +6,7 @@ import {
   POST_LIKED_SUCCESS,
   POST_POST_ERROR,
   POST_POST_SUCCESS,
+  POST_POST_SUCCESS_LOADING,
   POST_UN_LIKED_ERROR,
   POST_UN_LIKED_SUCCESS,
 } from "./../actions/constants/postConstant";
@@ -14,6 +15,7 @@ const initialState = {
   postLoading: false,
   postList: [],
   error: "",
+  creatingPost: false,
   postCreationMessage: false,
   postLikedMessage: "",
 };
@@ -37,9 +39,15 @@ const postReducer = (state = initialState, action: any) => {
         postLoading: true,
         error: "Network Error",
       };
+    case POST_POST_SUCCESS_LOADING:
+      return {
+        ...state,
+        creatingPost: true,
+      };
     case POST_POST_SUCCESS:
       return {
         ...state,
+        creatingPost: false,
         postCreationMessage: action.payload,
       };
     case POST_POST_ERROR:

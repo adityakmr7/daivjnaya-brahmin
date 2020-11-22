@@ -23,21 +23,20 @@ const { width: wWidth, height: wHeight } = Dimensions.get("window");
 interface CreatePostProps {
   route: any;
   submitPost: (data: postDataType) => void;
-  message: string;
+  postState: any;
   navigation: any;
 }
 const CreatePostScreen = ({
   route,
   submitPost,
-  message,
+  postState,
   navigation,
 }: CreatePostProps) => {
   const [postContent, setPostContent] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
   const [postImage, setPostImage] = useState<string>("");
 
   const { image, post } = route.params;
-
+  const { creatingPost, postCreationMessage: message } = postState;
   useEffect(() => {
     if (post !== "") {
       setPostImage(post);
@@ -76,9 +75,9 @@ const CreatePostScreen = ({
         longitude: "45",
         latitude: "12",
       };
-      setLoading(true);
+
       submitPost(data);
-      setLoading(false);
+
       setPostContent("");
 
       // handlePostSubmit(data);
@@ -131,7 +130,7 @@ const CreatePostScreen = ({
               defaultValue={postContent}
             />
             <RectButton onPress={() => handleSubmit()}>
-              {loading ? <ActivityIndicator /> : <Text>Post</Text>}
+              {creatingPost ? <ActivityIndicator /> : <Text>Post</Text>}
             </RectButton>
           </Box>
         </Box>
@@ -194,7 +193,7 @@ const CreatePostScreen = ({
 
 function mapStateToProps(state: any) {
   return {
-    message: state.post.postCreationMessage,
+    postState: state.post,
   };
 }
 

@@ -85,6 +85,7 @@ const CreatePost = ({ src, navigation }: CreatePostProps) => {
             source={{ uri: src }}
           />
           <TextInput
+            showSoftInputOnFocus={false}
             onFocus={_focusText}
             onChangeText={(text) => setPostContent(text)}
             style={{ flex: 2, paddingHorizontal: 20 }}

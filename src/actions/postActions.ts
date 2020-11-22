@@ -11,6 +11,7 @@ import {
   POST_POST_SUCCESS,
   POST_UN_LIKED_ERROR,
   POST_UN_LIKED_SUCCESS,
+  POST_POST_SUCCESS_LOADING,
 } from "./constants/postConstant";
 import axios from "axios";
 import { postDataType } from "../Screens/MyProfile/interfaces";
@@ -63,6 +64,9 @@ const getMediaUrl = async (source: string) => {
 };
 
 export const addPost = (postData: postDataType) => async (dispatch: any) => {
+  dispatch({
+    type: POST_POST_SUCCESS_LOADING,
+  });
   const _rest = new restServices();
   const imageUrl = await getMediaUrl(postData.url);
   const postContent = JSON.stringify({

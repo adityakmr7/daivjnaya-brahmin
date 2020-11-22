@@ -5,6 +5,7 @@ export const GET_ALL_POST_ERROR = "GET_ALL_POST_ERROR";
 /**
  * post post
  */
+export const POST_POST_SUCCESS_LOADING = "POST_POST_SUCCESS_LOADING";
 
 export const POST_POST_SUCCESS = "POST_POST_SUCCESS";
 export const POST_POST_ERROR = "POST_POST_ERROR";
