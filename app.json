@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "daivjnaya-brahmin",
-    "slug": "daivjnaya-brahmin",
+    "name": "daivajnya-brahmin",
+    "slug": "daivajnya-brahmin",
     "version": "2.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,13 +16,13 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.svgrtech.daivjnayabrahmin"
+      "bundleIdentifier": "com.svgrtech.daivajnyabrahmin"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "package": "com.svgrtech.daivjnayabrahmin",
+      "package": "com.svgrtech.daivajnyabrahmin",
       "useNextNotificationsApi": true
     }
   }
