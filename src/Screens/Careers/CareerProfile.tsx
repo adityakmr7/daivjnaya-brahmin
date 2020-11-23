@@ -39,7 +39,7 @@ const CareerProfile = ({}: CareerProfileProps) => {
             <RoundedBorderButton label={"Edit Profile"} onPress={() => {}} />
           </Box>
         </Box>
-        <IntroSection />
+        {/* <IntroSection /> */}
         <Box borderWidth={1} borderColor="greyish">
           <NetWorkComponentTitle title="About" onPress={() => {}} />
         </Box>

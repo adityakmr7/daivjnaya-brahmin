@@ -5,6 +5,10 @@ import CareerHome from "./CareerHome";
 import CareerNetwork from "./CareerNetwork";
 import CareerProfile from "./CareerProfile";
 import { Feather as Icon } from "@expo/vector-icons";
+import CareerRegister from "./CareerRegister";
+import { createStackNavigator } from "@react-navigation/stack";
+import { Box } from "../../components";
+import { RoundedBorderButton } from "../MyProfile/components";
 
 const Tab = createBottomTabNavigator();
 const CareerTab = () => {
@@ -58,4 +62,34 @@ const CareerTab = () => {
   );
 };
 
-export default CareerTab;
+const Stack = createStackNavigator();
+const CareerStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={({ navigation }) => ({
+        headerStyle: {
+          elevation: 0,
+        },
+        headerRight: () => {
+          return (
+            <Box marginHorizontal="s">
+              <RoundedBorderButton
+                label="Register"
+                onPress={() => navigation.navigate("CareerRegister")}
+              />
+            </Box>
+          );
+        },
+      })}
+    >
+      <Stack.Screen
+        options={{ headerTitle: "Career" }}
+        name={"CareerTab"}
+        component={CareerTab}
+      />
+      <Stack.Screen name={"CareerRegister"} component={CareerRegister} />
+    </Stack.Navigator>
+  );
+};
+
+export default CareerStack;

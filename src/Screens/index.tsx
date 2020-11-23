@@ -22,6 +22,7 @@ import Pricing from "./GoldAndSilverPricing";
 import AuthNavigation from "./Authentication";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/authActions";
+import CareerStack from "./Careers";
 export const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = (props: any) => {
@@ -157,7 +158,13 @@ const AppNavigation = (props: any) => {
             name="Jewellery"
             component={JewelleryStack}
           />
-          <AppStack.Screen name="Careers" component={CareerTab} />
+          <AppStack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="Careers"
+            component={CareerStack}
+          />
           <AppStack.Screen name="Pricing" component={Pricing} />
         </>
       ) : (

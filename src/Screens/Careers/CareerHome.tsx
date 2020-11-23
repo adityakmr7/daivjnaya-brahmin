@@ -56,11 +56,11 @@ const CareerHome = ({}: CareerHomeProps) => {
             Career Tips
           </Text>
           <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
-            {[1, 2, 3].map((item, index) => {
+            {/* {[1, 2, 3].map((item, index) => {
               return (
-                <NewsSection onPress={() => {}} image={image} key={index} />
+                // <NewsSection onPress={() => {}} image={image} key={index} />
               );
-            })}
+            })} */}
           </ScrollView>
         </Box>
       </Box>
