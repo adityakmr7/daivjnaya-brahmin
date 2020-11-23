@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@shopify/restyle";
-import React from "react";
+import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { LoadAssets, theme } from "./src/components";
@@ -21,6 +21,7 @@ import axios, { AxiosRequestConfig } from "axios";
 import * as Notifications from "expo-notifications";
 import { PersistGate } from "redux-persist/integration/react";
 import { Platform } from "react-native";
+import { sendPushNotificationsAsync } from "./src/actions/pushNotification";
 const assets = [
   ...headerAssets,
   ...iconAssets,
@@ -139,40 +140,54 @@ const toastTheme = {
 // const _rest = new restServices();
 // _rest.removeAccessToken();
 
-async function registerForPushNotificationsAsync() {
-  let token;
-  if (Constants.isDevice) {
-    const { status: existingStatus } = await Permissions.getAsync(
-      Permissions.NOTIFICATIONS
-    );
-    let finalStatus = existingStatus;
-    if (existingStatus !== "granted") {
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      finalStatus = status;
-    }
-    if (finalStatus !== "granted") {
-      alert("Failed to get push token for push notification!");
-      return;
-    }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
-  } else {
-    alert("Must use physical device for Push Notifications");
-  }
+// async function registerForPushNotificationsAsync() {
+//   let token;
+//   if (Constants.isDevice) {
+//     const { status: existingStatus } = await Permissions.getAsync(
+//       Permissions.NOTIFICATIONS
+//     );
+//     let finalStatus = existingStatus;
+//     if (existingStatus !== "granted") {
+//       const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+//       finalStatus = status;
+//     }
+//     if (finalStatus !== "granted") {
+//       alert("Failed to get push token for push notification!");
+//       return;
+//     }
+//     token = (await Notifications.getExpoPushTokenAsync()).data;
+//     console.log(token);
+//   } else {
+//     alert("Must use physical device for Push Notifications");
+//   }
 
-  if (Platform.OS === "android") {
-    Notifications.setNotificationChannelAsync("default", {
-      name: "default",
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: "#FF231F7C",
-    });
-  }
+//   if (Platform.OS === "android") {
+//     Notifications.setNotificationChannelAsync("default", {
+//       name: "default",
+//       importance: Notifications.AndroidImportance.MAX,
+//       vibrationPattern: [0, 250, 250, 250],
+//       lightColor: "#FF231F7C",
+//     });
+//   }
 
-  return token;
-}
-
+//   return token;
+// }
 function App() {
+  // const [expoPushToken, setExpoPushToken] = React.useState<string | undefined>(
+  //   ""
+  // );
+  // useEffect(() => {
+  //   registerForPushNotificationsAsync().then((token) =>
+  //     setExpoPushToken(token)
+  //   );
+  // }, []);
+
+  // useEffect(() => {
+  //   if (expoPushToken !== "") {
+  //     sendPushNotificationsAsync(expoPushToken);
+  //   }
+  // }, []);
+
   return (
     <Provider store={store}>
       {/* <PersistGate loading={null} persistor={persistor}> */}

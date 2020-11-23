@@ -22,7 +22,8 @@
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "package": "com.svgrtech.daivjnayabrahmin"
+      "package": "com.svgrtech.daivjnayabrahmin",
+      "useNextNotificationsApi": true
     }
   }
 }
