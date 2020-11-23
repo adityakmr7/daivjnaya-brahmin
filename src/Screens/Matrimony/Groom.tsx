@@ -6,6 +6,7 @@ import { getAllMatrimonyProfile } from "../../actions/matrimonyActions";
 import { Box, Text, HorizontalCard, Loading } from "../../components";
 import { createMatrimonyProps } from "./interface";
 import { combineTabWithStackProps } from "./MatrimonyRoutes";
+import MatrimonyHorizontalCard from "../../components/MatrimonyHorizontalCard";
 
 interface GroomProps {
   navigation: combineTabWithStackProps<"Groom">;
@@ -40,7 +41,7 @@ const Groom = ({ navigation, getAllGroom, groomList }: GroomProps) => {
             {_embedded &&
               _embedded.profileResourceList.map((item: any, i) => {
                 return (
-                  <HorizontalCard
+                  <MatrimonyHorizontalCard
                     key={i}
                     onPress={() =>
                       navigation.navigate("GroomDetail", {
