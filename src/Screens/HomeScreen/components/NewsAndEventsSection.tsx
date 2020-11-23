@@ -1,11 +1,11 @@
+import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect } from "react";
 import { ActivityIndicator } from "react-native";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
+import { FlatList } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { getAllNews } from "../../../actions/newsActions";
 import { Box, NewsSection } from "../../../components";
 import restServices from "../../../services/restServices";
-const image = require("../../../../assets/images/img-2.png");
 
 interface NewsAndEventsSectionProps {
   navigation: any;
@@ -27,7 +27,7 @@ const NewsAndEventsSection = ({
       }
     }
     makeRequest();
-  }, []);
+  }, [getNews]);
   const { loading, news: newsList } = news;
   const renderItem = ({ item }: { item: any }) => {
     return (
