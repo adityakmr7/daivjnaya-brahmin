@@ -6,22 +6,22 @@ import { LinearGradient } from "expo-linear-gradient";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface MainCardProps {
-  title: string;
-  subTitle: string;
-  subText: string;
-  image: number;
-  color: string[];
+  data: {
+    content: string;
+    createdDate: number;
+    lastModifiedDate: number;
+    type: string;
+    _links: {
+      image: {
+        href: string;
+      };
+    };
+  };
 }
 
 const BoxWidth = wWidth - 40;
 const BoxHeight = wHeight - 0.77 * wHeight;
-const MainCard = ({
-  color,
-  title,
-  subText,
-  subTitle,
-  image,
-}: MainCardProps) => {
+const MainCard = ({ data }: MainCardProps) => {
   return (
     <Box
       marginVertical="mx"
@@ -36,23 +36,26 @@ const MainCard = ({
           height: BoxHeight,
           width: BoxWidth,
         }}
-        colors={color}
+        colors={["#4c669f", "#3b5998", "#192f6a"]}
       >
         <Box
-          width={BoxWidth - 20}
+          width={BoxWidth}
           flexDirection="row"
           justifyContent="center"
           alignItems="center"
         >
-          <Box paddingLeft="xl">
-            <Text variant="cardTitle">{title}</Text>
+          {/* <Box paddingLeft="xl">
+            <Text variant="cardTitle">{data.content}</Text>
             <Text paddingVertical="xs" variant="cardSubTitle">
-              {subTitle}
+              {data.type}
             </Text>
             <Text variant="cardText">{subText}</Text>
-          </Box>
+          </Box> */}
           <Box>
-            <Image style={{ width: BoxWidth / 3 }} source={image} />
+            <Image
+              style={{ width: BoxWidth, height: "100%" }}
+              source={{ uri: data._links.image.href }}
+            />
           </Box>
         </Box>
       </LinearGradient>

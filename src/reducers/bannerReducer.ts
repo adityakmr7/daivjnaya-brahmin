@@ -19,7 +19,7 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         loading: false,
-        bannerData: action.payload,
+        bannerData: action.payload._embedded,
       };
     case GET_ALL_BANNER_ERROR:
       return {

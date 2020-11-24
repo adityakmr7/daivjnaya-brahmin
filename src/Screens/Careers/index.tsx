@@ -9,6 +9,7 @@ import CareerRegister from "./CareerRegister";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Box } from "../../components";
 import { RoundedBorderButton } from "../MyProfile/components";
+import Talents from "./components/Talents";
 
 const Tab = createBottomTabNavigator();
 const CareerTab = () => {
@@ -63,27 +64,26 @@ const CareerTab = () => {
 };
 
 const Stack = createStackNavigator();
+
 const CareerStack = () => {
   return (
-    <Stack.Navigator
-      screenOptions={({ navigation }) => ({
-        headerStyle: {
-          elevation: 0,
-        },
-        headerRight: () => {
-          return (
-            <Box marginHorizontal="s">
-              <RoundedBorderButton
-                label="Register"
-                onPress={() => navigation.navigate("CareerRegister")}
-              />
-            </Box>
-          );
-        },
-      })}
-    >
+    <Stack.Navigator>
       <Stack.Screen
-        options={{ headerTitle: "Career" }}
+        options={({ navigation }) => ({
+          headerStyle: {
+            elevation: 0,
+          },
+          headerRight: () => {
+            return (
+              <Box marginHorizontal="s">
+                <RoundedBorderButton
+                  label="Register"
+                  onPress={() => navigation.navigate("CareerRegister")}
+                />
+              </Box>
+            );
+          },
+        })}
         name={"CareerTab"}
         component={CareerTab}
       />

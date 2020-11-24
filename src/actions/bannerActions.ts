@@ -10,10 +10,10 @@ export const getAllBanner = () => (dispatch: any) => {
     type: GET_ALL_BANNER_LOADING,
   });
   const _rest = new restServices();
-
   _rest
     .get("/banner")
     .then((res) => {
+      console.log("bannerResponse", res);
       dispatch({
         type: GET_ALL_BANNER_SUCCESS,
         payload: res.data,

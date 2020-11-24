@@ -9,7 +9,6 @@ import restServices from "../../../services/restServices";
 
 interface NewsAndEventsSectionProps {
   navigation: any;
-
   news: any;
   getNews: () => void;
 }
@@ -27,7 +26,7 @@ const NewsAndEventsSection = ({
       }
     }
     makeRequest();
-  }, [getNews]);
+  }, []);
   const { loading, news: newsList } = news;
   const renderItem = ({ item }: { item: any }) => {
     return (

@@ -17,6 +17,8 @@ import { connect } from "react-redux";
 import { getAllNews } from "../../actions/newsActions";
 import { StackNavigationProp } from "@react-navigation/stack";
 import restServices from "../../services/restServices";
+import { getAllBanner } from "../../actions/bannerActions";
+import { useIsFocused } from "@react-navigation/native";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const Images = [
@@ -59,18 +61,42 @@ export const iconAssets = [
 
 interface HomeScreenProps {
   navigation: StackNavigationProp<AppRoutes, "Home">;
-  news: any;
-  auth: boolean;
+  banner: any;
+  getBanner: () => void;
 }
 
-const HomeScreen = ({ navigation, news, auth }: HomeScreenProps) => {
+const HomeScreen = ({ navigation, banner, getBanner }: HomeScreenProps) => {
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    (async function get() {
+      const _rest = new restServices();
+      const token = await _rest.getAccessToken();
+      if (token) {
+        getBanner();
+      }
+    })();
+
+    // async function get() {
+    //   const _rest = new restServices();
+    //   const token = await _rest.getAccessToken();
+    //   if (token) {
+    //     getBanner();
+    //   }
+    // }
+    // get();
+  }, [isFocused]);
+
+  const { bannerData } = banner;
+  const { bannerResourceList } = bannerData;
+
   return (
     <Box flex={1} backgroundColor="mainBackground">
       <ScrollView showsVerticalScrollIndicator={false}>
         <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
-          {Images.map((data, index) => {
-            return <MainCard {...data} key={index} />;
-          })}
+          {bannerResourceList &&
+            bannerResourceList.map((data: any, index: number) => {
+              return <MainCard data={data} key={index} />;
+            })}
         </ScrollView>
         <SectionHeader
           title={"explore"}
@@ -188,15 +214,14 @@ const HomeScreen = ({ navigation, news, auth }: HomeScreenProps) => {
   );
 };
 
-// function mapStateToProps(state: any) {
-//   return {
-//     news: state.news,
-//     auth: state.auth.isAuthenticated,
-//   };
-// }
+function mapStateToProps(state: any) {
+  return {
+    banner: state.banner,
+  };
+}
 
-// const mapDispatchToProps = (dispatch: any) => ({
-//   getNews: () => dispatch(getAllNews()),
-// });
+const mapDispatchToProps = (dispatch: any) => ({
+  getBanner: () => dispatch(getAllBanner()),
+});
 
-export default HomeScreen;
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
