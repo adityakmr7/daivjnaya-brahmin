@@ -171,6 +171,17 @@ const MyProfile = ({
                 size={30}
                 name={Platform.OS === "android" ? "arrow-left" : "chevron-left"}
                 color="grey"
+                style={{
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 12,
+                  },
+                  shadowOpacity: 0.58,
+                  shadowRadius: 16.0,
+
+                  elevation: 24,
+                }}
               />
             </RectButton>
           </Box>
@@ -184,7 +195,13 @@ const MyProfile = ({
               <Box borderRadius="xl" height={140} width={140}>
                 {profileImage !== "" ? (
                   <Image
-                    style={{ height: 140, width: 140, borderRadius: 140 / 2 }}
+                    style={{
+                      borderColor: "white",
+                      borderWidth: 2,
+                      height: 140,
+                      width: 140,
+                      borderRadius: 140 / 2,
+                    }}
                     source={{
                       uri: profileImage !== "" ? profileImage : undefined,
                     }}

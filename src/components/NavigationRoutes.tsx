@@ -24,6 +24,7 @@ export type AppRoutes = {
     image: string;
     title: string;
   };
+  UserDetail: { id: number };
   //Matrimony
   Matrimony: undefined;
   //B2B
