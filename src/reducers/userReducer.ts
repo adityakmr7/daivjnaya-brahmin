@@ -1,4 +1,7 @@
 import {
+  GET_USER_DETAIL_BY_ID_ERROR,
+  GET_USER_DETAIL_BY_ID_LOADING,
+  GET_USER_DETAIL_BY_ID_SUCCESS,
   USER_DATA_ERROR,
   USER_DATA_LOADING,
   USER_DATA_SUCCESS,
@@ -10,6 +13,9 @@ const initialState = {
   loading: false,
   userProfileData: [],
   error: "",
+  userDetailByIdLoading: false,
+  userDetailById: "",
+  userDetailByIdError: "",
 };
 
 const userReducer = (state = initialState, action: any) => {
@@ -39,6 +45,23 @@ const userReducer = (state = initialState, action: any) => {
     case USER_PROFILE_PICTURE_ERROR:
       return {
         ...state,
+        error: action.error,
+      };
+    case GET_USER_DETAIL_BY_ID_LOADING:
+      return {
+        ...state,
+        userDetailByIdLoading: true,
+      };
+    case GET_USER_DETAIL_BY_ID_SUCCESS:
+      return {
+        ...state,
+        userDetailByIdLoading: false,
+        userDetailById: action.payload,
+      };
+    case GET_USER_DETAIL_BY_ID_ERROR:
+      return {
+        ...state,
+        userDetailById: "",
         error: action.error,
       };
 

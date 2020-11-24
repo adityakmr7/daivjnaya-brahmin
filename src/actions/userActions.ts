@@ -9,6 +9,9 @@ import {
   USER_PROFILE_PICTURE_ERROR,
   UPDATE_COVER_IMAGE_SUCCESS,
   UPDATE_COVER_IMAGE_ERROR,
+  GET_USER_DETAIL_BY_ID_LOADING,
+  GET_USER_DETAIL_BY_ID_SUCCESS,
+  GET_USER_DETAIL_BY_ID_ERROR,
 } from "./constants/userConstants";
 import axios, { AxiosRequestConfig } from "axios";
 import restServices from "../services/restServices";
@@ -135,6 +138,28 @@ export const updateCoverProfile = (url: string) => async (dispatch: any) => {
     .catch((err) => {
       dispatch({
         type: UPDATE_COVER_IMAGE_ERROR,
+        error: err,
+      });
+    });
+};
+
+export const getUserDetailById = (userId: number) => (dispatch: any) => {
+  dispatch({
+    type: GET_USER_DETAIL_BY_ID_LOADING,
+  });
+
+  const _rest = new restServices();
+  _rest
+    .get(`/user/${userId}`)
+    .then((res) => {
+      dispatch({
+        type: GET_USER_DETAIL_BY_ID_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_USER_DETAIL_BY_ID_ERROR,
         error: err,
       });
     });

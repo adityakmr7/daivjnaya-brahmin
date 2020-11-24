@@ -1,18 +1,19 @@
 export type userProfileProps = {
-  city: string;
-  companyName: string;
+  city: string | null;
+  companyName: string | null;
   phoneNumber: string;
   about: string;
-  address: string;
+  address: string | null;
   designation: string;
   education: string;
   email: string;
   firstName: string;
+  lastName: string;
   interest: string;
   isEnabled: boolean;
   isFriend: boolean;
   isFriendRequested: boolean;
-  lastName: string;
+
   livesIn: string;
   pincode: string;
   state: string;
