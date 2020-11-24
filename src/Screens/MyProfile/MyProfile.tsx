@@ -184,7 +184,7 @@ const MyProfile = ({
               <Box borderRadius="xl" height={140} width={140}>
                 {profileImage !== "" ? (
                   <Image
-                    style={{ height: 140, width: 140, borderRadius: 140 / 2 }}
+                    style={{ height: 140, width: 140, borderRadius: 140 / 2, borderColor: 'white', borderWidth: 2, }}
                     source={{
                       uri: profileImage !== "" ? profileImage : undefined,
                     }}
