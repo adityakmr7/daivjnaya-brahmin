@@ -7,6 +7,7 @@ import {
   JewelleryStackParamList,
   JewelleryTabParamList,
 } from "./JewelleryNavigationProps";
+import JewelleryRegister from "./JewelleryRegister";
 import Shop from "./Shop";
 import Vendors from "./Vendors";
 import Workers from "./Workers";
@@ -44,17 +45,35 @@ const JewelleryStack = () => {
             image={require("../../../assets/images/jwelIcon.png")}
           />
         ),
-        headerRight: () => (
-          <Box marginHorizontal="s">
-            <RoundedBorderButton
-              label="Register"
-              onPress={() => navigation.navigate("Register")}
-            />
-          </Box>
-        ),
       })}
     >
-      <Stack.Screen name="Jewellery" component={JewelleryTab} />
+      <Stack.Screen
+        options={({ navigation }) => ({
+          headerStyle: {
+            elevation: 0,
+          },
+          headerLeft: () => (
+            <HeaderBackButton
+              image={require("../../../assets/images/jwelIcon.png")}
+            />
+          ),
+          headerRight: () => (
+            <Box marginHorizontal="s">
+              <RoundedBorderButton
+                label="Register"
+                onPress={() => navigation.navigate("JewelleryRegister")}
+              />
+            </Box>
+          ),
+        })}
+        name="Jewellery"
+        component={JewelleryTab}
+      />
+      <Stack.Screen
+        name="JewelleryRegister"
+        options={{ headerTitle: "Register" }}
+        component={JewelleryRegister}
+      />
     </Stack.Navigator>
   );
 };

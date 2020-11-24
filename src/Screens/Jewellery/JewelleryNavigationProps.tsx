@@ -10,6 +10,7 @@ export type JewelleryTabParamList = {
 
 export type JewelleryStackParamList = {
   Jewellery: undefined;
+  JewelleryRegister: undefined;
 };
 
 export type combineTabWithStackProps<

@@ -47,7 +47,7 @@ export default function Shop() {
   return (
     <ScrollView>
       <Box backgroundColor="iconBackground" flex={1}>
-        {shopList.map((data, i) => {
+        {/* {shopList.map((data, i) => {
           return (
             <HorizontalCard
               key={i}
@@ -55,7 +55,7 @@ export default function Shop() {
               {...{ data }}
             />
           );
-        })}
+        })} */}
       </Box>
     </ScrollView>
   );

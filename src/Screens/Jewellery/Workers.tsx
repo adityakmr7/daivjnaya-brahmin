@@ -47,7 +47,7 @@ const Workers = ({}: WorkersProps) => {
   return (
     <ScrollView>
       <Box backgroundColor="iconBackground" flex={1}>
-        {workerList.map((data, i) => {
+        {/* {workerList.map((data, i) => {
           return (
             <HorizontalCard
               key={i}
@@ -55,7 +55,7 @@ const Workers = ({}: WorkersProps) => {
               {...{ data }}
             />
           );
-        })}
+        })} */}
       </Box>
     </ScrollView>
   );
