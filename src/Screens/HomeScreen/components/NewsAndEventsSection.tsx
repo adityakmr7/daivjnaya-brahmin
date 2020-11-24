@@ -10,24 +10,24 @@ import restServices from "../../../services/restServices";
 interface NewsAndEventsSectionProps {
   navigation: any;
   news: any;
-  getNews: () => void;
+  loading: boolean;
 }
 const NewsAndEventsSection = ({
   navigation,
   news,
-  getNews,
+  loading,
 }: NewsAndEventsSectionProps) => {
-  useEffect(() => {
-    async function makeRequest() {
-      const _rest = new restServices();
-      const accessToken = await _rest.getAccessToken();
-      if (accessToken) {
-        getNews();
-      }
-    }
-    makeRequest();
-  }, []);
-  const { loading, news: newsList } = news;
+  // useEffect(() => {
+  //   async function makeRequest() {
+  //     const _rest = new restServices();
+  //     const accessToken = await _rest.getAccessToken();
+  //     if (accessToken) {
+  //       getNews();
+  //     }
+  //   }
+  //   makeRequest();
+  // }, []);
+  // const { loading, news: newsList } = news;
   const renderItem = ({ item }: { item: any }) => {
     return (
       <NewsSection
@@ -46,7 +46,7 @@ const NewsAndEventsSection = ({
         </Box>
       ) : (
         <FlatList
-          data={newsList}
+          data={news}
           horizontal={true}
           renderItem={renderItem}
           keyExtractor={(item) => item.nId}
@@ -57,16 +57,13 @@ const NewsAndEventsSection = ({
   );
 };
 
-function mapStateToProps(state: any) {
-  return {
-    news: state.news,
-  };
-}
+// function mapStateToProps(state: any) {
+//   return {
+//     news: state.news,
+//   };
+// }
 
-const mapDispatchToProps = (dispatch: any) => ({
-  getNews: () => dispatch(getAllNews()),
-});
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NewsAndEventsSection);
+// const mapDispatchToProps = (dispatch: any) => ({
+//   getNews: () => dispatch(getAllNews()),
+// });
+export default NewsAndEventsSection;

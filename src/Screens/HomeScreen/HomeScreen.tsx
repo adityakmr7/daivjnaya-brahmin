@@ -63,9 +63,17 @@ interface HomeScreenProps {
   navigation: StackNavigationProp<AppRoutes, "Home">;
   banner: any;
   getBanner: () => void;
+  getNews: () => void;
+  news: any;
 }
 
-const HomeScreen = ({ navigation, banner, getBanner }: HomeScreenProps) => {
+const HomeScreen = ({
+  navigation,
+  banner,
+  getBanner,
+  getNews,
+  news,
+}: HomeScreenProps) => {
   const isFocused = useIsFocused();
   useEffect(() => {
     (async function get() {
@@ -73,6 +81,7 @@ const HomeScreen = ({ navigation, banner, getBanner }: HomeScreenProps) => {
       const token = await _rest.getAccessToken();
       if (token) {
         getBanner();
+        getNews();
       }
     })();
 
@@ -88,6 +97,7 @@ const HomeScreen = ({ navigation, banner, getBanner }: HomeScreenProps) => {
 
   const { bannerData } = banner;
   const { bannerResourceList } = bannerData;
+  const { loading, news: newsList } = news;
 
   return (
     <Box flex={1} backgroundColor="mainBackground">
@@ -153,7 +163,11 @@ const HomeScreen = ({ navigation, banner, getBanner }: HomeScreenProps) => {
           title={"Upcoming News & Events"}
         />
         <Box paddingVertical="l" width={wWidth - 40} marginLeft="l">
-          <NewsAndEventsSection {...{ navigation }} />
+          <NewsAndEventsSection
+            news={newsList}
+            loading={loading}
+            {...{ navigation }}
+          />
         </Box>
 
         <SectionHeader
@@ -217,11 +231,13 @@ const HomeScreen = ({ navigation, banner, getBanner }: HomeScreenProps) => {
 function mapStateToProps(state: any) {
   return {
     banner: state.banner,
+    news: state.news,
   };
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
   getBanner: () => dispatch(getAllBanner()),
+  getNews: () => dispatch(getAllNews()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
