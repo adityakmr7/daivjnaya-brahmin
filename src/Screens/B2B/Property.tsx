@@ -37,7 +37,7 @@ const Property = ({ navigation }: PropertyProps) => {
     <ScrollView>
       <Box backgroundColor="iconBackground" flex={1}>
         <Box>
-          {PropertyList.map((data, i) => {
+          {/* {PropertyList.map((data, i) => {
             return (
               <HorizontalCard
                 key={i}
@@ -45,7 +45,7 @@ const Property = ({ navigation }: PropertyProps) => {
                 {...{ data }}
               />
             );
-          })}
+          })} */}
         </Box>
       </Box>
     </ScrollView>
