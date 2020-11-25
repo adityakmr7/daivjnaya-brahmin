@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   RectButton,
   ScrollView,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
+import { Picker } from "@react-native-community/picker";
+
 import * as ImagePicker from "expo-image-picker";
 import * as Location from "expo-location";
 import {
@@ -64,9 +66,12 @@ const Register = () => {
       state: "",
       country: "",
       pinCode: "",
+      currentStatus: false,
+      collegeUniversity: "",
+      levelOfEdu: "",
     },
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
       //   if (values.callback === true && values.tmc === true) {
       //     createNewHub(values, galleryImage);
       //     if (createSuccess !== "" && createError === "") {
@@ -137,21 +142,13 @@ const Register = () => {
                 placeholder="Your Full Name"
               />
               <TextField
-                onChangeText={handleChange("fullName")}
-                onBlur={handleBlur("fullName")}
-                error={errors.fullName}
-                touched={touched.fullName}
-                placeholder="Full Name"
-              />
-              <TextField
-                keyboardType="phone-pad"
+                keyboardType="number-pad"
                 onChangeText={handleChange("contactNumber")}
                 onBlur={handleBlur("contactNumber")}
                 error={errors.contactNumber}
                 touched={touched.contactNumber}
                 placeholder="Contact Number"
               />
-
               <TextField
                 keyboardType="email-address"
                 onChangeText={handleChange("email")}
@@ -208,6 +205,77 @@ const Register = () => {
                 touched={touched.pinCode}
                 placeholder="Pin Code"
               />
+              <Box>
+                <Text>Education</Text>
+              </Box>
+              <Text>Level Of Education</Text>
+              <Picker
+                selectedValue={values.levelOfEdu}
+                onValueChange={(itemValue, itemIndex) =>
+                  setFieldValue("levelOfEdu", itemValue)
+                }
+              >
+                <Picker.Item label="Male" value="MALE" />
+                <Picker.Item label="Female" value="FEMALE" />
+              </Picker>
+              <Box>
+                <Text>Field of Study</Text>
+                <Text>
+                  e.g. Biology, Computer Science, Intellectual Property,
+                  Nursing, Psychology
+                </Text>
+              </Box>
+              <TextField
+                onChangeText={handleChange("collegeUniversity")}
+                onBlur={handleBlur("collegeUniversity")}
+                error={errors.collegeUniversity}
+                touched={touched.collegeUniversity}
+                placeholder="College Or University"
+              />
+              <Box>
+                <Text>City - India(change)</Text>
+                <Text>eg. Mumbai</Text>
+              </Box>
+              <TextField
+                onChangeText={handleChange("collegeUniversity")}
+                onBlur={handleBlur("collegeUniversity")}
+                error={errors.collegeUniversity}
+                touched={touched.collegeUniversity}
+                placeholder="College Or University"
+              />
+              <Text>Time Period</Text>
+              <Box
+                marginVertical="l"
+                flexDirection="row"
+                justifyContent="space-between"
+              >
+                {/* <CheckBox
+                  checked={values.currentStatus}
+                  onChange={setFieldValue(
+                    "currentStatus",
+                    !values.currentStatus
+                  )}
+                  label="Talents"
+                /> */}
+              </Box>
+              <Box>
+                <Text>From</Text>
+
+                <Text>To</Text>
+              </Box>
+
+              <Box
+                marginVertical="l"
+                flexDirection="row"
+                justifyContent="space-between"
+              >
+                {/* <CheckBox
+                  checked={values.currentStatus}
+                  onChange={setFieldValue("currentStatus", true)}
+                  label="I do not want to enter my education this time."
+                /> */}
+              </Box>
+
               <Box>
                 <Box
                   marginVertical="xl"
