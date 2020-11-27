@@ -419,6 +419,7 @@ const Register = () => {
                   of office supplies and ordered as and when needed)
                 </Text>
                 <TextField
+                  multiline={true}
                   numberOfLines={4}
                   onChangeText={handleChange("description")}
                   onBlur={handleBlur("description")}
