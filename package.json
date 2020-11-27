@@ -40,6 +40,7 @@
     "react-native-chart-kit": "^6.6.1",
     "react-native-gesture-handler": "~1.6.0",
     "react-native-month-year-picker": "^1.6.1",
+    "react-native-propel-kit": "^0.8.9",
     "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-reanimated": "~1.9.0",
     "react-native-safe-area-context": "~3.0.7",

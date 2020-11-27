@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\adity\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add styles-system
+  C:\Program Files\nodejs\node.exe C:\Users\adity\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @types/react-native-month-year-picker
 
 PATH: 
-  C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Users\adity\AppData\Local\Programs\Python\Python38-32\Scripts\;C:\Users\adity\AppData\Local\Programs\Python\Python38-32\;C:\Users\adity\AppData\Local\Microsoft\WindowsApps;C:\Users\adity\AppData\Roaming\npm;C:\Users\adity\AppData\Local\Android\Sdk\platform-tools;C:\Program Files\RedHat\java-11-openjdk-11.0.8-2\bin;C:\Users\adity\AppData\Local\Programs\Microsoft VS Code\bin
+  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\adity\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin;C:\Users\adity\AppData\Local\Programs\Python\Python38-32\Scripts;C:\Users\adity\AppData\Local\Programs\Python\Python38-32;C:\Users\adity\AppData\Local\Microsoft\WindowsApps;C:\Users\adity\AppData\Roaming\npm;C:\Users\adity\AppData\Local\Android\Sdk\platform-tools;C:\Program Files\RedHat\java-11-openjdk-11.0.8-2\bin;C:\Users\adity\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files (x86)\GitHub CLI
 
 Yarn version: 
   1.22.4
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/styles-system: Not found
+  Error: https://registry.yarnpkg.com/@types%2freact-native-month-year-picker: Not found
       at Request.params.callback [as _callback] (C:\Users\adity\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66987:18)
       at Request.self.callback (C:\Users\adity\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140748:22)
       at Request.emit (events.js:315:20)
@@ -39,6 +39,7 @@ npm manifest:
     "dependencies": {
       "@react-native-community/async-storage": "~1.11.0",
       "@react-native-community/masked-view": "0.1.10",
+      "@react-native-community/picker": "1.6.0",
       "@react-native-picker/picker": "^1.9.2",
       "@react-navigation/bottom-tabs": "^5.8.0",
       "@react-navigation/material-top-tabs": "^5.2.17",
@@ -54,27 +55,34 @@ npm manifest:
       "expo-file-system": "~9.0.1",
       "expo-image-picker": "~8.3.0",
       "expo-linear-gradient": "~8.2.1",
+      "expo-location": "~8.2.1",
+      "expo-notifications": "~0.3.3",
       "expo-status-bar": "^1.0.2",
       "formik": "^2.1.5",
       "mime": "^2.4.6",
+      "moment": "^2.29.1",
       "querystring": "^0.2.0",
       "react": "~16.11.0",
       "react-dom": "~16.11.0",
+      "react-moment": "^1.0.0",
       "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
       "react-native-chart-kit": "^6.6.1",
       "react-native-gesture-handler": "~1.6.0",
+      "react-native-month-year-picker": "^1.6.1",
       "react-native-raw-bottom-sheet": "^2.2.0",
       "react-native-reanimated": "~1.9.0",
       "react-native-safe-area-context": "~3.0.7",
       "react-native-screens": "~2.9.0",
       "react-native-styled-toast": "^1.0.25",
       "react-native-svg": "^12.1.0",
-      "react-native-tab-view": "^2.15.1",
+      "react-native-tab-view": "^2.15.2",
       "react-native-web": "~0.11.7",
       "react-redux": "^7.2.2",
       "redux": "^4.0.5",
+      "redux-persist": "^6.0.0",
       "redux-thunk": "^2.3.0",
       "styled-components": "^5.2.1",
+      "styled-system": "^5.1.5",
       "yup": "^0.29.3"
     },
     "devDependencies": {
@@ -1412,6 +1420,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.10.tgz#5dda643e19e587793bc2034dd9bf7398ad43d401"
     integrity sha512-rk4sWFsmtOw8oyx8SD3KSvawwaK7gRBSEIy2TAwURyGt+3TizssXP1r8nx3zY+R7v2vYYHXZ+k2/GULAT/bcaQ==
   
+  "@react-native-community/picker@1.6.0":
+    version "1.6.0"
+    resolved "https://registry.yarnpkg.com/@react-native-community/picker/-/picker-1.6.0.tgz#ddb2b04ca251b79980e3052ece4e685b7abf0444"
+    integrity sha512-ijB33rCW3m9vu8jbXAcEh+icCmK0pyvCXiGfAwPgGSaFLsmE27dsle3022EbE+dqqQgpxUNtOkrd5C3B+/dcuA==
+  
   "@react-native-picker/picker@^1.9.2":
     version "1.9.2"
     resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-1.9.2.tgz#c5e35f97d7982d2971ee3d74b1ba8ecf4b716627"
@@ -1471,6 +1484,96 @@ Lockfile:
     version "1.2.0"
     resolved "https://registry.yarnpkg.com/@shopify/restyle/-/restyle-1.2.0.tgz#b051ffba7b46945be643e93fe49309534025f14e"
     integrity sha512-I8ciyTKhToJWLMQ6Z2ez52yaa+o26tWxmF02QC2IlSotRWTwTgxbyD8UTVdt4AxhnA6JTJGYQMuXIUK8T3JS0w==
+  
+  "@styled-system/background@^5.1.2":
+    version "5.1.2"
+    resolved "https://registry.yarnpkg.com/@styled-system/background/-/background-5.1.2.tgz#75c63d06b497ab372b70186c0bf608d62847a2ba"
+    integrity sha512-jtwH2C/U6ssuGSvwTN3ri/IyjdHb8W9X/g8Y0JLcrH02G+BW3OS8kZdHphF1/YyRklnrKrBT2ngwGUK6aqqV3A==
+    dependencies:
+      "@styled-system/core" "^5.1.2"
+  
+  "@styled-system/border@^5.1.5":
+    version "5.1.5"
+    resolved "https://registry.yarnpkg.com/@styled-system/border/-/border-5.1.5.tgz#0493d4332d2b59b74bb0d57d08c73eb555761ba6"
+    integrity sha512-JvddhNrnhGigtzWRCVuAHepniyVi6hBlimxWDVAdcTuk7aRn9BYJUwfHslURtwYFsF5FoEs8Zmr1oZq2M1AP0A==
+    dependencies:
+      "@styled-system/core" "^5.1.2"
+  
+  "@styled-system/color@^5.1.2":
+    version "5.1.2"
+    resolved "https://registry.yarnpkg.com/@styled-system/color/-/color-5.1.2.tgz#b8d6b4af481faabe4abca1a60f8daa4ccc2d9f43"
+    integrity sha512-1kCkeKDZkt4GYkuFNKc7vJQMcOmTl3bJY3YBUs7fCNM6mMYJeT1pViQ2LwBSBJytj3AB0o4IdLBoepgSgGl5MA==
+    dependencies:
+      "@styled-system/core" "^5.1.2"
+  
+  "@styled-system/core@^5.1.2":
+    version "5.1.2"
+    resolved "https://registry.yarnpkg.com/@styled-system/core/-/core-5.1.2.tgz#b8b7b86455d5a0514f071c4fa8e434b987f6a772"
+    integrity sha512-XclBDdNIy7OPOsN4HBsawG2eiWfCcuFt6gxKn1x4QfMIgeO6TOlA2pZZ5GWZtIhCUqEPTgIBta6JXsGyCkLBYw==
+    dependencies:
+      object-assign "^4.1.1"
+  
+  "@styled-system/css@^5.1.5":
+    version "5.1.5"
+    resolved "https://registry.yarnpkg.com/@styled-system/css/-/css-5.1.5.tgz#0460d5f3ff962fa649ea128ef58d9584f403bbbc"
+    integrity sha512-XkORZdS5kypzcBotAMPBoeckDs9aSZVkvrAlq5K3xP8IMAUek+x2O4NtwoSgkYkWWzVBu6DGdFZLR790QWGG+A==
+  
+  "@styled-system/flexbox@^5.1.2":
+    version "5.1.2"
+    resolved "https://registry.yarnpkg.com/@styled-system/flexbox/-/flexbox-5.1.2.tgz#077090f43f61c3852df63da24e4108087a8beecf"
+    integrity sha512-6hHV52+eUk654Y1J2v77B8iLeBNtc+SA3R4necsu2VVinSD7+XY5PCCEzBFaWs42dtOEDIa2lMrgL0YBC01mDQ==
+    dependencies:
+      "@styled-system/core" "^5.1.2"
+  
+  "@styled-system/grid@^5.1.2":
+    version "5.1.2"
+    resolved "https://registry.yarnpkg.com/@styled-system/grid/-/grid-5.1.2.tgz#7165049877732900b99cd00759679fbe45c6c573"
+    integrity sha512-K3YiV1KyHHzgdNuNlaw8oW2ktMuGga99o1e/NAfTEi5Zsa7JXxzwEnVSDSBdJC+z6R8WYTCYRQC6bkVFcvdTeg==
+    dependencies:
+      "@styled-system/core" "^5.1.2"
+  
+  "@styled-system/layout@^5.1.2":
+    version "5.1.2"
+    resolved "https://registry.yarnpkg.com/@styled-system/layout/-/layout-5.1.2.tgz#12d73e79887e10062f4dbbbc2067462eace42339"
+    integrity sha512-wUhkMBqSeacPFhoE9S6UF3fsMEKFv91gF4AdDWp0Aym1yeMPpqz9l9qS/6vjSsDPF7zOb5cOKC3tcKKOMuDCPw==
+    dependencies:
+      "@styled-system/core" "^5.1.2"
+  
+  "@styled-system/position@^5.1.2":
+    version "5.1.2"
+    resolved "https://registry.yarnpkg.com/@styled-system/position/-/position-5.1.2.tgz#56961266566836f57a24d8e8e33ce0c1adb59dd3"
+    integrity sha512-60IZfMXEOOZe3l1mCu6sj/2NAyUmES2kR9Kzp7s2D3P4qKsZWxD1Se1+wJvevb+1TP+ZMkGPEYYXRyU8M1aF5A==
+    dependencies:
+      "@styled-system/core" "^5.1.2"
+  
+  "@styled-system/shadow@^5.1.2":
+    version "5.1.2"
+    resolved "https://registry.yarnpkg.com/@styled-system/shadow/-/shadow-5.1.2.tgz#beddab28d7de03cd0177a87ac4ed3b3b6d9831fd"
+    integrity sha512-wqniqYb7XuZM7K7C0d1Euxc4eGtqEe/lvM0WjuAFsQVImiq6KGT7s7is+0bNI8O4Dwg27jyu4Lfqo/oIQXNzAg==
+    dependencies:
+      "@styled-system/core" "^5.1.2"
+  
+  "@styled-system/space@^5.1.2":
+    version "5.1.2"
+    resolved "https://registry.yarnpkg.com/@styled-system/space/-/space-5.1.2.tgz#38925d2fa29a41c0eb20e65b7c3efb6e8efce953"
+    integrity sha512-+zzYpR8uvfhcAbaPXhH8QgDAV//flxqxSjHiS9cDFQQUSznXMQmxJegbhcdEF7/eNnJgHeIXv1jmny78kipgBA==
+    dependencies:
+      "@styled-system/core" "^5.1.2"
+  
+  "@styled-system/typography@^5.1.2":
+    version "5.1.2"
+    resolved "https://registry.yarnpkg.com/@styled-system/typography/-/typography-5.1.2.tgz#65fb791c67d50cd2900d234583eaacdca8c134f7"
+    integrity sha512-BxbVUnN8N7hJ4aaPOd7wEsudeT7CxarR+2hns8XCX1zp0DFfbWw4xYa/olA0oQaqx7F1hzDg+eRaGzAJbF+jOg==
+    dependencies:
+      "@styled-system/core" "^5.1.2"
+  
+  "@styled-system/variant@^5.1.5":
+    version "5.1.5"
+    resolved "https://registry.yarnpkg.com/@styled-system/variant/-/variant-5.1.5.tgz#8446d8aad06af3a4c723d717841df2dbe4ddeafd"
+    integrity sha512-Yn8hXAFoWIro8+Q5J8YJd/mP85Teiut3fsGVR9CAxwgNfIAiqlYxsk5iHU7VHJks/0KjL4ATSjmbtCDC/4l1qw==
+    dependencies:
+      "@styled-system/core" "^5.1.2"
+      "@styled-system/css" "^5.1.5"
   
   "@types/color-name@^1.1.1":
     version "1.1.1"
@@ -1951,6 +2054,11 @@ Lockfile:
     version "1.1.8"
     resolved "https://registry.yarnpkg.com/badgin/-/badgin-1.1.8.tgz#6e4c930554945d31752e5de2d8a316036dccda5e"
     integrity sha512-EGbhb5OwZreHS0vd8tFLzdWBqvz3dFREf1sYK5EtivtTDUkYCLSEKz1KvXJ4MBHAyKGDymx8wYPCQwrftQBifw==
+  
+  badgin@^1.1.5:
+    version "1.2.2"
+    resolved "https://registry.yarnpkg.com/badgin/-/badgin-1.2.2.tgz#cbb0b71b047230c681a68911eb24136f0632adc6"
+    integrity sha512-XtoSjNhy2D09qGiLhFWBJmBwBlmleQuwyYyjddWNCJ3gqGRBOBR25VGcd8CAOSghpEUmghB3LD4NpHrUG89zCg==
   
   balanced-match@^1.0.0:
     version "1.0.0"
@@ -2870,6 +2978,11 @@ Lockfile:
       snapdragon "^0.8.1"
       to-regex "^3.0.1"
   
+  expo-application@~2.2.1:
+    version "2.2.1"
+    resolved "https://registry.yarnpkg.com/expo-application/-/expo-application-2.2.1.tgz#f14b83ae0b07e4922850f8856a56f141c168d6d0"
+    integrity sha512-YyYB2EPWmFmXgmnul9AMdZ6Ze290BWaez7RhUfAMq2gQU84EdpvL3vkO9SV5E4zI7Rj2jfS0VcCDpxrcdlBW/w==
+  
   expo-asset@~8.1.7:
     version "8.1.7"
     resolved "https://registry.yarnpkg.com/expo-asset/-/expo-asset-8.1.7.tgz#32618e51f85df56f1d7dd54c71eb486ae7f7674e"
@@ -2890,7 +3003,7 @@ Lockfile:
       nullthrows "^1.1.0"
       prop-types "15.7.2"
   
-  expo-constants@~9.1.1:
+  expo-constants@9.1.1, expo-constants@~9.1.1:
     version "9.1.1"
     resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-9.1.1.tgz#bca141ee3d4550e308798128f66c6d9c6a206ca1"
     integrity sha512-zCa/wRARODHd6BSwxjBhidmao0AqQnKmLkl0tsVIoZlRyPDHsEaxNR/m+7wqGC7qiC+UpG1qRnvLOLwCGt2ihg==
@@ -2955,6 +3068,16 @@ Lockfile:
     integrity sha512-MixKapt3nijAxyjIISscBzdKi8bwh0H/dWYsL2mCofrjguFHOh2gP07h95902lekb7NVqybl5AIQRW5cvrG4rQ==
     dependencies:
       invariant "^2.2.4"
+  
+  expo-notifications@~0.3.3:
+    version "0.3.3"
+    resolved "https://registry.yarnpkg.com/expo-notifications/-/expo-notifications-0.3.3.tgz#3c7b7275516028853e02f5c796e3365d4fb572ad"
+    integrity sha512-iBqvlbB6UVkU5yF4W9K/sqdPIbJ52VVeL7543G4IA3ARWhx6wdhfzcuGTCtUgV0XmkJu7vmPs+sC31aXjRa0Kg==
+    dependencies:
+      badgin "^1.1.5"
+      expo-application "~2.2.1"
+      expo-constants "9.1.1"
+      uuid "^3.4.0"
   
   expo-permissions@~9.0.1:
     version "9.0.1"
@@ -4464,6 +4587,11 @@ Lockfile:
     dependencies:
       minimist "^1.2.5"
   
+  moment@^2.24.0, moment@^2.29.1:
+    version "2.29.1"
+    resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
+    integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
+  
   ms@2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -5014,6 +5142,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
     integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
   
+  react-moment@^1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/react-moment/-/react-moment-1.0.0.tgz#aedac867cd08739065799de9452c898d954ba6d7"
+    integrity sha512-J4iIiwUT4oZcL7cp2U7naQKbQtqvmzGXXBMg/DLj+Pi7n9EW0VhBRx/1aJ1Tp2poCqTCAPoadLEoUIkReGnNNg==
+  
   react-native-appearance@~0.3.3:
     version "0.3.4"
     resolved "https://registry.yarnpkg.com/react-native-appearance/-/react-native-appearance-0.3.4.tgz#2cbcbc5142cdc1898c116684f519b16c879cbec2"
@@ -5046,6 +5179,14 @@ Lockfile:
     version "1.2.1"
     resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
     integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
+  
+  react-native-month-year-picker@^1.6.1:
+    version "1.6.1"
+    resolved "https://registry.yarnpkg.com/react-native-month-year-picker/-/react-native-month-year-picker-1.6.1.tgz#fa61a78c1e45e63b310bd44e89219a8b9d3de6d9"
+    integrity sha512-CUu5DFWb7WbxHrUypUGxb1e5PftrMYzyLSxREi2l19jybFvkfVk8xr8KhoUs+6CjtTyHgHGe/E71LgzrVJu2sQ==
+    dependencies:
+      invariant "^2.2.4"
+      moment "^2.24.0"
   
   react-native-raw-bottom-sheet@^2.2.0:
     version "2.2.0"
@@ -5090,10 +5231,10 @@ Lockfile:
       css-select "^2.1.0"
       css-tree "^1.0.0-alpha.39"
   
-  react-native-tab-view@^2.15.1:
-    version "2.15.1"
-    resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.15.1.tgz#cf4df4ffdec504263a2e06a6becd8831b9a19ad9"
-    integrity sha512-cDYl1pNWspbEHBjHrHVpIC40h4g8VhZe0CIG0CUKcouX98vHVfAojxhgWuRosq9qMhITHpLKM+7BmBLnhCJ0nw==
+  react-native-tab-view@^2.15.2:
+    version "2.15.2"
+    resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.15.2.tgz#4bc7832d33a119306614efee667509672a7ee64e"
+    integrity sha512-2hxLkBnZtEKFDyfvNO5EUywhy3f/EiLOBO8SWqKj4BMBTO0QwnybaPE5MVF00Fhz+VA4+h/iI40Dkrrtq70dGg==
   
   react-native-web@~0.11.7:
     version "0.11.7"
@@ -5219,6 +5360,11 @@ Lockfile:
     integrity sha1-91VZZvMJjzyIYExEnPC69XeCdL8=
     dependencies:
       deep-diff "^0.3.5"
+  
+  redux-persist@^6.0.0:
+    version "6.0.0"
+    resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-6.0.0.tgz#b4d2972f9859597c130d40d4b146fecdab51b3a8"
+    integrity sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ==
   
   redux-thunk@^2.3.0:
     version "2.3.0"
@@ -5883,6 +6029,25 @@ Lockfile:
       hoist-non-react-statics "^3.0.0"
       shallowequal "^1.1.0"
       supports-color "^5.5.0"
+  
+  styled-system@^5.1.5:
+    version "5.1.5"
+    resolved "https://registry.yarnpkg.com/styled-system/-/styled-system-5.1.5.tgz#e362d73e1dbb5641a2fd749a6eba1263dc85075e"
+    integrity sha512-7VoD0o2R3RKzOzPK0jYrVnS8iJdfkKsQJNiLRDjikOpQVqQHns/DXWaPZOH4tIKkhAT7I6wIsy9FWTWh2X3q+A==
+    dependencies:
+      "@styled-system/background" "^5.1.2"
+      "@styled-system/border" "^5.1.5"
+      "@styled-system/color" "^5.1.2"
+      "@styled-system/core" "^5.1.2"
+      "@styled-system/flexbox" "^5.1.2"
+      "@styled-system/grid" "^5.1.2"
+      "@styled-system/layout" "^5.1.2"
+      "@styled-system/position" "^5.1.2"
+      "@styled-system/shadow" "^5.1.2"
+      "@styled-system/space" "^5.1.2"
+      "@styled-system/typography" "^5.1.2"
+      "@styled-system/variant" "^5.1.5"
+      object-assign "^4.1.1"
   
   sudo-prompt@^9.0.0:
     version "9.2.1"

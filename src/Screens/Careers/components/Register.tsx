@@ -29,6 +29,7 @@ import {
 import { Feather as Icon } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import restServices from "../../../services/restServices";
+import { MonthPicker } from "react-native-propel-kit";
 interface RegisterProps {}
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const validationSchema = Yup.object().shape({
@@ -47,6 +48,11 @@ const Register = () => {
     second: false,
     third: false,
   });
+  const [timePeriodDateTo, setTimePeriodDateTo] = useState<Date>(new Date());
+  const [timePeriodDateFrom, setTimePeriodDateFrom] = useState<Date>(
+    new Date()
+  );
+
   const {
     handleChange,
     handleBlur,
@@ -309,10 +315,22 @@ const Register = () => {
                 <Text color="primaryText" variant="cardSubTitle">
                   From
                 </Text>
+                <MonthPicker
+                  placeholder={"Pick a month"}
+                  title={"Pick a month"}
+                  value={timePeriodDateFrom}
+                  onChange={setTimePeriodDateFrom}
+                />
 
                 <Text color="primaryText" variant="cardSubTitle">
                   To
                 </Text>
+                <MonthPicker
+                  placeholder={"Pick a month"}
+                  title={"Pick a month"}
+                  value={timePeriodDateTo}
+                  onChange={setTimePeriodDateTo}
+                />
 
                 <CheckBox
                   checked={values.enterEdu}
@@ -375,10 +393,21 @@ const Register = () => {
                 <Text color="primaryText" variant="cardSubTitle">
                   From
                 </Text>
-
+                <MonthPicker
+                  placeholder={"Pick a month"}
+                  title={"Pick a month"}
+                  value={timePeriodDateFrom}
+                  onChange={setTimePeriodDateFrom}
+                />
                 <Text color="primaryText" variant="cardSubTitle">
                   To
                 </Text>
+                <MonthPicker
+                  placeholder={"Pick a month"}
+                  title={"Pick a month"}
+                  value={timePeriodDateTo}
+                  onChange={setTimePeriodDateTo}
+                />
               </Box>
               <Box>
                 <Text color="primaryText" variant="cardSubTitle">
@@ -390,6 +419,7 @@ const Register = () => {
                   of office supplies and ordered as and when needed)
                 </Text>
                 <TextField
+                  numberOfLines={4}
                   onChangeText={handleChange("description")}
                   onBlur={handleBlur("description")}
                   error={errors.description}

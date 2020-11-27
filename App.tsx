@@ -22,6 +22,7 @@ import * as Notifications from "expo-notifications";
 import { PersistGate } from "redux-persist/integration/react";
 import { Platform } from "react-native";
 import { sendPushNotificationsAsync } from "./src/actions/pushNotification";
+import { BackdropProvider } from "react-native-propel-kit";
 const assets = [
   ...headerAssets,
   ...iconAssets,
@@ -193,13 +194,15 @@ function App() {
       {/* <PersistGate loading={null} persistor={persistor}> */}
       <ThemeProvider {...{ theme }}>
         <LoadAssets {...{ fonts, assets }}>
-          <SafeAreaProvider>
-            <StyleThemeProvider theme={toastTheme}>
-              <ToastProvider offset={20}>
-                <AppNavigation />
-              </ToastProvider>
-            </StyleThemeProvider>
-          </SafeAreaProvider>
+          <BackdropProvider>
+            <SafeAreaProvider>
+              <StyleThemeProvider theme={toastTheme}>
+                <ToastProvider offset={20}>
+                  <AppNavigation />
+                </ToastProvider>
+              </StyleThemeProvider>
+            </SafeAreaProvider>
+          </BackdropProvider>
         </LoadAssets>
       </ThemeProvider>
       {/* </PersistGate> */}
