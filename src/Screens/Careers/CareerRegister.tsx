@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import {
   RectButton,
   ScrollView,
@@ -22,6 +22,7 @@ import { postNewHub } from "../../actions/hubActions";
 import restServices from "../../services/restServices";
 import Register from "./components/Register";
 import Talents from "./components/Talents";
+import PostJobForm from "./components/PostJobForm";
 interface CareerRegisterProps {}
 
 const CareerRegister = () => {
@@ -44,6 +45,16 @@ const CareerRegister = () => {
     setTalents(true);
     setFJob(false);
   };
+
+  let registerForm: ReactNode;
+  if (fJob) {
+    registerForm = <Register />;
+  } else if (pJob) {
+    registerForm = <PostJobForm />;
+  } else if (talents) {
+    registerForm = <Talents />;
+  }
+
   return (
     <Box flex={1} marginBottom="l" flexDirection="column">
       <Box marginHorizontal="xl">
@@ -69,7 +80,7 @@ const CareerRegister = () => {
           />
         </Box>
       </Box>
-      {pJob || fJob ? <Register /> : <Talents />}
+      {registerForm}
     </Box>
   );
 };
