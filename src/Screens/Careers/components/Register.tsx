@@ -19,6 +19,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
   ActivityIndicator,
+  Button,
+  Dimensions,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -27,9 +29,8 @@ import {
 import { Feather as Icon } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import restServices from "../../../services/restServices";
-
 interface RegisterProps {}
-
+const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const validationSchema = Yup.object().shape({
   name: Yup.string(),
   contact: Yup.string().length(10),
@@ -69,6 +70,25 @@ const Register = () => {
       currentStatus: false,
       collegeUniversity: "",
       levelOfEdu: "",
+      enterEdu: false,
+      isWorkExperience: false,
+      company: "",
+      jobTitle: "",
+      desiredJobTitle: "",
+      fieldOfStudy: "",
+      desiredSalary: "",
+      description: "",
+      isFullTime: false,
+      isContract: false,
+      isInternship: false,
+      isFresher: false,
+      isWalkIn: false,
+      isPartTime: false,
+      isTemporary: false,
+      isCommission: false,
+      isVolunteer: false,
+      isRelocate: false,
+      skills: "",
     },
     onSubmit: (values) => {
       // console.log(values);
@@ -205,24 +225,43 @@ const Register = () => {
                 touched={touched.pinCode}
                 placeholder="Pin Code"
               />
-              <Box>
-                <Text>Education</Text>
+              {/* //! Education */}
+              <Box marginVertical="s">
+                <Text color="primaryText" variant="cardSubTitle">
+                  Education
+                </Text>
               </Box>
-              <Text>Level Of Education</Text>
+              <Text color="primaryText" variant="cardSubTitle">
+                Level Of Education
+              </Text>
               <Picker
                 selectedValue={values.levelOfEdu}
                 onValueChange={(itemValue, itemIndex) =>
                   setFieldValue("levelOfEdu", itemValue)
                 }
               >
-                <Picker.Item label="Male" value="MALE" />
-                <Picker.Item label="Female" value="FEMALE" />
+                <Picker.Item label="Intermediate" value="Intermediate" />
+                <Picker.Item label="Graduate" value="Graduate" />
               </Picker>
-              <Box>
-                <Text>Field of Study</Text>
-                <Text>
+              <Box marginVertical="s">
+                <Text color="primaryText" variant="cardSubTitle">
+                  Field of Study
+                </Text>
+                <Text variant="silentText" fontSize={10}>
                   e.g. Biology, Computer Science, Intellectual Property,
                   Nursing, Psychology
+                </Text>
+              </Box>
+              <TextField
+                onChangeText={handleChange("fieldOfStudy")}
+                onBlur={handleBlur("fieldOfStudy")}
+                error={errors.fieldOfStudy}
+                touched={touched.fieldOfStudy}
+                placeholder="Field Of Study"
+              />
+              <Box marginVertical="s">
+                <Text color="primaryText" variant="cardSubTitle">
+                  College or University
                 </Text>
               </Box>
               <TextField
@@ -232,119 +271,350 @@ const Register = () => {
                 touched={touched.collegeUniversity}
                 placeholder="College Or University"
               />
-              <Box>
-                <Text>City - India(change)</Text>
-                <Text>eg. Mumbai</Text>
+              <Box marginVertical="s">
+                <Text color="primaryText" variant="cardSubTitle">
+                  City - India(change)
+                </Text>
+                <Text variant="silentText" fontSize={10}>
+                  eg. Mumbai
+                </Text>
               </Box>
               <TextField
-                onChangeText={handleChange("collegeUniversity")}
-                onBlur={handleBlur("collegeUniversity")}
-                error={errors.collegeUniversity}
-                touched={touched.collegeUniversity}
-                placeholder="College Or University"
+                onChangeText={handleChange("city")}
+                onBlur={handleBlur("city")}
+                error={errors.city}
+                touched={touched.city}
+                placeholder="City"
               />
-              <Text>Time Period</Text>
+              <Box marginVertical="s">
+                <Text color="primaryText" variant="cardSubTitle">
+                  Time Period
+                </Text>
+              </Box>
               <Box
                 marginVertical="l"
                 flexDirection="row"
                 justifyContent="space-between"
               >
-                {/* <CheckBox
+                <CheckBox
                   checked={values.currentStatus}
-                  onChange={setFieldValue(
-                    "currentStatus",
-                    !values.currentStatus
-                  )}
-                  label="Talents"
-                /> */}
+                  onChange={() =>
+                    setFieldValue("currentStatus", !values.currentStatus)
+                  }
+                  label="I Currently go Here"
+                />
               </Box>
-              <Box>
-                <Text>From</Text>
 
-                <Text>To</Text>
+              <Box marginTop="s">
+                <Text color="primaryText" variant="cardSubTitle">
+                  From
+                </Text>
+
+                <Text color="primaryText" variant="cardSubTitle">
+                  To
+                </Text>
+
+                <CheckBox
+                  checked={values.enterEdu}
+                  onChange={() =>
+                    setFieldValue("currentStatus", !values.enterEdu)
+                  }
+                  label="I do not want to enter my education."
+                />
               </Box>
+              <Box marginTop="m">
+                <Text color="primaryText" variant="cardSubTitle">
+                  Work Experience(Current)
+                </Text>
+              </Box>
+              <TextField
+                onChangeText={handleChange("jobTitle")}
+                onBlur={handleBlur("jobTitle")}
+                error={errors.jobTitle}
+                touched={touched.jobTitle}
+                placeholder="Job Title"
+              />
+              <TextField
+                onChangeText={handleChange("company")}
+                onBlur={handleBlur("company")}
+                error={errors.company}
+                touched={touched.company}
+                placeholder="Company"
+              />
+
+              <Box marginTop="s">
+                <Text color="primaryText" variant="cardSubTitle">
+                  City - India(change)
+                </Text>
+                <Text fontSize={10} variant="silentText">
+                  eg. Mumbai
+                </Text>
+              </Box>
+              <TextField
+                onChangeText={handleChange("city")}
+                onBlur={handleBlur("city")}
+                error={errors.city}
+                touched={touched.city}
+                placeholder="City"
+              />
 
               <Box
                 marginVertical="l"
                 flexDirection="row"
                 justifyContent="space-between"
               >
-                {/* <CheckBox
+                <CheckBox
                   checked={values.currentStatus}
-                  onChange={setFieldValue("currentStatus", true)}
-                  label="I do not want to enter my education this time."
-                /> */}
+                  onChange={() =>
+                    setFieldValue("currentStatus", !values.currentStatus)
+                  }
+                  label="I Currently go Here"
+                />
               </Box>
+              <Box marginTop="s">
+                <Text color="primaryText" variant="cardSubTitle">
+                  From
+                </Text>
 
+                <Text color="primaryText" variant="cardSubTitle">
+                  To
+                </Text>
+              </Box>
               <Box>
-                <Box
-                  marginVertical="xl"
-                  flexDirection="row"
-                  justifyContent="space-between"
-                >
-                  <Text variant="silentText">Cover Image upload </Text>
-                  <RectButton>
-                    <Text>Upload</Text>
-                  </RectButton>
+                <Text color="primaryText" variant="cardSubTitle">
+                  Description
+                </Text>
+                <Text fontSize={10} variant="silentText">
+                  In 30 or more words describe your professional
+                  responsibilities and accomplishments.(Eg: Maintained inventory
+                  of office supplies and ordered as and when needed)
+                </Text>
+                <TextField
+                  onChangeText={handleChange("description")}
+                  onBlur={handleBlur("description")}
+                  error={errors.description}
+                  touched={touched.description}
+                  placeholder="Description"
+                />
+              </Box>
+              <Box
+                marginVertical="l"
+                flexDirection="row"
+                justifyContent="space-between"
+              >
+                <CheckBox
+                  checked={values.currentStatus}
+                  onChange={() =>
+                    setFieldValue("currentStatus", !values.currentStatus)
+                  }
+                  label="I don't have any work experience yet"
+                />
+              </Box>
+              {/* //! Skills section */}
+
+              <Box marginTop="s">
+                <Text color="primaryText" variant="cardSubTitle">
+                  Add a new skill
+                </Text>
+                <Text fontSize={10} variant="silentText">
+                  eg. Microsoft Office, Java, Tally, Python etc.
+                </Text>
+              </Box>
+              <Box
+                alignItems="center"
+                justifyContent="space-between"
+                flexDirection="row"
+              >
+                <Box style={{ width: "90%" }}>
+                  <TextField
+                    onChangeText={handleChange("skills")}
+                    onBlur={handleBlur("skills")}
+                    error={errors.skills}
+                    touched={touched.skills}
+                    placeholder="Skills"
+                  />
                 </Box>
-                <Box
-                  marginVertical="l"
-                  flexDirection="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Text variant="silentText">Gallery</Text>
-                  <Box flexDirection="row" justifyContent="space-between">
-                    <RectButton
-                      onPress={() => handleFistImage()}
-                      style={{ margin: 5 }}
-                    >
-                      <Box
-                        width={40}
-                        height={40}
-                        borderColor="primaryText"
-                        borderWidth={2}
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <Icon name="plus" size={10} />
-                      </Box>
-                    </RectButton>
-                    <RectButton
-                      onPress={() => handleSecondImage()}
-                      style={{ margin: 5 }}
-                    >
-                      <Box
-                        width={40}
-                        height={40}
-                        borderColor="primaryText"
-                        borderWidth={2}
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <Icon name="plus" size={10} />
-                      </Box>
-                    </RectButton>
-                    <RectButton
-                      onPress={() => handleImageThree()}
-                      style={{ margin: 5 }}
-                    >
-                      <Box
-                        width={40}
-                        height={40}
-                        borderColor="primaryText"
-                        borderWidth={2}
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <Icon name="plus" size={10} />
-                      </Box>
-                    </RectButton>
+                <Box>
+                  <Button title="Add" onPress={() => {}} />
+                </Box>
+              </Box>
+
+              <Box
+                marginVertical="l"
+                flexDirection="row"
+                justifyContent="space-between"
+              >
+                <CheckBox
+                  checked={values.isWorkExperience}
+                  onChange={() =>
+                    setFieldValue("isWorkExperience", !values.isWorkExperience)
+                  }
+                  label="I do not want to enter any skills at this time"
+                />
+              </Box>
+              <Box>
+                <Text color="primaryText" variant="cardSubTitle">
+                  Job Preferences
+                </Text>
+                <Text color="primaryText" variant="cardSubTitle">
+                  Desired Job Title
+                </Text>
+              </Box>
+
+              <TextField
+                onChangeText={handleChange("desiredJobTitle")}
+                onBlur={handleBlur("desiredJobTitle")}
+                error={errors.desiredJobTitle}
+                touched={touched.desiredJobTitle}
+                placeholder="Desired Job Title"
+              />
+              <Box marginTop="m">
+                <Text color="primaryText" variant="cardSubTitle">
+                  Desired Job Types
+                </Text>
+              </Box>
+
+              <Box marginTop="s">
+                <Box flexDirection="row" justifyContent="space-between">
+                  <Box>
+                    <CheckBox
+                      checked={values.isFullTime}
+                      onChange={() =>
+                        setFieldValue("isFullTime", !values.isFullTime)
+                      }
+                      label="Full-time"
+                    />
+                    <CheckBox
+                      checked={values.isContract}
+                      onChange={() =>
+                        setFieldValue("isContract", !values.isContract)
+                      }
+                      label="Contract"
+                    />
+
+                    <CheckBox
+                      checked={values.isInternship}
+                      onChange={() =>
+                        setFieldValue("isInternship", !values.isInternship)
+                      }
+                      label="Internship"
+                    />
+                    <CheckBox
+                      checked={values.isFresher}
+                      onChange={() =>
+                        setFieldValue("isFresher", !values.isFresher)
+                      }
+                      label="Fresher"
+                    />
+                    <CheckBox
+                      checked={values.isWalkIn}
+                      onChange={() =>
+                        setFieldValue("isWalkIn", !values.isWalkIn)
+                      }
+                      label="Walk-in"
+                    />
+                  </Box>
+                  <Box>
+                    <CheckBox
+                      checked={values.isPartTime}
+                      onChange={() =>
+                        setFieldValue("isPartTime", !values.isPartTime)
+                      }
+                      label="Part-time"
+                    />
+                    <CheckBox
+                      checked={values.isTemporary}
+                      onChange={() =>
+                        setFieldValue("isTemporary", !values.isTemporary)
+                      }
+                      label="Temporary"
+                    />
+                    <CheckBox
+                      checked={values.isCommission}
+                      onChange={() =>
+                        setFieldValue("isCommission", !values.isCommission)
+                      }
+                      label="Commission"
+                    />
+                    <CheckBox
+                      checked={values.isVolunteer}
+                      onChange={() =>
+                        setFieldValue("isVolunteer", !values.isVolunteer)
+                      }
+                      label="Volunteer"
+                    />
                   </Box>
                 </Box>
               </Box>
-            </Box>
+              <Box marginTop="s">
+                <Text color="primaryText" variant="cardSubTitle">
+                  Desired Salary
+                </Text>
+              </Box>
 
+              <TextField
+                onChangeText={handleChange("desiredSalary")}
+                onBlur={handleBlur("desiredSalary")}
+                error={errors.desiredSalary}
+                touched={touched.desiredSalary}
+                placeholder="Desired Salary"
+              />
+
+              <Box marginTop="s">
+                <Text color="primaryText" variant="cardSubTitle">
+                  Relocation
+                </Text>
+              </Box>
+              <Box marginTop="s">
+                <CheckBox
+                  checked={values.isRelocate}
+                  onChange={() =>
+                    setFieldValue("isRelocate", !values.isRelocate)
+                  }
+                  label="I am willing to relocate"
+                />
+              </Box>
+            </Box>
+            {/* //! Cv Section       */}
+            <Box>
+              <LargeButton onPress={() => {}} label={"Upload to replace CV"} />
+              <Box marginVertical="s">
+                <Text textAlign="center" fontSize={10} variant="silentText">
+                  You can upload a new or replace the existing one
+                </Text>
+              </Box>
+              <Box marginVertical="s" marginHorizontal="xl">
+                <TouchableWithoutFeedback>
+                  <Box
+                    marginVertical="s"
+                    alignItems="center"
+                    justifyContent="flex-start"
+                    flexDirection="row"
+                  >
+                    <Icon name="trash-2" color="red" />
+                    <Text>Remove Your Resume</Text>
+                  </Box>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback>
+                  <Box
+                    alignItems="center"
+                    justifyContent="flex-start"
+                    flexDirection="row"
+                  >
+                    <Icon name="download" color="blue" />
+                    <Text>Remove Your Resume</Text>
+                  </Box>
+                </TouchableWithoutFeedback>
+              </Box>
+              <Box
+                marginHorizontal="xl"
+                flexDirection="row"
+                justifyContent="space-between"
+              >
+                <Text>Upload Your Profile Picture</Text>
+                <Text>Upload</Text>
+              </Box>
+            </Box>
             <LargeButton onPress={handleSubmit} label="REGISTER" />
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>

@@ -251,14 +251,7 @@ const MatrimonyRegister = ({
                 <Picker.Item label="Male" value="MALE" />
                 <Picker.Item label="Female" value="FEMALE" />
               </Picker>
-              {/* <TextField
-                value={values.gender}
-                onChangeText={handleChange("gender")}
-                onBlur={handleBlur("gender")}
-                error={errors.gender}
-                touched={touched.gender}
-                placeholder="Gender"
-              /> */}
+
               {imageUri ? (
                 <Box
                   marginVertical="m"
