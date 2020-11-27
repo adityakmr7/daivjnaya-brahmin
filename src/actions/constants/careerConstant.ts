@@ -1,4 +1,9 @@
+// post Career
 export const CREATE_CAREER_LOADING = "CREATE_CAREER_LOADING";
 export const CREATE_CAREER_SUCCESS = "CREATE_CAREER_SUCCESS";
-
 export const CREATE_CAREER_ERROR = "CREATE_CAREER_ERROR";
+
+// post cv
+export const POST_CV_LOADING = "POST_CV_LOADING";
+export const POST_CV_SUCCESS = "POST_CV_SUCCESS";
+export const POST_CV_ERROR = "POST_CV_ERROR";
