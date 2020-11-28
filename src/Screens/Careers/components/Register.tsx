@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   RectButton,
   ScrollView,
@@ -6,8 +6,6 @@ import {
 } from "react-native-gesture-handler";
 import { Picker } from "@react-native-community/picker";
 
-import * as ImagePicker from "expo-image-picker";
-import * as Location from "expo-location";
 import {
   Box,
   LargeButton,
@@ -47,7 +45,7 @@ const validationSchema = Yup.object().shape({
 const Register = ({ findJob }: RegisterProps) => {
   const [galleryImage, setGalleryImage] = useState<any[]>([]);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-
+  const [uploading, setUploading] = useState(false);
   const {
     handleChange,
     handleBlur,
@@ -104,48 +102,24 @@ const Register = ({ findJob }: RegisterProps) => {
   const getPdfFile = async () => {
     const result: any = await DocumentPicker.getDocumentAsync({
       type: "application/pdf",
+      copyToCacheDirectory: false,
     });
+    setUploading(true);
     if (result.uri && result.type === "success") {
       console.log("responsePdf", result);
       const _rest = new restServices();
       _rest
         .getPdfUrl(result)
         .then((res) => {
+          console.log("responsePdfUrl");
           const url = res.data.url;
           setFieldValue("pdf", url);
+          setUploading(false);
         })
         .catch((err) => {
-          console.log("No url", err);
+          console.log("responsePdfUrlError", err);
+          setUploading(false);
         });
-    }
-    console.log("type", result);
-
-    //     name: "aditya-result-updated.pdf"
-    // size: 50751
-    // type: "success"
-    // uri: "file:///data/user/0/host.exp.exponent
-  };
-
-  const handleImageUpload = async () => {
-    if (Platform.OS !== "web") {
-      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
-      if (status !== "granted") {
-        alert("Sorry, we need camera Permissions");
-      } else {
-        const result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-          base64: true,
-        });
-
-        if (!result.cancelled) {
-          // TODO: set Image upload Here
-          //result.uri
-          return result.uri;
-        }
-      }
     }
   };
 
@@ -579,6 +553,7 @@ const Register = ({ findJob }: RegisterProps) => {
               </Box>
 
               <TextField
+                keyboardType="number-pad"
                 onChangeText={handleChange("desiredSalary")}
                 onBlur={handleBlur("desiredSalary")}
                 error={errors.desiredSalary}
@@ -604,6 +579,7 @@ const Register = ({ findJob }: RegisterProps) => {
             {/* //! Cv Section       */}
             <Box>
               <LargeButton
+                loading={uploading}
                 onPress={() => getPdfFile()}
                 label={
                   values.pdf !== "" ? "Resume Added" : "Upload to replace CV"

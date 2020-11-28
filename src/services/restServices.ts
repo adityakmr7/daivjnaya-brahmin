@@ -146,12 +146,9 @@ class restServices {
     name: string;
     type: "string";
   }) => {
-    const mime = require("mime");
     var data = new FormData();
-    const url = source.uri;
-    // const newImageUri = "file:///" + source.split("file:/").join("");
     data.append("file", {
-      uri: url,
+      uri: source.uri,
       type: "application/pdf",
       name: source.name,
     });
