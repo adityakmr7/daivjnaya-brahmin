@@ -141,6 +141,32 @@ class restServices {
     };
     return axios(config);
   };
+  getPdfUrl = async (source: {
+    uri: string | Blob | any;
+    name: string;
+    type: "string";
+  }) => {
+    const mime = require("mime");
+    var data = new FormData();
+    const url = source.uri;
+    // const newImageUri = "file:///" + source.split("file:/").join("");
+    data.append("file", {
+      uri: url,
+      type: "application/pdf",
+      name: source.name,
+    });
+    const token = await this.getAccessToken();
+    var config: AxiosRequestConfig = {
+      method: "post",
+      url: `${this.baseUrl}/post/media`,
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "multipart/form-data",
+      },
+      data: data,
+    };
+    return axios(config);
+  };
 }
 
 export default restServices;

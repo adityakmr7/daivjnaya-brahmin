@@ -26,62 +26,27 @@ import {
   Platform,
   ToastAndroid,
 } from "react-native";
+import * as DocumentPicker from "expo-document-picker";
 import { Feather as Icon } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import restServices from "../../../services/restServices";
 import { MonthPicker } from "react-native-propel-kit";
 import { postNewCV } from "../../../actions/careerActions";
-interface RegisterProps {}
+interface RegisterProps {
+  findJob: (data: any) => void;
+}
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const validationSchema = Yup.object().shape({
-  name: Yup.string(),
+  fullName: Yup.string(),
   contact: Yup.string().length(10),
   community: Yup.string(),
   email: Yup.string().email().required(),
   city: Yup.string(),
   tellUs: Yup.number(),
 });
-const Register = ({}: RegisterProps) => {
+const Register = ({ findJob }: RegisterProps) => {
   const [galleryImage, setGalleryImage] = useState<any[]>([]);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-
-  // const [timePeriodDateTo, setTimePeriodDateTo] = useState<Date>(new Date());
-  // const [timePeriodDateFrom, setTimePeriodDateFrom] = useState<Date>(
-  //   new Date()
-  // );
-
-  // const [cityDateTo, setCityDateTo] = useState<Date>(new Date());
-  // const [cityDateFrom, setCityDateFrom] = useState<Date>(new Date());
-
-  // {
-
-  //   "companyCity": "string",
-  //   "companyFromMonth": "string",
-  //   "companyFromYear": "string",
-  //   "companyName": "string",
-  //   "companyToMonth": "string",
-  //   "companyToYear": "string",
-  //   "country": "string",
-  //   "currentlyStudyingHere": true,
-  //   "currentlyWorkingHere": true,
-  //   "educationLevel": "PRIMARY",
-  //   "fieldOfStudy": "string",
-  //   "jobTitle": "string",
-  //   "pdf": "string",
-
-  //   "preferedJobSalary": "string",
-  //   "preferedJobTitle": "string",
-  //   "preferedJobType": "string",
-  //   "skills": "string",
-  //   "state": "string",
-  //   "studyFromMonth": "string",
-  //   "studyFromYear": "string",
-  //   "studyToMonth": "string",
-  //   "studyToYear": "string",
-  //   "willingToRelocate": true,
-  //   "workDescription": "string",
-  //   "workExperience": true
-  // }
 
   const {
     handleChange,
@@ -108,7 +73,6 @@ const Register = ({}: RegisterProps) => {
       levelOfEdu: "",
       enterEdu: false,
       isWorkExperience: false,
-
       timePeriodDateTo: new Date(),
       timePeriodDateFrom: new Date(),
       cityDateTo: new Date(),
@@ -120,6 +84,7 @@ const Register = ({}: RegisterProps) => {
       desiredSalary: "",
       description: "",
       skills: "",
+      pdf: "",
       isFullTime: false,
       isContract: false,
       isInternship: false,
@@ -132,20 +97,34 @@ const Register = ({}: RegisterProps) => {
       isRelocate: false,
     },
     onSubmit: (values) => {
-      // console.log(values);
-      //   if (values.callback === true && values.tmc === true) {
-      //     createNewHub(values, galleryImage);
-      //     if (createSuccess !== "" && createError === "") {
-      //       ToastAndroid.showWithGravity(
-      //         "Member Created",
-      //         ToastAndroid.LONG,
-      //         ToastAndroid.BOTTOM
-      //       );
-      //       setGalleryImage([]);
-      //     }
-      //   }
+      findJob(values);
     },
   });
+
+  const getPdfFile = async () => {
+    const result: any = await DocumentPicker.getDocumentAsync({
+      type: "application/pdf",
+    });
+    if (result.uri && result.type === "success") {
+      console.log("responsePdf", result);
+      const _rest = new restServices();
+      _rest
+        .getPdfUrl(result)
+        .then((res) => {
+          const url = res.data.url;
+          setFieldValue("pdf", url);
+        })
+        .catch((err) => {
+          console.log("No url", err);
+        });
+    }
+    console.log("type", result);
+
+    //     name: "aditya-result-updated.pdf"
+    // size: 50751
+    // type: "success"
+    // uri: "file:///data/user/0/host.exp.exponent
+  };
 
   const handleImageUpload = async () => {
     if (Platform.OS !== "web") {
@@ -168,25 +147,6 @@ const Register = ({}: RegisterProps) => {
         }
       }
     }
-  };
-
-  var _rest = new restServices();
-  const handleFistImage = async () => {
-    const url: any = await handleImageUpload();
-    const imageUrl = await _rest.getMediaUrl(url);
-
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
-  };
-  const handleSecondImage = async () => {
-    const url: any = await handleImageUpload();
-    const imageUrl = await _rest.getMediaUrl(url);
-    // stateCopy[0] = imageUrl.data.url;
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
-  };
-  const handleImageThree = async () => {
-    const url: any = await handleImageUpload();
-    const imageUrl = await _rest.getMediaUrl(url);
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
   };
 
   return (
@@ -643,14 +603,21 @@ const Register = ({}: RegisterProps) => {
             </Box>
             {/* //! Cv Section       */}
             <Box>
-              <LargeButton onPress={() => {}} label={"Upload to replace CV"} />
+              <LargeButton
+                onPress={() => getPdfFile()}
+                label={
+                  values.pdf !== "" ? "Resume Added" : "Upload to replace CV"
+                }
+              />
               <Box marginVertical="s">
                 <Text textAlign="center" fontSize={10} variant="silentText">
                   You can upload a new or replace the existing one
                 </Text>
               </Box>
               <Box marginVertical="s" marginHorizontal="xl">
-                <TouchableWithoutFeedback>
+                <TouchableWithoutFeedback
+                  onPress={() => setFieldValue("pdf", "")}
+                >
                   <Box
                     marginVertical="s"
                     alignItems="center"
@@ -658,28 +625,29 @@ const Register = ({}: RegisterProps) => {
                     flexDirection="row"
                   >
                     <Icon name="trash-2" color="red" />
+
                     <Text>Remove Your Resume</Text>
                   </Box>
                 </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={() => getPdfFile()}>
                   <Box
                     alignItems="center"
                     justifyContent="flex-start"
                     flexDirection="row"
                   >
                     <Icon name="download" color="blue" />
-                    <Text>Remove Your Resume</Text>
+                    <Text>Upload A new Resume</Text>
                   </Box>
                 </TouchableWithoutFeedback>
               </Box>
-              <Box
+              {/* <Box
                 marginHorizontal="xl"
                 flexDirection="row"
                 justifyContent="space-between"
               >
                 <Text>Upload Your Profile Picture</Text>
                 <Text>Upload</Text>
-              </Box>
+              </Box> */}
             </Box>
             <LargeButton onPress={handleSubmit} label="REGISTER" />
           </TouchableWithoutFeedback>
