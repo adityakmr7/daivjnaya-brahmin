@@ -30,6 +30,10 @@ export const createNewCareer = (data: any) => (dispatch: any) => {
     });
 };
 
+/**
+ * Find Job
+ * @param data
+ */
 export const postNewCV = (data: any) => (dispatch: any) => {
   dispatch({
     type: POST_CV_LOADING,

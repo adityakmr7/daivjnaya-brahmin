@@ -30,7 +30,9 @@ import { Feather as Icon } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import restServices from "../../../services/restServices";
 import { MonthPicker } from "react-native-propel-kit";
-interface RegisterProps {}
+interface RegisterProps {
+  handleSubmitData: (data: any) => void;
+}
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const validationSchema = Yup.object().shape({
   name: Yup.string(),
@@ -40,7 +42,7 @@ const validationSchema = Yup.object().shape({
   city: Yup.string(),
   tellUs: Yup.number(),
 });
-const Register = () => {
+const Register = ({ handleSubmitData }: RegisterProps) => {
   const [galleryImage, setGalleryImage] = useState<any[]>([]);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [imageLoadingState, setImageLoadingState] = useState<any>({
@@ -97,6 +99,7 @@ const Register = () => {
       skills: "",
     },
     onSubmit: (values) => {
+      handleSubmitData(values);
       // console.log(values);
       //   if (values.callback === true && values.tmc === true) {
       //     createNewHub(values, galleryImage);

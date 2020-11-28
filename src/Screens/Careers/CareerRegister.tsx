@@ -1,25 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import {
-  RectButton,
-  ScrollView,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
-import * as ImagePicker from "expo-image-picker";
-import * as Location from "expo-location";
-import { Box, LargeButton, Text, CheckBox, TextField } from "../../components";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import {
-  ActivityIndicator,
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  ToastAndroid,
-} from "react-native";
-import { Feather as Icon } from "@expo/vector-icons";
-import { connect } from "react-redux";
-import { postNewHub } from "../../actions/hubActions";
-import restServices from "../../services/restServices";
+
+import { Box, CheckBox } from "../../components";
+
 import Register from "./components/Register";
 import Talents from "./components/Talents";
 import PostJobForm from "./components/PostJobForm";
@@ -46,9 +28,11 @@ const CareerRegister = () => {
     setFJob(false);
   };
 
+  const handleSubmitData = (data: any) => {};
+
   let registerForm: ReactNode;
   if (fJob) {
-    registerForm = <Register />;
+    registerForm = <Register handleSubmitData={handleSubmitData} />;
   } else if (pJob) {
     registerForm = <PostJobForm />;
   } else if (talents) {
