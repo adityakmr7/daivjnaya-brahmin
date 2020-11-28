@@ -55,17 +55,23 @@ const Talents = () => {
   } = useFormik({
     validationSchema,
     initialValues: {
-      fullName: "",
-      contactNumber: "",
-      email: "",
-      address1: "",
-      address2: "",
+      about: "",
+      addressLine1: "",
+      addressLine2: "",
       city: "",
-      state: "",
       country: "",
-      pinCode: "",
+      coverImage: "", // TODO:
+      email: "",
+      fullName: "",
+      galleries: [
+        // TODO:
+        "",
+      ],
+      phoneNumber: "",
+      pincode: "",
+      state: "",
       title: "",
-      aboutTitle: "",
+      video: "",
     },
     onSubmit: (values) => {
       console.log(values);
@@ -129,9 +135,6 @@ const Talents = () => {
     <Box flex={1} marginBottom="l" flexDirection="column">
       <ScrollView>
         <KeyboardAvoidingView>
-          <Box marginHorizontal="xl">
-            <Text>Talents</Text>
-          </Box>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <Box marginHorizontal="xl">
               <TextField
@@ -142,19 +145,19 @@ const Talents = () => {
                 placeholder="Your Full Name"
               />
               <TextField
-                onChangeText={handleChange("fullName")}
-                onBlur={handleBlur("fullName")}
-                error={errors.fullName}
-                touched={touched.fullName}
-                placeholder="Full Name"
+                onChangeText={handleChange("title")}
+                onBlur={handleBlur("title")}
+                error={errors.title}
+                touched={touched.title}
+                placeholder="Title"
               />
               <TextField
                 keyboardType="phone-pad"
-                onChangeText={handleChange("contactNumber")}
-                onBlur={handleBlur("contactNumber")}
-                error={errors.contactNumber}
-                touched={touched.contactNumber}
-                placeholder="Contact Number"
+                onChangeText={handleChange("phoneNumber")}
+                onBlur={handleBlur("phoneNumber")}
+                error={errors.phoneNumber}
+                touched={touched.phoneNumber}
+                placeholder="Phone Number"
               />
 
               <TextField
@@ -167,18 +170,18 @@ const Talents = () => {
               />
               <TextField
                 keyboardType="default"
-                onChangeText={handleChange("address1")}
-                onBlur={handleBlur("address1")}
-                error={errors.address1}
-                touched={touched.address1}
+                onChangeText={handleChange("addressLine1")}
+                onBlur={handleBlur("addressLine1")}
+                error={errors.addressLine1}
+                touched={touched.addressLine1}
                 placeholder="Address 1"
               />
               <TextField
                 keyboardType="default"
-                onChangeText={handleChange("address2")}
-                onBlur={handleBlur("address2")}
-                error={errors.address2}
-                touched={touched.address2}
+                onChangeText={handleChange("addressLine2")}
+                onBlur={handleBlur("addressLine2")}
+                error={errors.addressLine2}
+                touched={touched.addressLine2}
                 placeholder="Address 2"
               />
               <TextField
@@ -188,6 +191,14 @@ const Talents = () => {
                 error={errors.city}
                 touched={touched.city}
                 placeholder="City"
+              />
+              <TextField
+                keyboardType="default"
+                onChangeText={handleChange("about")}
+                onBlur={handleBlur("about")}
+                error={errors.about}
+                touched={touched.about}
+                placeholder="About"
               />
               <TextField
                 keyboardType="default"
@@ -207,10 +218,10 @@ const Talents = () => {
               />
               <TextField
                 keyboardType="phone-pad"
-                onChangeText={handleChange("pinCode")}
-                onBlur={handleBlur("pinCode")}
-                error={errors.pinCode}
-                touched={touched.pinCode}
+                onChangeText={handleChange("pincode")}
+                onBlur={handleBlur("pincode")}
+                error={errors.pincode}
+                touched={touched.pincode}
                 placeholder="Pin Code"
               />
               <Box>
@@ -280,6 +291,8 @@ const Talents = () => {
                   </Box>
                 </Box>
               </Box>
+
+              <LargeButton onPress={handleSubmit} label="ADD VIDEO" />
             </Box>
 
             <LargeButton onPress={handleSubmit} label="REGISTER" />

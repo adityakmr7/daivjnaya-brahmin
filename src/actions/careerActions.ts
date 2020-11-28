@@ -1,3 +1,4 @@
+import { actionSheetDefaultProps } from "react-native-propel-kit";
 import restServices from "../services/restServices";
 import {
   CREATE_CAREER_LOADING,
@@ -6,6 +7,9 @@ import {
   POST_CV_LOADING,
   POST_CV_SUCCESS,
   POST_CV_ERROR,
+  POST_TALENT_LOADING,
+  POST_TALENT_SUCCESS,
+  POST_TALENT_ERROR,
 } from "./constants/careerConstant";
 
 export const createNewCareer = (data: any) => (dispatch: any) => {
@@ -51,6 +55,27 @@ export const postNewCV = (data: any) => (dispatch: any) => {
       dispatch({
         type: POST_CV_ERROR,
         error: err,
+      });
+    });
+};
+
+export const postTalents = () => (dispatch: any) => {
+  dispatch({
+    type: POST_TALENT_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .post("/career/talent", {})
+    .then((res) => {
+      dispatch({
+        type: POST_TALENT_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: POST_TALENT_ERROR,
+        payload: err,
       });
     });
 };
