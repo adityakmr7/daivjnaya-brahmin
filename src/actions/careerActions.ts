@@ -10,6 +10,18 @@ import {
   POST_TALENT_LOADING,
   POST_TALENT_SUCCESS,
   POST_TALENT_ERROR,
+  GET_CAREER_CV_LOADING,
+  GET_CAREER_CV_SUCCESS,
+  GET_CAREER_CV_ERROR,
+  GET_JOB_LOADING,
+  GET_JOB_SUCCESS,
+  GET_JOB_ERROR,
+  GET_JOB_POSTING_LOADING,
+  GET_JOB_POSTING_SUCCESS,
+  GET_JOB_POSTING_ERROR,
+  GET_CAREER_TALENT_LOADING,
+  GET_CAREER_TALENT_SUCCESS,
+  GET_CAREER_TALENT_ERROR,
 } from "./constants/careerConstant";
 
 export const createNewCareer = (data: any) => (dispatch: any) => {
@@ -76,6 +88,112 @@ export const postTalents = (data: any) => (dispatch: any) => {
       dispatch({
         type: POST_TALENT_ERROR,
         payload: err,
+      });
+    });
+};
+
+/**
+ * @get
+ * career/cv
+ */
+
+export const getCareerCv = () => (dispatch: any) => {
+  dispatch({
+    type: GET_CAREER_CV_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get("/career/cv")
+    .then((res) => {
+      dispatch({
+        type: GET_CAREER_CV_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_CAREER_CV_ERROR,
+        error: err,
+      });
+    });
+};
+
+/**
+ * @get
+ * career/job
+ */
+
+export const getJob = () => (dispatch: any) => {
+  dispatch({
+    type: GET_JOB_LOADING,
+  });
+
+  const _rest = new restServices();
+
+  _rest
+    .get("/career/job")
+    .then((res) => {
+      dispatch({
+        type: GET_JOB_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_JOB_ERROR,
+        error: err,
+      });
+    });
+};
+
+/**
+ * @get
+ * /career/jobPosting
+ */
+
+export const getJobPosting = () => (dispatch: any) => {
+  dispatch({
+    type: GET_JOB_POSTING_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get("/career/jobPosting")
+    .then((res) => {
+      dispatch({
+        type: GET_JOB_POSTING_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_JOB_POSTING_ERROR,
+        error: err,
+      });
+    });
+};
+
+/**
+ * @GET
+ * /career/talent
+ */
+
+export const getCareerTalent = () => (dispatch: any) => {
+  dispatch({
+    type: GET_CAREER_TALENT_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get("/career/talent")
+    .then((res) => {
+      dispatch({
+        type: GET_CAREER_TALENT_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_CAREER_TALENT_ERROR,
+        error: err,
       });
     });
 };
