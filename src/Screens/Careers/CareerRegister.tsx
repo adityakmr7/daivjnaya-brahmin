@@ -28,11 +28,9 @@ const CareerRegister = () => {
     setFJob(false);
   };
 
-  const handleSubmitData = (data: any) => {};
-
   let registerForm: ReactNode;
   if (fJob) {
-    registerForm = <Register handleSubmitData={handleSubmitData} />;
+    registerForm = <Register />;
   } else if (pJob) {
     registerForm = <PostJobForm />;
   } else if (talents) {

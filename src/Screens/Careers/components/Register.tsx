@@ -30,30 +30,58 @@ import { Feather as Icon } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import restServices from "../../../services/restServices";
 import { MonthPicker } from "react-native-propel-kit";
-interface RegisterProps {
-  handleSubmitData: (data: any) => void;
-}
+import { postNewCV } from "../../../actions/careerActions";
+interface RegisterProps {}
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const validationSchema = Yup.object().shape({
   name: Yup.string(),
   contact: Yup.string().length(10),
   community: Yup.string(),
-  email: Yup.string().email().required(), //TODO:, Validate Email
+  email: Yup.string().email().required(),
   city: Yup.string(),
   tellUs: Yup.number(),
 });
-const Register = ({ handleSubmitData }: RegisterProps) => {
+const Register = ({}: RegisterProps) => {
   const [galleryImage, setGalleryImage] = useState<any[]>([]);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [imageLoadingState, setImageLoadingState] = useState<any>({
-    first: false,
-    second: false,
-    third: false,
-  });
-  const [timePeriodDateTo, setTimePeriodDateTo] = useState<Date>(new Date());
-  const [timePeriodDateFrom, setTimePeriodDateFrom] = useState<Date>(
-    new Date()
-  );
+
+  // const [timePeriodDateTo, setTimePeriodDateTo] = useState<Date>(new Date());
+  // const [timePeriodDateFrom, setTimePeriodDateFrom] = useState<Date>(
+  //   new Date()
+  // );
+
+  // const [cityDateTo, setCityDateTo] = useState<Date>(new Date());
+  // const [cityDateFrom, setCityDateFrom] = useState<Date>(new Date());
+
+  // {
+
+  //   "companyCity": "string",
+  //   "companyFromMonth": "string",
+  //   "companyFromYear": "string",
+  //   "companyName": "string",
+  //   "companyToMonth": "string",
+  //   "companyToYear": "string",
+  //   "country": "string",
+  //   "currentlyStudyingHere": true,
+  //   "currentlyWorkingHere": true,
+  //   "educationLevel": "PRIMARY",
+  //   "fieldOfStudy": "string",
+  //   "jobTitle": "string",
+  //   "pdf": "string",
+
+  //   "preferedJobSalary": "string",
+  //   "preferedJobTitle": "string",
+  //   "preferedJobType": "string",
+  //   "skills": "string",
+  //   "state": "string",
+  //   "studyFromMonth": "string",
+  //   "studyFromYear": "string",
+  //   "studyToMonth": "string",
+  //   "studyToYear": "string",
+  //   "willingToRelocate": true,
+  //   "workDescription": "string",
+  //   "workExperience": true
+  // }
 
   const {
     handleChange,
@@ -67,25 +95,31 @@ const Register = ({ handleSubmitData }: RegisterProps) => {
     validationSchema,
     initialValues: {
       fullName: "",
-      contactNumber: "",
+      phoneNumber: "",
       email: "",
-      address1: "",
-      address2: "",
+      addressLine1: "",
+      addressLine2: "",
       city: "",
       state: "",
       country: "",
       pinCode: "",
       currentStatus: false,
-      collegeUniversity: "",
+      collegeName: "",
       levelOfEdu: "",
       enterEdu: false,
       isWorkExperience: false,
+
+      timePeriodDateTo: new Date(),
+      timePeriodDateFrom: new Date(),
+      cityDateTo: new Date(),
+      cityDateFrom: new Date(),
       company: "",
       jobTitle: "",
       desiredJobTitle: "",
       fieldOfStudy: "",
       desiredSalary: "",
       description: "",
+      skills: "",
       isFullTime: false,
       isContract: false,
       isInternship: false,
@@ -96,10 +130,8 @@ const Register = ({ handleSubmitData }: RegisterProps) => {
       isCommission: false,
       isVolunteer: false,
       isRelocate: false,
-      skills: "",
     },
     onSubmit: (values) => {
-      handleSubmitData(values);
       // console.log(values);
       //   if (values.callback === true && values.tmc === true) {
       //     createNewHub(values, galleryImage);
@@ -172,11 +204,11 @@ const Register = ({ handleSubmitData }: RegisterProps) => {
               />
               <TextField
                 keyboardType="number-pad"
-                onChangeText={handleChange("contactNumber")}
-                onBlur={handleBlur("contactNumber")}
-                error={errors.contactNumber}
-                touched={touched.contactNumber}
-                placeholder="Contact Number"
+                onChangeText={handleChange("phoneNumber")}
+                onBlur={handleBlur("phoneNumber")}
+                error={errors.phoneNumber}
+                touched={touched.phoneNumber}
+                placeholder="Phone Number"
               />
               <TextField
                 keyboardType="email-address"
@@ -188,18 +220,18 @@ const Register = ({ handleSubmitData }: RegisterProps) => {
               />
               <TextField
                 keyboardType="default"
-                onChangeText={handleChange("address1")}
-                onBlur={handleBlur("address1")}
-                error={errors.address1}
-                touched={touched.address1}
+                onChangeText={handleChange("addressLine1")}
+                onBlur={handleBlur("addressLine1")}
+                error={errors.addressLine1}
+                touched={touched.addressLine1}
                 placeholder="Address 1"
               />
               <TextField
                 keyboardType="default"
-                onChangeText={handleChange("address2")}
-                onBlur={handleBlur("address2")}
-                error={errors.address2}
-                touched={touched.address2}
+                onChangeText={handleChange("addressLine2")}
+                onBlur={handleBlur("addressLine2")}
+                error={errors.addressLine2}
+                touched={touched.addressLine2}
                 placeholder="Address 2"
               />
               <TextField
@@ -274,10 +306,10 @@ const Register = ({ handleSubmitData }: RegisterProps) => {
                 </Text>
               </Box>
               <TextField
-                onChangeText={handleChange("collegeUniversity")}
-                onBlur={handleBlur("collegeUniversity")}
-                error={errors.collegeUniversity}
-                touched={touched.collegeUniversity}
+                onChangeText={handleChange("collegeName")}
+                onBlur={handleBlur("collegeName")}
+                error={errors.collegeName}
+                touched={touched.collegeName}
                 placeholder="College Or University"
               />
               <Box marginVertical="s">
@@ -321,8 +353,8 @@ const Register = ({ handleSubmitData }: RegisterProps) => {
                 <MonthPicker
                   placeholder={"Pick a month"}
                   title={"Pick a month"}
-                  value={timePeriodDateFrom}
-                  onChange={setTimePeriodDateFrom}
+                  value={values.timePeriodDateFrom}
+                  onChange={(e: any) => setFieldValue("timePeriodDateFrom", e)}
                 />
 
                 <Text color="primaryText" variant="cardSubTitle">
@@ -331,8 +363,8 @@ const Register = ({ handleSubmitData }: RegisterProps) => {
                 <MonthPicker
                   placeholder={"Pick a month"}
                   title={"Pick a month"}
-                  value={timePeriodDateTo}
-                  onChange={setTimePeriodDateTo}
+                  value={values.timePeriodDateTo}
+                  onChange={(e: any) => setFieldValue("timePeriodDateTo", e)}
                 />
 
                 <CheckBox
@@ -399,8 +431,8 @@ const Register = ({ handleSubmitData }: RegisterProps) => {
                 <MonthPicker
                   placeholder={"Pick a month"}
                   title={"Pick a month"}
-                  value={timePeriodDateFrom}
-                  onChange={setTimePeriodDateFrom}
+                  value={values.cityDateFrom}
+                  onChange={(e: any) => setFieldValue("cityDateFrom", e)}
                 />
                 <Text color="primaryText" variant="cardSubTitle">
                   To
@@ -408,8 +440,8 @@ const Register = ({ handleSubmitData }: RegisterProps) => {
                 <MonthPicker
                   placeholder={"Pick a month"}
                   title={"Pick a month"}
-                  value={timePeriodDateTo}
-                  onChange={setTimePeriodDateTo}
+                  value={values.cityDateTo}
+                  onChange={(e: any) => setFieldValue("cityDateTo", e)}
                 />
               </Box>
               <Box>
@@ -657,15 +689,14 @@ const Register = ({ handleSubmitData }: RegisterProps) => {
   );
 };
 
-// function mapStateToProps(state: any) {
-//   return {
-//     hubState: state.hub,
-//   };
-// }
+function mapStateToProps(state: any) {
+  return {
+    hubState: state.career,
+  };
+}
 
-// const mapDispatchToProps = (dispatch: any) => ({
-//   createNewHub: (data: postNewHubProps, images: []) =>
-//     dispatch(postNewHub(data, images)),
-// });
+const mapDispatchToProps = (dispatch: any) => ({
+  findJob: (data: any) => dispatch(postNewCV(data)),
+});
 
-export default Register;
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
