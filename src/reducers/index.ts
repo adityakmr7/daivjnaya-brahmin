@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import authReducer from "./authReducer";
 import bannerReducer from "./bannerReducer";
+import careerReducer from "./careerReducer";
 import friendReducer from "./friendReducer";
 import hubReducer from "./hubReducer";
 import matrimonyReducer from "./matrimonyReducer";
@@ -19,4 +20,5 @@ export default combineReducers({
   hub: hubReducer,
   news: newsReducer,
   banner: bannerReducer,
+  career: careerReducer,
 });

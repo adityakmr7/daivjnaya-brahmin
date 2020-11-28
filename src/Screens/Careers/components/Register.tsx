@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  RectButton,
   ScrollView,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
@@ -32,6 +31,7 @@ import { MonthPicker } from "react-native-propel-kit";
 import { postNewCV } from "../../../actions/careerActions";
 interface RegisterProps {
   findJob: (data: any) => void;
+  careerState: any;
 }
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const validationSchema = Yup.object().shape({
@@ -42,7 +42,7 @@ const validationSchema = Yup.object().shape({
   city: Yup.string(),
   tellUs: Yup.number(),
 });
-const Register = ({ findJob }: RegisterProps) => {
+const Register = ({ findJob, careerState }: RegisterProps) => {
   const [galleryImage, setGalleryImage] = useState<any[]>([]);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -122,6 +122,22 @@ const Register = ({ findJob }: RegisterProps) => {
         });
     }
   };
+  const { postingCv, postedCv, errorPosting } = careerState;
+  useEffect(() => {
+    if (postedCv !== "") {
+      ToastAndroid.showWithGravity(
+        "CV ADDED",
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM
+      );
+    } else if (errorPosting !== "") {
+      ToastAndroid.showWithGravity(
+        "Error Try Again",
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM
+      );
+    }
+  }, [postedCv, errorPosting]);
 
   return (
     <Box flex={1} marginBottom="l" flexDirection="column">
@@ -625,7 +641,11 @@ const Register = ({ findJob }: RegisterProps) => {
                 <Text>Upload</Text>
               </Box> */}
             </Box>
-            <LargeButton onPress={handleSubmit} label="REGISTER" />
+            <LargeButton
+              loading={postingCv}
+              onPress={handleSubmit}
+              label="REGISTER"
+            />
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
       </ScrollView>
@@ -635,7 +655,7 @@ const Register = ({ findJob }: RegisterProps) => {
 
 function mapStateToProps(state: any) {
   return {
-    hubState: state.career,
+    careerState: state.career,
   };
 }
 

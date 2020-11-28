@@ -35,7 +35,6 @@ export const createNewCareer = (data: any) => (dispatch: any) => {
  * @param data
  */
 export const postNewCV = (data: any) => (dispatch: any) => {
-  console.log("cvuploadedData", data);
   dispatch({
     type: POST_CV_LOADING,
   });
@@ -43,14 +42,12 @@ export const postNewCV = (data: any) => (dispatch: any) => {
   _rest
     .post("/career/cv", data)
     .then((res) => {
-      console.log("cvUploaded", res);
       dispatch({
         type: POST_CV_SUCCESS,
         payload: res.data.url,
       });
     })
     .catch((err) => {
-      console.log("cvUploadedError", err);
       dispatch({
         type: POST_CV_ERROR,
         error: err,
