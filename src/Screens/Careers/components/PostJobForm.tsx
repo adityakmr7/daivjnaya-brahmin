@@ -30,7 +30,11 @@ import { Feather as Icon } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import restServices from "../../../services/restServices";
 import { MonthPicker } from "react-native-propel-kit";
-interface RegisterProps {}
+import { createNewCareer } from "../../../actions/careerActions";
+interface RegisterProps {
+  createNewJobPosting: (data: any) => void;
+  postNewJob: any;
+}
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const validationSchema = Yup.object().shape({
   name: Yup.string(),
@@ -40,18 +44,8 @@ const validationSchema = Yup.object().shape({
   city: Yup.string(),
   tellUs: Yup.number(),
 });
-const PostJobForm = () => {
-  const [galleryImage, setGalleryImage] = useState<any[]>([]);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [imageLoadingState, setImageLoadingState] = useState<any>({
-    first: false,
-    second: false,
-    third: false,
-  });
-  const [timePeriodDateTo, setTimePeriodDateTo] = useState<Date>(new Date());
-  const [timePeriodDateFrom, setTimePeriodDateFrom] = useState<Date>(
-    new Date()
-  );
+const PostJobForm = ({ createNewJobPosting, postNewJob }: RegisterProps) => {
+  const [videoUploading, setVideoUploading] = useState(false);
 
   const {
     handleChange,
@@ -73,13 +67,14 @@ const PostJobForm = () => {
       employerEmail: "",
       employerName: "",
       employerPhoneNumber: "",
-      galleries: [""], // TODO: galleries
+      galleries: [], // TODO: galleries
       jobTitle: "",
       pinCode: "",
       state: "",
       video: "",
     },
     onSubmit: (values) => {
+      createNewJobPosting(values);
       // console.log(values);
       //   if (values.callback === true && values.tmc === true) {
       //     createNewHub(values, galleryImage);
@@ -118,6 +113,7 @@ const PostJobForm = () => {
     }
   };
   const handleVideoUpload = async () => {
+    setVideoUploading(true);
     if (Platform.OS !== "web") {
       const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
       if (status !== "granted") {
@@ -132,13 +128,12 @@ const PostJobForm = () => {
         });
 
         if (!result.cancelled) {
-          console.log("responseVideo1", result);
-          // TODO: video Upload
           const _rest = new restServices();
           _rest
             .getMediaUrl(result.uri)
             .then((res) => {
-              console.log("responseVideo", res);
+              setFieldValue("video", res.data.url);
+              setVideoUploading(false);
             })
             .catch((err) => {
               console.log("responseVideoError", err);
@@ -153,19 +148,20 @@ const PostJobForm = () => {
   const handleFistImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+    const uri: any = await imageUrl.data.url;
+    setFieldValue("gallery", (values.galleries[0] = uri));
   };
   const handleSecondImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-    // stateCopy[0] = imageUrl.data.url;
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+    const uri: any = await imageUrl.data.url;
+    setFieldValue("gallery", (values.galleries[1] = uri));
   };
   const handleImageThree = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+    const uri: any = await imageUrl.data.url;
+    setFieldValue("gallery", (values.galleries[2] = uri));
   };
 
   return (
@@ -273,7 +269,10 @@ const PostJobForm = () => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Icon name="plus" size={10} />
+                      <Icon
+                        name={values.galleries[0] ? "check" : "plus"}
+                        size={10}
+                      />
                     </Box>
                   </RectButton>
                   <RectButton
@@ -288,7 +287,10 @@ const PostJobForm = () => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Icon name="plus" size={10} />
+                      <Icon
+                        name={values.galleries[1] ? "check" : "plus"}
+                        size={10}
+                      />
                     </Box>
                   </RectButton>
                   <RectButton
@@ -303,12 +305,19 @@ const PostJobForm = () => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Icon name="plus" size={10} />
+                      <Icon
+                        name={values.galleries[2] ? "check" : "plus"}
+                        size={10}
+                      />
                     </Box>
                   </RectButton>
                 </Box>
               </Box>
-              <LargeButton onPress={handleVideoUpload} label="Add Video" />
+              <LargeButton
+                loading={videoUploading}
+                onPress={handleVideoUpload}
+                label="Add Video"
+              />
             </Box>
 
             <LargeButton onPress={handleSubmit} label="REGISTER" />
@@ -319,15 +328,14 @@ const PostJobForm = () => {
   );
 };
 
-// function mapStateToProps(state: any) {
-//   return {
-//     hubState: state.hub,
-//   };
-// }
+function mapStateToProps(state: any) {
+  return {
+    postNewJob: state.career,
+  };
+}
 
-// const mapDispatchToProps = (dispatch: any) => ({
-//   createNewHub: (data: postNewHubProps, images: []) =>
-//     dispatch(postNewHub(data, images)),
-// });
+const mapDispatchToProps = (dispatch: any) => ({
+  createNewJobPosting: (data: any) => dispatch(createNewCareer(data)),
+});
 
-export default PostJobForm;
+export default connect(mapStateToProps, mapDispatchToProps)(PostJobForm);

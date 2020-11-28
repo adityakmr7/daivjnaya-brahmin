@@ -41,13 +41,7 @@ const validationSchema = Yup.object().shape({
   tellUs: Yup.number(),
 });
 const Talents = ({ createNewTalent, careerTalent }: CareerRegisterProps) => {
-  const [galleryImage, setGalleryImage] = useState<any[]>([]);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [imageLoadingState, setImageLoadingState] = useState<any>({
-    first: false,
-    second: false,
-    third: false,
-  });
+  const [videoUploading, setVideoUploading] = useState(false);
   const {
     handleChange,
     handleBlur,
@@ -92,7 +86,7 @@ const Talents = ({ createNewTalent, careerTalent }: CareerRegisterProps) => {
       //   }
     },
   });
-  const handleVideoUpload = async () => {};
+
   const handleImageUpload = async () => {
     if (Platform.OS !== "web") {
       const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -117,6 +111,38 @@ const Talents = ({ createNewTalent, careerTalent }: CareerRegisterProps) => {
   };
 
   var _rest = new restServices();
+  const handleVideoUpload = async () => {
+    setVideoUploading(true);
+    if (Platform.OS !== "web") {
+      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+      if (status !== "granted") {
+        alert("Sorry, we need camera Permissions");
+      } else {
+        const result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+          base64: true,
+        });
+
+        if (!result.cancelled) {
+          console.log("responseVideo1", result);
+          // TODO: video Upload
+          const _rest = new restServices();
+          _rest
+            .getMediaUrl(result.uri)
+            .then((res) => {
+              setFieldValue("video", res.data.url);
+              setVideoUploading(false);
+            })
+            .catch((err) => {
+              console.log("responseVideoError", err);
+            });
+        }
+      }
+    }
+  };
   const handleCoverImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
@@ -142,7 +168,23 @@ const Talents = ({ createNewTalent, careerTalent }: CareerRegisterProps) => {
     setFieldValue("gallery", (values.galleries[2] = uri));
   };
   const { postingTalent, postedTalent, errorPostingTalent } = careerTalent;
-  console.log("galleryImage", values.galleries);
+
+  useEffect(() => {
+    if (postedTalent !== "") {
+      ToastAndroid.showWithGravity(
+        "Talent Created",
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM
+      );
+    } else if (errorPostingTalent !== "") {
+      ToastAndroid.showWithGravity(
+        "Error Try Again",
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM
+      );
+    }
+  }, [postedTalent, errorPostingTalent]);
+
   return (
     <Box flex={1} marginBottom="l" flexDirection="column">
       <ScrollView>
@@ -313,7 +355,11 @@ const Talents = ({ createNewTalent, careerTalent }: CareerRegisterProps) => {
                 </Box>
               </Box>
 
-              <LargeButton onPress={handleVideoUpload} label="ADD VIDEO" />
+              <LargeButton
+                loading={videoUploading}
+                onPress={handleVideoUpload}
+                label={values.video !== "" ? "VIDEO ADDED" : "ADD VIDEO"}
+              />
             </Box>
 
             <LargeButton

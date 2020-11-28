@@ -1,4 +1,7 @@
 import {
+  CREATE_CAREER_ERROR,
+  CREATE_CAREER_LOADING,
+  CREATE_CAREER_SUCCESS,
   POST_CV_ERROR,
   POST_CV_SUCCESS,
   POST_TALENT_ERROR,
@@ -11,6 +14,10 @@ const initialState = {
   postingCv: false,
   postedCv: "",
   errorPosting: "",
+  // PostJob
+  postingNewJob: false,
+  postedNewJob: "",
+  errorPostingNewJob: "",
   // Talents
   postingTalent: false,
   postedTalent: "",
@@ -38,6 +45,28 @@ export default (state = initialState, action: any) => {
         ...state,
         postedCv: "",
         errorPosting: "Please Try Again",
+      };
+    // Posting Job
+    case CREATE_CAREER_LOADING:
+      return {
+        ...state,
+        postingNewJob: true,
+        postedNewJob: "",
+        errorPostingNewJob: "",
+      };
+    case CREATE_CAREER_SUCCESS:
+      return {
+        ...state,
+        postingNewJob: false,
+        postedNewJob: action.payload,
+        errorPostingNewJob: "",
+      };
+    case CREATE_CAREER_ERROR:
+      return {
+        ...state,
+        postingNewJob: false,
+        postedNewJob: "",
+        errorPostingNewJob: "Something went wrong",
       };
     // Talent
     case POST_TALENT_LOADING:
