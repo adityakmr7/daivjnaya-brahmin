@@ -26,7 +26,11 @@ import { Feather as Icon } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { postNewHub } from "../../../actions/hubActions";
 import restServices from "../../../services/restServices";
-interface CareerRegisterProps {}
+import { postTalents } from "../../../actions/careerActions";
+interface CareerRegisterProps {
+  createNewTalent: (data: any) => void;
+  careerTalent: any;
+}
 
 const validationSchema = Yup.object().shape({
   name: Yup.string(),
@@ -36,7 +40,7 @@ const validationSchema = Yup.object().shape({
   city: Yup.string(),
   tellUs: Yup.number(),
 });
-const Talents = () => {
+const Talents = ({ createNewTalent, careerTalent }: CareerRegisterProps) => {
   const [galleryImage, setGalleryImage] = useState<any[]>([]);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [imageLoadingState, setImageLoadingState] = useState<any>({
@@ -65,7 +69,6 @@ const Talents = () => {
       fullName: "",
       galleries: [
         // TODO:
-        "",
       ],
       phoneNumber: "",
       pincode: "",
@@ -74,6 +77,7 @@ const Talents = () => {
       video: "",
     },
     onSubmit: (values) => {
+      createNewTalent(values);
       console.log(values);
       //   if (values.callback === true && values.tmc === true) {
       //     createNewHub(values, galleryImage);
@@ -88,7 +92,7 @@ const Talents = () => {
       //   }
     },
   });
-
+  const handleVideoUpload = async () => {};
   const handleImageUpload = async () => {
     if (Platform.OS !== "web") {
       const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -113,24 +117,32 @@ const Talents = () => {
   };
 
   var _rest = new restServices();
+  const handleCoverImage = async () => {
+    const url: any = await handleImageUpload();
+    const imageUrl = await _rest.getMediaUrl(url);
+    const uri: any = await imageUrl.data.url;
+    setFieldValue("coverImage", uri);
+  };
   const handleFistImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+    const uri: any = await imageUrl.data.url;
+    setFieldValue("gallery", (values.galleries[0] = uri));
   };
   const handleSecondImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-    // stateCopy[0] = imageUrl.data.url;
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+    const uri: any = await imageUrl.data.url;
+    setFieldValue("gallery", (values.galleries[1] = uri));
   };
   const handleImageThree = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+    const uri: any = await imageUrl.data.url;
+    setFieldValue("gallery", (values.galleries[2] = uri));
   };
-
+  const { postingTalent, postedTalent, errorPostingTalent } = careerTalent;
+  console.log("galleryImage", values.galleries);
   return (
     <Box flex={1} marginBottom="l" flexDirection="column">
       <ScrollView>
@@ -231,7 +243,7 @@ const Talents = () => {
                   justifyContent="space-between"
                 >
                   <Text variant="silentText">Cover Image upload </Text>
-                  <RectButton>
+                  <RectButton onPress={handleCoverImage}>
                     <Text>Upload</Text>
                   </RectButton>
                 </Box>
@@ -255,7 +267,10 @@ const Talents = () => {
                         justifyContent="center"
                         alignItems="center"
                       >
-                        <Icon name="plus" size={10} />
+                        <Icon
+                          name={values.galleries[0] ? "check" : "plus"}
+                          size={10}
+                        />
                       </Box>
                     </RectButton>
                     <RectButton
@@ -270,7 +285,10 @@ const Talents = () => {
                         justifyContent="center"
                         alignItems="center"
                       >
-                        <Icon name="plus" size={10} />
+                        <Icon
+                          name={values.galleries[1] ? "check" : "plus"}
+                          size={10}
+                        />
                       </Box>
                     </RectButton>
                     <RectButton
@@ -285,17 +303,24 @@ const Talents = () => {
                         justifyContent="center"
                         alignItems="center"
                       >
-                        <Icon name="plus" size={10} />
+                        <Icon
+                          name={values.galleries[2] ? "check" : "plus"}
+                          size={10}
+                        />
                       </Box>
                     </RectButton>
                   </Box>
                 </Box>
               </Box>
 
-              <LargeButton onPress={handleSubmit} label="ADD VIDEO" />
+              <LargeButton onPress={handleVideoUpload} label="ADD VIDEO" />
             </Box>
 
-            <LargeButton onPress={handleSubmit} label="REGISTER" />
+            <LargeButton
+              loading={postingTalent}
+              onPress={handleSubmit}
+              label="REGISTER"
+            />
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
       </ScrollView>
@@ -303,15 +328,14 @@ const Talents = () => {
   );
 };
 
-// function mapStateToProps(state: any) {
-//   return {
-//     hubState: state.hub,
-//   };
-// }
+function mapStateToProps(state: any) {
+  return {
+    careerTalent: state.career,
+  };
+}
 
-// const mapDispatchToProps = (dispatch: any) => ({
-//   createNewHub: (data: postNewHubProps, images: []) =>
-//     dispatch(postNewHub(data, images)),
-// });
+const mapDispatchToProps = (dispatch: any) => ({
+  createNewTalent: (data: any) => dispatch(postTalents(data)),
+});
 
-export default Talents;
+export default connect(mapStateToProps, mapDispatchToProps)(Talents);

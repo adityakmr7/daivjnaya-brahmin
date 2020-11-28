@@ -59,13 +59,13 @@ export const postNewCV = (data: any) => (dispatch: any) => {
     });
 };
 
-export const postTalents = () => (dispatch: any) => {
+export const postTalents = (data: any) => (dispatch: any) => {
   dispatch({
     type: POST_TALENT_LOADING,
   });
   const _rest = new restServices();
   _rest
-    .post("/career/talent", {})
+    .post("/career/talent", data)
     .then((res) => {
       dispatch({
         type: POST_TALENT_SUCCESS,
