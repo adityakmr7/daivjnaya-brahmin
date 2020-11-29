@@ -21,34 +21,7 @@ import { getAllBanner } from "../../actions/bannerActions";
 import { useIsFocused } from "@react-navigation/native";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
-const Images = [
-  {
-    id: 1,
-    title: "Ganesh Chaturthi",
-    subTitle: "Some Caption",
-    subText: "Lorem ipsum dolor sit amet, \n elit, sed do eiusmod…",
-    image: require("../../../assets/images/img-1.png"),
-    color: ["#73034C", "#270047"],
-  },
-  {
-    id: 2,
-    title: "Ganesh Chaturthi",
-    subTitle: "Some Caption",
-    subText: "Lorem ipsum dolor sit amet, \n elit, sed do eiusmod…",
-    image: require("../../../assets/images/img-1.png"),
-    color: ["#16C88B", "#0E8BCA"],
-  },
-  {
-    id: 3,
-    title: "Ganesh Chaturthi",
-    subTitle: "Some Caption",
-    subText: "Lorem ipsum dolor sit amet, \n elit, sed do eiusmod…",
-    image: require("../../../assets/images/img-1.png"),
-    color: ["#6C59D3", "#270047"],
-  },
-];
 
-export const headerAssets = Images.map((img) => img.image);
 export const iconAssets = [
   require("../../../assets/images/briefcase.png"),
   require("../../../assets/images/dna.png"),
@@ -93,7 +66,7 @@ const HomeScreen = ({
     //   }
     // }
     // get();
-  }, [isFocused]);
+  }, [isFocused, getBanner, getNews]);
 
   const { bannerData } = banner;
   const { bannerResourceList } = bannerData;

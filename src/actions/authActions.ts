@@ -78,12 +78,13 @@ export const userLogin = (email: string, password: string, navigation: any) => (
   };
   axios(config)
     .then((res: AxiosResponse) => {
+      const _rest = new restServices();
+      _rest.saveToken(res.data);
       dispatch({
         type: LOGIN_USER_SUCCESS,
         payload: res.data,
       });
-      const _rest = new restServices();
-      _rest.saveToken(res.data);
+
       // navigation.navigate("Home");
     })
     .catch((err) => {
