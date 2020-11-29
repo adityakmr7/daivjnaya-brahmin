@@ -22,159 +22,165 @@ import Pricing from "./GoldAndSilverPricing";
 import AuthNavigation from "./Authentication";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/authActions";
+import { NavigationContainer } from "@react-navigation/native";
 import CareerStack from "./Careers";
 export const AppStack = createStackNavigator<AppRoutes>();
 
 const AppNavigation = (props: any) => {
   return (
-    <AppStack.Navigator
-      screenOptions={{
-        headerStyle: {
-          elevation: 0,
-        },
-      }}
-    >
-      {props.isAuthenticated ? (
-        <>
-          <AppStack.Screen
-            options={({ navigation }) => ({
-              headerLeft: () => {
-                return (
-                  <View style={{ paddingLeft: 22 }}>
-                    <Image source={require("../../assets/sun.png")} />
-                  </View>
-                );
-              },
-              headerRight: () => {
-                return (
-                  <Box flexDirection={"row"} paddingHorizontal="s">
-                    <Box paddingHorizontal="s">
-                      <RectButton
-                        onPress={() => navigation.navigate("Notification")}
-                        style={{
-                          width: 28,
-                          height: 28,
-                          borderRadius: 10,
-                          backgroundColor: "white",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <Box
-                          position="absolute"
-                          borderRadius="l"
-                          top={0}
-                          right={0}
-                          width={7}
-                          height={7}
-                          backgroundColor="notificationColor"
-                        />
-                        <Icon name="bell" size={20} color={"black"} />
-                      </RectButton>
-                    </Box>
-                    <Box>
-                      <RectButton
-                        onPress={() => props.logout()}
-                        style={{
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Box flexDirection="row" justifyContent="space-between">
-                          {/* <Text>New</Text> */}
-                          <Icon
-                            style={{ padding: 2 }}
-                            name="log-out"
-                            size={20}
-                            color="black"
+    <NavigationContainer>
+      <AppStack.Navigator
+        screenOptions={{
+          headerStyle: {
+            elevation: 0,
+          },
+        }}
+      >
+        {props.isAuthenticated ? (
+          <>
+            <AppStack.Screen
+              options={({ navigation }) => ({
+                headerLeft: () => {
+                  return (
+                    <View style={{ paddingLeft: 22 }}>
+                      <Image source={require("../../assets/sun.png")} />
+                    </View>
+                  );
+                },
+                headerRight: () => {
+                  return (
+                    <Box flexDirection={"row"} paddingHorizontal="s">
+                      <Box paddingHorizontal="s">
+                        <RectButton
+                          onPress={() => navigation.navigate("Notification")}
+                          style={{
+                            width: 28,
+                            height: 28,
+                            borderRadius: 10,
+                            backgroundColor: "white",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Box
+                            position="absolute"
+                            borderRadius="l"
+                            top={0}
+                            right={0}
+                            width={7}
+                            height={7}
+                            backgroundColor="notificationColor"
                           />
-                        </Box>
-                      </RectButton>
+                          <Icon name="bell" size={20} color={"black"} />
+                        </RectButton>
+                      </Box>
+                      <Box>
+                        <RectButton
+                          onPress={() => props.logout()}
+                          style={{
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Box
+                            flexDirection="row"
+                            justifyContent="space-between"
+                          >
+                            {/* <Text>New</Text> */}
+                            <Icon
+                              style={{ padding: 2 }}
+                              name="log-out"
+                              size={20}
+                              color="black"
+                            />
+                          </Box>
+                        </RectButton>
+                      </Box>
                     </Box>
-                  </Box>
-                );
-              },
+                  );
+                },
 
-              headerTitle: () => (
-                <Image source={require("../../assets/home-logo.png")} />
-                // <Text style={{ fontFamily: "Saman", fontSize: 20 }}>
-                //   Daivjnaya Brahmin
-                // </Text>
-              ),
-              headerStyle: {
-                elevation: 0,
-                backgroundColor: theme.colors.mainBackground,
-              },
-            })}
-            name={"Home"}
-            component={HomeScreen}
-          />
-          <AppStack.Screen
-            options={{ headerStyle: { elevation: 1 } }}
-            name="New"
-            component={NewScreenStack}
-          />
-          <AppStack.Screen
-            options={{ headerStyle: { elevation: 1 } }}
-            name="Notification"
-            component={Notification}
-          />
-          <AppStack.Screen
-            options={{ headerStyle: { elevation: 1 } }}
-            name="Event"
-            component={EventScreen}
-          />
-          <AppStack.Screen
-            options={{ headerStyle: { elevation: 0 } }}
-            name="NewsEvent"
-            component={NewsAndEventsStack}
-          />
-          <AppStack.Screen
-            options={{
-              headerShown: false,
-            }}
-            name="MyProfile"
-            component={TabNavigation}
-          />
-          {/* // ? Nested Community */}
+                headerTitle: () => (
+                  <Image source={require("../../assets/home-logo.png")} />
+                  // <Text style={{ fontFamily: "Saman", fontSize: 20 }}>
+                  //   Daivjnaya Brahmin
+                  // </Text>
+                ),
+                headerStyle: {
+                  elevation: 0,
+                  backgroundColor: theme.colors.mainBackground,
+                },
+              })}
+              name={"Home"}
+              component={HomeScreen}
+            />
+            <AppStack.Screen
+              options={{ headerStyle: { elevation: 1 } }}
+              name="New"
+              component={NewScreenStack}
+            />
+            <AppStack.Screen
+              options={{ headerStyle: { elevation: 1 } }}
+              name="Notification"
+              component={Notification}
+            />
+            <AppStack.Screen
+              options={{ headerStyle: { elevation: 1 } }}
+              name="Event"
+              component={EventScreen}
+            />
+            <AppStack.Screen
+              options={{ headerStyle: { elevation: 0 } }}
+              name="NewsEvent"
+              component={NewsAndEventsStack}
+            />
+            <AppStack.Screen
+              options={{
+                headerShown: false,
+              }}
+              name="MyProfile"
+              component={TabNavigation}
+            />
+            {/* // ? Nested Community */}
+            <AppStack.Screen
+              options={{ headerShown: false }}
+              name="CommunityStack"
+              component={CommunityStack}
+            />
+            <AppStack.Screen name="Register" component={Register} />
+            <AppStack.Screen
+              name="Matrimony"
+              options={{ headerShown: false }}
+              component={MatrimonyStack}
+            />
+            <AppStack.Screen
+              options={{ headerShown: false }}
+              name="B2b"
+              component={B2BStackNavigation}
+            />
+            <AppStack.Screen
+              options={{ headerShown: false }}
+              name="Jewellery"
+              component={JewelleryStack}
+            />
+            <AppStack.Screen
+              options={{
+                headerShown: false,
+              }}
+              name="Careers"
+              component={CareerStack}
+            />
+            <AppStack.Screen name="Pricing" component={Pricing} />
+          </>
+        ) : (
           <AppStack.Screen
             options={{ headerShown: false }}
-            name="CommunityStack"
-            component={CommunityStack}
+            name="Authentication"
+            component={AuthNavigation}
           />
-          <AppStack.Screen name="Register" component={Register} />
-          <AppStack.Screen
-            name="Matrimony"
-            options={{ headerShown: false }}
-            component={MatrimonyStack}
-          />
-          <AppStack.Screen
-            options={{ headerShown: false }}
-            name="B2b"
-            component={B2BStackNavigation}
-          />
-          <AppStack.Screen
-            options={{ headerShown: false }}
-            name="Jewellery"
-            component={JewelleryStack}
-          />
-          <AppStack.Screen
-            options={{
-              headerShown: false,
-            }}
-            name="Careers"
-            component={CareerStack}
-          />
-          <AppStack.Screen name="Pricing" component={Pricing} />
-        </>
-      ) : (
-        <AppStack.Screen
-          options={{ headerShown: false }}
-          name="Authentication"
-          component={AuthNavigation}
-        />
-      )}
-    </AppStack.Navigator>
+        )}
+      </AppStack.Navigator>
+    </NavigationContainer>
   );
 };
 

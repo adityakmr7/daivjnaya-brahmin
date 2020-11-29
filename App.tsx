@@ -193,17 +193,17 @@ function App() {
     <Provider store={store}>
       {/* <PersistGate loading={null} persistor={persistor}> */}
       <ThemeProvider {...{ theme }}>
-        <LoadAssets {...{ fonts, assets }}>
-          <BackdropProvider>
-            <SafeAreaProvider>
-              <StyleThemeProvider theme={toastTheme}>
-                <ToastProvider offset={20}>
-                  <AppNavigation />
-                </ToastProvider>
-              </StyleThemeProvider>
-            </SafeAreaProvider>
-          </BackdropProvider>
-        </LoadAssets>
+        {/* <LoadAssets {...{ fonts, assets }}> */}
+        <BackdropProvider>
+          <SafeAreaProvider>
+            <StyleThemeProvider theme={toastTheme}>
+              <ToastProvider offset={20}>
+                <AppNavigation />
+              </ToastProvider>
+            </StyleThemeProvider>
+          </SafeAreaProvider>
+        </BackdropProvider>
+        {/* </LoadAssets> */}
       </ThemeProvider>
       {/* </PersistGate> */}
     </Provider>

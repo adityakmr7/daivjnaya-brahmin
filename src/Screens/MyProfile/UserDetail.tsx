@@ -71,6 +71,7 @@ const UserDetail = ({
     companyName,
     city,
     address,
+    coverImage,
   } = userDetailById;
 
   if (userDetailByIdLoading) {
@@ -85,41 +86,20 @@ const UserDetail = ({
         <StatusBar backgroundColor="white" />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Box width={wWidth} height={200}>
-            {/* {coverImage !== "" ? (
-                    <Image
-                      style={{ width: "100%", height: "100%" }}
-                      source={{ uri: coverImage !== "" ? coverImage : undefined }}
-                    />
-                  ) : (
-                    <Box
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "white",
-                      }}
-                    ></Box>
-                  )} */}
-            <RectButton
-              onPress={() => navigation.pop()}
-              style={{ position: "absolute", top: 40, left: 10 }}
-            >
-              <Icon
-                size={30}
-                name={Platform.OS === "android" ? "arrow-left" : "chevron-left"}
-                color="grey"
-                style={{
-                  shadowColor: "#000",
-                  shadowOffset: {
-                    width: 0,
-                    height: 12,
-                  },
-                  shadowOpacity: 0.58,
-                  shadowRadius: 16.0,
-
-                  elevation: 24,
-                }}
+            {coverImage && coverImage !== "" ? (
+              <Image
+                style={{ width: "100%", height: "100%" }}
+                source={{ uri: coverImage !== "" ? coverImage : undefined }}
               />
-            </RectButton>
+            ) : (
+              <Box
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "grey",
+                }}
+              ></Box>
+            )}
           </Box>
           <Box
             marginHorizontal="xl"
