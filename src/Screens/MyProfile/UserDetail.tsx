@@ -143,19 +143,14 @@ const UserDetail = ({
                 top: 80,
               }}
             >
-              <RoundedBorderButton
-                label={"Edit Profile"}
-                onPress={() =>
-                  navigation.navigate("EditProfile", { ...userProfileData })
-                }
-              />
+              <RoundedBorderButton label={"Add Friend"} onPress={() => {}} />
             </Box>
           </Box>
-          {/* {userDetailById && (
+          {userDetailById && (
             <IntroSection
               {...{ firstName, lastName, city, companyName, address }}
             />
-          )} */}
+          )}
           <Box
             paddingTop="xl"
             paddingHorizontal="s"
