@@ -72,7 +72,19 @@ const UserDetail = ({
     city,
     address,
     coverImage,
+    isEnabled,
+    isFriend,
+    isFriendRequested,
   } = userDetailById;
+
+  let buttonLabel: string = "";
+  if (isFriendRequested) {
+    buttonLabel = "Friend Requested";
+  } else if (isFriend) {
+    buttonLabel = "Unfriend";
+  } else {
+    buttonLabel = "Add Friend";
+  }
 
   if (userDetailByIdLoading) {
     return (
@@ -143,7 +155,7 @@ const UserDetail = ({
                 top: 80,
               }}
             >
-              <RoundedBorderButton label={"Add Friend"} onPress={() => {}} />
+              <RoundedBorderButton label={buttonLabel} onPress={() => {}} />
             </Box>
           </Box>
           {userDetailById && (
@@ -163,15 +175,15 @@ const UserDetail = ({
                 {/* {`${_embedded ? _embedded.userResourceList.length : 0} Friends`} */}
               </Text>
             </Box>
-            {/* <TouchableWithoutFeedback
-                  onPress={() =>
-                    navigation.navigate("FriendList", {
-                      username: `${firstName} ${lastName}`,
-                    })
-                  }
-                >
-                  <Text variant="seeAll">See all</Text>
-                </TouchableWithoutFeedback> */}
+            <TouchableWithoutFeedback
+              onPress={() =>
+                navigation.navigate("FriendList", {
+                  username: `${firstName} ${lastName}`,
+                })
+              }
+            >
+              <Text variant="seeAll">See all</Text>
+            </TouchableWithoutFeedback>
           </Box>
           <Box paddingHorizontal="s" paddingTop="l">
             {/* {_embedded ? (
