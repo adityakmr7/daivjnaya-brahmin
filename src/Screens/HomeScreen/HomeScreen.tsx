@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  ScrollView,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 import { Box, NewsSection, Text } from "../../components";
 import MainCard from "./MainCard";
 import { Dimensions, Image } from "react-native";
 import SectionHeader from "./components/SectionHeader";
 import IconNavigator from "./components/IconNavigator";
-import {
-  AppRoutes,
-  StackNavigationProps,
-} from "../../components/NavigationRoutes";
+import { AppRoutes } from "../../components/NavigationRoutes";
 import NewsAndEventsSection from "./components/NewsAndEventsSection";
 import { connect } from "react-redux";
 import { getAllNews } from "../../actions/newsActions";

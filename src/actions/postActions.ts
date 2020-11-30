@@ -111,6 +111,7 @@ export const getUsersPostById = (userId: number) => (dispatch: any) => {
   _rest
     .get(`/post/user/${userId}`)
     .then((res) => {
+      console.log("getpostusr", res);
       dispatch({
         type: GET_USER_POST_BY_ID_SUCCESS,
         payload: res.data,

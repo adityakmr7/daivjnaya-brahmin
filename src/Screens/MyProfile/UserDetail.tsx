@@ -1,18 +1,20 @@
 import { RouteProp } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { ActivityIndicator, Dimensions, Platform, Image } from "react-native";
 import {
   RectButton,
   ScrollView,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
+import { Feather as Icon, Ionicons, MaterialIcons } from "@expo/vector-icons";
+
 import { connect } from "react-redux";
 import IntroSection from "../MyProfile/components/IntroSection";
 import { getUserDetailById } from "../../actions/userActions";
 import { Box, Text } from "../../components";
 import { AppRoutes } from "../../components/NavigationRoutes";
-import { Feather as Icon } from "@expo/vector-icons";
+
 import { StackNavigationProp } from "@react-navigation/stack";
 import {
   BottomDrawerComponent,
@@ -22,6 +24,8 @@ import {
 import RBSheet from "react-native-raw-bottom-sheet";
 import { getFriendFriends } from "../../actions/friendsActions";
 import { friendListProps } from "./interfaces";
+import PostListComponent from "./components/PostListComponent";
+import { getUsersPostById } from "../../actions/postActions";
 
 interface UserDetailProps {
   navigation: StackNavigationProp<AppRoutes, "UserDetail">;
@@ -77,6 +81,14 @@ const UserDetail = ({
     getFriend(id);
     getUsersPostById(id);
   }, [id]);
+
+  useLayoutEffect(() => {
+    if (firstName && lastName) {
+      navigation.setOptions({
+        title: `${firstName} ${lastName}`,
+      });
+    }
+  }, []);
   const { userDetailByIdLoading, userDetailById, userDetailByIdError } = detail;
   const refRBSheet = useRef<any | undefined>();
   const {
@@ -101,6 +113,7 @@ const UserDetail = ({
   } else {
     buttonLabel = "Add Friend";
   }
+  const handleDrawer = () => refRBSheet.current.open();
 
   if (userDetailByIdLoading) {
     return (
@@ -174,11 +187,43 @@ const UserDetail = ({
               <RoundedBorderButton label={buttonLabel} onPress={() => {}} />
             </Box>
           </Box>
-          {/* {userDetailById && (
-            <IntroSection
-              {...{ firstName, lastName, city, companyName, address }}
-            />
-          )} */}
+          {userDetailById && (
+            <Box paddingHorizontal="m" paddingVertical="s">
+              <Text variant="sectionTitle">
+                {firstName ? firstName : ""} {lastName ? lastName : ""}
+              </Text>
+              <Box>
+                <Box>
+                  <Box flexDirection="row" alignItems="center">
+                    <Ionicons name="ios-school" size={20} color="black" />
+                    <Text paddingHorizontal="l">
+                      {companyName !== null ? companyName : ""}
+                    </Text>
+                  </Box>
+                  <Box flexDirection="row" alignItems="center">
+                    <MaterialIcons
+                      name="business-center"
+                      size={20}
+                      color="black"
+                    />
+                    <Text paddingHorizontal="l">
+                      {city !== null ? city : ""}
+                    </Text>
+                  </Box>
+                  <Box flexDirection="row" alignItems="center">
+                    <MaterialIcons
+                      name="store-mall-directory"
+                      size={20}
+                      color="black"
+                    />
+                    <Text paddingHorizontal="l">
+                      {address !== null ? address : ""}
+                    </Text>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          )}
           <Box
             paddingTop="xl"
             paddingHorizontal="s"
@@ -222,17 +267,17 @@ const UserDetail = ({
           </Box>
 
           <Box height={3} backgroundColor="mainBackground" />
-          {/* {postLoading ? (
-                <Box flex={1} justifyContent="center" alignItems="center">
-                  <ActivityIndicator />
-                </Box>
-              ) : (
-                <PostListComponent
-                  postList={postList}
-                  userProfileData={userProfileData}
-                  onPress={handleDrawer}
-                />
-              )} */}
+          {postUserLoading ? (
+            <Box flex={1} justifyContent="center" alignItems="center">
+              <ActivityIndicator />
+            </Box>
+          ) : (
+            <PostListComponent
+              postList={postUserPostId}
+              userProfileData={userDetailById}
+              onPress={handleDrawer}
+            />
+          )}
 
           <Box backgroundColor="mainBackground" height={10} />
           <RBSheet
@@ -267,6 +312,6 @@ function mapStateToProps(state: any) {
 const mapDispatchToProps = (dispatch: any) => ({
   getDetail: (userId: number) => dispatch(getUserDetailById(userId)),
   getFriend: (userId: number) => dispatch(getFriendFriends(userId)),
-  getUsersPostById: (userId: number) => dispatch(getUserDetailById(userId)),
+  getUsersPostById: (userId: number) => dispatch(getUsersPostById(userId)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail);
