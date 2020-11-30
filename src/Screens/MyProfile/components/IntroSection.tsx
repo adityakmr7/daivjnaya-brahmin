@@ -14,17 +14,19 @@ const IntroSection = ({
   return (
     <Box paddingHorizontal="m" paddingVertical="s">
       <Text variant="sectionTitle">
-        {firstName && firstName} {lastName && lastName}{" "}
+        {firstName && firstName} {lastName && lastName}
       </Text>
       <Box>
         <Box>
           <Box flexDirection="row" alignItems="center">
             <Ionicons name="ios-school" size={20} color="black" />
-            <Text paddingHorizontal="l">{companyName}</Text>
+            <Text paddingHorizontal="l">
+              {companyName !== null ? companyName : ""}
+            </Text>
           </Box>
           <Box flexDirection="row" alignItems="center">
             <MaterialIcons name="business-center" size={20} color="black" />
-            <Text paddingHorizontal="l">{city}</Text>
+            <Text paddingHorizontal="l">{city !== null ? city : ""}</Text>
           </Box>
           <Box flexDirection="row" alignItems="center">
             <MaterialIcons
@@ -32,7 +34,7 @@ const IntroSection = ({
               size={20}
               color="black"
             />
-            <Text paddingHorizontal="l">{address}</Text>
+            <Text paddingHorizontal="l">{address !== null ? address : ""}</Text>
           </Box>
         </Box>
       </Box>

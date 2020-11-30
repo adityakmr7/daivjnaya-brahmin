@@ -16,11 +16,12 @@ import { Feather as Icon } from "@expo/vector-icons";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { BottomDrawerComponent, RoundedBorderButton } from "./components";
 import RBSheet from "react-native-raw-bottom-sheet";
+import { getFriendFriends } from "../../actions/friendsActions";
 
 interface UserDetailProps {
   navigation: StackNavigationProp<AppRoutes, "UserDetail">;
   route: RouteProp<AppRoutes, "UserDetail">;
-
+  getFriend: (userId: number) => void;
   detail: {
     userDetailByIdLoading: boolean;
     userDetailByIdError: boolean;
@@ -56,11 +57,13 @@ const UserDetail = ({
   route,
   detail,
   getDetail,
+  getFriend,
   navigation,
 }: UserDetailProps) => {
   const { id } = route.params;
   useEffect(() => {
     getDetail(id);
+    getFriend(id);
   }, [id]);
   const { userDetailByIdLoading, userDetailById, userDetailByIdError } = detail;
   const refRBSheet = useRef<any | undefined>();
@@ -95,7 +98,7 @@ const UserDetail = ({
   } else {
     return (
       <Box flex={1} backgroundColor="iconBackground">
-        <StatusBar backgroundColor="white" />
+        {/* <StatusBar backgroundColor="white" /> */}
         <ScrollView showsVerticalScrollIndicator={false}>
           <Box width={wWidth} height={200}>
             {coverImage && coverImage !== "" ? (
@@ -158,11 +161,11 @@ const UserDetail = ({
               <RoundedBorderButton label={buttonLabel} onPress={() => {}} />
             </Box>
           </Box>
-          {userDetailById && (
+          {/* {userDetailById && (
             <IntroSection
               {...{ firstName, lastName, city, companyName, address }}
             />
-          )}
+          )} */}
           <Box
             paddingTop="xl"
             paddingHorizontal="s"
@@ -246,10 +249,12 @@ const UserDetail = ({
 function mapStateToProps(state: any) {
   return {
     detail: state.profile,
+    friend: state.friends,
   };
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
   getDetail: (userId: number) => dispatch(getUserDetailById(userId)),
+  getFriend: (userId: number) => dispatch(getFriendFriends(userId)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail);
