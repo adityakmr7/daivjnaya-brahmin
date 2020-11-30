@@ -28,6 +28,8 @@ interface UserDetailProps {
   route: RouteProp<AppRoutes, "UserDetail">;
   getFriend: (userId: number) => void;
   friend: any;
+  postUser: any;
+  getUsersPostById: (userId: number) => void;
   detail: {
     userDetailByIdLoading: boolean;
     userDetailByIdError: boolean;
@@ -66,11 +68,14 @@ const UserDetail = ({
   getFriend,
   navigation,
   friend,
+  getUsersPostById,
+  postUser,
 }: UserDetailProps) => {
   const { id } = route.params;
   useEffect(() => {
     getDetail(id);
     getFriend(id);
+    getUsersPostById(id);
   }, [id]);
   const { userDetailByIdLoading, userDetailById, userDetailByIdError } = detail;
   const refRBSheet = useRef<any | undefined>();
@@ -87,6 +92,7 @@ const UserDetail = ({
     isFriendRequested,
   } = userDetailById;
   const { friendsFriend, friendsFriendError } = friend;
+  const { postUserLoading, postUserPostId, postUserError } = postUser;
   let buttonLabel: string = "";
   if (isFriendRequested) {
     buttonLabel = "Friend Requested";
@@ -168,11 +174,11 @@ const UserDetail = ({
               <RoundedBorderButton label={buttonLabel} onPress={() => {}} />
             </Box>
           </Box>
-          {userDetailById && (
+          {/* {userDetailById && (
             <IntroSection
               {...{ firstName, lastName, city, companyName, address }}
             />
-          )}
+          )} */}
           <Box
             paddingTop="xl"
             paddingHorizontal="s"
@@ -254,11 +260,13 @@ function mapStateToProps(state: any) {
   return {
     detail: state.profile,
     friend: state.friend,
+    postUser: state.post,
   };
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
   getDetail: (userId: number) => dispatch(getUserDetailById(userId)),
   getFriend: (userId: number) => dispatch(getFriendFriends(userId)),
+  getUsersPostById: (userId: number) => dispatch(getUserDetailById(userId)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail);

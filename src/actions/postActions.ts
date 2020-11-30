@@ -12,6 +12,9 @@ import {
   POST_UN_LIKED_ERROR,
   POST_UN_LIKED_SUCCESS,
   POST_POST_SUCCESS_LOADING,
+  GET_USER_POST_BY_ID_ERROR,
+  GET_USER_POST_BY_ID_SUCCESS,
+  GET_USER_POST_BY_ID_LOADING,
 } from "./constants/postConstant";
 import axios from "axios";
 import { postDataType } from "../Screens/MyProfile/interfaces";
@@ -83,7 +86,6 @@ export const addPost = (postData: postDataType) => async (dispatch: any) => {
       },
     ],
   });
-  console.log("postContent", postContent);
   _rest
     .post("/post", postContent)
     .then((res) => {
@@ -95,6 +97,28 @@ export const addPost = (postData: postDataType) => async (dispatch: any) => {
     .catch((err) => {
       dispatch({
         type: POST_POST_ERROR,
+        error: err,
+      });
+    });
+};
+
+export const getUsersPostById = (userId: number) => (dispatch: any) => {
+  dispatch({
+    type: GET_USER_POST_BY_ID_LOADING,
+  });
+
+  const _rest = new restServices();
+  _rest
+    .get(`/post/user/${userId}`)
+    .then((res) => {
+      dispatch({
+        type: GET_USER_POST_BY_ID_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_USER_POST_BY_ID_ERROR,
         error: err,
       });
     });

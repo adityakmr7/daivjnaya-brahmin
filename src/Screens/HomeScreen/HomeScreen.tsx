@@ -48,7 +48,7 @@ const HomeScreen = ({
   getNews,
   news,
 }: HomeScreenProps) => {
-  const [metalData, setMetalData] = useState("");
+  const [metalData, setMetalData] = useState<any>("");
   const isFocused = useIsFocused();
   useEffect(() => {
     (async function get() {
@@ -152,53 +152,53 @@ const HomeScreen = ({
         />
         {/* // ? Current Gold Silver Price Section */}
         {metalData !== "" ? (
-          <TouchableWithoutFeedback
-            onPress={() => navigation.navigate("Pricing")}
-          >
-            <Box paddingVertical="l" width={wWidth - 40} marginLeft="l">
+          // <TouchableWithoutFeedback
+          //   onPress={() => navigation.navigate("Pricing")}
+          // >
+          <Box paddingVertical="l" width={wWidth - 40} marginLeft="l">
+            <Box
+              paddingHorizontal="m"
+              borderRadius="m"
+              height={140}
+              backgroundColor={"iconBackground"}
+            >
               <Box
-                paddingHorizontal="m"
-                borderRadius="m"
-                height={140}
-                backgroundColor={"iconBackground"}
+                flexDirection="row"
+                paddingVertical="s"
+                justifyContent="space-between"
               >
-                <Box
-                  flexDirection="row"
-                  paddingVertical="s"
-                  justifyContent="space-between"
-                >
+                <Box>
+                  <Text variant="mainIconSubTitle">
+                    1 {metalData.unit} of 24k gold (99.9):{" "}
+                    {metalData.rates ? metalData.rates.XAU.toFixed(2) : ""}{" "}
+                    {metalData.base};
+                  </Text>
+                  <Text>Hyderabad, {metalData.date}</Text>
+                </Box>
+                {/* <Box>
+                    <Text>-0.9%</Text>
+                  </Box> */}
+              </Box>
+              <Box width={wWidth - 80} height={2} backgroundColor="grey" />
+              <Box paddingVertical="s" justifyContent="flex-start">
+                <Box flexDirection="row" justifyContent="space-between">
                   <Box>
                     <Text variant="mainIconSubTitle">
-                      1 {metalData.unit} of 24k gold (99.9):{" "}
-                      {metalData.rates ? metalData.rates.XAU.toFixed(2) : ""}{" "}
+                      1 {metalData.unit} of 24k silver (99.9):{" "}
+                      {metalData.rates ? metalData.rates.XAG.toFixed(2) : ""}{" "}
                       {metalData.base};
                     </Text>
                     <Text>Hyderabad, {metalData.date}</Text>
                   </Box>
                   {/* <Box>
-                    <Text>-0.9%</Text>
-                  </Box> */}
-                </Box>
-                <Box width={wWidth - 80} height={2} backgroundColor="grey" />
-                <Box paddingVertical="s" justifyContent="flex-start">
-                  <Box flexDirection="row" justifyContent="space-between">
-                    <Box>
-                      <Text variant="mainIconSubTitle">
-                        1 {metalData.unit} of 24k silver (99.9):{" "}
-                        {metalData.rates ? metalData.rates.XAG.toFixed(2) : ""}{" "}
-                        {metalData.base};
-                      </Text>
-                      <Text>Hyderabad, {metalData.date}</Text>
-                    </Box>
-                    {/* <Box>
                       <Text>-0.9%</Text>
                     </Box> */}
-                  </Box>
                 </Box>
               </Box>
             </Box>
-          </TouchableWithoutFeedback>
-        ) : null}
+          </Box>
+        ) : // </TouchableWithoutFeedback>
+        null}
         <Box padding="l">
           <Box>
             <Text variant="silentText">1 Month free subscribe</Text>

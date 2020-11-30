@@ -2,6 +2,9 @@ import {
   GET_ALL_POST_ERROR,
   GET_ALL_POST_LOADING,
   GET_ALL_POST_SUCCESS,
+  GET_USER_POST_BY_ID_ERROR,
+  GET_USER_POST_BY_ID_LOADING,
+  GET_USER_POST_BY_ID_SUCCESS,
   POST_LIKED_ERROR,
   POST_LIKED_SUCCESS,
   POST_POST_ERROR,
@@ -18,6 +21,11 @@ const initialState = {
   creatingPost: false,
   postCreationMessage: false,
   postLikedMessage: "",
+
+  //
+  postUserLoading: false,
+  postUserPostId: "",
+  postUserError: "",
 };
 
 const postReducer = (state = initialState, action: any) => {
@@ -88,6 +96,25 @@ const postReducer = (state = initialState, action: any) => {
       return {
         ...state,
         postUnLikedMessage: "",
+      };
+    // post user post id
+    case GET_USER_POST_BY_ID_LOADING:
+      return {
+        ...state,
+        postUserLoading: true,
+      };
+    case GET_USER_POST_BY_ID_SUCCESS:
+      return {
+        ...state,
+        postUserLoading: false,
+        postUserPostId: action.payload._embedded.normalPostResourceList,
+      };
+    case GET_USER_POST_BY_ID_ERROR:
+      return {
+        ...state,
+        postUserLoading: false,
+        postUserPostId: "",
+        postUserError: action.error,
       };
     default:
       return {
