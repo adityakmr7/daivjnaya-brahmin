@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ScrollView,
   TouchableWithoutFeedback,
@@ -19,6 +19,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import restServices from "../../services/restServices";
 import { getAllBanner } from "../../actions/bannerActions";
 import { useIsFocused } from "@react-navigation/native";
+import metalPriceServices from "../../services/metalPriceServices";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
@@ -47,6 +48,7 @@ const HomeScreen = ({
   getNews,
   news,
 }: HomeScreenProps) => {
+  const [metalData, setMetalData] = useState("");
   const isFocused = useIsFocused();
   useEffect(() => {
     (async function get() {
@@ -55,22 +57,22 @@ const HomeScreen = ({
       if (token) {
         getBanner();
         getNews();
+        getMetals();
       }
     })();
-
-    // async function get() {
-    //   const _rest = new restServices();
-    //   const token = await _rest.getAccessToken();
-    //   if (token) {
-    //     getBanner();
-    //   }
-    // }
-    // get();
   }, [isFocused, getBanner, getNews]);
 
   const { bannerData } = banner;
   const { bannerResourceList } = bannerData;
   const { loading, news: newsList } = news;
+
+  const getMetals = async () => {
+    const _metal = new metalPriceServices();
+    const metalDataApi = await _metal.getPrice();
+    if (metalDataApi) {
+      setMetalData(metalDataApi.data);
+    }
+  };
 
   return (
     <Box flex={1} backgroundColor="mainBackground">
@@ -148,49 +150,58 @@ const HomeScreen = ({
           title={"Current Gold Silver Price"}
         />
         {/* // ? Current Gold Silver Price Section */}
-        <TouchableWithoutFeedback
-          onPress={() => navigation.navigate("Pricing")}
-        >
-          <Box paddingVertical="l" width={wWidth - 40} marginLeft="l">
-            <Box
-              paddingHorizontal="m"
-              borderRadius="m"
-              height={120}
-              backgroundColor={"iconBackground"}
-            >
+        {metalData !== "" ? (
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("Pricing")}
+          >
+            <Box paddingVertical="l" width={wWidth - 40} marginLeft="l">
               <Box
-                flexDirection="row"
-                paddingVertical="s"
-                justifyContent="space-between"
+                paddingHorizontal="m"
+                borderRadius="m"
+                height={140}
+                backgroundColor={"iconBackground"}
               >
-                <Box>
-                  <Text variant="mainIconSubTitle">
-                    10g of 24k gold (99.9): 31,800 INR
-                  </Text>
-                  <Text>Hyderabad, 1 Jun 2018</Text>
-                </Box>
-                <Box>
-                  <Text>-0.9%</Text>
-                </Box>
-              </Box>
-              <Box width={wWidth - 80} height={2} backgroundColor="grey" />
-              <Box paddingVertical="s" justifyContent="flex-start">
-                <Box flexDirection="row" justifyContent="space-between">
+                <Box
+                  flexDirection="row"
+                  paddingVertical="s"
+                  justifyContent="space-between"
+                >
                   <Box>
                     <Text variant="mainIconSubTitle">
-                      10g of 24k gold (99.9): 31,800 INR
+                      1 {metalData.unit} of 24k gold (99.9):{" "}
+                      {metalData.rates.XAU
+                        ? metalData.rates.XAU.toFixed(2)
+                        : ""}{" "}
+                      {metalData.base};
                     </Text>
-                    <Text>Hyderabad, 1 Jun 2018</Text>
+                    <Text>Hyderabad, {metalData.date}</Text>
                   </Box>
-                  <Box>
+                  {/* <Box>
                     <Text>-0.9%</Text>
+                  </Box> */}
+                </Box>
+                <Box width={wWidth - 80} height={2} backgroundColor="grey" />
+                <Box paddingVertical="s" justifyContent="flex-start">
+                  <Box flexDirection="row" justifyContent="space-between">
+                    <Box>
+                      <Text variant="mainIconSubTitle">
+                        1 {metalData.unit} of 24k silver (99.9):{" "}
+                        {metalData.rates.XAG
+                          ? metalData.rates.XAG.toFixed(2)
+                          : ""}{" "}
+                        {metalData.base};
+                      </Text>
+                      <Text>Hyderabad, {metalData.date}</Text>
+                    </Box>
+                    {/* <Box>
+                      <Text>-0.9%</Text>
+                    </Box> */}
                   </Box>
                 </Box>
               </Box>
             </Box>
-          </Box>
-        </TouchableWithoutFeedback>
-
+          </TouchableWithoutFeedback>
+        ) : null}
         <Box padding="l">
           <Box>
             <Text variant="silentText">1 Month free subscribe</Text>
