@@ -236,7 +236,7 @@ const UserDetail = ({
                 {`${friendsFriend ? friendsFriend.length : 0} Friends`}
               </Text>
             </Box>
-            <TouchableWithoutFeedback
+            {/* <TouchableWithoutFeedback
               onPress={() =>
                 navigation.navigate("FriendList", {
                   username: `${firstName} ${lastName}`,
@@ -244,7 +244,7 @@ const UserDetail = ({
               }
             >
               <Text variant="seeAll">See all</Text>
-            </TouchableWithoutFeedback>
+            </TouchableWithoutFeedback> */}
           </Box>
           <Box paddingHorizontal="s" paddingTop="l">
             {friendsFriend !== "" ? (
