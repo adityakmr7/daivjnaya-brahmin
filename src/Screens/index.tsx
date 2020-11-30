@@ -167,7 +167,7 @@ const AppNavigation = (props: any) => {
             name="Careers"
             component={CareerStack}
           />
-          <AppStack.Screen name="Pricing" component={Pricing} />
+          {/* <AppStack.Screen name="Pricing" component={Pricing} /> */}
         </>
       ) : (
         <AppStack.Screen

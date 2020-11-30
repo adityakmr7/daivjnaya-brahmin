@@ -146,7 +146,8 @@ const HomeScreen = ({
         </Box>
 
         <SectionHeader
-          onPress={() => navigation.navigate("Pricing")}
+          // onPress={() => navigation.navigate("Pricing")}
+          onPress={() => {}}
           title={"Current Gold Silver Price"}
         />
         {/* // ? Current Gold Silver Price Section */}
