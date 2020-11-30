@@ -5,7 +5,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import * as ImagePicker from "expo-image-picker";
-import * as Location from "expo-location";
+// import * as Location from "expo-location";
 import { Box, LargeButton, Text, CheckBox, TextField } from "../../components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -109,18 +109,18 @@ const CommunityRegister = ({ createNewHub, hubState }: RegisterProps) => {
     }
   };
 
-  React.useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-      }
-      let location = await Location.getCurrentPositionAsync({});
-      const { latitude, longitude, accuracy } = location.coords;
-      setFieldValue("latitude", latitude.toFixed(2));
-      setFieldValue("longitude", longitude.toFixed(2));
-    })();
-  }, []);
+  // React.useEffect(() => {
+  //   (async () => {
+  //     let { status } = await Location.requestPermissionsAsync();
+  //     if (status !== "granted") {
+  //       setErrorMsg("Permission to access location was denied");
+  //     }
+  //     let location = await Location.getCurrentPositionAsync({});
+  //     const { latitude, longitude, accuracy } = location.coords;
+  //     setFieldValue("latitude", latitude.toFixed(2));
+  //     setFieldValue("longitude", longitude.toFixed(2));
+  //   })();
+  // }, []);
 
   var _rest = new restServices();
   const handleFistImage = async () => {

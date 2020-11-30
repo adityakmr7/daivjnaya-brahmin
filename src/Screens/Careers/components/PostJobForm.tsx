@@ -7,7 +7,6 @@ import {
 import { Picker } from "@react-native-community/picker";
 
 import * as ImagePicker from "expo-image-picker";
-import * as Location from "expo-location";
 import {
   Box,
   LargeButton,

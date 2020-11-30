@@ -5,7 +5,6 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import * as ImagePicker from "expo-image-picker";
-import * as Location from "expo-location";
 import {
   Box,
   LargeButton,
