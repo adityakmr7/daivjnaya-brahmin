@@ -10,7 +10,9 @@ import { connect } from "react-redux";
 import { useToast } from "react-native-styled-toast";
 import { lastNameList } from "./surnameData";
 import { AuthState } from "../../reducers/authReducer";
-import { Picker } from "@react-native-community/picker";
+// import { Picker } from "@react-native-community/picker";
+import { Picker, Select } from "react-native-propel-kit";
+import { ModalDialog, ModalDialogHandle } from "react-native-propel-kit";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface SignupProps {
@@ -107,6 +109,8 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
     }
   }, [successMessage, signUpError]);
 
+  console.log("surnames", values.lastName);
+
   return (
     <Box
       backgroundColor="primaryText"
@@ -151,25 +155,17 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
             </Text>
           </Box>
 
-          <Picker
-            style={{
-              height: 30,
-            }}
-            selectedValue={values.lastName}
-            onValueChange={(itemValue, itemIndex) =>
-              setFieldValue("lastName", itemValue)
-            }
+          <Select
+            placeholder="Surname"
+            value={values.lastName}
+            onChange={(value: any) => setFieldValue("lastName", value)}
           >
             {lastNameList.map((item, i) => {
               return (
-                <Picker.Item
-                  key={item.id}
-                  label={item.lName}
-                  value={item.lName}
-                />
+                <Select.Item key={i} label={item.lName} value={item.lName} />
               );
             })}
-          </Picker>
+          </Select>
           <Box>
             <TextField
               keyboardType="email-address"
@@ -212,7 +208,7 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
             onPress={handleSubmit}
             label={"SIGN UP"}
           />
-          <Box paddingVertical="s" alignItems="center">
+          <Box alignItems="center">
             <TouchableWithoutFeedback
               onPress={() => navigation.navigate("login")}
             >
