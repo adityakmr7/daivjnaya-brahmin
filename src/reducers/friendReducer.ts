@@ -14,7 +14,8 @@ const initialState = {
   allFriendList: [],
   error: "",
   loadingFriendFriends: false,
-  friendsFriend: [],
+  friendsFriend: "",
+  friendsFriendArray: [],
   friendsFriendError: "",
 };
 
@@ -43,14 +44,17 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         loadingFriendFriends: true,
-        friendsFriend: [],
+        friendsFriend: "",
+        friendsFriendArray: [],
         friendsFriendError: "",
       };
     case GET_FRIEND_FRIENDS_SUCCESS:
       return {
         ...state,
         loadingFriendFriends: false,
-        friendsFriend: action.payload,
+        friendsFriend: action.payload._embedded.userResourceList,
+        friendsFriendArray: action.payload,
+
         friendsFriendError: "",
       };
     case GET_FRIEND_FRIENDS_ERROR:

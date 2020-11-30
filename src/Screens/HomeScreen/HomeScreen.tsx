@@ -170,9 +170,7 @@ const HomeScreen = ({
                   <Box>
                     <Text variant="mainIconSubTitle">
                       1 {metalData.unit} of 24k gold (99.9):{" "}
-                      {metalData.rates.XAU
-                        ? metalData.rates.XAU.toFixed(2)
-                        : ""}{" "}
+                      {metalData.rates ? metalData.rates.XAU.toFixed(2) : ""}{" "}
                       {metalData.base};
                     </Text>
                     <Text>Hyderabad, {metalData.date}</Text>
@@ -187,9 +185,7 @@ const HomeScreen = ({
                     <Box>
                       <Text variant="mainIconSubTitle">
                         1 {metalData.unit} of 24k silver (99.9):{" "}
-                        {metalData.rates.XAG
-                          ? metalData.rates.XAG.toFixed(2)
-                          : ""}{" "}
+                        {metalData.rates ? metalData.rates.XAG.toFixed(2) : ""}{" "}
                         {metalData.base};
                       </Text>
                       <Text>Hyderabad, {metalData.date}</Text>

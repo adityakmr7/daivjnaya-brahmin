@@ -14,7 +14,7 @@ const IntroSection = ({
   return (
     <Box paddingHorizontal="m" paddingVertical="s">
       <Text variant="sectionTitle">
-        {firstName && firstName} {lastName && lastName}
+        {firstName ? firstName : ""} {lastName ? lastName : ""}
       </Text>
       <Box>
         <Box>

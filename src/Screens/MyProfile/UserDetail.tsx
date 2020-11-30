@@ -14,14 +14,20 @@ import { Box, Text } from "../../components";
 import { AppRoutes } from "../../components/NavigationRoutes";
 import { Feather as Icon } from "@expo/vector-icons";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { BottomDrawerComponent, RoundedBorderButton } from "./components";
+import {
+  BottomDrawerComponent,
+  FriendsThumbnail,
+  RoundedBorderButton,
+} from "./components";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { getFriendFriends } from "../../actions/friendsActions";
+import { friendListProps } from "./interfaces";
 
 interface UserDetailProps {
   navigation: StackNavigationProp<AppRoutes, "UserDetail">;
   route: RouteProp<AppRoutes, "UserDetail">;
   getFriend: (userId: number) => void;
+  friend: any;
   detail: {
     userDetailByIdLoading: boolean;
     userDetailByIdError: boolean;
@@ -59,6 +65,7 @@ const UserDetail = ({
   getDetail,
   getFriend,
   navigation,
+  friend,
 }: UserDetailProps) => {
   const { id } = route.params;
   useEffect(() => {
@@ -79,7 +86,7 @@ const UserDetail = ({
     isFriend,
     isFriendRequested,
   } = userDetailById;
-
+  const { friendsFriend, friendsFriendError } = friend;
   let buttonLabel: string = "";
   if (isFriendRequested) {
     buttonLabel = "Friend Requested";
@@ -161,11 +168,11 @@ const UserDetail = ({
               <RoundedBorderButton label={buttonLabel} onPress={() => {}} />
             </Box>
           </Box>
-          {/* {userDetailById && (
+          {userDetailById && (
             <IntroSection
               {...{ firstName, lastName, city, companyName, address }}
             />
-          )} */}
+          )}
           <Box
             paddingTop="xl"
             paddingHorizontal="s"
@@ -175,7 +182,7 @@ const UserDetail = ({
             <Box>
               <Text variant="mainIconSubTitle">Friends</Text>
               <Text fontSize={13} variant="silentText">
-                {/* {`${_embedded ? _embedded.userResourceList.length : 0} Friends`} */}
+                {`${friendsFriend ? friendsFriend.length : 0} Friends`}
               </Text>
             </Box>
             <TouchableWithoutFeedback
@@ -189,28 +196,25 @@ const UserDetail = ({
             </TouchableWithoutFeedback>
           </Box>
           <Box paddingHorizontal="s" paddingTop="l">
-            {/* {_embedded ? (
-                  <Box
-                    marginBottom="s"
-                    flexDirection="row"
-                    justifyContent="space-between"
-                  >
-                    {_embedded &&
-                      _embedded.userResourceList.map(
-                        (item: friendListProps, i: number) => {
-                          if (i < 3) {
-                            return <FriendsThumbnail key={i} {...{ item }} />;
-                          }
-                        }
-                      )}
-                  </Box>
-                ) : (
-                  <Box>
-                    <Text>No Friends</Text>
-                  </Box>
-                )} */}
+            {friendsFriend !== "" ? (
+              <Box
+                marginBottom="s"
+                flexDirection="row"
+                justifyContent="space-between"
+              >
+                {friendsFriend.map((item: friendListProps, i: number) => {
+                  if (i < 3) {
+                    return <FriendsThumbnail key={i} {...{ item }} />;
+                  }
+                })}
+              </Box>
+            ) : (
+              <Box>
+                <Text>No Friends</Text>
+              </Box>
+            )}
           </Box>
-          {/* <CreatePost src={profileImage} {...{ navigation }} /> */}
+
           <Box height={3} backgroundColor="mainBackground" />
           {/* {postLoading ? (
                 <Box flex={1} justifyContent="center" alignItems="center">
@@ -249,7 +253,7 @@ const UserDetail = ({
 function mapStateToProps(state: any) {
   return {
     detail: state.profile,
-    friend: state.friends,
+    friend: state.friend,
   };
 }
 
