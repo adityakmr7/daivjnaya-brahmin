@@ -187,7 +187,7 @@ const UserDetail = ({
               <RoundedBorderButton label={buttonLabel} onPress={() => {}} />
             </Box>
           </Box>
-          {userDetailById && (
+          {/* {userDetailById && (
             <Box paddingHorizontal="m" paddingVertical="s">
               <Text variant="sectionTitle">
                 {firstName ? firstName : ""} {lastName ? lastName : ""}
@@ -223,7 +223,7 @@ const UserDetail = ({
                 </Box>
               </Box>
             </Box>
-          )}
+          )} */}
           <Box
             paddingTop="xl"
             paddingHorizontal="s"
