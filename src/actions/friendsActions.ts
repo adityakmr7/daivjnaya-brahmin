@@ -161,7 +161,7 @@ export const friendUidUnfriend = (userId: number) => (dispatch: any) => {
   });
   const _rest = new restServices();
   _rest
-    .post(`/friend/${userId}/unfriend`, {})
+    .put(`/friend/${userId}/unfriend`, {})
     .then((res) => {
       dispatch({
         type: PUT_FRIEND_UID_UNFRIEND_SUCCESS,

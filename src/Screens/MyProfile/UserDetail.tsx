@@ -22,7 +22,10 @@ import {
   RoundedBorderButton,
 } from "./components";
 import RBSheet from "react-native-raw-bottom-sheet";
-import { getFriendFriends } from "../../actions/friendsActions";
+import {
+  friendUidUnfriend,
+  getFriendFriends,
+} from "../../actions/friendsActions";
 import { friendListProps } from "./interfaces";
 import PostListComponent from "./components/PostListComponent";
 import { getUsersPostById } from "../../actions/postActions";
@@ -34,6 +37,7 @@ interface UserDetailProps {
   friend: any;
   postUser: any;
   getUsersPostById: (userId: number) => void;
+  friendUidUnfriend: (userId: number) => void;
   detail: {
     userDetailByIdLoading: boolean;
     userDetailByIdError: boolean;
@@ -74,6 +78,7 @@ const UserDetail = ({
   friend,
   getUsersPostById,
   postUser,
+  friendUidUnfriend,
 }: UserDetailProps) => {
   const { id } = route.params;
   useEffect(() => {
@@ -82,13 +87,6 @@ const UserDetail = ({
     getUsersPostById(id);
   }, [id]);
 
-  useLayoutEffect(() => {
-    if (firstName && lastName) {
-      navigation.setOptions({
-        title: `${firstName} ${lastName}`,
-      });
-    }
-  }, []);
   const { userDetailByIdLoading, userDetailById, userDetailByIdError } = detail;
   const refRBSheet = useRef<any | undefined>();
   const {
@@ -105,6 +103,14 @@ const UserDetail = ({
   } = userDetailById;
   const { friendsFriend, friendsFriendError } = friend;
   const { postUserLoading, postUserPostId, postUserError } = postUser;
+
+  useLayoutEffect(() => {
+    if (firstName && lastName) {
+      navigation.setOptions({
+        title: `${firstName} ${lastName}`,
+      });
+    }
+  }, []);
   let buttonLabel: string = "";
   if (isFriendRequested) {
     buttonLabel = "Friend Requested";
@@ -114,7 +120,15 @@ const UserDetail = ({
     buttonLabel = "Add Friend";
   }
   const handleDrawer = () => refRBSheet.current.open();
-
+  const handleFriendActions = (userId: number) => {
+    if (isFriend) {
+      friendUidUnfriend(userId);
+    } else if (isFriendRequested) {
+      // TODO: isFriend
+    } else {
+      // TODO: add As Friend Here
+    }
+  };
   if (userDetailByIdLoading) {
     return (
       <Box flex={1} justifyContent="center" alignItems="center">
@@ -184,7 +198,10 @@ const UserDetail = ({
                 top: 80,
               }}
             >
-              <RoundedBorderButton label={buttonLabel} onPress={() => {}} />
+              <RoundedBorderButton
+                label={buttonLabel}
+                onPress={() => handleFriendActions(id)}
+              />
             </Box>
           </Box>
           {/* {userDetailById && (
@@ -313,5 +330,6 @@ const mapDispatchToProps = (dispatch: any) => ({
   getDetail: (userId: number) => dispatch(getUserDetailById(userId)),
   getFriend: (userId: number) => dispatch(getFriendFriends(userId)),
   getUsersPostById: (userId: number) => dispatch(getUsersPostById(userId)),
+  friendUidUnfriend: (userId: number) => dispatch(friendUidUnfriend(userId)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail);
