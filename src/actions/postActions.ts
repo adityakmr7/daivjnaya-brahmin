@@ -56,7 +56,7 @@ const getMediaUrl = async (source: string) => {
   const token = await _rest.getAccessToken();
   var config: AxiosRequestConfig = {
     method: "post",
-    url: "http://3.128.109.207/post/media",
+    url: "http://3.6.104.144/post/media",
     headers: {
       Authorization: "Bearer " + token,
       "Content-Type": "multipart/form-data",

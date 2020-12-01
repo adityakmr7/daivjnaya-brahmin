@@ -107,7 +107,7 @@ async function makeRefreshTokenCall() {
     body: data,
     redirect: "follow",
   };
-  fetch("http://3.128.109.207/oauth/token", requestOptions)
+  fetch("http://3.6.104.144/oauth/token", requestOptions)
     .then((res) => res.json())
     .then((result) => {
       if (result.error) {

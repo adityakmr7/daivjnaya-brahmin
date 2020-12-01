@@ -86,7 +86,7 @@ export const updateUserProfilePicture = (url: string) => async (
   const token = await _rest.getAccessToken();
   var config: AxiosRequestConfig = {
     method: "put",
-    url: "http://3.128.109.207/user/profilePic",
+    url: "http://3.6.104.144/user/profilePic",
     headers: {
       Authorization: "Bearer " + token,
       "Content-Type": "multipart/form-data",
@@ -121,7 +121,7 @@ export const updateCoverProfile = (url: string) => async (dispatch: any) => {
   const token = await _rest.getAccessToken();
   var config: AxiosRequestConfig = {
     method: "put",
-    url: "http://3.128.109.207/user/coverPic",
+    url: "http://3.6.104.144/user/coverPic",
     headers: {
       Authorization: "Bearer " + token,
       "Content-Type": "multipart/form-data",

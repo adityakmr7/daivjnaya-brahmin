@@ -1,6 +1,6 @@
 //authentication
-export const _sign_in_user = "http://3.128.109.207/signup";
-export const _login_user = "http://3.128.109.207/oauth/token";
+export const _sign_in_user = "http://3.6.104.144/signup";
+export const _login_user = "http://3.6.104.144/oauth/token";
 
 // User Controller
 export const _user_get_user = "/user";

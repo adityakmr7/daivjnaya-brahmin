@@ -33,7 +33,7 @@ export const userSignup = (
 
   let config: AxiosRequestConfig = {
     method: "post",
-    url: "http://3.128.109.207/signup",
+    url: "http://3.6.104.144/signup",
     headers: {
       "Content-Type": "application/json",
     },
