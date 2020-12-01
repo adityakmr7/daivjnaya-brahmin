@@ -1,4 +1,8 @@
-import { RouteProp } from "@react-navigation/native";
+import {
+  RouteProp,
+  useFocusEffect,
+  useIsFocused,
+} from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { ActivityIndicator, Dimensions, Platform, Image } from "react-native";
@@ -23,6 +27,8 @@ import {
 } from "./components";
 import RBSheet from "react-native-raw-bottom-sheet";
 import {
+  friendUidAcceptRequestCancel,
+  friendUidRequest,
   friendUidUnfriend,
   getFriendFriends,
 } from "../../actions/friendsActions";
@@ -38,6 +44,7 @@ interface UserDetailProps {
   postUser: any;
   getUsersPostById: (userId: number) => void;
   friendUidUnfriend: (userId: number) => void;
+  friendUidRequest: (userId: number) => void;
   detail: {
     userDetailByIdLoading: boolean;
     userDetailByIdError: boolean;
@@ -66,6 +73,7 @@ interface UserDetailProps {
     };
   };
   getDetail: (userId: number) => void;
+  friendUidAcceptRequestCancel: (userId: number) => void;
 }
 const { width: wWidth } = Dimensions.get("window");
 
@@ -79,6 +87,8 @@ const UserDetail = ({
   getUsersPostById,
   postUser,
   friendUidUnfriend,
+  friendUidRequest,
+  friendUidAcceptRequestCancel,
 }: UserDetailProps) => {
   const { id } = route.params;
   useEffect(() => {
@@ -104,13 +114,14 @@ const UserDetail = ({
   const { friendsFriend, friendsFriendError } = friend;
   const { postUserLoading, postUserPostId, postUserError } = postUser;
 
-  useLayoutEffect(() => {
+  const isFocused = useIsFocused();
+  useEffect(() => {
     if (firstName && lastName) {
       navigation.setOptions({
         title: `${firstName} ${lastName}`,
       });
     }
-  }, []);
+  }, [firstName, lastName]);
   let buttonLabel: string = "";
   if (isFriendRequested) {
     buttonLabel = "Friend Requested";
@@ -124,9 +135,9 @@ const UserDetail = ({
     if (isFriend) {
       friendUidUnfriend(userId);
     } else if (isFriendRequested) {
-      // TODO: isFriend
+      friendUidAcceptRequestCancel(userId);
     } else {
-      // TODO: add As Friend Here
+      friendUidRequest(userId);
     }
   };
   if (userDetailByIdLoading) {
@@ -331,5 +342,8 @@ const mapDispatchToProps = (dispatch: any) => ({
   getFriend: (userId: number) => dispatch(getFriendFriends(userId)),
   getUsersPostById: (userId: number) => dispatch(getUsersPostById(userId)),
   friendUidUnfriend: (userId: number) => dispatch(friendUidUnfriend(userId)),
+  friendUidRequest: (userId: number) => dispatch(friendUidRequest(userId)),
+  friendUidAcceptRequestCancel: (userId: number) =>
+    dispatch(friendUidAcceptRequestCancel(userId)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail);

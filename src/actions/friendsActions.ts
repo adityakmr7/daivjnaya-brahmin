@@ -166,6 +166,7 @@ export const friendUidUnfriend = (userId: number) => (dispatch: any) => {
       dispatch({
         type: PUT_FRIEND_UID_UNFRIEND_SUCCESS,
         payload: res,
+        userId: userId,
       });
     })
     .catch((err) => {
