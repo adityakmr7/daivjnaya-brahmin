@@ -31,13 +31,6 @@ const SeeAllFriends = ({
   allFriends,
   friendList,
 }: SeeAllFriendsProps) => {
-  const { username } = route.params;
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      title: username ? username : "",
-    });
-  }, [navigation]);
-
   React.useEffect(() => {
     allFriends();
   }, []);

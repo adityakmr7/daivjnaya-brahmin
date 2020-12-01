@@ -29,7 +29,6 @@ const ProfileStack = () => {
       <AppStack.Screen name="Profile" component={MyProfile} />
       <AppStack.Screen name="Comment" component={Comment} />
       <AppStack.Screen name="FriendList" component={SeeAllFriends} />
-      <AppStack.Screen name="UserDetail" component={UserDetail} />
 
       <AppStack.Screen
         name="EditProfile"
@@ -60,6 +59,14 @@ const MessageStack = () => {
   );
 };
 
+const UserFriendStack = () => {
+  return (
+    <AppStack.Navigator>
+      <AppStack.Screen name="UserFriends" component={SeeAllFriends} />
+      <AppStack.Screen name="UserDetail" component={UserDetail} />
+    </AppStack.Navigator>
+  );
+};
 const TabNavigation = ({}) => {
   return (
     <Tab.Navigator
@@ -69,7 +76,7 @@ const TabNavigation = ({}) => {
 
           if (route.name === "Profile") {
             iconName = focused ? "user" : "user";
-          } else if (route.name === "Videos") {
+          } else if (route.name === "UserFriends") {
             iconName = focused ? "users" : "users";
           } else if (route.name === "Gallery") {
             iconName = focused ? "image" : "image";
@@ -93,9 +100,9 @@ const TabNavigation = ({}) => {
         component={ProfileStack}
       />
       <Tab.Screen
-        options={{ tabBarLabel: "Videos" }}
-        name="Videos"
-        component={VideoStack}
+        options={{ tabBarLabel: "Friend" }}
+        name="UserFriends"
+        component={UserFriendStack}
       />
       <Tab.Screen
         options={{ tabBarLabel: "Gallery" }}

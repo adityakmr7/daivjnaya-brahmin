@@ -196,9 +196,9 @@ const UserDetail = ({
                 <Box>
                   <Box flexDirection="row" alignItems="center">
                     <Ionicons name="ios-school" size={20} color="black" />
-                    <Text paddingHorizontal="l">
-                      {companyName !== null ? companyName : ""}
-                    </Text>
+                    {companyName !== null ? (
+                      <Text paddingHorizontal="l">{companyName}</Text>
+                    ) : null}
                   </Box>
                   <Box flexDirection="row" alignItems="center">
                     <MaterialIcons
