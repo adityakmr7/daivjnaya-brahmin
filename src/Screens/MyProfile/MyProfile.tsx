@@ -248,7 +248,7 @@ const MyProfile = ({
                 {`${_embedded ? _embedded.userResourceList.length : 0} Friends`}
               </Text>
             </Box>
-            <TouchableWithoutFeedback
+            {/* <TouchableWithoutFeedback
               onPress={() =>
                 navigation.navigate("FriendList", {
                   username: `${firstName} ${lastName}`,
@@ -256,7 +256,7 @@ const MyProfile = ({
               }
             >
               <Text variant="seeAll">See all</Text>
-            </TouchableWithoutFeedback>
+            </TouchableWithoutFeedback> */}
           </Box>
           <Box paddingHorizontal="s" paddingTop="l">
             {_embedded ? (
