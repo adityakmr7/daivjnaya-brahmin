@@ -49,7 +49,8 @@ const SeeAllFriends = ({
 
   const [searchText, setSearchText] = useState<string>("");
   const handleChangeText = (text: string) => {
-    setSearchText(text);
+    const formatText = text.toLowerCase();
+    setSearchText(formatText);
   };
   useEffect(() => {
     getAllUser(searchText);

@@ -62,7 +62,11 @@ const MessageStack = () => {
 const UserFriendStack = () => {
   return (
     <AppStack.Navigator>
-      <AppStack.Screen name="UserFriends" component={SeeAllFriends} />
+      <AppStack.Screen
+        options={{ title: "Users" }}
+        name="UserFriends"
+        component={SeeAllFriends}
+      />
       <AppStack.Screen name="UserDetail" component={UserDetail} />
     </AppStack.Navigator>
   );
