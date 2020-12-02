@@ -176,6 +176,7 @@ export const getAllUser = (q: string) => (dispatch: any) => {
   _rest
     .get(`/user/search/?q=${q}`)
     .then((res) => {
+      console.log("getAllUser", res);
       dispatch({
         type: GET_ALL_USER_SUCCESS,
         payload: res.data,

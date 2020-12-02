@@ -22,6 +22,7 @@ const initialState = {
   //All members
   allMemberLoading: false,
   allMembers: [],
+  members: "",
   allMemberError: "",
 };
 
@@ -84,6 +85,7 @@ const userReducer = (state = initialState, action: any) => {
         ...state,
         allMemberLoading: false,
         allMembers: action.payload,
+        members: action.payload._embedded.userResourceList,
         allMemberError: "",
       };
     case GET_ALL_USER_ERROR:
