@@ -1,20 +1,12 @@
-import {
-  RouteProp,
-  useFocusEffect,
-  useIsFocused,
-} from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import { RouteProp, useIsFocused } from "@react-navigation/native";
+import React, { useEffect, useRef } from "react";
 import { ActivityIndicator, Dimensions, Platform, Image } from "react-native";
 import {
-  RectButton,
   ScrollView,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
-import { Feather as Icon, Ionicons, MaterialIcons } from "@expo/vector-icons";
-
+import { Feather as Icon } from "@expo/vector-icons";
 import { connect } from "react-redux";
-import IntroSection from "../MyProfile/components/IntroSection";
 import { getUserDetailById } from "../../actions/userActions";
 import { Box, Text } from "../../components";
 import { AppRoutes } from "../../components/NavigationRoutes";
@@ -275,7 +267,7 @@ const UserDetail = ({
             </TouchableWithoutFeedback> */}
           </Box>
           <Box paddingHorizontal="s" paddingTop="l">
-            {friendsFriend !== "" ? (
+            {friendsFriend ? (
               <Box
                 marginBottom="s"
                 flexDirection="row"

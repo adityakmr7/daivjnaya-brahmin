@@ -66,13 +66,13 @@ export default (state = initialState, action: any) => {
         friendsFriendError: "Error loading",
       };
     case PUT_FRIEND_UID_UNFRIEND_SUCCESS:
-      console.log("friendfriend", state.friendsFriend);
-      const updateFriendListList = state.friendsFriend.map((item) =>
-        item.uId === action.userId ? { ...item, isFriend: false } : item
-      );
+      const { friendsFriend } = state;
+      const updateFriendListList = { ...friendsFriend, isFriend: false };
+
+      console.log("updateFriendListList", updateFriendListList);
       return {
         ...state,
-        friendsFriend: updateFriendListList,
+        friendsFriend: [...updateFriendListList],
       };
     default:
       return {
