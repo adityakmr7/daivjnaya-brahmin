@@ -188,7 +188,6 @@ export const getAllFriendRequest = () => (dispatch: any) => {
   _rest
     .get(`/friend/request`)
     .then((res) => {
-      console.log("friendRque", res.data);
       dispatch({
         type: GET_ALL_FRIEND_REQUEST_SUCCESS,
         payload: res.data,

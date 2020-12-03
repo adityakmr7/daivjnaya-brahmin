@@ -312,11 +312,11 @@ const MyProfile = ({
           </Box>
           {userProfileData && <IntroSection {...userProfileData} />}
 
-          <Box height={wHeight - 0.9 * wHeight} paddingTop="xl">
+          <Box height={wHeight - 0.8 * wHeight} paddingTop="xl">
             {friendRequestLoading ? (
               <ActivityIndicator />
             ) : (
-              <Box height={wHeight - 0.9 * wHeight}>
+              <Box height={wHeight - 0.8 * wHeight}>
                 <FlatList
                   data={friendRequest}
                   renderItem={renderItem}
