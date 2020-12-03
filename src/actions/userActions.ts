@@ -174,7 +174,7 @@ export const getAllUser = (q: string) => (dispatch: any) => {
   });
   const _rest = new restServices();
   _rest
-    .get(`http://3.6.104.144/user/search?page=1&size=20&q=${q}`)
+    .get(`/user/search?page=1&size=20&q=${q}`)
     .then((res) => {
       console.log("getAllUser", res);
       dispatch({
