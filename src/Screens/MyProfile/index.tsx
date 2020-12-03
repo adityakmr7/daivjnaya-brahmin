@@ -104,7 +104,7 @@ const TabNavigation = ({}) => {
         name="UserFriends"
         component={UserFriendStack}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         options={{ tabBarLabel: "Gallery" }}
         name="Gallery"
         component={GalleryStack}
@@ -113,7 +113,7 @@ const TabNavigation = ({}) => {
         options={{ tabBarLabel: "Message" }}
         name="Message"
         component={MessageStack}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };

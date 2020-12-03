@@ -50,7 +50,7 @@ const AppNavigation = (props: any) => {
               headerRight: () => {
                 return (
                   <Box flexDirection={"row"} paddingHorizontal="s">
-                    <Box paddingHorizontal="s">
+                    {/* <Box paddingHorizontal="s">
                       <RectButton
                         onPress={() => navigation.navigate("Notification")}
                         style={{
@@ -73,7 +73,7 @@ const AppNavigation = (props: any) => {
                         />
                         <Icon name="bell" size={20} color={"black"} />
                       </RectButton>
-                    </Box>
+                    </Box> */}
                     <Box>
                       <RectButton
                         onPress={() => props.logout()}

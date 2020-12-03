@@ -45,7 +45,7 @@ const NewsEventUpcoming = ({}: NewsEventUpcomingProps) => {
         backgroundColor="mainBackground"
         paddingVertical="s"
       >
-        <Text>Coming Soon</Text>
+        {/* <Text>Coming Soon</Text> */}
       </Box>
     </Box>
   );

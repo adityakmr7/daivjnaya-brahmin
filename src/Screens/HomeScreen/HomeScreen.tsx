@@ -111,7 +111,7 @@ const HomeScreen = ({
           marginHorizontal="l"
           justifyContent="space-between"
         >
-          <IconNavigator
+          {/* <IconNavigator
             onPress={() => navigation.navigate("B2b")}
             image={require("../../../assets/images/shake.png")}
             subtitle="B2B"
@@ -125,7 +125,7 @@ const HomeScreen = ({
             onPress={() => navigation.navigate("Careers")}
             image={require("../../../assets/images/briefcase.png")}
             subtitle="Careers & Talent"
-          />
+          /> */}
         </Box>
         <SectionHeader
           onPress={() => navigation.navigate("NewsEvent")}
@@ -195,7 +195,7 @@ const HomeScreen = ({
         null}
         <Box padding="l">
           <Box>
-            <Text variant="silentText">1 Month free subscribe</Text>
+            {/* <Text variant="silentText">1 Month free subscribe</Text> */}
           </Box>
         </Box>
       </ScrollView>
