@@ -57,6 +57,7 @@ const SeeAllFriends = ({
   }, [searchText]);
 
   const renderItem = ({ item }: { item: friendListProps }) => {
+    console.log("renderItem", item);
     return (
       <RectButton
         onPress={() =>
@@ -66,9 +67,13 @@ const SeeAllFriends = ({
         }
       >
         <Box
+          borderColor="greyish"
+          padding="m"
+          borderWidth={0.5}
           marginVertical="m"
           flexDirection="row"
           justifyContent="space-between"
+          alignItems="center"
         >
           <Box flexDirection="row" alignItems="center">
             {item._links ? (
@@ -85,9 +90,9 @@ const SeeAllFriends = ({
               <Text variant="sectionTitle">
                 {item.firstName} {item.lastName}
               </Text>
-              <Text fontSize={10} variant="silentText">
+              {/* <Text fontSize={10} variant="silentText">
                 5 mutual Friends
-              </Text>
+              </Text> */}
             </Box>
           </Box>
           <Box>
