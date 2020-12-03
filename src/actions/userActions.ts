@@ -12,6 +12,9 @@ import {
   GET_USER_DETAIL_BY_ID_LOADING,
   GET_USER_DETAIL_BY_ID_SUCCESS,
   GET_USER_DETAIL_BY_ID_ERROR,
+  GET_ALL_USER_SUCCESS,
+  GET_ALL_USER_ERROR,
+  GET_ALL_USER_LOADING,
 } from "./constants/userConstants";
 import axios, { AxiosRequestConfig } from "axios";
 import restServices from "../services/restServices";
@@ -160,6 +163,28 @@ export const getUserDetailById = (userId: number) => (dispatch: any) => {
     .catch((err) => {
       dispatch({
         type: GET_USER_DETAIL_BY_ID_ERROR,
+        error: err,
+      });
+    });
+};
+
+export const getAllUser = (q: string) => (dispatch: any) => {
+  dispatch({
+    type: GET_ALL_USER_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get(`http://3.6.104.144/user/search?page=1&size=20&q=${q}`)
+    .then((res) => {
+      console.log("getAllUser", res);
+      dispatch({
+        type: GET_ALL_USER_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ALL_USER_ERROR,
         error: err,
       });
     });

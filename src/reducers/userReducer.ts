@@ -1,4 +1,7 @@
 import {
+  GET_ALL_USER_ERROR,
+  GET_ALL_USER_LOADING,
+  GET_ALL_USER_SUCCESS,
   GET_USER_DETAIL_BY_ID_ERROR,
   GET_USER_DETAIL_BY_ID_LOADING,
   GET_USER_DETAIL_BY_ID_SUCCESS,
@@ -16,6 +19,11 @@ const initialState = {
   userDetailByIdLoading: false,
   userDetailById: "",
   userDetailByIdError: "",
+  //All members
+  allMemberLoading: false,
+  allMembers: [],
+  members: "",
+  allMemberError: "",
 };
 
 const userReducer = (state = initialState, action: any) => {
@@ -65,6 +73,28 @@ const userReducer = (state = initialState, action: any) => {
         error: action.error,
       };
 
+    case GET_ALL_USER_LOADING:
+      return {
+        ...state,
+        allMemberLoading: true,
+        allMembers: [],
+        allMemberError: "",
+      };
+    case GET_ALL_USER_SUCCESS:
+      return {
+        ...state,
+        allMemberLoading: false,
+        allMembers: action.payload,
+        members: action.payload._embedded.userResourceList,
+        allMemberError: "",
+      };
+    case GET_ALL_USER_ERROR:
+      return {
+        ...state,
+        allMemberLoading: false,
+        allMembers: [],
+        allMemberError: "Something Went Wrong",
+      };
     default:
       return {
         ...state,
