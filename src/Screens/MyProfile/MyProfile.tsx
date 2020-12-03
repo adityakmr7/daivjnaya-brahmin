@@ -7,6 +7,7 @@ import { Feather as Icon } from "@expo/vector-icons";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { connect } from "react-redux";
 import {
+  FlatList,
   RectButton,
   ScrollView,
   TouchableWithoutFeedback,
@@ -27,7 +28,11 @@ import { getAllPost, postIdPostLike } from "../../actions/postActions";
 import * as ImagePicker from "expo-image-picker";
 import { useIsFocused } from "@react-navigation/native";
 import PostListComponent from "./components/PostListComponent";
-import { getAllFriends } from "../../actions/friendsActions";
+import {
+  friendUidRequest,
+  getAllFriendRequest,
+  getAllFriends,
+} from "../../actions/friendsActions";
 import { friendListProps, userProfileProps } from "./interfaces";
 
 interface MyProfileProps {
@@ -43,7 +48,11 @@ interface MyProfileProps {
     allFriendList: { _embedded: { userResourceList: [friendListProps] } };
     loading: boolean;
     error: string;
+    friendRequestLoading: boolean;
+    friendRequest: any;
+    friendRequestError: string;
   };
+  getAllRequestList: () => void;
 }
 
 const MyProfile = ({
@@ -56,6 +65,7 @@ const MyProfile = ({
   getAllPost,
   allFriends,
   friendList,
+  getAllRequestList,
 }: MyProfileProps) => {
   const { width: wWidth } = Dimensions.get("window");
 
@@ -75,11 +85,20 @@ const MyProfile = ({
     getUserDetail();
     getPostList();
     allFriends();
+    getAllRequestList();
   }, [isFocused]);
 
   const { loading, userProfileData } = profileData;
-  const { _links, firstName, lastName } = userProfileData;
-  const { loading: friendLoading, allFriendList, error } = friendList;
+  const { _links, firstName, lastName, uId } = userProfileData;
+  const {
+    loading: friendLoading,
+    allFriendList,
+    error,
+    friendRequestLoading,
+    friendRequest,
+    friendRequestError,
+  } = friendList;
+
   const { _embedded } = allFriendList;
   useEffect(() => {
     if (_links) {
@@ -130,6 +149,62 @@ const MyProfile = ({
         }
       }
     }
+  };
+  const { height: wHeight } = Dimensions.get("window");
+  const renderItem = ({ item }: { item: any }) => {
+    console.log("renderItem", item);
+    //     creationDate: "2020-12-03"
+    // frId: 8
+    // fromUserId: 6
+    // fromUsername: "Testing hello kumar kumar"
+    // message: null
+    // requestedDate: "2020-12-03"
+    // toUserId: 6
+    // toUsername: "Testing hello kumar kumar"
+    // updatedDate: "2020-12-03"
+    return (
+      // <RectButton
+      //   onPress={() =>
+      //     navigation.navigate("UserDetail", {
+      //       id: item.uId,
+      //     })
+      //   }
+      // >
+      <Box
+        borderColor="greyish"
+        padding="m"
+        borderWidth={0.5}
+        marginVertical="m"
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Box flexDirection="row" alignItems="center">
+          {item._links ? (
+            <Image
+              style={{
+                width: wWidth / 6,
+                height: wWidth / 6,
+                borderRadius: wWidth / 12,
+              }}
+              source={{ uri: item._links.profilePic.href }}
+            />
+          ) : null}
+          <Box paddingHorizontal="s">
+            <Text variant="sectionTitle">
+              {item.fromUsername} {item.lastName}
+            </Text>
+            <Text fontSize={10} variant="silentText">
+              5 mutual Friends
+            </Text>
+          </Box>
+        </Box>
+        <Box>
+          <Icon size={26} name="more-horizontal" />
+        </Box>
+      </Box>
+      // </RectButton>
+    );
   };
 
   if (loading) {
@@ -236,6 +311,20 @@ const MyProfile = ({
             </Box>
           </Box>
           {userProfileData && <IntroSection {...userProfileData} />}
+
+          <Box height={wHeight - 0.9 * wHeight} paddingTop="xl">
+            {friendRequestLoading ? (
+              <ActivityIndicator />
+            ) : (
+              <Box height={wHeight - 0.9 * wHeight}>
+                <FlatList
+                  data={friendRequest}
+                  renderItem={renderItem}
+                  keyExtractor={(item: friendListProps) => item.frId.toString()}
+                />
+              </Box>
+            )}
+          </Box>
           <Box
             paddingTop="xl"
             paddingHorizontal="s"
@@ -331,6 +420,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   updateCoverImage: (url: string) => dispatch(updateCoverProfile(url)),
   allFriends: () => dispatch(getAllFriends()),
   likePost: (postId: number) => dispatch(postIdPostLike(postId)),
+  getAllRequestList: () => dispatch(getAllFriendRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);

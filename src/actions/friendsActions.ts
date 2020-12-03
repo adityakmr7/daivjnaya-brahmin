@@ -21,6 +21,9 @@ import {
   PUT_FRIEND_UID_UNFRIEND_ERROR,
   PUT_FRIEND_UID_UNFRIEND_SUCCESS,
   PUT_FRIEND_UID_UNFRIEND_LOADING,
+  GET_ALL_FRIEND_REQUEST_LOADING,
+  GET_ALL_FRIEND_REQUEST_SUCCESS,
+  GET_ALL_FRIEND_REQUEST_ERROR,
 } from "./constants/friendsConstant";
 
 export const getAllFriends = () => (dispatch: any) => {
@@ -172,6 +175,28 @@ export const friendUidUnfriend = (userId: number) => (dispatch: any) => {
     .catch((err) => {
       dispatch({
         type: PUT_FRIEND_UID_UNFRIEND_ERROR,
+        error: err,
+      });
+    });
+};
+
+export const getAllFriendRequest = () => (dispatch: any) => {
+  dispatch({
+    type: GET_ALL_FRIEND_REQUEST_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get(`/friend/request`)
+    .then((res) => {
+      console.log("friendRque", res.data);
+      dispatch({
+        type: GET_ALL_FRIEND_REQUEST_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ALL_FRIEND_REQUEST_ERROR,
         error: err,
       });
     });
