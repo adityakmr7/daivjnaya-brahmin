@@ -17,6 +17,7 @@ const initialState = {
   matrimonyBrideProfileList: [],
   matrimonyDetailProfile: [],
   detailLoading: false,
+  // Create
   error: "",
   createLoading: false,
   createError: "",
@@ -80,7 +81,7 @@ const matrimonyReducer = (state = initialState, action: any) => {
     case MATRIMONY_CREATED_ERROR:
       return {
         ...state,
-        createLoading: true,
+        createLoading: false,
         successMessage: "",
         createError: action.error,
       };
