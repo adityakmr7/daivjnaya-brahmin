@@ -28,12 +28,13 @@ import { createMatrimonyProps } from "./interface";
 import { createMatrimonyProfile } from "../../actions/matrimonyActions";
 import * as ImagePicker from "expo-image-picker";
 import { useToast } from "react-native-styled-toast";
+import restServices from "../../services/restServices";
 
 interface MatrimonyRegisterProps {
   navigation: StackNavigationProps<"EditProfile">;
   route: StackNavigationProps<"EditProfile">;
   matrimonyState: any;
-  registerMatrimony: (data: createMatrimonyProps) => void;
+  registerMatrimony: (data: createMatrimonyProps, navigation) => void;
 }
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
@@ -88,11 +89,12 @@ const MatrimonyRegister = ({
       livesIn: "",
       about: "",
       interest: "",
-      gender: "",
+      gender: "MALE",
+      image: "",
     },
     onSubmit: async (values) => {
       const val: createMatrimonyProps = {
-        image: imageUri,
+        image: values.image,
         firstName: values.firstName,
         lastName: values.lastName,
         email: values.email,
@@ -105,8 +107,8 @@ const MatrimonyRegister = ({
         interest: values.interest,
         gender: values.gender.toUpperCase(),
       };
-      //TODO: add picker here
-      registerMatrimony(val);
+
+      registerMatrimony(val, navigation);
 
       if (successMessage !== "") {
         toast({
@@ -148,6 +150,10 @@ const MatrimonyRegister = ({
 
         if (!result.cancelled) {
           setImageUri(result.uri);
+          const _rest = new restServices();
+          const imageUrl = await _rest.getMediaUrl(result.uri);
+
+          await setFieldValue("image", imageUrl.data.url);
         }
       }
     }
@@ -308,8 +314,8 @@ function mapStateToProps(state: any) {
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  registerMatrimony: (data: createMatrimonyProps) =>
-    dispatch(createMatrimonyProfile(data)),
+  registerMatrimony: (data: createMatrimonyProps, navigation: any) =>
+    dispatch(createMatrimonyProfile(data, navigation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MatrimonyRegister);

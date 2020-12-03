@@ -65,22 +65,15 @@ export const getAllMatrimonyBrideProfile = (gender: string = "FEMALE") => (
     });
 };
 
-export const createMatrimonyProfile = (data: createMatrimonyProps) => async (
-  dispatch: any
-) => {
+export const createMatrimonyProfile = (
+  data: createMatrimonyProps,
+  navigation: any
+) => async (dispatch: any) => {
   dispatch({
     type: MATRIMONY_CREATING,
   });
-  const _rest = new restServices();
-  const image = await _rest.getMediaUrl(data.image);
-
   const dataToSend = JSON.stringify({
-    images: [
-      {
-        image: image.data.url,
-      },
-    ],
-
+    images: [{ image: data.image }],
     firstName: data.firstName,
     lastName: data.lastName,
     email: data.email,
@@ -93,6 +86,8 @@ export const createMatrimonyProfile = (data: createMatrimonyProps) => async (
     interest: data.interest,
     gender: data.gender,
   });
+  const _rest = new restServices();
+  console.log("dataToSend", dataToSend);
   _rest
     .post("/matrimony/profile", dataToSend)
     .then((res) => {
@@ -100,6 +95,16 @@ export const createMatrimonyProfile = (data: createMatrimonyProps) => async (
         type: MATRIMONY_CREATED_SUCCESS,
         payload: res.data,
       });
+      if (data.gender === "MALE") {
+        navigation.navigate("Matrimony", {
+          screen: "Groom",
+        });
+      } else {
+        console.log("gender", data.gender);
+        navigation.navigate("Matrimony", {
+          screen: "Bride",
+        });
+      }
     })
     .catch((err) => {
       dispatch({
