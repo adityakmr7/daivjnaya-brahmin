@@ -152,7 +152,6 @@ const MyProfile = ({
   };
   const { height: wHeight } = Dimensions.get("window");
   const renderItem = ({ item }: { item: any }) => {
-    console.log("renderItem", item);
     //     creationDate: "2020-12-03"
     // frId: 8
     // fromUserId: 6
@@ -199,8 +198,28 @@ const MyProfile = ({
             </Text>
           </Box>
         </Box>
-        <Box>
-          <Icon size={26} name="more-horizontal" />
+        <Box
+          flex={0.6}
+          justifyContent="space-between"
+          flexDirection="row"
+          alignItems="center"
+        >
+          <Box
+            borderColor="greyish"
+            borderWidth={0.5}
+            borderRadius="xl"
+            padding="s"
+          >
+            <Icon name="x" color="red" size={20} />
+          </Box>
+          <Box
+            borderColor="greyish"
+            borderWidth={0.5}
+            borderRadius="xl"
+            padding="s"
+          >
+            <Icon name="check" color="blue" size={20} />
+          </Box>
         </Box>
       </Box>
       // </RectButton>
