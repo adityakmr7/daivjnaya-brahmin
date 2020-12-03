@@ -20,7 +20,7 @@ interface SeeAllFriendsProps {
   navigation: StackNavigationProp<AppRoutes, "FriendList">;
   route: RouteProp<AppRoutes, "FriendList">;
   allFriends: () => void;
-  getAllUser: () => void;
+  getAllUser: (q: string) => void;
   friendList: {
     allFriendList: { _embedded: { userResourceList: [friendListProps] } };
     loading: boolean;
