@@ -8,7 +8,8 @@ const IntroSection = ({
   lastName,
   companyName,
   city,
-  address,
+  education,
+  about,
 }: userProfileProps) => {
   // const { firstName, lastName, companyName, city, address } = userProfileData;
   return (
@@ -21,12 +22,12 @@ const IntroSection = ({
           <Box flexDirection="row" alignItems="center">
             <Ionicons name="ios-school" size={20} color="black" />
             <Text paddingHorizontal="l">
-              {companyName !== null ? companyName : ""}
+              Studied: {education !== null ? education : ""}
             </Text>
           </Box>
           <Box flexDirection="row" alignItems="center">
             <MaterialIcons name="business-center" size={20} color="black" />
-            <Text paddingHorizontal="l">{city !== null ? city : ""}</Text>
+            <Text paddingHorizontal="l">Works At: {companyName !== null ? companyName : ""}</Text>
           </Box>
           <Box flexDirection="row" alignItems="center">
             <MaterialIcons
@@ -34,7 +35,15 @@ const IntroSection = ({
               size={20}
               color="black"
             />
-            <Text paddingHorizontal="l">{address !== null ? address : ""}</Text>
+            <Text paddingHorizontal="l">Lives in: {city !== null ? city : ""}</Text>
+          </Box>
+          <Box flexDirection="row" alignItems="center">
+            <MaterialIcons
+              name="info"
+              size={20}
+              color="black"
+            />
+            <Text paddingHorizontal="l">About: {about !== null ? about : ""}</Text>
           </Box>
         </Box>
       </Box>

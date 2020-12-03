@@ -276,7 +276,7 @@ const MyProfile = ({
               </Box>
             ) : (
               <Box>
-                <Text>No Friends</Text>
+                {/* <Text>No Friends</Text> */}
               </Box>
             )}
           </Box>

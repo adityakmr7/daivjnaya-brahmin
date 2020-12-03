@@ -42,7 +42,7 @@ const MatrimonyHorizontalCard = ({ item, onPress }: HorizontalCardProps) => {
           {item.images.length > 0 ? (
             <Box>
               <Image
-                style={{ height: 139, width: 108 }}
+                style={{ height: 100, width: 100 }}
                 source={{
                   uri: item.images[0]._links.image.href,
                 }}
@@ -54,26 +54,31 @@ const MatrimonyHorizontalCard = ({ item, onPress }: HorizontalCardProps) => {
               justifyContent="center"
               alignItems="center"
               backgroundColor="grey"
-              height={139}
-              width={108}
+              height={100}
+              width={100}
             >
               <Icon name="question" size={30} />
             </Box>
           )}
         </Box>
-        <Box width={wWidth - 100} marginHorizontal="xl">
-          <Text variant="sectionTitle">
+
+        <Box width={wWidth - 160} marginHorizontal="xl">
+          <Text variant="sectionTitle" style={{ marginTop: 8, marginRight: 5 }}>
             {item.firstName} {item.lastName}
           </Text>
-          <Text variant="sectionTitle">{item.interest}</Text>
+          {/* <Text variant="sectionTitle">{item.interest}</Text> */}
           <Text color="primaryText" variant="cardText">
-            {item.livesIn}
+          {item.designation}, {item.companyName}.
+          
+          </Text>
+          <Text color="primaryText" variant="cardText">
+          {item.livesIn}
+          
           </Text>
           <Text paddingVertical="s" color="primaryText" variant="cardText">
-            {item.about}
+            {/* {item.about} */}
           </Text>
-
-          <Text>View Full Detail</Text>
+          <Text style={{ textAlign: "right" }}>View Full Detail</Text>
         </Box>
       </Box>
       <Box
