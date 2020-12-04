@@ -113,7 +113,7 @@ export const friendUidRequest = (userId: number) => (dispatch: any) => {
       });
     });
 };
-
+// Accept Request
 export const friendUidAcceptRequest = (userId: number) => (dispatch: any) => {
   dispatch({
     type: POST_FRIEND_UID_ACCEPT_REQUEST_LOADING,
@@ -126,6 +126,7 @@ export const friendUidAcceptRequest = (userId: number) => (dispatch: any) => {
         type: POST_FRIEND_UID_ACCEPT_REQUEST_SUCCESS,
         payload: res,
       });
+      dispatch(getAllFriendRequest());
     })
     .catch((err) => {
       dispatch({
@@ -134,7 +135,7 @@ export const friendUidAcceptRequest = (userId: number) => (dispatch: any) => {
       });
     });
 };
-
+// Cancel request
 export const friendUidAcceptRequestCancel = (userId: number) => (
   dispatch: any
 ) => {
@@ -149,6 +150,7 @@ export const friendUidAcceptRequestCancel = (userId: number) => (
         type: POST_FRIEND_UID_ACCEPT_REQUEST_CANCEL_SUCCESS,
         payload: res,
       });
+      dispatch(getAllFriendRequest());
     })
     .catch((err) => {
       dispatch({
