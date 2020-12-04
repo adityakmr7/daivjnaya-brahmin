@@ -1,4 +1,7 @@
 import {
+  GET_ALL_FRIEND_REQUEST_ERROR,
+  GET_ALL_FRIEND_REQUEST_LOADING,
+  GET_ALL_FRIEND_REQUEST_SUCCESS,
   GET_FRIEND_FRIENDS_ERROR,
   GET_FRIEND_FRIENDS_LOADING,
   GET_FRIEND_FRIENDS_SUCCESS,
@@ -19,6 +22,10 @@ const initialState = {
   friendsFriend: "",
   friendsFriendArray: [],
   friendsFriendError: "",
+  // Friend Request
+  friendRequestLoading: false,
+  friendRequest: "",
+  friendRequestError: "",
 };
 
 export default (state = initialState, action: any) => {
@@ -73,6 +80,27 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         friendsFriend: [...updateFriendListList],
+      };
+    case GET_ALL_FRIEND_REQUEST_LOADING:
+      return {
+        ...state,
+        friendRequestLoading: true,
+        friendRequest: "",
+        friendRequestError: "",
+      };
+    case GET_ALL_FRIEND_REQUEST_SUCCESS:
+      return {
+        ...state,
+        friendRequestLoading: false,
+        friendRequest: action.payload._embedded.friendRequestResourceList,
+        friendRequestError: "",
+      };
+    case GET_ALL_FRIEND_REQUEST_ERROR:
+      return {
+        ...state,
+        friendRequestLoading: false,
+        friendRequest: "",
+        friendRequestError: "Something Went Wrong",
       };
     default:
       return {

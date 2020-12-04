@@ -125,9 +125,9 @@ const SeeAllFriends = ({
           )}
         </Box>
         <Box marginHorizontal="l" marginVertical="l">
-          {/* <Text variant="silentText" color="primaryText">
-          
-        </Text> */}
+          <Text variant="silentText" color="primaryText">
+            All Members
+          </Text>
           {members !== "" ? (
             <FlatList
               showsVerticalScrollIndicator={false}
