@@ -86,7 +86,7 @@ const userReducer = (state = initialState, action: any) => {
           return data.isFriend === false;
         }
       );
-      console.log("notFriend", notFriend);
+
       return {
         ...state,
         allMemberLoading: false,
