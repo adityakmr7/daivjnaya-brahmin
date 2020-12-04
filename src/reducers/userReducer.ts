@@ -81,11 +81,18 @@ const userReducer = (state = initialState, action: any) => {
         allMemberError: "",
       };
     case GET_ALL_USER_SUCCESS:
+      const notFriend = action.payload._embedded.userResourceList.filter(
+        (data: any) => {
+          return data.isFriend === false;
+        }
+      );
+      console.log("notFriend", notFriend);
       return {
         ...state,
         allMemberLoading: false,
         allMembers: action.payload,
-        members: action.payload._embedded.userResourceList,
+        // members: action.payload._embedded.userResourceList,
+        members: notFriend,
         allMemberError: "",
       };
     case GET_ALL_USER_ERROR:
