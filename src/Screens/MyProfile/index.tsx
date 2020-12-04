@@ -65,8 +65,8 @@ const MessageStack = () => {
 const FriendStack = () => {
   return (
     <TopTab.Navigator>
-      <TopTab.Screen name="ALL" component={AllMembers} />
-      <TopTab.Screen name="AllFriend" component={AllFriend} />
+      <TopTab.Screen name="Friends" component={AllFriend} />
+      <TopTab.Screen name="Members" component={AllMembers} />
     </TopTab.Navigator>
   );
 };
