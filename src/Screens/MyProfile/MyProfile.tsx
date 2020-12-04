@@ -29,6 +29,8 @@ import * as ImagePicker from "expo-image-picker";
 import { useIsFocused } from "@react-navigation/native";
 import PostListComponent from "./components/PostListComponent";
 import {
+  friendUidAcceptRequest,
+  friendUidAcceptRequestCancel,
   friendUidRequest,
   getAllFriendRequest,
   getAllFriends,
@@ -53,6 +55,8 @@ interface MyProfileProps {
     friendRequestError: string;
   };
   getAllRequestList: () => void;
+  fiendUidAcceptRequest: (userId: any) => void;
+  friendUidAcceptRequestCancel: (userId: any) => void;
 }
 
 const MyProfile = ({
@@ -66,9 +70,10 @@ const MyProfile = ({
   allFriends,
   friendList,
   getAllRequestList,
+  fiendUidAcceptRequest,
+  friendUidAcceptRequestCancel,
 }: MyProfileProps) => {
   const { width: wWidth } = Dimensions.get("window");
-
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
@@ -204,22 +209,30 @@ const MyProfile = ({
           flexDirection="row"
           alignItems="center"
         >
-          <Box
-            borderColor="greyish"
-            borderWidth={0.5}
-            borderRadius="xl"
-            padding="s"
+          <TouchableWithoutFeedback
+            onPress={() => friendUidAcceptRequestCancel(item.fromUserId)}
           >
-            <Icon name="x" color="red" size={20} />
-          </Box>
-          <Box
-            borderColor="greyish"
-            borderWidth={0.5}
-            borderRadius="xl"
-            padding="s"
+            <Box
+              borderColor="greyish"
+              borderWidth={0.5}
+              borderRadius="xl"
+              padding="s"
+            >
+              <Icon name="x" color="red" size={20} />
+            </Box>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback
+            onPress={() => fiendUidAcceptRequest(item.fromUserId)}
           >
-            <Icon name="check" color="blue" size={20} />
-          </Box>
+            <Box
+              borderColor="greyish"
+              borderWidth={0.5}
+              borderRadius="xl"
+              padding="s"
+            >
+              <Icon name="check" color="blue" size={20} />
+            </Box>
+          </TouchableWithoutFeedback>
         </Box>
       </Box>
       // </RectButton>
@@ -331,19 +344,23 @@ const MyProfile = ({
           </Box>
           {userProfileData && <IntroSection {...userProfileData} />}
 
-          <Box height={wHeight - 0.8 * wHeight} paddingTop="xl">
-            {friendRequestLoading ? (
-              <ActivityIndicator />
-            ) : (
-              <Box height={wHeight - 0.8 * wHeight}>
-                <FlatList
-                  data={friendRequest}
-                  renderItem={renderItem}
-                  keyExtractor={(item: friendListProps) => item.frId.toString()}
-                />
-              </Box>
-            )}
-          </Box>
+          {friendRequest.length > 0 ? (
+            <Box height={wHeight - 0.8 * wHeight} paddingTop="xl">
+              {friendRequestLoading ? (
+                <ActivityIndicator />
+              ) : (
+                <Box height={wHeight - 0.8 * wHeight}>
+                  <FlatList
+                    data={friendRequest}
+                    renderItem={renderItem}
+                    keyExtractor={(item: friendListProps) =>
+                      item.frId.toString()
+                    }
+                  />
+                </Box>
+              )}
+            </Box>
+          ) : null}
           <Box
             paddingTop="xl"
             paddingHorizontal="s"
@@ -440,6 +457,10 @@ const mapDispatchToProps = (dispatch: any) => ({
   allFriends: () => dispatch(getAllFriends()),
   likePost: (postId: number) => dispatch(postIdPostLike(postId)),
   getAllRequestList: () => dispatch(getAllFriendRequest()),
+  fiendUidAcceptRequest: (userId: any) =>
+    dispatch(friendUidAcceptRequest(userId)),
+  friendUidAcceptRequestCancel: (userId: any) =>
+    dispatch(friendUidAcceptRequestCancel(userId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);
