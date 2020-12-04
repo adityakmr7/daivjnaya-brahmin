@@ -12,8 +12,11 @@ import EditProfile from "./EditProfile";
 import Comment from "./Comment";
 import CreatePostScreen from "./CreatePostScreen";
 import UserDetail from "./UserDetail";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import AllMembers from "./AllMembers";
+import AllFriend from "./AllFriend";
 const Tab = createBottomTabNavigator();
-
+const TopTab = createMaterialTopTabNavigator();
 export const AppStack = createStackNavigator<AppRoutes>();
 const VideoStack = () => {
   return (
@@ -59,18 +62,33 @@ const MessageStack = () => {
   );
 };
 
+const FriendStack = () => {
+  return (
+    <TopTab.Navigator>
+      <TopTab.Screen name="ALL" component={AllMembers} />
+      <TopTab.Screen name="AllFriend" component={AllFriend} />
+    </TopTab.Navigator>
+  );
+};
 const UserFriendStack = () => {
   return (
     <AppStack.Navigator>
       <AppStack.Screen
-        options={{ title: "Users" }}
+        options={{
+          headerShown: true,
+          title: "Friends",
+          headerStyle: {
+            elevation: 0,
+          },
+        }}
         name="UserFriends"
-        component={SeeAllFriends}
+        component={FriendStack}
       />
       <AppStack.Screen name="UserDetail" component={UserDetail} />
     </AppStack.Navigator>
   );
 };
+
 const TabNavigation = ({}) => {
   return (
     <Tab.Navigator
