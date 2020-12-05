@@ -1,5 +1,6 @@
 import { RouteProp } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import {
   AppRoutes,
   StackNavigationProps,
@@ -8,6 +9,8 @@ import {
 interface CommentProps {
   navigation: StackNavigationProps<"Comment">;
   route: RouteProp<AppRoutes, "Comment">;
+  getAllCommentByPostId: (postId: number) => void;
+  comment: any;
 }
 
 import {
@@ -22,6 +25,8 @@ import {
   FlatList,
   Button,
 } from "react-native";
+
+import { getAllCommentByPostId } from "../../actions/postActions";
 
 const data = [
   { id: 1, date: "9:50 am", type: "in", message: "Lorem ipsum dolor sit amet" },
@@ -74,13 +79,23 @@ const data = [
     message: "Lorem ipsum dolor sit a met",
   },
 ];
-const Comment = ({ navigation, route }: CommentProps) => {
+const Comment = ({
+  comment,
+  navigation,
+  route,
+  getAllCommentByPostId,
+}: CommentProps) => {
   const { postId } = route.params;
 
   const [state, setState] = React.useState({});
   const renderDate = (date: any) => {
     return <Text style={styles.time}>{date}</Text>;
   };
+  useEffect(() => {
+    getAllCommentByPostId(postId);
+  }, [postId]);
+  //! Get ALl Comments
+  const { allCommentLoading, allComment, allCommentError } = comment;
   return (
     <View style={styles.container}>
       <FlatList
@@ -126,7 +141,18 @@ const Comment = ({ navigation, route }: CommentProps) => {
   );
 };
 
-export default Comment;
+function mapStateToProps(state: any) {
+  return {
+    comment: state.post,
+  };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  getAllCommentByPostId: (postId: number) =>
+    dispatch(getAllCommentByPostId(postId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Comment);
 
 const styles = StyleSheet.create({
   container: {

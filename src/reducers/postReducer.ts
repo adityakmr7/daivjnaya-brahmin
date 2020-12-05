@@ -1,4 +1,7 @@
 import {
+  GET_ALL_COMMENT_BY_POST_ID_ERROR,
+  GET_ALL_COMMENT_BY_POST_ID_LOADING,
+  GET_ALL_COMMENT_BY_POST_ID_SUCCESS,
   GET_ALL_POST_ERROR,
   GET_ALL_POST_LOADING,
   GET_ALL_POST_SUCCESS,
@@ -26,6 +29,10 @@ const initialState = {
   postUserLoading: false,
   postUserPostId: "",
   postUserError: "",
+  //Comment
+  allCommentLoading: false,
+  allComment: "",
+  allCommentError: "",
 };
 
 const postReducer = (state = initialState, action: any) => {
@@ -115,6 +122,27 @@ const postReducer = (state = initialState, action: any) => {
         postUserLoading: false,
         postUserPostId: "",
         postUserError: action.error,
+      };
+    //Comment
+    case GET_ALL_COMMENT_BY_POST_ID_LOADING:
+      return {
+        ...state,
+        allCommentLoading: true,
+        allComment: "",
+        allCommentError: "",
+      };
+    case GET_ALL_COMMENT_BY_POST_ID_SUCCESS:
+      return {
+        ...state,
+        allCommentLoading: false,
+        allComment: action.payload,
+        allCommentError: "",
+      };
+    case GET_ALL_COMMENT_BY_POST_ID_ERROR:
+      return {
+        allCommentLoading: false,
+        allComment: "",
+        allCommentError: "Something Went Wrong",
       };
     default:
       return {
