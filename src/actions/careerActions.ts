@@ -197,3 +197,29 @@ export const getCareerTalent = () => (dispatch: any) => {
       });
     });
 };
+
+/**
+ *  Career Tips
+ * @get /career/tip
+ */
+
+export const getAllCareerTips = () => (dispatch: any) => {
+  dispatch({
+    type: "GET_ALL_CAREER_TIPS_LOADING",
+  });
+  const _rest = new restServices();
+  _rest
+    .get(`/career/tip`)
+    .then((res) => {
+      dispatch({
+        type: "GET_ALL_CAREER_TIPS_SUCCESS",
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: "GET_ALL_CAREER_TIPS_ERROR",
+        error: err,
+      });
+    });
+};
