@@ -135,7 +135,7 @@ const postReducer = (state = initialState, action: any) => {
       return {
         ...state,
         allCommentLoading: false,
-        allComment: action.payload,
+        allComment: action.payload._embedded.commentResourceList,
         allCommentError: "",
       };
     case GET_ALL_COMMENT_BY_POST_ID_ERROR:

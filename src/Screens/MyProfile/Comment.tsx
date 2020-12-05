@@ -11,6 +11,7 @@ interface CommentProps {
   route: RouteProp<AppRoutes, "Comment">;
   getAllCommentByPostId: (postId: number) => void;
   comment: any;
+  createNewCommentToPost: (postId: number, data: any) => void;
 }
 
 import {
@@ -26,7 +27,10 @@ import {
   Button,
 } from "react-native";
 
-import { getAllCommentByPostId } from "../../actions/postActions";
+import {
+  createNewCommentToPost,
+  getAllCommentByPostId,
+} from "../../actions/postActions";
 
 const data = [
   { id: 1, date: "9:50 am", type: "in", message: "Lorem ipsum dolor sit amet" },
@@ -84,6 +88,7 @@ const Comment = ({
   navigation,
   route,
   getAllCommentByPostId,
+  createNewCommentToPost,
 }: CommentProps) => {
   const { postId } = route.params;
 
@@ -96,24 +101,36 @@ const Comment = ({
   }, [postId]);
   //! Get ALl Comments
   const { allCommentLoading, allComment, allCommentError } = comment;
+
+  const submitComment = () => {
+    createNewCommentToPost(postId, state);
+  };
+  //   commentId: 1
+  // commentedDate: 1607156115000
+  // content: "hello world"
+  // liked: false
+  // replyCounts: 0
+  // totalLikes: 0
+  // updatedDate: 1607156115000
+  // username: "Testing hello kumar kumar"
   return (
     <View style={styles.container}>
       <FlatList
         style={styles.list}
-        data={data}
+        data={allComment}
         keyExtractor={(item) => {
-          return item.id;
+          return item.commentId.toString();
         }}
         renderItem={(message) => {
           const item = message.item;
-          let inMessage = item.type === "in";
+
           let itemStyle = styles.itemIn;
           return (
             <View style={[styles.item, itemStyle]}>
               <View style={[styles.balloon]}>
-                <Text>{item.message}</Text>
+                <Text>{item.content}</Text>
               </View>
-              {inMessage && renderDate(item.date)}
+              {renderDate(item.commentedDate)}
             </View>
           );
         }}
@@ -124,11 +141,11 @@ const Comment = ({
             style={styles.inputs}
             placeholder="Write a message..."
             underlineColorAndroid="transparent"
-            onChangeText={(name_address) => setState({ name_address })}
+            onChangeText={(comment) => setState({ comment })}
           />
         </View>
 
-        <TouchableOpacity style={styles.btnSend}>
+        <TouchableOpacity onPress={submitComment} style={styles.btnSend}>
           <Image
             source={{
               uri: "https://img.icons8.com/small/75/ffffff/filled-sent.png",
@@ -150,6 +167,8 @@ function mapStateToProps(state: any) {
 const mapDispatchToProps = (dispatch: any) => ({
   getAllCommentByPostId: (postId: number) =>
     dispatch(getAllCommentByPostId(postId)),
+  createNewCommentToPost: (postId: number, data: any) =>
+    dispatch(createNewCommentToPost(postId, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comment);

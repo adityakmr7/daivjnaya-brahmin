@@ -154,6 +154,33 @@ export const getAllCommentByPostId = (postId: number) => (dispatch: any) => {
     });
 };
 
+export const createNewCommentToPost = (postId: any, data: any) => (
+  dispatch: any
+) => {
+  dispatch({
+    type: "CREATE_NEW_COMMENT_LOADING",
+  });
+  console.log("createNew", data, postId);
+  const dataToSend = {
+    content: data.comment,
+  };
+  const _rest = new restServices();
+  _rest
+    .post(`/post/${postId}/comment?content=${dataToSend}`, {})
+    .then((res) => {
+      dispatch({
+        type: "CREATE_NEW_COMMENT_SUCCESS",
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: "CREATE_NEW_COMMENT_ERROR",
+        payload: err,
+      });
+    });
+};
+
 export const deletePostComment = (id: number) => (dispatch: any) => {
   const _rest = new restServices();
   _rest
