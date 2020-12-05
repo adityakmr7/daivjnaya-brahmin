@@ -23,6 +23,9 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Platform } from "react-native";
 import { sendPushNotificationsAsync } from "./src/actions/pushNotification";
 import { BackdropProvider } from "react-native-propel-kit";
+import { YellowBox } from "react-native";
+
+YellowBox.ignoreWarnings(["VirtualizedLists should never be nested"]);
 const assets = [
   ...iconAssets,
   ...assetsVendor,
