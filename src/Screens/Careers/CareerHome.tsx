@@ -5,18 +5,19 @@ import { Box, NewsSection, SearchBox, Text } from "../../components";
 import { Feather as Icon } from "@expo/vector-icons";
 import CompanyCard from "./components/CompanyCard";
 import { connect } from "react-redux";
-import { getCareerCv } from "../../actions/careerActions";
+import { getCareerCv, getJob } from "../../actions/careerActions";
 import { useIsFocused } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 interface CareerHomeProps {
   getAllCv: () => void;
   career: any;
+  getJob: (q: string) => void;
 }
 
 export const companyLogo = require("../../../assets/images/company-logo.png");
 const image = require("../../../assets/images/img-2.png");
 const { width: wWidth } = Dimensions.get("window");
-const CareerHome = ({ getAllCv, career }: CareerHomeProps) => {
+const CareerHome = ({ getAllCv, career, getJob }: CareerHomeProps) => {
   const [searchText, setSearchText] = useState<string>("");
   const handleChangeText = (text: string) => {
     setSearchText(text);
@@ -24,9 +25,17 @@ const CareerHome = ({ getAllCv, career }: CareerHomeProps) => {
   const isFocused = useIsFocused();
   useEffect(() => {
     getAllCv();
+    getJob("");
   }, [isFocused]);
 
-  const { careerCvLoading, careerCvAll, careerCvError } = career;
+  const {
+    careerCvLoading,
+    careerCvAll,
+    careerCvError,
+    jobsLoading,
+    jobsAll,
+    jobsError,
+  } = career;
   return (
     <ScrollView>
       <Box flex={1}>
@@ -88,5 +97,6 @@ function mapStateToProps(state: any) {
 
 const mapDispatchToProps = (dispatch: any) => ({
   getAllCv: () => dispatch(getCareerCv()),
+  getJob: (q: string) => dispatch(getJob(q)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CareerHome);

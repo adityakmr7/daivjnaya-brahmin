@@ -5,6 +5,9 @@ import {
   GET_CAREER_CV_ERROR,
   GET_CAREER_CV_LOADING,
   GET_CAREER_CV_SUCCESS,
+  GET_JOB_ERROR,
+  GET_JOB_LOADING,
+  GET_JOB_SUCCESS,
   POST_CV_ERROR,
   POST_CV_SUCCESS,
   POST_TALENT_ERROR,
@@ -29,6 +32,10 @@ const initialState = {
   careerCvLoading: false,
   careerCvAll: "",
   careerCvError: "",
+  //jobs
+  jobsLoading: false,
+  jobsAll: "",
+  jobsError: "",
 };
 
 export default (state = initialState, action: any) => {
@@ -118,6 +125,31 @@ export default (state = initialState, action: any) => {
         careerCvLoading: false,
         careerCvAll: undefined,
         careerCvError: "",
+      };
+    // AllJobs
+    case GET_JOB_LOADING:
+      return {
+        ...state,
+
+        jobsLoading: true,
+        jobsAll: "",
+        jobsError: "",
+      };
+    case GET_JOB_SUCCESS:
+      return {
+        ...state,
+
+        jobsLoading: false,
+        jobsAll: action.payload,
+        jobsError: "",
+      };
+    case GET_JOB_ERROR:
+      return {
+        ...state,
+
+        jobsLoading: false,
+        jobsAll: undefined,
+        jobsError: "Something Went Wrong",
       };
     default:
       return {

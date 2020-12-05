@@ -124,7 +124,7 @@ export const getCareerCv = () => (dispatch: any) => {
  * career/job
  */
 
-export const getJob = () => (dispatch: any) => {
+export const getJob = (q: string) => (dispatch: any) => {
   dispatch({
     type: GET_JOB_LOADING,
   });
@@ -132,8 +132,9 @@ export const getJob = () => (dispatch: any) => {
   const _rest = new restServices();
 
   _rest
-    .get("/career/job")
+    .get(`/career/job?q=${q}`)
     .then((res) => {
+      console.log("gettingJob", res);
       dispatch({
         type: GET_JOB_SUCCESS,
         payload: res.data,
