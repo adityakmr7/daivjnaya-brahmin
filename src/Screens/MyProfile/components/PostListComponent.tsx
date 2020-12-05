@@ -6,6 +6,7 @@ import { postIdDeleteLike, postIdPostLike } from "../../../actions/postActions";
 import { Box, Text } from "../../../components";
 import { postDataProps } from "../interfaces";
 import PostCard from "./PostCard";
+import { Share } from "react-native";
 
 interface PostListComponentProps {
   postList: any;
@@ -39,7 +40,13 @@ const PostListComponent = ({
       postId,
     });
   };
-  const handlePostShare = (postId: number) => {};
+  const handlePostShare = async (post: any) => {
+    try {
+      await Share.share({ message: `${post.content}` });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const renderItem = ({ item }: { item: postDataProps }) => (
     <PostCard
