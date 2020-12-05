@@ -166,12 +166,13 @@ export const createNewCommentToPost = (postId: any, data: any) => (
   };
   const _rest = new restServices();
   _rest
-    .post(`/post/${postId}/comment?content=${dataToSend}`, {})
+    .post(`/post/${postId}/comment?content=${data.comment}`, {})
     .then((res) => {
       dispatch({
         type: "CREATE_NEW_COMMENT_SUCCESS",
         payload: res.data,
       });
+      dispatch(getAllCommentByPostId(postId));
     })
     .catch((err) => {
       dispatch({

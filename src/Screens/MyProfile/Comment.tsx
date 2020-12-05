@@ -26,6 +26,7 @@ import {
   FlatList,
   Button,
 } from "react-native";
+import Moment from "react-moment";
 
 import {
   createNewCommentToPost,
@@ -94,7 +95,7 @@ const Comment = ({
 
   const [state, setState] = React.useState({});
   const renderDate = (date: any) => {
-    return <Text style={styles.time}>{date}</Text>;
+    return <Moment element={Text} format="Do MMM YY" date={date} />;
   };
   useEffect(() => {
     getAllCommentByPostId(postId);
