@@ -70,6 +70,7 @@ const CareerStack = () => {
     <Stack.Navigator>
       <Stack.Screen
         options={({ navigation }) => ({
+          title: "Career & Talents",
           headerStyle: {
             elevation: 0,
           },
