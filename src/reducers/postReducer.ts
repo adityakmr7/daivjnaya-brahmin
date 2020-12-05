@@ -141,7 +141,7 @@ const postReducer = (state = initialState, action: any) => {
     case GET_ALL_COMMENT_BY_POST_ID_ERROR:
       return {
         allCommentLoading: false,
-        allComment: "",
+        allComment: undefined,
         allCommentError: "Something Went Wrong",
       };
     default:

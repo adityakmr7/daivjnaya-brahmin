@@ -25,6 +25,7 @@ import {
   TextInput,
   FlatList,
   Button,
+  ActivityIndicator,
 } from "react-native";
 import Moment from "react-moment";
 
@@ -32,6 +33,7 @@ import {
   createNewCommentToPost,
   getAllCommentByPostId,
 } from "../../actions/postActions";
+import { Box } from "../../components";
 
 const data = [
   { id: 1, date: "9:50 am", type: "in", message: "Lorem ipsum dolor sit amet" },
@@ -114,28 +116,41 @@ const Comment = ({
   // totalLikes: 0
   // updatedDate: 1607156115000
   // username: "Testing hello kumar kumar"
+  if (allComment === undefined) {
+    return (
+      <Box flex={1} justifyContent="center" alignItems="center">
+        <Text>No Comments Yet</Text>
+      </Box>
+    );
+  }
   return (
     <View style={styles.container}>
-      <FlatList
-        style={styles.list}
-        data={allComment}
-        keyExtractor={(item) => {
-          return item.commentId.toString();
-        }}
-        renderItem={(message) => {
-          const item = message.item;
+      {allComment !== "" ? (
+        <FlatList
+          style={styles.list}
+          data={allComment}
+          keyExtractor={(item) => {
+            return item.commentId.toString();
+          }}
+          renderItem={(message) => {
+            const item = message.item;
 
-          let itemStyle = styles.itemIn;
-          return (
-            <View style={[styles.item, itemStyle]}>
-              <View style={[styles.balloon]}>
-                <Text>{item.content}</Text>
+            let itemStyle = styles.itemIn;
+            return (
+              <View style={[styles.item, itemStyle]}>
+                <View style={[styles.balloon]}>
+                  <Text>{item.content}</Text>
+                </View>
+                {renderDate(item.commentedDate)}
               </View>
-              {renderDate(item.commentedDate)}
-            </View>
-          );
-        }}
-      />
+            );
+          }}
+        />
+      ) : (
+        <Box flex={1} justifyContent="center" alignItems="center">
+          <ActivityIndicator />
+        </Box>
+      )}
       <View style={styles.footer}>
         <View style={styles.inputContainer}>
           <TextInput
