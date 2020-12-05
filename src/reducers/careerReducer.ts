@@ -2,6 +2,9 @@ import {
   CREATE_CAREER_ERROR,
   CREATE_CAREER_LOADING,
   CREATE_CAREER_SUCCESS,
+  GET_CAREER_CV_ERROR,
+  GET_CAREER_CV_LOADING,
+  GET_CAREER_CV_SUCCESS,
   POST_CV_ERROR,
   POST_CV_SUCCESS,
   POST_TALENT_ERROR,
@@ -22,6 +25,10 @@ const initialState = {
   postingTalent: false,
   postedTalent: "",
   errorPostingTalent: "",
+  //CareerCv
+  careerCvLoading: false,
+  careerCvAll: "",
+  careerCvError: "",
 };
 
 export default (state = initialState, action: any) => {
@@ -89,6 +96,28 @@ export default (state = initialState, action: any) => {
         postingTalent: false,
         postedTalent: "",
         errorPostingTalent: action.error,
+      };
+    // GET ALL CAREER CV
+    case GET_CAREER_CV_LOADING:
+      return {
+        ...state,
+        careerCvLoading: true,
+        careerCvAll: "",
+        careerCvError: "",
+      };
+    case GET_CAREER_CV_SUCCESS:
+      return {
+        ...state,
+        careerCvLoading: false,
+        careerCvAll: action.payload,
+        careerCvError: "",
+      };
+    case GET_CAREER_CV_ERROR:
+      return {
+        ...state,
+        careerCvLoading: false,
+        careerCvAll: undefined,
+        careerCvError: "",
       };
     default:
       return {

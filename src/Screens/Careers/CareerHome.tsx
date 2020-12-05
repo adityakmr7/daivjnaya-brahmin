@@ -1,19 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, Image } from "react-native";
 import { RectButton, ScrollView } from "react-native-gesture-handler";
 import { Box, NewsSection, SearchBox, Text } from "../../components";
 import { Feather as Icon } from "@expo/vector-icons";
 import CompanyCard from "./components/CompanyCard";
-interface CareerHomeProps {}
+import { connect } from "react-redux";
+import { getCareerCv } from "../../actions/careerActions";
+import { useIsFocused } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
+interface CareerHomeProps {
+  getAllCv: () => void;
+  career: any;
+}
 
 export const companyLogo = require("../../../assets/images/company-logo.png");
 const image = require("../../../assets/images/img-2.png");
 const { width: wWidth } = Dimensions.get("window");
-const CareerHome = ({}: CareerHomeProps) => {
+const CareerHome = ({ getAllCv, career }: CareerHomeProps) => {
   const [searchText, setSearchText] = useState<string>("");
   const handleChangeText = (text: string) => {
     setSearchText(text);
   };
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    getAllCv();
+  }, [isFocused]);
+
+  const { careerCvLoading, careerCvAll, careerCvError } = career;
   return (
     <ScrollView>
       <Box flex={1}>
@@ -67,5 +80,13 @@ const CareerHome = ({}: CareerHomeProps) => {
     </ScrollView>
   );
 };
+function mapStateToProps(state: any) {
+  return {
+    career: state.career,
+  };
+}
 
-export default CareerHome;
+const mapDispatchToProps = (dispatch: any) => ({
+  getAllCv: () => dispatch(getCareerCv()),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(CareerHome);
