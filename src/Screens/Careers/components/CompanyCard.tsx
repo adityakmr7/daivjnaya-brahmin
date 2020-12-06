@@ -28,6 +28,9 @@ interface CompanyCardProps {
     pinCode: string;
     state: string;
     updatedDate: number;
+    _links: {
+      coverImage: { href: string };
+    };
   };
   onPress: () => void;
 }
@@ -60,11 +63,11 @@ const CompanyCard = ({ item, onPress }: CompanyCardProps) => {
               {item.description}
             </Text>
           ) : null}
-
+          {/* 
           <Box flexDirection="row" alignItems="center">
             <Icon name="dollar-sign" />
             <Text> 1300 - 1500 Monthly</Text>
-          </Box>
+          </Box> */}
           <Box flexDirection="row" alignItems="center">
             <Icon name="map-pin" />
             {item.city ? <Text>{item.city}</Text> : null}
