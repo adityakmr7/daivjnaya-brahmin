@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, Dimensions, Image } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { getCareerTipsDetail } from "../../actions/careerActions";
 import { Box, Text } from "../../components";
+import Moment from "react-moment";
 
 interface CareerTipDetailProps {
   route: any;
@@ -20,23 +22,49 @@ const CareerTipDetail = ({
   }, [nId]);
 
   const { tipsDetailLoading, tipsDetailAll, tipsDetailError } = careerDetail;
-  if (tipsDetailLoading) {
-    return (
-      <Box flex={1} justifyContent="center" alignItems="center">
-        <ActivityIndicator />
-      </Box>
-    );
-  }
+  // const { content, title, _links, updatedDate, creationDate } = tipsDetailAll;
+  const { width: wWidth, height: wHeight } = Dimensions.get("window");
+
   return (
-    <Box flex={1}>
-      {tipsDetailAll !== "" ? (
-        <Text>CareerTips Detail</Text>
-      ) : (
-        <Box>
-          <Text>Nothing In Here</Text>
-        </Box>
-      )}
-    </Box>
+    <ScrollView>
+      <Box>
+        {tipsDetailLoading ? (
+          <Box>
+            <ActivityIndicator />
+          </Box>
+        ) : (
+          <Box>
+            {tipsDetailAll && tipsDetailAll._links !== undefined ? (
+              <Image
+                style={{ height: wHeight / 2, width: wWidth }}
+                source={{ uri: tipsDetailAll._links.image.href }}
+              />
+            ) : null}
+            <Box marginVertical="s" marginHorizontal="s">
+              {tipsDetailAll && tipsDetailAll.title !== undefined ? (
+                <Text variant="cardTitle" color="primaryText">
+                  {tipsDetailAll.title}
+                </Text>
+              ) : null}
+              <Box>
+                {tipsDetailAll && tipsDetailAll.creationDate !== undefined ? (
+                  <Moment
+                    element={Text}
+                    format="MMMM Do YYYY"
+                    date={tipsDetailAll.creationDate}
+                  />
+                ) : null}
+              </Box>
+              <Box marginVertical="s">
+                {tipsDetailAll && tipsDetailAll.content !== undefined ? (
+                  <Text>{tipsDetailAll.content}</Text>
+                ) : null}
+              </Box>
+            </Box>
+          </Box>
+        )}
+      </Box>
+    </ScrollView>
   );
 };
 

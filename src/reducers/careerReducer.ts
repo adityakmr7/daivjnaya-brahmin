@@ -195,12 +195,12 @@ export default (state = initialState, action: any) => {
     case GET_CAREER_TIPS_DETAIL_SUCCESS:
       return {
         tipsDetailLoading: false,
-        tipsDetailAll: action.payload._embedded,
+        tipsDetailAll: action.payload,
         tipsDetailError: "",
       };
     case GET_CAREER_TIPS_DETAIL_ERROR:
       return {
-        tipsDetailLoading: true,
+        tipsDetailLoading: false,
         tipsDetailAll: "",
         tipsDetailError: "Something Went wrong",
       };

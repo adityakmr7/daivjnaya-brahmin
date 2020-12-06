@@ -94,7 +94,11 @@ const CareerStack = () => {
         name={"CareerRegister"}
         component={CareerRegister}
       />
-      <Stack.Screen name={"CareerTipDetail"} component={CareerTipDetail} />
+      <Stack.Screen
+        options={{ title: "Tips" }}
+        name={"CareerTipDetail"}
+        component={CareerTipDetail}
+      />
     </Stack.Navigator>
   );
 };

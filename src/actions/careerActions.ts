@@ -245,7 +245,7 @@ export const getCareerTipsDetail = (nId: number) => (dispatch: any) => {
   _rest
     .get(`/career/tip/${nId}`)
     .then((res) => {
-      console.log("gettingTipsDetail", res.data);
+      console.log("gettingTipsDetail", res);
       dispatch({
         type: GET_CAREER_TIPS_DETAIL_SUCCESS,
         payload: res.data,
