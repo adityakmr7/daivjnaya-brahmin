@@ -14,8 +14,6 @@ interface CareerHomeProps {
   getJob: (q: string) => void;
 }
 
-export const companyLogo = require("../../../assets/images/company-logo.png");
-const image = require("../../../assets/images/img-2.png");
 const { width: wWidth } = Dimensions.get("window");
 const CareerHome = ({ getAllCv, career, getJob }: CareerHomeProps) => {
   const [searchText, setSearchText] = useState<string>("");
@@ -69,14 +67,6 @@ const CareerHome = ({ getAllCv, career, getJob }: CareerHomeProps) => {
               keyExtractor={(item: any) => item.jpId.toString()}
             />
           )}
-
-          {/* <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
-            {[1, 2, 3].map((_, i) => (
-              <Box key={i} paddingHorizontal="s">
-                <CompanyCard onPress={() => {}} {...{ companyLogo }} />
-              </Box>
-            ))}
-          </ScrollView> */}
         </Box>
         <Box backgroundColor="iconBackground">
           <Box marginVertical="l" marginHorizontal="m">
