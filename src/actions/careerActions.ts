@@ -22,6 +22,12 @@ import {
   GET_CAREER_TALENT_LOADING,
   GET_CAREER_TALENT_SUCCESS,
   GET_CAREER_TALENT_ERROR,
+  GET_ALL_CAREER_TIPS_LOADING,
+  GET_ALL_CAREER_TIPS_SUCCESS,
+  GET_ALL_CAREER_TIPS_ERROR,
+  GET_CAREER_TIPS_DETAIL_SUCCESS,
+  GET_CAREER_TIPS_DETAIL_LOADING,
+  GET_CAREER_TIPS_DETAIL_ERROR,
 } from "./constants/careerConstant";
 
 export const createNewCareer = (data: any) => (dispatch: any) => {
@@ -207,20 +213,47 @@ export const getCareerTalent = () => (dispatch: any) => {
 
 export const getAllCareerTips = () => (dispatch: any) => {
   dispatch({
-    type: "GET_ALL_CAREER_TIPS_LOADING",
+    type: GET_ALL_CAREER_TIPS_LOADING,
   });
   const _rest = new restServices();
   _rest
     .get(`/career/tip`)
     .then((res) => {
+      console.log("gettingTips", res.data);
       dispatch({
-        type: "GET_ALL_CAREER_TIPS_SUCCESS",
+        type: GET_ALL_CAREER_TIPS_SUCCESS,
         payload: res.data,
       });
     })
     .catch((err) => {
       dispatch({
-        type: "GET_ALL_CAREER_TIPS_ERROR",
+        type: GET_ALL_CAREER_TIPS_ERROR,
+        error: err,
+      });
+    });
+};
+/**
+ *  Career Tips
+ * @get /career/tip
+ */
+
+export const getCareerTipsDetail = (nId: number) => (dispatch: any) => {
+  dispatch({
+    type: GET_CAREER_TIPS_DETAIL_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get(`/career/tip/${nId}`)
+    .then((res) => {
+      console.log("gettingTipsDetail", res.data);
+      dispatch({
+        type: GET_CAREER_TIPS_DETAIL_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_CAREER_TIPS_DETAIL_ERROR,
         error: err,
       });
     });

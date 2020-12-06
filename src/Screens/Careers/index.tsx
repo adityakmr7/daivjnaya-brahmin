@@ -10,6 +10,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { Box } from "../../components";
 import { RoundedBorderButton } from "../MyProfile/components";
 import Talents from "./components/Talents";
+import CareerTipDetail from "./CareerTipDetail";
 
 const Tab = createBottomTabNavigator();
 const CareerTab = () => {
@@ -93,6 +94,7 @@ const CareerStack = () => {
         name={"CareerRegister"}
         component={CareerRegister}
       />
+      <Stack.Screen name={"CareerTipDetail"} component={CareerTipDetail} />
     </Stack.Navigator>
   );
 };
