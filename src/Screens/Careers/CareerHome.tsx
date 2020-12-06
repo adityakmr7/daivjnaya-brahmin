@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, Image } from "react-native";
-import { RectButton, ScrollView } from "react-native-gesture-handler";
+import { ActivityIndicator, Dimensions, Image } from "react-native";
+import { FlatList, RectButton, ScrollView } from "react-native-gesture-handler";
 import { Box, NewsSection, SearchBox, Text } from "../../components";
 import { Feather as Icon } from "@expo/vector-icons";
 import CompanyCard from "./components/CompanyCard";
@@ -36,6 +36,15 @@ const CareerHome = ({ getAllCv, career, getJob }: CareerHomeProps) => {
     jobsAll,
     jobsError,
   } = career;
+
+  const renderItem = ({ item }: { item: any }) => {
+    return (
+      <Box paddingHorizontal="s">
+        <CompanyCard onPress={() => {}} {...{ item }} />
+      </Box>
+    );
+  };
+
   return (
     <ScrollView>
       <Box flex={1}>
@@ -47,13 +56,27 @@ const CareerHome = ({ getAllCv, career, getJob }: CareerHomeProps) => {
           <SearchBox {...{ searchText, handleChangeText }} />
         </Box>
         <Box backgroundColor="mainBackground" padding="s">
-          <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
+          {jobsLoading ? (
+            <Box flex={1} justifyContent="center" alignItems="center">
+              <ActivityIndicator />
+            </Box>
+          ) : (
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              horizontal={true}
+              renderItem={renderItem}
+              data={jobsAll}
+              keyExtractor={(item: any) => item.jpId.toString()}
+            />
+          )}
+
+          {/* <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
             {[1, 2, 3].map((_, i) => (
               <Box key={i} paddingHorizontal="s">
                 <CompanyCard onPress={() => {}} {...{ companyLogo }} />
               </Box>
             ))}
-          </ScrollView>
+          </ScrollView> */}
         </Box>
         <Box backgroundColor="iconBackground">
           <Box marginVertical="l" marginHorizontal="m">

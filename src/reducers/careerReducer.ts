@@ -138,9 +138,8 @@ export default (state = initialState, action: any) => {
     case GET_JOB_SUCCESS:
       return {
         ...state,
-
         jobsLoading: false,
-        jobsAll: action.payload,
+        jobsAll: action.payload._embedded.jobPostingResourceList,
         jobsError: "",
       };
     case GET_JOB_ERROR:
