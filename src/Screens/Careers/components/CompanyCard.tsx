@@ -1,7 +1,6 @@
 import React from "react";
 import { Dimensions, Image } from "react-native";
 import { Box, Text } from "../../../components";
-
 import { Feather as Icon } from "@expo/vector-icons";
 import {
   RectButton,

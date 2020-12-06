@@ -15,7 +15,7 @@ import {
   getCareerCv,
   getJob,
 } from "../../actions/careerActions";
-import { useIsFocused } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 interface CareerHomeProps {
   getAllCv: () => void;
@@ -38,11 +38,12 @@ const CareerHome = ({
     setSearchText(text);
   };
   const isFocused = useIsFocused();
+
   useEffect(() => {
     // getAllCv();
     getJob("");
     getAllCareerTips();
-  }, [isFocused]);
+  }, [isFocused, getJob, getAllCareerTips]);
 
   const {
     careerCvLoading,
