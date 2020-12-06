@@ -47,22 +47,25 @@ const CompanyCard = ({ item, onPress }: CompanyCardProps) => {
     >
       <TouchableWithoutFeedback {...{ onPress }}>
         <Box alignItems="center" flexDirection="row">
-          {item._links.coverImage ? (
+          {item &&
+          item._links &&
+          item._links.coverImage &&
+          item._links.coverImage ? (
             <Image source={{ uri: item._links.coverImage.href }} />
           ) : null}
           {/* <Image source={companyLogo} /> */}
-          {item.companyName ? (
+          {item && item.companyName && item.companyName && (
             <Text color="primaryText" variant="cardSubTitle">
               {item.companyName}
             </Text>
-          ) : null}
+          )}
         </Box>
         <Box paddingVertical="s" paddingHorizontal="m">
-          {item.description ? (
+          {item && item.description && item.description && (
             <Text color="primaryText" variant="cardText">
               {item.description}
             </Text>
-          ) : null}
+          )}
           {/* 
           <Box flexDirection="row" alignItems="center">
             <Icon name="dollar-sign" />
@@ -70,7 +73,7 @@ const CompanyCard = ({ item, onPress }: CompanyCardProps) => {
           </Box> */}
           <Box flexDirection="row" alignItems="center">
             <Icon name="map-pin" />
-            {item.city ? <Text>{item.city}</Text> : null}
+            {item && item.city && <Text>{item.city}</Text>}
           </Box>
           <RectButton>
             <Text color="selectColor" variant="profileAction">

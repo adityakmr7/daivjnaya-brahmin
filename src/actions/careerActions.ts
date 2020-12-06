@@ -248,7 +248,7 @@ export const getCareerTipsDetail = (nId: number) => (dispatch: any) => {
       console.log("gettingTipsDetail", res);
       dispatch({
         type: GET_CAREER_TIPS_DETAIL_SUCCESS,
-        payload: res.data,
+        payload: res,
       });
     })
     .catch((err) => {

@@ -28,37 +28,44 @@ const CareerTipDetail = ({
   return (
     <ScrollView>
       <Box>
-        {tipsDetailLoading ? (
+        {tipsDetailLoading === true ? (
           <Box>
             <ActivityIndicator />
           </Box>
         ) : (
           <Box>
-            {tipsDetailAll && tipsDetailAll._links !== undefined ? (
-              <Image
-                style={{ height: wHeight / 2, width: wWidth }}
-                source={{ uri: tipsDetailAll._links.image.href }}
-              />
-            ) : null}
+            <Image
+              style={{ height: wHeight / 2, width: wWidth }}
+              source={{
+                uri:
+                  tipsDetailAll &&
+                  tipsDetailAll._links &&
+                  tipsDetailAll._links.image &&
+                  tipsDetailAll._links.image.href,
+              }}
+            />
             <Box marginVertical="s" marginHorizontal="s">
-              {tipsDetailAll && tipsDetailAll.title !== undefined ? (
-                <Text variant="cardTitle" color="primaryText">
-                  {tipsDetailAll.title}
-                </Text>
-              ) : null}
+              <Text variant="cardTitle" color="primaryText">
+                {tipsDetailAll && tipsDetailAll.title && tipsDetailAll.title}
+              </Text>
+
               <Box>
-                {tipsDetailAll && tipsDetailAll.creationDate !== undefined ? (
-                  <Moment
-                    element={Text}
-                    format="MMMM Do YYYY"
-                    date={tipsDetailAll.creationDate}
-                  />
-                ) : null}
+                <Moment
+                  element={Text}
+                  format="MMMM Do YYYY"
+                  date={
+                    tipsDetailAll &&
+                    tipsDetailAll.creationDate &&
+                    tipsDetailAll.creationDate
+                  }
+                />
               </Box>
               <Box marginVertical="s">
-                {tipsDetailAll && tipsDetailAll.content !== undefined ? (
-                  <Text>{tipsDetailAll.content}</Text>
-                ) : null}
+                <Text>
+                  {tipsDetailAll &&
+                    tipsDetailAll.content &&
+                    tipsDetailAll.content}
+                </Text>
               </Box>
             </Box>
           </Box>

@@ -123,7 +123,6 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         careerCvLoading: true,
-        careerCvAll: "",
         careerCvError: "",
       };
     case GET_CAREER_CV_SUCCESS:
@@ -138,15 +137,14 @@ export default (state = initialState, action: any) => {
         ...state,
         careerCvLoading: false,
         careerCvAll: undefined,
-        careerCvError: "",
+        careerCvError: "Something Went Wrong",
       };
     // AllJobs
     case GET_JOB_LOADING:
       return {
         ...state,
-
         jobsLoading: true,
-        jobsAll: "",
+
         jobsError: "",
       };
     case GET_JOB_SUCCESS:
@@ -170,7 +168,6 @@ export default (state = initialState, action: any) => {
     case GET_ALL_CAREER_TIPS_LOADING:
       return {
         tipsLoading: true,
-        tipsAll: "",
         tipsError: "",
       };
     case GET_ALL_CAREER_TIPS_SUCCESS:
@@ -183,19 +180,18 @@ export default (state = initialState, action: any) => {
       return {
         tipsLoading: false,
         tipsAll: "",
-        tipsError: "",
+        tipsError: "Something Went Wrong",
       };
     // CareerTips detail
     case GET_CAREER_TIPS_DETAIL_LOADING:
       return {
         tipsDetailLoading: true,
-        tipsDetailAll: "",
         tipsDetailError: "",
       };
     case GET_CAREER_TIPS_DETAIL_SUCCESS:
       return {
         tipsDetailLoading: false,
-        tipsDetailAll: action.payload,
+        tipsDetailAll: action.payload.data,
         tipsDetailError: "",
       };
     case GET_CAREER_TIPS_DETAIL_ERROR:
