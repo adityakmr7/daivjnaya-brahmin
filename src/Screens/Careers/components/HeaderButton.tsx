@@ -9,7 +9,7 @@ interface HeaderButtonProps {
 const HeaderButton = ({ onPress, title }: HeaderButtonProps) => {
   return (
     <TouchableWithoutFeedback
-      {...onPress}
+      {...{ onPress }}
       style={{
         minWidth: 100,
         padding: 8,

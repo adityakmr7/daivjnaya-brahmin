@@ -11,6 +11,11 @@ import { Box } from "../../components";
 import { RoundedBorderButton } from "../MyProfile/components";
 import Talents from "./components/Talents";
 import CareerTipDetail from "./CareerTipDetail";
+import CareerCandidates from "./CareerCandidates";
+import CareerJobs from "./CareerJobs";
+import CareerTalents from "./CareerTalents";
+import HeaderButton from "./components/HeaderButton";
+import MyNetwork from "./MyNetwork";
 
 const Tab = createBottomTabNavigator();
 const CareerTab = () => {
@@ -68,7 +73,13 @@ const Stack = createStackNavigator();
 
 const CareerStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={({ navigation }) => ({
+        headerStyle: {
+          elevation: 0,
+        },
+      })}
+    >
       <Stack.Screen
         options={({ navigation }) => ({
           title: "Career & Talents",
@@ -99,6 +110,20 @@ const CareerStack = () => {
         name={"CareerTipDetail"}
         component={CareerTipDetail}
       />
+      <Stack.Screen
+        options={({ navigation }) => ({
+          headerRight: () => (
+            <Box marginRight="s">
+              <HeaderButton title="Apply Job" onPress={() => {}} />
+            </Box>
+          ),
+        })}
+        name="Candidates"
+        component={CareerCandidates}
+      />
+      <Stack.Screen name="CareerJobs" component={CareerJobs} />
+      <Stack.Screen name="CareerTalents" component={CareerTalents} />
+      <Stack.Screen name="MyNetwork" component={MyNetwork} />
     </Stack.Navigator>
   );
 };

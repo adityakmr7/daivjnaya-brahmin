@@ -104,9 +104,18 @@ const CareerHome = ({
             width={wWidth}
             height={wWidth * 0.2 - 20}
           >
-            <HeaderButton title="Candidates" onPress={() => {}} />
-            <HeaderButton title="Jobs" onPress={() => {}} />
-            <HeaderButton title="Talents" onPress={() => {}} />
+            <HeaderButton
+              title="Candidates"
+              onPress={() => navigation.navigate("Candidates")}
+            />
+            <HeaderButton
+              title="Jobs"
+              onPress={() => navigation.navigate("CareerJobs")}
+            />
+            <HeaderButton
+              title="Talents"
+              onPress={() => navigation.navigate("CareerTalents")}
+            />
           </Box>
           <SearchBox {...{ searchText, handleChangeText }} />
         </Box>
