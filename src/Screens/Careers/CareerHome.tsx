@@ -17,6 +17,7 @@ import {
 } from "../../actions/careerActions";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import HeaderButton from "./components/HeaderButton";
 interface CareerHomeProps {
   getAllCv: () => void;
   career: any;
@@ -76,7 +77,11 @@ const CareerHome = ({
       >
         <Box width={wWidth / 2 - 15}>
           <Image
-            style={{ height: wWidth / 3, width: wWidth / 2 - 20 }}
+            style={{
+              borderRadius: 20,
+              height: wWidth / 3 - 20,
+              width: wWidth / 2 - 20,
+            }}
             source={{ uri: item._links.image.href }}
           />
           <Text>{item.title}</Text>
@@ -88,14 +93,25 @@ const CareerHome = ({
     <ScrollView>
       <Box flex={1}>
         <Box
-          backgroundColor="mainBackground"
+          backgroundColor="iconBackground"
           borderColor="mainBackground"
           borderWidth={1}
+          paddingTop="s"
         >
+          <Box
+            flexDirection="row"
+            justifyContent="space-around"
+            width={wWidth}
+            height={wWidth * 0.2 - 20}
+          >
+            <HeaderButton title="Candidates" onPress={() => {}} />
+            <HeaderButton title="Jobs" onPress={() => {}} />
+            <HeaderButton title="Talents" onPress={() => {}} />
+          </Box>
           <SearchBox {...{ searchText, handleChangeText }} />
         </Box>
         <Box backgroundColor="mainBackground" padding="s">
-          {jobsLoading === true ? (
+          {jobsLoading ? (
             <Box flex={1} justifyContent="center" alignItems="center">
               <ActivityIndicator />
             </Box>
@@ -134,7 +150,8 @@ const CareerHome = ({
             </Box>
           ) : (
             <FlatList
-              numColumns={2}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
               data={tipsAll}
               renderItem={renderTips}
               keyExtractor={(item: any) => item.nId.toString()}

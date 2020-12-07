@@ -2,35 +2,15 @@ import React from "react";
 import { Dimensions, Image } from "react-native";
 import { Box, Text } from "../../../components";
 import { Feather as Icon } from "@expo/vector-icons";
+import { careerCard } from "../interfaces";
 import {
   RectButton,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 
 interface CompanyCardProps {
-  item: {
-    addressLine1: string;
-    addressLine2: string;
-    alreadyApplied: false;
-    city: string;
-    companyName: string;
-    country: string;
-    creationDate: number;
-    description: string;
-    education: string;
-    employerEmail: string;
-    employerName: string;
-    employerPhoneNumber: string;
-    experience: string;
-    jobTitle: string;
-    jpId: number;
-    pinCode: string;
-    state: string;
-    updatedDate: number;
-    _links: {
-      coverImage: { href: string };
-    };
-  };
+  item: careerCard;
+
   onPress: () => void;
 }
 
