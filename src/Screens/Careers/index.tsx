@@ -121,8 +121,25 @@ const CareerStack = () => {
         name="Candidates"
         component={CareerCandidates}
       />
-      <Stack.Screen name="CareerJobs" component={CareerJobs} />
-      <Stack.Screen name="CareerTalents" component={CareerTalents} />
+      <Stack.Screen
+        options={{
+          title: "Career",
+        }}
+        name="CareerJobs"
+        component={CareerJobs}
+      />
+      <Stack.Screen
+        options={({ navigation }) => ({
+          title: "Talents",
+          headerRight: () => (
+            <Box marginRight="s">
+              <HeaderButton title="Post Talents" onPress={() => {}} />
+            </Box>
+          ),
+        })}
+        name="CareerTalents"
+        component={CareerTalents}
+      />
       <Stack.Screen name="MyNetwork" component={MyNetwork} />
     </Stack.Navigator>
   );
