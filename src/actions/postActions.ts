@@ -15,6 +15,9 @@ import {
   GET_USER_POST_BY_ID_ERROR,
   GET_USER_POST_BY_ID_SUCCESS,
   GET_USER_POST_BY_ID_LOADING,
+  GET_ALL_COMMENT_BY_POST_ID_SUCCESS,
+  GET_ALL_COMMENT_BY_POST_ID_ERROR,
+  GET_ALL_COMMENT_BY_POST_ID_LOADING,
 } from "./constants/postConstant";
 import axios from "axios";
 import { postDataType } from "../Screens/MyProfile/interfaces";
@@ -111,7 +114,6 @@ export const getUsersPostById = (userId: number) => (dispatch: any) => {
   _rest
     .get(`/post/user/${userId}`)
     .then((res) => {
-      console.log("getpostusr", res);
       dispatch({
         type: GET_USER_POST_BY_ID_SUCCESS,
         payload: res.data,
@@ -121,6 +123,61 @@ export const getUsersPostById = (userId: number) => (dispatch: any) => {
       dispatch({
         type: GET_USER_POST_BY_ID_ERROR,
         error: err,
+      });
+    });
+};
+
+/**
+ * get all post comment
+ * @param postId  number
+ */
+export const getAllCommentByPostId = (postId: number) => (dispatch: any) => {
+  dispatch({
+    type: GET_ALL_COMMENT_BY_POST_ID_LOADING,
+  });
+  const _rest = new restServices();
+
+  _rest
+    .get(`/post/${postId}/comment`)
+    .then((res) => {
+      console.log("CommentPost", res.data);
+      dispatch({
+        type: GET_ALL_COMMENT_BY_POST_ID_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ALL_COMMENT_BY_POST_ID_ERROR,
+        payload: err,
+      });
+    });
+};
+
+export const createNewCommentToPost = (postId: any, data: any) => (
+  dispatch: any
+) => {
+  dispatch({
+    type: "CREATE_NEW_COMMENT_LOADING",
+  });
+  console.log("createNew", data, postId);
+  const dataToSend = {
+    content: data.comment,
+  };
+  const _rest = new restServices();
+  _rest
+    .post(`/post/${postId}/comment?content=${data.comment}`, {})
+    .then((res) => {
+      dispatch({
+        type: "CREATE_NEW_COMMENT_SUCCESS",
+        payload: res.data,
+      });
+      dispatch(getAllCommentByPostId(postId));
+    })
+    .catch((err) => {
+      dispatch({
+        type: "CREATE_NEW_COMMENT_ERROR",
+        payload: err,
       });
     });
 };

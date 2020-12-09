@@ -2,6 +2,18 @@ import {
   CREATE_CAREER_ERROR,
   CREATE_CAREER_LOADING,
   CREATE_CAREER_SUCCESS,
+  GET_ALL_CAREER_TIPS_ERROR,
+  GET_ALL_CAREER_TIPS_LOADING,
+  GET_ALL_CAREER_TIPS_SUCCESS,
+  GET_CAREER_CV_ERROR,
+  GET_CAREER_CV_LOADING,
+  GET_CAREER_CV_SUCCESS,
+  GET_CAREER_TIPS_DETAIL_ERROR,
+  GET_CAREER_TIPS_DETAIL_LOADING,
+  GET_CAREER_TIPS_DETAIL_SUCCESS,
+  GET_JOB_ERROR,
+  GET_JOB_LOADING,
+  GET_JOB_SUCCESS,
   POST_CV_ERROR,
   POST_CV_SUCCESS,
   POST_TALENT_ERROR,
@@ -22,6 +34,22 @@ const initialState = {
   postingTalent: false,
   postedTalent: "",
   errorPostingTalent: "",
+  //CareerCv
+  careerCvLoading: false,
+  careerCvAll: "",
+  careerCvError: "",
+  //jobs
+  jobsLoading: false,
+  jobsAll: "",
+  jobsError: "",
+  //CareerTips
+  tipsLoading: false,
+  tipsAll: "",
+  tipsError: "",
+  // careerTipsDetail
+  tipsDetailLoading: false,
+  tipsDetailAll: "",
+  tipsDetailError: "",
 };
 
 export default (state = initialState, action: any) => {
@@ -89,6 +117,88 @@ export default (state = initialState, action: any) => {
         postingTalent: false,
         postedTalent: "",
         errorPostingTalent: action.error,
+      };
+    // GET ALL CAREER CV
+    case GET_CAREER_CV_LOADING:
+      return {
+        ...state,
+        careerCvLoading: true,
+        careerCvError: "",
+      };
+    case GET_CAREER_CV_SUCCESS:
+      return {
+        ...state,
+        careerCvLoading: false,
+        careerCvAll: action.payload,
+        careerCvError: "",
+      };
+    case GET_CAREER_CV_ERROR:
+      return {
+        ...state,
+        careerCvLoading: false,
+        careerCvAll: undefined,
+        careerCvError: "Something Went Wrong",
+      };
+    // AllJobs
+    case GET_JOB_LOADING:
+      return {
+        ...state,
+        jobsLoading: true,
+
+        jobsError: "",
+      };
+    case GET_JOB_SUCCESS:
+      return {
+        ...state,
+        jobsLoading: false,
+        jobsAll: action.payload._embedded.jobPostingResourceList,
+        jobsError: "",
+      };
+    case GET_JOB_ERROR:
+      return {
+        ...state,
+
+        jobsLoading: false,
+        jobsAll: undefined,
+        jobsError: "Something Went Wrong",
+      };
+
+    //CareerTips
+
+    case GET_ALL_CAREER_TIPS_LOADING:
+      return {
+        tipsLoading: true,
+        tipsError: "",
+      };
+    case GET_ALL_CAREER_TIPS_SUCCESS:
+      return {
+        tipsLoading: false,
+        tipsAll: action.payload._embedded.careerTipResourceList,
+        tipsError: "",
+      };
+    case GET_ALL_CAREER_TIPS_ERROR:
+      return {
+        tipsLoading: false,
+        tipsAll: "",
+        tipsError: "Something Went Wrong",
+      };
+    // CareerTips detail
+    case GET_CAREER_TIPS_DETAIL_LOADING:
+      return {
+        tipsDetailLoading: true,
+        tipsDetailError: "",
+      };
+    case GET_CAREER_TIPS_DETAIL_SUCCESS:
+      return {
+        tipsDetailLoading: false,
+        tipsDetailAll: action.payload.data,
+        tipsDetailError: "",
+      };
+    case GET_CAREER_TIPS_DETAIL_ERROR:
+      return {
+        tipsDetailLoading: false,
+        tipsDetailAll: "",
+        tipsDetailError: "Something Went wrong",
       };
     default:
       return {

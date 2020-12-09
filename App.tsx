@@ -23,6 +23,9 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Platform } from "react-native";
 import { sendPushNotificationsAsync } from "./src/actions/pushNotification";
 import { BackdropProvider } from "react-native-propel-kit";
+import { YellowBox } from "react-native";
+import Notification from "./src/Notification/Notification";
+YellowBox.ignoreWarnings(["VirtualizedLists should never be nested"]);
 const assets = [
   ...iconAssets,
   ...assetsVendor,
@@ -190,20 +193,22 @@ function App() {
 
   return (
     <Provider store={store}>
-      {/* <PersistGate loading={null} persistor={persistor}> */}
-      <ThemeProvider {...{ theme }}>
-        <LoadAssets {...{ fonts, assets }}>
-          <BackdropProvider>
-            <SafeAreaProvider>
-              <StyleThemeProvider theme={toastTheme}>
-                <ToastProvider offset={20}>
-                  <AppNavigation />
-                </ToastProvider>
-              </StyleThemeProvider>
-            </SafeAreaProvider>
-          </BackdropProvider>
-        </LoadAssets>
-      </ThemeProvider>
+      {/* <Notification> */}
+        {/* <PersistGate loading={null} persistor={persistor}> */}
+        <ThemeProvider {...{ theme }}>
+          <LoadAssets {...{ fonts, assets }}>
+            <BackdropProvider>
+              <SafeAreaProvider>
+                <StyleThemeProvider theme={toastTheme}>
+                  <ToastProvider offset={20}>
+                    <AppNavigation />
+                  </ToastProvider>
+                </StyleThemeProvider>
+              </SafeAreaProvider>
+            </BackdropProvider>
+          </LoadAssets>
+        </ThemeProvider>
+      {/* </Notification> */}
       {/* </PersistGate> */}
     </Provider>
   );

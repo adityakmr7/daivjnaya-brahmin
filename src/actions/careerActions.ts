@@ -22,6 +22,12 @@ import {
   GET_CAREER_TALENT_LOADING,
   GET_CAREER_TALENT_SUCCESS,
   GET_CAREER_TALENT_ERROR,
+  GET_ALL_CAREER_TIPS_LOADING,
+  GET_ALL_CAREER_TIPS_SUCCESS,
+  GET_ALL_CAREER_TIPS_ERROR,
+  GET_CAREER_TIPS_DETAIL_SUCCESS,
+  GET_CAREER_TIPS_DETAIL_LOADING,
+  GET_CAREER_TIPS_DETAIL_ERROR,
 } from "./constants/careerConstant";
 
 export const createNewCareer = (data: any) => (dispatch: any) => {
@@ -105,6 +111,7 @@ export const getCareerCv = () => (dispatch: any) => {
   _rest
     .get("/career/cv")
     .then((res) => {
+      console.log("careerCV", res.data);
       dispatch({
         type: GET_CAREER_CV_SUCCESS,
         payload: res.data,
@@ -123,7 +130,7 @@ export const getCareerCv = () => (dispatch: any) => {
  * career/job
  */
 
-export const getJob = () => (dispatch: any) => {
+export const getJob = (q: string) => (dispatch: any) => {
   dispatch({
     type: GET_JOB_LOADING,
   });
@@ -131,8 +138,9 @@ export const getJob = () => (dispatch: any) => {
   const _rest = new restServices();
 
   _rest
-    .get("/career/job")
+    .get(`/career/job?q=${q}`)
     .then((res) => {
+      console.log("gettingJob", res);
       dispatch({
         type: GET_JOB_SUCCESS,
         payload: res.data,
@@ -193,6 +201,59 @@ export const getCareerTalent = () => (dispatch: any) => {
     .catch((err) => {
       dispatch({
         type: GET_CAREER_TALENT_ERROR,
+        error: err,
+      });
+    });
+};
+
+/**
+ *  Career Tips
+ * @get /career/tip
+ */
+
+export const getAllCareerTips = () => (dispatch: any) => {
+  dispatch({
+    type: GET_ALL_CAREER_TIPS_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get(`/career/tip`)
+    .then((res) => {
+      console.log("gettingTips", res.data);
+      dispatch({
+        type: GET_ALL_CAREER_TIPS_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ALL_CAREER_TIPS_ERROR,
+        error: err,
+      });
+    });
+};
+/**
+ *  Career Tips
+ * @get /career/tip
+ */
+
+export const getCareerTipsDetail = (nId: number) => (dispatch: any) => {
+  dispatch({
+    type: GET_CAREER_TIPS_DETAIL_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get(`/career/tip/${nId}`)
+    .then((res) => {
+      console.log("gettingTipsDetail", res);
+      dispatch({
+        type: GET_CAREER_TIPS_DETAIL_SUCCESS,
+        payload: res,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_CAREER_TIPS_DETAIL_ERROR,
         error: err,
       });
     });

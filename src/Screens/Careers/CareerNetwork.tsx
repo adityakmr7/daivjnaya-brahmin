@@ -4,11 +4,16 @@ import { Box, SearchBox, Text } from "../../components";
 
 import UserNetWorkCard from "./components/UserNetWorkCard";
 import NetWorkComponentTitle from "./components/NetWorkComponentTitle";
-interface CareerNetworkProps {}
+import HeaderButton from "./components/HeaderButton";
+import { Dimensions } from "react-native";
+interface CareerNetworkProps {
+  navigation: any;
+}
 
 const profileImage = require("../../../assets/images/small-image.png");
 
-const CareerNetwork = ({}: CareerNetworkProps) => {
+const { width: wWidth, height: wHeight } = Dimensions.get("window");
+const CareerNetwork = ({ navigation }: CareerNetworkProps) => {
   const [searchText, setSearchText] = useState<string>("");
   const handleChangeText = (text: string) => {
     setSearchText(text);
@@ -16,10 +21,23 @@ const CareerNetwork = ({}: CareerNetworkProps) => {
   return (
     <Box backgroundColor="mainBackground" flex={1}>
       <Box
-        backgroundColor="mainBackground"
+        backgroundColor="iconBackground"
         borderColor="mainBackground"
         borderWidth={1}
       >
+        <Box
+          paddingTop="s"
+          marginHorizontal="s"
+          flexDirection="row"
+          justifyContent="flex-start"
+          width={wWidth}
+          height={wWidth * 0.2 - 20}
+        >
+          <HeaderButton
+            title="My Network"
+            onPress={() => navigation.navigate("MyNetwork")}
+          />
+        </Box>
         <SearchBox {...{ searchText, handleChangeText }} />
       </Box>
       <Box marginVertical="s" backgroundColor="iconBackground">

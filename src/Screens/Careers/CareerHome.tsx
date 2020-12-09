@@ -1,47 +1,145 @@
-import React, { useState } from "react";
-import { Dimensions, Image } from "react-native";
-import { RectButton, ScrollView } from "react-native-gesture-handler";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, Dimensions, Image } from "react-native";
+import {
+  FlatList,
+  RectButton,
+  ScrollView,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import { Box, NewsSection, SearchBox, Text } from "../../components";
 import { Feather as Icon } from "@expo/vector-icons";
 import CompanyCard from "./components/CompanyCard";
-interface CareerHomeProps {}
+import { connect } from "react-redux";
+import {
+  getAllCareerTips,
+  getCareerCv,
+  getJob,
+} from "../../actions/careerActions";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import HeaderButton from "./components/HeaderButton";
+interface CareerHomeProps {
+  getAllCv: () => void;
+  career: any;
+  getJob: (q: string) => void;
+  getAllCareerTips: () => void;
+  navigation: any;
+}
 
-export const companyLogo = require("../../../assets/images/company-logo.png");
-const image = require("../../../assets/images/img-2.png");
 const { width: wWidth } = Dimensions.get("window");
-const CareerHome = ({}: CareerHomeProps) => {
+const CareerHome = ({
+  getAllCv,
+  career,
+  getJob,
+  getAllCareerTips,
+  navigation,
+}: CareerHomeProps) => {
   const [searchText, setSearchText] = useState<string>("");
   const handleChangeText = (text: string) => {
     setSearchText(text);
+  };
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    // getAllCv();
+    getJob("");
+    getAllCareerTips();
+  }, [isFocused, getJob, getAllCareerTips]);
+
+  const {
+    careerCvLoading,
+    careerCvAll,
+    careerCvError,
+    jobsLoading,
+    jobsAll,
+    jobsError,
+    tipsLoading,
+    tipsAll,
+    tipsError,
+  } = career;
+
+  const renderItem = ({ item }: { item: any }) => {
+    return (
+      <Box paddingHorizontal="s">
+        <CompanyCard onPress={() => {}} {...{ item }} />
+      </Box>
+    );
+  };
+  const renderTips = ({ item }: { item: any }) => {
+    return (
+      <TouchableWithoutFeedback
+        onPress={() =>
+          navigation.navigate("CareerTipDetail", {
+            nId: item.nId,
+          })
+        }
+        style={{ padding: 5 }}
+      >
+        <Box width={wWidth / 2 - 15}>
+          <Image
+            style={{
+              borderRadius: 20,
+              height: wWidth / 3 - 20,
+              width: wWidth / 2 - 20,
+            }}
+            source={{ uri: item._links.image.href }}
+          />
+          <Text>{item.title}</Text>
+        </Box>
+      </TouchableWithoutFeedback>
+    );
   };
   return (
     <ScrollView>
       <Box flex={1}>
         <Box
-          backgroundColor="mainBackground"
+          backgroundColor="iconBackground"
           borderColor="mainBackground"
           borderWidth={1}
+          paddingTop="s"
         >
+          <Box
+            flexDirection="row"
+            justifyContent="space-around"
+            width={wWidth}
+            height={wWidth * 0.2 - 20}
+          >
+            <HeaderButton
+              title="Candidates"
+              onPress={() => navigation.navigate("Candidates")}
+            />
+            <HeaderButton
+              title="Jobs"
+              onPress={() => navigation.navigate("CareerJobs")}
+            />
+            <HeaderButton
+              title="Talents"
+              onPress={() => navigation.navigate("CareerTalents")}
+            />
+          </Box>
           <SearchBox {...{ searchText, handleChangeText }} />
         </Box>
         <Box backgroundColor="mainBackground" padding="s">
-          <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
-            {[1, 2, 3].map((_, i) => (
-              <Box key={i} paddingHorizontal="s">
-                <CompanyCard onPress={() => {}} {...{ companyLogo }} />
-              </Box>
-            ))}
-          </ScrollView>
+          {jobsLoading ? (
+            <Box flex={1} justifyContent="center" alignItems="center">
+              <ActivityIndicator />
+            </Box>
+          ) : (
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              horizontal={true}
+              renderItem={renderItem}
+              data={jobsAll}
+              keyExtractor={(item: any) => item.jpId.toString()}
+            />
+          )}
         </Box>
         <Box backgroundColor="iconBackground">
           <Box marginVertical="l" marginHorizontal="m">
             <Text variant="silentText" color="primaryText">
               27 New Recommended
             </Text>
-            <Text paddingVertical="s" variant="mainIconSubTitle">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Eligendi, facere.
-            </Text>
+
             <Text paddingVertical="s" variant="silentText" color="primaryText">
               15 New jobs from recruiters
             </Text>
@@ -55,17 +153,33 @@ const CareerHome = ({}: CareerHomeProps) => {
           <Text paddingVertical="s" color="primaryText" variant="cardSubTitle">
             Career Tips
           </Text>
-          <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
-            {/* {[1, 2, 3].map((item, index) => {
-              return (
-                // <NewsSection onPress={() => {}} image={image} key={index} />
-              );
-            })} */}
-          </ScrollView>
+          {tipsLoading ? (
+            <Box>
+              <ActivityIndicator />
+            </Box>
+          ) : (
+            <FlatList
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              data={tipsAll}
+              renderItem={renderTips}
+              keyExtractor={(item: any) => item.nId.toString()}
+            />
+          )}
         </Box>
       </Box>
     </ScrollView>
   );
 };
+function mapStateToProps(state: any) {
+  return {
+    career: state.career,
+  };
+}
 
-export default CareerHome;
+const mapDispatchToProps = (dispatch: any) => ({
+  getAllCv: () => dispatch(getCareerCv()),
+  getJob: (q: string) => dispatch(getJob(q)),
+  getAllCareerTips: () => dispatch(getAllCareerTips()),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(CareerHome);

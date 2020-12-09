@@ -1,5 +1,6 @@
 import { RouteProp } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import {
   AppRoutes,
   StackNavigationProps,
@@ -8,6 +9,9 @@ import {
 interface CommentProps {
   navigation: StackNavigationProps<"Comment">;
   route: RouteProp<AppRoutes, "Comment">;
+  getAllCommentByPostId: (postId: number) => void;
+  comment: any;
+  createNewCommentToPost: (postId: number, data: any) => void;
 }
 
 import {
@@ -21,7 +25,15 @@ import {
   TextInput,
   FlatList,
   Button,
+  ActivityIndicator,
 } from "react-native";
+import Moment from "react-moment";
+
+import {
+  createNewCommentToPost,
+  getAllCommentByPostId,
+} from "../../actions/postActions";
+import { Box } from "../../components";
 
 const data = [
   // { id: 1, date: "9:50 am", type: "in", message: "Lorem ipsum dolor sit amet" },
@@ -74,46 +86,82 @@ const data = [
   //   message: "Lorem ipsum dolor sit a met",
   // },
 ];
-const Comment = ({ navigation, route }: CommentProps) => {
+const Comment = ({
+  comment,
+  navigation,
+  route,
+  getAllCommentByPostId,
+  createNewCommentToPost,
+}: CommentProps) => {
   const { postId } = route.params;
 
   const [state, setState] = React.useState({});
   const renderDate = (date: any) => {
-    return <Text style={styles.time}>{date}</Text>;
+    return <Moment element={Text} format="Do MMM YY" date={date} />;
   };
+  useEffect(() => {
+    getAllCommentByPostId(postId);
+  }, [postId]);
+  //! Get ALl Comments
+  const { allCommentLoading, allComment, allCommentError } = comment;
+
+  const submitComment = () => {
+    createNewCommentToPost(postId, state);
+  };
+  //   commentId: 1
+  // commentedDate: 1607156115000
+  // content: "hello world"
+  // liked: false
+  // replyCounts: 0
+  // totalLikes: 0
+  // updatedDate: 1607156115000
+  // username: "Testing hello kumar kumar"
+  if (allComment === undefined) {
+    return (
+      <Box flex={1} justifyContent="center" alignItems="center">
+        <Text>No Comments Yet</Text>
+      </Box>
+    );
+  }
   return (
     <View style={styles.container}>
-      <FlatList
-        style={styles.list}
-        data={data}
-        keyExtractor={(item) => {
-          return item.id;
-        }}
-        renderItem={(message) => {
-          const item = message.item;
-          let inMessage = item.type === "in";
-          let itemStyle = styles.itemIn;
-          return (
-            <View style={[styles.item, itemStyle]}>
-              <View style={[styles.balloon]}>
-                <Text>{item.message}</Text>
+      {allComment !== "" ? (
+        <FlatList
+          style={styles.list}
+          data={allComment}
+          keyExtractor={(item) => {
+            return item.commentId.toString();
+          }}
+          renderItem={(message) => {
+            const item = message.item;
+
+            let itemStyle = styles.itemIn;
+            return (
+              <View style={[styles.item, itemStyle]}>
+                <View style={[styles.balloon]}>
+                  <Text>{item.content}</Text>
+                </View>
+                {renderDate(item.commentedDate)}
               </View>
-              {inMessage && renderDate(item.date)}
-            </View>
-          );
-        }}
-      />
+            );
+          }}
+        />
+      ) : (
+        <Box flex={1} justifyContent="center" alignItems="center">
+          <ActivityIndicator />
+        </Box>
+      )}
       <View style={styles.footer}>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.inputs}
             placeholder="Write a message..."
             underlineColorAndroid="transparent"
-            onChangeText={(name_address) => setState({ name_address })}
+            onChangeText={(comment) => setState({ comment })}
           />
         </View>
 
-        <TouchableOpacity style={styles.btnSend}>
+        <TouchableOpacity onPress={submitComment} style={styles.btnSend}>
           <Image
             source={{
               uri: "https://img.icons8.com/small/75/ffffff/filled-sent.png",
@@ -126,7 +174,20 @@ const Comment = ({ navigation, route }: CommentProps) => {
   );
 };
 
-export default Comment;
+function mapStateToProps(state: any) {
+  return {
+    comment: state.post,
+  };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  getAllCommentByPostId: (postId: number) =>
+    dispatch(getAllCommentByPostId(postId)),
+  createNewCommentToPost: (postId: number, data: any) =>
+    dispatch(createNewCommentToPost(postId, data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Comment);
 
 const styles = StyleSheet.create({
   container: {
