@@ -14,7 +14,7 @@ import restServices from "../../services/restServices";
 import { getAllBanner } from "../../actions/bannerActions";
 import { useIsFocused } from "@react-navigation/native";
 import metalPriceServices from "../../services/metalPriceServices";
-
+import Notification from "../../Notification/Notification";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 export const iconAssets = [
@@ -70,6 +70,7 @@ const HomeScreen = ({
 
   return (
     <Box flex={1} backgroundColor="mainBackground">
+      <Notification />
       <ScrollView showsVerticalScrollIndicator={false}>
         <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
           {bannerResourceList &&

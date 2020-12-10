@@ -137,21 +137,19 @@ const toastTheme = {
 function App() {
   return (
     <Provider store={store}>
-      <Notification>
-        <ThemeProvider {...{ theme }}>
-          <LoadAssets {...{ fonts, assets }}>
-            <BackdropProvider>
-              <SafeAreaProvider>
-                <StyleThemeProvider theme={toastTheme}>
-                  <ToastProvider offset={20}>
-                    <AppNavigation />
-                  </ToastProvider>
-                </StyleThemeProvider>
-              </SafeAreaProvider>
-            </BackdropProvider>
-          </LoadAssets>
-        </ThemeProvider>
-      </Notification>
+      <ThemeProvider {...{ theme }}>
+        <LoadAssets {...{ fonts, assets }}>
+          <BackdropProvider>
+            <SafeAreaProvider>
+              <StyleThemeProvider theme={toastTheme}>
+                <ToastProvider offset={20}>
+                  <AppNavigation />
+                </ToastProvider>
+              </StyleThemeProvider>
+            </SafeAreaProvider>
+          </BackdropProvider>
+        </LoadAssets>
+      </ThemeProvider>
     </Provider>
   );
 }

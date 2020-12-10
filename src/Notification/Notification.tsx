@@ -5,10 +5,9 @@ import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 import { Platform, View } from "react-native";
 import { Button } from "react-native-propel-kit";
+import restServices from "../services/restServices";
 
-interface NotificationProps {
-  children: ReactNode;
-}
+interface NotificationProps {}
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -61,7 +60,7 @@ async function registerForPushNotificationsAsync() {
 
   return token;
 }
-const Notification = ({ children }: NotificationProps) => {
+const Notification = () => {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState<boolean | any>(false);
   const notificationListener: any = useRef<any>();
@@ -80,7 +79,7 @@ const Notification = ({ children }: NotificationProps) => {
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(
       (response) => {
-        console.log(response);
+        console.log("######res", response);
       }
     );
 
@@ -89,7 +88,21 @@ const Notification = ({ children }: NotificationProps) => {
       Notifications.removeNotificationSubscription(responseListener);
     };
   }, []);
-  return <Box flex={1}>{children}</Box>;
+  useEffect(() => {
+    if (expoPushToken !== "") {
+      const _rest = new restServices();
+      _rest
+        .post(`/notification/token?token=${expoPushToken}`, {})
+        .then((res) => {
+          console.log("tokenR", res);
+        })
+        .catch((err) => {
+          console.log("tokenRError", err);
+        });
+    }
+  }, [expoPushToken]);
+  return null;
+  // return <Box flex={1}>{children}</Box>;
 };
 
 export default Notification;
