@@ -88,6 +88,9 @@ const Notification = () => {
       Notifications.removeNotificationSubscription(responseListener);
     };
   }, []);
+  console.log("###Not", notification);
+  console.log("##Not", expoPushToken);
+
   useEffect(() => {
     if (expoPushToken !== "") {
       const _rest = new restServices();

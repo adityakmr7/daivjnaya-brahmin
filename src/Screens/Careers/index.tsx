@@ -16,6 +16,7 @@ import CareerJobs from "./CareerJobs";
 import CareerTalents from "./CareerTalents";
 import HeaderButton from "./components/HeaderButton";
 import MyNetwork from "./MyNetwork";
+import Register from "./components/Register";
 
 const Tab = createBottomTabNavigator();
 const CareerTab = () => {
@@ -114,7 +115,10 @@ const CareerStack = () => {
         options={({ navigation }) => ({
           headerRight: () => (
             <Box marginRight="s">
-              <HeaderButton title="Apply Job" onPress={() => {}} />
+              <HeaderButton
+                title="Apply Job"
+                onPress={() => navigation.navigate("ApplyJob")}
+              />
             </Box>
           ),
         })}
@@ -133,7 +137,10 @@ const CareerStack = () => {
           title: "Talents",
           headerRight: () => (
             <Box marginRight="s">
-              <HeaderButton title="Post Talents" onPress={() => {}} />
+              <HeaderButton
+                title="Post Talents"
+                onPress={() => navigation.navigate("PostTalent")}
+              />
             </Box>
           ),
         })}
@@ -141,6 +148,8 @@ const CareerStack = () => {
         component={CareerTalents}
       />
       <Stack.Screen name="MyNetwork" component={MyNetwork} />
+      <Stack.Screen name="ApplyJob" component={Register} />
+      <Stack.Screen name="PostTalent" component={Talents} />
     </Stack.Navigator>
   );
 };
