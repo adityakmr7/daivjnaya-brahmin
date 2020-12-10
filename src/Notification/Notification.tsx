@@ -89,7 +89,7 @@ const Notification = ({ children }: NotificationProps) => {
       Notifications.removeNotificationSubscription(responseListener);
     };
   }, []);
-  return <>{children}</>;
+  return <Box flex={1}>{children}</Box>;
 };
 
 export default Notification;
