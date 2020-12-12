@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Dimensions, Image } from "react-native";
+import { Feather as Icon } from "@expo/vector-icons";
+
 import {
   FlatList,
   RectButton,
@@ -46,11 +48,51 @@ const CareerHome = ({
     tipsAll,
     tipsError,
   } = career;
+  const cardWidth = wWidth / 2 + wWidth / 3;
 
   const renderItem = ({ item }: { item: any }) => {
     return (
       <Box paddingHorizontal="s">
-        <CompanyCard onPress={() => {}} {...{ item }} />
+        <Box
+          padding="l"
+          width={cardWidth}
+          borderRadius="l"
+          backgroundColor="iconBackground"
+        >
+          <TouchableWithoutFeedback onPress={() => {}}>
+            <Box alignItems="center" flexDirection="row">
+              {item &&
+              item._links &&
+              item._links.coverImage &&
+              item._links.coverImage ? (
+                <Image source={{ uri: item._links.coverImage.href }} />
+              ) : null}
+              {/* <Image source={companyLogo} /> */}
+              {item && item.companyName && item.companyName && (
+                <Text color="primaryText" variant="cardSubTitle">
+                  {item.companyName}
+                </Text>
+              )}
+            </Box>
+            <Box paddingVertical="s" paddingHorizontal="m">
+              {item && item.description && item.description && (
+                <Text color="primaryText" variant="cardText">
+                  {item.description}
+                </Text>
+              )}
+
+              <Box flexDirection="row" alignItems="center">
+                <Icon name="map-pin" />
+                {item && item.city && <Text>{item.city}</Text>}
+              </Box>
+              <RectButton>
+                <Text color="selectColor" variant="profileAction">
+                  View Details
+                </Text>
+              </RectButton>
+            </Box>
+          </TouchableWithoutFeedback>
+        </Box>
       </Box>
     );
   };
