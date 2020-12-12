@@ -6,17 +6,11 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
-import { Box, NewsSection, SearchBox, Text } from "../../components";
-import { Feather as Icon } from "@expo/vector-icons";
+import { Box, SearchBox, Text } from "../../components";
 import CompanyCard from "./components/CompanyCard";
 import { connect } from "react-redux";
-import {
-  getAllCareerTips,
-  getCareerCv,
-  getJob,
-} from "../../actions/careerActions";
-import { useFocusEffect, useIsFocused } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { getAllCareerTips, getJob } from "../../actions/careerActions";
+import { useIsFocused } from "@react-navigation/native";
 import HeaderButton from "./components/HeaderButton";
 interface CareerHomeProps {
   getAllCv: () => void;
@@ -28,7 +22,6 @@ interface CareerHomeProps {
 
 const { width: wWidth } = Dimensions.get("window");
 const CareerHome = ({
-  getAllCv,
   career,
   getJob,
   getAllCareerTips,
@@ -41,15 +34,11 @@ const CareerHome = ({
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    // getAllCv();
     getJob("");
     getAllCareerTips();
   }, [isFocused, getJob, getAllCareerTips]);
 
   const {
-    careerCvLoading,
-    careerCvAll,
-    careerCvError,
     jobsLoading,
     jobsAll,
     jobsError,
@@ -178,7 +167,6 @@ function mapStateToProps(state: any) {
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  getAllCv: () => dispatch(getCareerCv()),
   getJob: (q: string) => dispatch(getJob(q)),
   getAllCareerTips: () => dispatch(getAllCareerTips()),
 });

@@ -109,9 +109,9 @@ export const getCareerCv = () => (dispatch: any) => {
   });
   const _rest = new restServices();
   _rest
-    .get("/career/cv")
+    .get("/career/cv/all")
     .then((res) => {
-      console.log("careerCV", res.data);
+      console.log("carer", res);
       dispatch({
         type: GET_CAREER_CV_SUCCESS,
         payload: res.data,

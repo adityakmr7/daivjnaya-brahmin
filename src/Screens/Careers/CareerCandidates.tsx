@@ -1,16 +1,45 @@
-import React, { useState } from "react";
-import { ScrollView } from "react-native-gesture-handler";
+import { useIsFocused } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator } from "react-native";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
+import { connect } from "react-redux";
+import { getCareerCv } from "../../actions/careerActions";
 import { Box, SearchBox, Text } from "../../components";
 import UserNetWorkCard from "./components/UserNetWorkCard";
 
-interface CareerCandidatesProps {}
+interface CareerCandidatesProps {
+  getAllCv: () => void;
+  career: {
+    careerCvLoading: any;
+    careerCvAll: any;
+    careerCvError: any;
+  };
+}
 const profileImage = require("../../../assets/images/small-image.png");
 
-const CareerCandidates = ({}: CareerCandidatesProps) => {
+const renderCvItem = ({ item }: any) => {
+  return (
+    <UserNetWorkCard
+      chat={false}
+      day={"wed"}
+      addButton={false}
+      key={item.cvId}
+      {...{ profileImage, item }}
+    />
+  );
+};
+
+const CareerCandidates = ({ getAllCv, career }: CareerCandidatesProps) => {
   const [searchText, setSearchText] = useState<string>("");
   const handleChangeText = (text: string) => {
     setSearchText(text);
   };
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    getAllCv();
+  }, [isFocused]);
+  const { careerCvLoading, careerCvAll, careerCvError } = career;
   return (
     <Box flex={1}>
       <Box
@@ -22,23 +51,30 @@ const CareerCandidates = ({}: CareerCandidatesProps) => {
       </Box>
       <Box marginVertical="s" backgroundColor="iconBackground">
         <Box>
-          <ScrollView>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, i) => {
-              return (
-                <UserNetWorkCard
-                  chat={true}
-                  day={"wed"}
-                  addButton={false}
-                  key={i}
-                  {...{ profileImage }}
-                />
-              );
-            })}
-          </ScrollView>
+          {careerCvLoading ? (
+            <Box flex={1} justifyContent="center" alignItems="center">
+              <ActivityIndicator />
+            </Box>
+          ) : (
+            <FlatList
+              data={careerCvAll}
+              renderItem={renderCvItem}
+              keyExtractor={(item: any) => item.cvId.toString()}
+            />
+          )}
         </Box>
       </Box>
     </Box>
   );
 };
 
-export default CareerCandidates;
+function mapStateToProps(state: any) {
+  return {
+    career: state.career,
+  };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  getAllCv: () => dispatch(getCareerCv()),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(CareerCandidates);

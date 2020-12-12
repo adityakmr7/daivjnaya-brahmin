@@ -129,7 +129,7 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         careerCvLoading: false,
-        careerCvAll: action.payload,
+        careerCvAll: action.payload._embedded.cVResourceList,
         careerCvError: "",
       };
     case GET_CAREER_CV_ERROR:
