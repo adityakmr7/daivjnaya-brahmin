@@ -1,10 +1,8 @@
 import React, { ReactNode, useEffect, useRef, useState } from "react";
-import { Box, Text } from "../components";
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 import { Platform, View } from "react-native";
-import { Button } from "react-native-propel-kit";
 import restServices from "../services/restServices";
 
 interface NotificationProps {}
@@ -16,17 +14,6 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
-
-async function schedulePushNotification() {
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "You've got mail! 📬",
-      body: "Here is the notification body",
-      data: { data: "goes here" },
-    },
-    trigger: { seconds: 2 },
-  });
-}
 
 async function registerForPushNotificationsAsync() {
   let token;
