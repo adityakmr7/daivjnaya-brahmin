@@ -1,12 +1,13 @@
 import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, Dimensions, StyleSheet } from "react-native";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { getCareerCv } from "../../actions/careerActions";
 import { Box, SearchBox, Text } from "../../components";
 import UserNetWorkCard from "./components/UserNetWorkCard";
 
+const { width: wWidth, height: wHeight } = Dimensions.get("window");
 interface CareerCandidatesProps {
   getAllCv: () => void;
   career: {
@@ -19,13 +20,34 @@ const profileImage = require("../../../assets/images/small-image.png");
 
 const renderCvItem = ({ item }: any) => {
   return (
-    <UserNetWorkCard
-      chat={false}
-      day={"wed"}
-      addButton={false}
-      key={item.cvId}
-      {...{ profileImage, item }}
-    />
+    <Box
+      paddingVertical="s"
+      alignItems="center"
+      marginHorizontal="s"
+      // justifyContent="space-around"
+      flexDirection="row"
+      style={{
+        height: wWidth * 0.2,
+        borderLeftWidth: 0,
+        borderRightWidth: 0,
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: "#0000001A",
+      }}
+    >
+      <Box>
+        {/* {item._links ? 
+        <Image
+          style={{ height: 50, width: 50, borderRadius: 25 }}
+          source={{uri: item._links}}
+        />
+: null} */}
+      </Box>
+      <Box>
+        {item && item.fullName ? (
+          <Text fontSize={14}>{item.fullName}</Text>
+        ) : null}
+      </Box>
+    </Box>
   );
 };
 
