@@ -1,11 +1,10 @@
 import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Dimensions, StyleSheet } from "react-native";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
+import { FlatList } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { getCareerCv } from "../../actions/careerActions";
 import { Box, SearchBox, Text } from "../../components";
-import UserNetWorkCard from "./components/UserNetWorkCard";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 interface CareerCandidatesProps {

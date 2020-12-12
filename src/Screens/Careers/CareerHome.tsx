@@ -9,7 +9,6 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { Box, SearchBox, Text } from "../../components";
-import CompanyCard from "./components/CompanyCard";
 import { connect } from "react-redux";
 import { getAllCareerTips, getJob } from "../../actions/careerActions";
 import { useIsFocused } from "@react-navigation/native";
@@ -40,6 +39,9 @@ const CareerHome = ({
     getAllCareerTips();
   }, [isFocused, getJob, getAllCareerTips]);
 
+  useEffect(() => {
+    getJob(searchText);
+  }, [searchText]);
   const {
     jobsLoading,
     jobsAll,
@@ -120,6 +122,7 @@ const CareerHome = ({
       </TouchableWithoutFeedback>
     );
   };
+
   return (
     <ScrollView>
       <Box flex={1}>

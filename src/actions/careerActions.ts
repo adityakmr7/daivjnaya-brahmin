@@ -100,7 +100,7 @@ export const postTalents = (data: any) => (dispatch: any) => {
 
 /**
  * @get
- * career/cv
+ * career/cv/all
  */
 
 export const getCareerCv = () => (dispatch: any) => {
@@ -136,11 +136,9 @@ export const getJob = (q: string) => (dispatch: any) => {
   });
 
   const _rest = new restServices();
-
   _rest
     .get(`/career/job?q=${q}`)
     .then((res) => {
-      console.log("gettingJob", res);
       dispatch({
         type: GET_JOB_SUCCESS,
         payload: res.data,
