@@ -104,6 +104,21 @@ const Notification = () => {
         });
     }
   }, [expoPushToken]);
+
+  useEffect(() => {
+    if (expoPushToken) {
+      const _rest = new restServices();
+      _rest
+        .get(`/notification?isRead=${true}`)
+        .then((res) => {
+          console.log("resNotification", res);
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
+    }
+  }, [expoPushToken]);
+
   return null;
   // return <Box flex={1}>{children}</Box>;
 };
