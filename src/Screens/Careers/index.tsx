@@ -127,7 +127,7 @@ const CareerStack = () => {
       />
       <Stack.Screen
         options={{
-          title: "Career",
+          title: "Jobs",
         }}
         name="CareerJobs"
         component={CareerJobs}
