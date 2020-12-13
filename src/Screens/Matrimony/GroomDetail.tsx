@@ -40,7 +40,6 @@ const GroomDetail = ({
 
   const { firstName, lastName, images, pId } = matrimonyDetailProfile;
 
-  console.log("Groom-DetailImage", images);
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTransparent: true,

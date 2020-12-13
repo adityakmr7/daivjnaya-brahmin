@@ -78,11 +78,9 @@ axios.interceptors.response.use(
   },
   async (error) => {
     if (error.response.status !== 401) {
-      console.log("Error 401");
       return Promise.reject(error);
     }
     if (error.response && error.response.status === 401) {
-      console.log("Error 500");
       makeRefreshTokenCall();
     }
   }
@@ -115,7 +113,6 @@ async function makeRefreshTokenCall() {
       }
     })
     .catch((error) => {
-      console.log("inter", error);
       store.dispatch(logoutUser());
     });
 }

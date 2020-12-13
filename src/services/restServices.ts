@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
-// import AsyncStorage from "@react-native-community/async-storage";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
+// import { AsyncStorage } from "react-native";
 class restServices {
   baseUrl = "http://3.6.104.144/";
 
@@ -69,7 +69,6 @@ class restServices {
   saveToken = async (value: {}) => {
     try {
       await AsyncStorage.setItem("userData", JSON.stringify(value));
-      console.log("saveToken Triggered");
     } catch (e) {
       console.log(e);
     }
@@ -78,7 +77,7 @@ class restServices {
     try {
       let userData: any = await AsyncStorage.getItem("userData");
       let data: any = JSON.parse(userData);
-      console.log("getToken", data);
+
       return data;
     } catch (e) {
       console.log(e);

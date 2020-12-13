@@ -34,7 +34,6 @@ export const getAllFriends = () => (dispatch: any) => {
   _rest
     .get("/friend")
     .then((res) => {
-      console.log("friends", res.data);
       dispatch({
         type: GET_ALL_FRIENDS_SUCCESS,
         payload: res.data,

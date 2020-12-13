@@ -17,7 +17,6 @@ const UserNetWorkCard = ({
   addButton,
   item,
 }: UserNetWorkCardProps) => {
-  console.log("usernew", item);
   return (
     <Box
       paddingVertical="s"

@@ -66,7 +66,6 @@ const Login = ({ navigation, getLogin, authentication }: LoginProps) => {
 
   useEffect(() => {
     if (loginError !== "" && loginSuccess === "") {
-      console.log("HelloFromIf");
       toast({
         message: "Wrong username or password!",
         bg: "background",

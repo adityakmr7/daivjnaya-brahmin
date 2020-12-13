@@ -26,7 +26,7 @@ const validationSchema = Yup.object().shape({
   amount: Yup.number().positive().required(),
 });
 
-const NewScreen = ({navigation}:NewScreenStackNavigationProps<"New"> ) => {
+const NewScreen = ({ navigation }: NewScreenStackNavigationProps<"New">) => {
   const {
     handleChange,
     handleBlur,
@@ -46,8 +46,7 @@ const NewScreen = ({navigation}:NewScreenStackNavigationProps<"New"> ) => {
       amount: "",
     },
     onSubmit: (values) => {
-      console.log(values);
-      navigation.navigate('EventAdded');
+      navigation.navigate("EventAdded");
     },
   });
   return (

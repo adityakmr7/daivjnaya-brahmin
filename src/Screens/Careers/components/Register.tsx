@@ -106,18 +106,15 @@ const Register = ({ findJob, careerState }: RegisterProps) => {
     });
     setUploading(true);
     if (result.uri && result.type === "success") {
-      console.log("responsePdf", result);
       const _rest = new restServices();
       _rest
         .getPdfUrl(result)
         .then((res) => {
-          console.log("responsePdfUrl");
           const url = res.data.url;
           setFieldValue("pdf", url);
           setUploading(false);
         })
         .catch((err) => {
-          console.log("responsePdfUrlError", err);
           setUploading(false);
         });
     }

@@ -15,7 +15,6 @@ interface CareerCandidatesProps {
     careerCvError: any;
   };
 }
-const profileImage = require("../../../assets/images/small-image.png");
 
 const renderCvItem = ({ item }: { item: any }) => {
   return (
@@ -59,7 +58,7 @@ const CareerCandidates = ({ getAllCv, career }: CareerCandidatesProps) => {
 
   useEffect(() => {
     getAllCv();
-  }, [isFocused]);
+  }, [getAllCv]);
   const { careerCvLoading, careerCvAll, careerCvError } = career;
   return (
     <Box flex={1}>

@@ -66,7 +66,7 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
       // const fullName = fName.split(" ");
       const fName = firstName;
       const lName = lastName;
-      console.log({ values });
+
       if (values.callback === true) {
         userSignUp(email, password, fName, lName, phoneNumber, navigation);
       } else {
@@ -108,8 +108,6 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
       });
     }
   }, [successMessage, signUpError]);
-
-  console.log("surnames", values.lastName);
 
   return (
     <Box

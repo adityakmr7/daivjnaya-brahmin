@@ -76,7 +76,6 @@ export default (state = initialState, action: any) => {
       const { friendsFriend } = state;
       const updateFriendListList = { ...friendsFriend, isFriend: false };
 
-      console.log("updateFriendListList", updateFriendListList);
       return {
         ...state,
         friendsFriend: [...updateFriendListList],

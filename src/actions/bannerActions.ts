@@ -13,7 +13,6 @@ export const getAllBanner = () => (dispatch: any) => {
   _rest
     .get("/banner")
     .then((res) => {
-      console.log("bannerResponse", res);
       dispatch({
         type: GET_ALL_BANNER_SUCCESS,
         payload: res.data,
