@@ -24,6 +24,9 @@
     "android": {
       "package": "com.svgrtech.daivajnyabrahmin",
       "useNextNotificationsApi": true
+    },
+    "notification": {
+      "icon": "./assets/icon-2.png"
     }
   }
 }

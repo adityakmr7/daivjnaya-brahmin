@@ -17,7 +17,7 @@ interface CareerCandidatesProps {
 }
 const profileImage = require("../../../assets/images/small-image.png");
 
-const renderCvItem = ({ item }: any) => {
+const renderCvItem = ({ item }: { item: any }) => {
   return (
     <Box
       paddingVertical="s"

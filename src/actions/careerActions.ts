@@ -111,7 +111,6 @@ export const getCareerCv = () => (dispatch: any) => {
   _rest
     .get("/career/cv/all")
     .then((res) => {
-      console.log("carer", res);
       dispatch({
         type: GET_CAREER_CV_SUCCESS,
         payload: res.data,

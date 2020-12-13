@@ -123,7 +123,6 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         careerCvLoading: true,
-        careerCvError: "",
       };
     case GET_CAREER_CV_SUCCESS:
       return {
@@ -136,7 +135,6 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         careerCvLoading: false,
-        careerCvAll: undefined,
         careerCvError: "Something Went Wrong",
       };
     // AllJobs
