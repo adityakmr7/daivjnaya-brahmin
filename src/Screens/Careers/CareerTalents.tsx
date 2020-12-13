@@ -10,7 +10,6 @@ import { connect } from "react-redux";
 import { getCareerTalent } from "../../actions/careerActions";
 import { Box, SearchBox, Text } from "../../components";
 import UserNetWorkCard from "./components/UserNetWorkCard";
-const profileImage = require("../../../assets/images/small-image.png");
 
 interface CareerTalentsProps {
   getCareer: () => void;
@@ -31,6 +30,7 @@ const CareerTalents = ({ getCareer, career }: CareerTalentsProps) => {
   const renderItem = ({ item }: { item: any }) => {
     return (
       <TouchableWithoutFeedback onPress={() => {}}>
+        {/* // Will Navigate to profile */}
         <Box
           paddingVertical="s"
           alignItems="center"

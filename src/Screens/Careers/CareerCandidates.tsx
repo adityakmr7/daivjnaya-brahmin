@@ -1,7 +1,10 @@
 import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Dimensions, Image, StyleSheet } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import {
+  FlatList,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { getCareerCv } from "../../actions/careerActions";
 import { Box, SearchBox, Text } from "../../components";
@@ -14,42 +17,14 @@ interface CareerCandidatesProps {
     careerCvAll: any;
     careerCvError: any;
   };
+  navigation: any;
 }
 
-const renderCvItem = ({ item }: { item: any }) => {
-  return (
-    <Box
-      paddingVertical="s"
-      alignItems="center"
-      marginHorizontal="s"
-      // justifyContent="space-around"
-      flexDirection="row"
-      style={{
-        height: wWidth * 0.2,
-        borderLeftWidth: 0,
-        borderRightWidth: 0,
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: "#0000001A",
-      }}
-    >
-      <Box>
-        {item._links.profilePic ? (
-          <Image
-            style={{ height: 50, width: 50, borderRadius: 25 }}
-            source={{ uri: item._links.profilePic.href }}
-          />
-        ) : null}
-      </Box>
-      <Box paddingHorizontal="s">
-        {item && item.fullName ? (
-          <Text fontSize={14}>{item.fullName}</Text>
-        ) : null}
-      </Box>
-    </Box>
-  );
-};
-
-const CareerCandidates = ({ getAllCv, career }: CareerCandidatesProps) => {
+const CareerCandidates = ({
+  getAllCv,
+  career,
+  navigation,
+}: CareerCandidatesProps) => {
   const [searchText, setSearchText] = useState<string>("");
   const handleChangeText = (text: string) => {
     setSearchText(text);
@@ -60,6 +35,43 @@ const CareerCandidates = ({ getAllCv, career }: CareerCandidatesProps) => {
     getAllCv();
   }, [getAllCv]);
   const { careerCvLoading, careerCvAll, careerCvError } = career;
+
+  const renderCvItem = ({ item }: { item: any }) => {
+    return (
+      <TouchableWithoutFeedback onPress={() => {}}>
+        {/* // Will Navigate to profile */}
+        <Box
+          paddingVertical="s"
+          alignItems="center"
+          marginHorizontal="s"
+          // justifyContent="space-around"
+          flexDirection="row"
+          style={{
+            height: wWidth * 0.2,
+            borderLeftWidth: 0,
+            borderRightWidth: 0,
+            borderWidth: StyleSheet.hairlineWidth,
+            borderColor: "#0000001A",
+          }}
+        >
+          <Box>
+            {item._links.profilePic ? (
+              <Image
+                style={{ height: 50, width: 50, borderRadius: 25 }}
+                source={{ uri: item._links.profilePic.href }}
+              />
+            ) : null}
+          </Box>
+          <Box paddingHorizontal="s">
+            {item && item.fullName ? (
+              <Text fontSize={14}>{item.fullName}</Text>
+            ) : null}
+          </Box>
+        </Box>
+      </TouchableWithoutFeedback>
+    );
+  };
+
   return (
     <Box flex={1}>
       <Box
