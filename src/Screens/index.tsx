@@ -12,17 +12,13 @@ import EventScreen from "./EventScreen";
 import NewsAndEventsStack from "./NewsEvents";
 import TabNavigation from "./MyProfile";
 import CommunityStack from "./communityHub/index";
-import { RoundedBorderButton } from "./MyProfile/components";
 import { Register } from "./Register";
 import MatrimonyStack from "./Matrimony";
 import B2BStackNavigation from "./B2B";
 import JewelleryStack from "./Jewellery";
-import CareerTab from "./Careers";
-import Pricing from "./GoldAndSilverPricing";
 import AuthNavigation from "./Authentication";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/authActions";
-import { NavigationContainer } from "@react-navigation/native";
 import CareerStack from "./Careers";
 export const AppStack = createStackNavigator<AppRoutes>();
 

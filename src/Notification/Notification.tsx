@@ -1,14 +1,11 @@
 import React, { ReactNode, useEffect, useRef, useState } from "react";
-import { Box, Text } from "../components";
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 import { Platform, View } from "react-native";
-import { Button } from "react-native-propel-kit";
+import restServices from "../services/restServices";
 
-interface NotificationProps {
-  children: ReactNode;
-}
+interface NotificationProps {}
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -17,17 +14,6 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
-
-async function schedulePushNotification() {
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "You've got mail! 📬",
-      body: "Here is the notification body",
-      data: { data: "goes here" },
-    },
-    trigger: { seconds: 2 },
-  });
-}
 
 async function registerForPushNotificationsAsync() {
   let token;
@@ -61,7 +47,7 @@ async function registerForPushNotificationsAsync() {
 
   return token;
 }
-const Notification = ({ children }: NotificationProps) => {
+const Notification = () => {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState<boolean | any>(false);
   const notificationListener: any = useRef<any>();
@@ -80,7 +66,7 @@ const Notification = ({ children }: NotificationProps) => {
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(
       (response) => {
-        console.log(response);
+        console.log("######res", response);
       }
     );
 
@@ -89,7 +75,39 @@ const Notification = ({ children }: NotificationProps) => {
       Notifications.removeNotificationSubscription(responseListener);
     };
   }, []);
-  return <>{children}</>;
+  console.log("###Not", notification);
+  console.log("##Not", expoPushToken);
+
+  useEffect(() => {
+    if (expoPushToken !== "") {
+      const _rest = new restServices();
+      _rest
+        .post(`/notification/token?token=${expoPushToken}`, {})
+        .then((res) => {
+          console.log("tokenR", res);
+        })
+        .catch((err) => {
+          console.log("tokenRError", err);
+        });
+    }
+  }, [expoPushToken]);
+
+  useEffect(() => {
+    if (expoPushToken) {
+      const _rest = new restServices();
+      _rest
+        .get(`/notification?isRead=${true}`)
+        .then((res) => {
+          console.log("resNotification", res);
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
+    }
+  }, [expoPushToken]);
+
+  return null;
+  // return <Box flex={1}>{children}</Box>;
 };
 
 export default Notification;

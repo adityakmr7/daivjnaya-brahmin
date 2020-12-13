@@ -2,35 +2,45 @@ import React from "react";
 import { Image, StyleSheet } from "react-native";
 import { Box, Text } from "../../../components";
 import { Feather as Icon } from "@expo/vector-icons";
-
+import Moment from "react-moment";
 interface UserNetWorkCardProps {
   profileImage: number;
   addButton: boolean;
   chat?: boolean;
-  day?:string;
+  day?: string;
+  item: any;
 }
 const UserNetWorkCard = ({
   chat,
   profileImage,
   day,
   addButton,
+  item,
 }: UserNetWorkCardProps) => {
+  console.log("usernew", item);
   return (
     <Box
       paddingVertical="s"
       alignItems="center"
       justifyContent="space-around"
       flexDirection="row"
-      style={{ borderWidth: StyleSheet.hairlineWidth, borderColor: '#0000001A' }}
+      style={{
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: "#0000001A",
+      }}
     >
       <Box>
+        {/* {item._links ? 
         <Image
           style={{ height: 50, width: 50, borderRadius: 25 }}
-          source={profileImage}
+          source={{uri: item._links}}
         />
+: null} */}
       </Box>
       <Box>
-        <Text fontSize={14}>Full Name</Text>
+        {item && item.fullName ? (
+          <Text fontSize={14}>{item.fullName}</Text>
+        ) : null}
         {chat ? (
           <Text>Lorem ipsum dolor sit amet?</Text>
         ) : (

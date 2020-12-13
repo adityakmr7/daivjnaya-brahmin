@@ -9,20 +9,20 @@ import { persistReducer, persistStore } from "redux-persist";
 
 const middleware = [thunk, logger];
 
-const persistConfig = {
-  key: "root",
-  storage: AsyncStorage,
-};
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// const persistConfig = {
+//   key: "root",
+//   storage: AsyncStorage,
+// };
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-let store = createStore(
-  persistedReducer,
-  composeWithDevTools(applyMiddleware(...middleware))
-);
-let persistor = persistStore(store);
-export { store, persistor };
-
-// export const store = createStore(
-//   rootReducer,
+// let store = createStore(
+//   persistedReducer,
 //   composeWithDevTools(applyMiddleware(...middleware))
 // );
+// let persistor = persistStore(store);
+// export { store, persistor };
+
+export const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(...middleware))
+);

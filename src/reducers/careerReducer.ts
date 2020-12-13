@@ -129,7 +129,7 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         careerCvLoading: false,
-        careerCvAll: action.payload,
+        careerCvAll: action.payload._embedded.cVResourceList,
         careerCvError: "",
       };
     case GET_CAREER_CV_ERROR:
@@ -144,7 +144,6 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         jobsLoading: true,
-
         jobsError: "",
       };
     case GET_JOB_SUCCESS:
@@ -157,14 +156,10 @@ export default (state = initialState, action: any) => {
     case GET_JOB_ERROR:
       return {
         ...state,
-
         jobsLoading: false,
-        jobsAll: undefined,
         jobsError: "Something Went Wrong",
       };
-
     //CareerTips
-
     case GET_ALL_CAREER_TIPS_LOADING:
       return {
         tipsLoading: true,

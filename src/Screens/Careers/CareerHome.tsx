@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Dimensions, Image } from "react-native";
+import { Feather as Icon } from "@expo/vector-icons";
+
 import {
   FlatList,
   RectButton,
   ScrollView,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
-import { Box, NewsSection, SearchBox, Text } from "../../components";
-import { Feather as Icon } from "@expo/vector-icons";
-import CompanyCard from "./components/CompanyCard";
+import { Box, SearchBox, Text } from "../../components";
 import { connect } from "react-redux";
-import {
-  getAllCareerTips,
-  getCareerCv,
-  getJob,
-} from "../../actions/careerActions";
-import { useFocusEffect, useIsFocused } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { getAllCareerTips, getJob } from "../../actions/careerActions";
+import { useIsFocused } from "@react-navigation/native";
 import HeaderButton from "./components/HeaderButton";
 interface CareerHomeProps {
   getAllCv: () => void;
@@ -28,7 +23,6 @@ interface CareerHomeProps {
 
 const { width: wWidth } = Dimensions.get("window");
 const CareerHome = ({
-  getAllCv,
   career,
   getJob,
   getAllCareerTips,
@@ -41,15 +35,14 @@ const CareerHome = ({
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    // getAllCv();
     getJob("");
     getAllCareerTips();
   }, [isFocused, getJob, getAllCareerTips]);
 
+  useEffect(() => {
+    getJob(searchText);
+  }, [searchText]);
   const {
-    careerCvLoading,
-    careerCvAll,
-    careerCvError,
     jobsLoading,
     jobsAll,
     jobsError,
@@ -57,11 +50,51 @@ const CareerHome = ({
     tipsAll,
     tipsError,
   } = career;
+  const cardWidth = wWidth / 2 + wWidth / 3;
 
   const renderItem = ({ item }: { item: any }) => {
     return (
       <Box paddingHorizontal="s">
-        <CompanyCard onPress={() => {}} {...{ item }} />
+        <Box
+          padding="l"
+          width={cardWidth}
+          borderRadius="l"
+          backgroundColor="iconBackground"
+        >
+          <TouchableWithoutFeedback onPress={() => {}}>
+            <Box alignItems="center" flexDirection="row">
+              {item &&
+              item._links &&
+              item._links.coverImage &&
+              item._links.coverImage ? (
+                <Image source={{ uri: item._links.coverImage.href }} />
+              ) : null}
+              {/* <Image source={companyLogo} /> */}
+              {item && item.companyName && item.companyName && (
+                <Text color="primaryText" variant="cardSubTitle">
+                  {item.companyName}
+                </Text>
+              )}
+            </Box>
+            <Box paddingVertical="s" paddingHorizontal="m">
+              {item && item.description && item.description && (
+                <Text color="primaryText" variant="cardText">
+                  {item.description}
+                </Text>
+              )}
+
+              <Box flexDirection="row" alignItems="center">
+                <Icon name="map-pin" />
+                {item && item.city && <Text>{item.city}</Text>}
+              </Box>
+              <RectButton>
+                <Text color="selectColor" variant="profileAction">
+                  View Details
+                </Text>
+              </RectButton>
+            </Box>
+          </TouchableWithoutFeedback>
+        </Box>
       </Box>
     );
   };
@@ -89,6 +122,7 @@ const CareerHome = ({
       </TouchableWithoutFeedback>
     );
   };
+
   return (
     <ScrollView>
       <Box flex={1}>
@@ -178,7 +212,6 @@ function mapStateToProps(state: any) {
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  getAllCv: () => dispatch(getCareerCv()),
   getJob: (q: string) => dispatch(getJob(q)),
   getAllCareerTips: () => dispatch(getAllCareerTips()),
 });
