@@ -22,6 +22,9 @@ import {
   POST_TALENT_ERROR,
   POST_TALENT_LOADING,
   POST_TALENT_SUCCESS,
+  GET_CAREER_PROFILE_LOADING,
+  GET_CAREER_PROFILE_SUCCESS,
+  GET_CAREER_PROFILE_ERROR,
 } from "./../actions/constants/careerConstant";
 import { POST_CV_LOADING } from "../actions/constants/careerConstant";
 
@@ -57,6 +60,10 @@ const initialState = {
   talentLoading: false,
   talentAll: "",
   talentError: "",
+  // CareerProfile
+  careerProfileLoading: false,
+  careerProfileData: "",
+  careerProfileError: "",
 };
 
 export default (state = initialState, action: any) => {
@@ -225,6 +232,26 @@ export default (state = initialState, action: any) => {
         talentLoading: false,
         talentAll: "",
         talentError: "Something went Wrong",
+      };
+    //Career Profile
+    case GET_CAREER_PROFILE_LOADING:
+      return {
+        ...state,
+        careerProfileLoading: true,
+      };
+    case GET_CAREER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        careerProfileLoading: false,
+        careerProfileData: action.payload,
+        careerProfileError: "",
+      };
+    case GET_CAREER_PROFILE_ERROR:
+      return {
+        ...state,
+        careerProfileLoading: false,
+        careerProfileData: "",
+        careerProfileError: "Something went wrong",
       };
     default:
       return {

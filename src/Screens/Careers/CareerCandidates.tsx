@@ -38,7 +38,13 @@ const CareerCandidates = ({
 
   const renderCvItem = ({ item }: { item: any }) => {
     return (
-      <TouchableWithoutFeedback onPress={() => {}}>
+      <TouchableWithoutFeedback
+        onPress={() =>
+          navigation.navigate("CareerProfile", {
+            userId: item.cvId,
+          })
+        }
+      >
         {/* // Will Navigate to profile */}
         <Box
           paddingVertical="s"

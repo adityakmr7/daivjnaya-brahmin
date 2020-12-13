@@ -12,8 +12,9 @@ const { width: wWidth, height: wHeight } = Dimensions.get("window");
 interface CareerJobsProps {
   getAllJob: (q: string) => void;
   career: any;
+  navigation: any;
 }
-const CareerJobs = ({ getAllJob, career }: CareerJobsProps) => {
+const CareerJobs = ({ getAllJob, career, navigation }: CareerJobsProps) => {
   // Will Navigate to profile
   useEffect(() => {
     getAllJob("");
@@ -21,7 +22,13 @@ const CareerJobs = ({ getAllJob, career }: CareerJobsProps) => {
   const { jobsLoading, jobsAll, jobsError } = career;
   const renderItem = ({ item }: { item: any }) => {
     return (
-      <TouchableWithoutFeedback onPress={() => {}}>
+      <TouchableWithoutFeedback
+        onPress={() =>
+          navigation.navigate("CareerProfile", {
+            userId: item.jpId,
+          })
+        }
+      >
         {/* // Will Navigate to profile */}
         <Box
           paddingVertical="s"

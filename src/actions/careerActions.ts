@@ -254,3 +254,25 @@ export const getCareerTipsDetail = (nId: number) => (dispatch: any) => {
       });
     });
 };
+
+export const getCareerProfile = (userId: number) => (dispatch: any) => {
+  dispatch({
+    type: "GET_CAREER_PROFILE_LOADING",
+  });
+  const _rest = new restServices();
+  _rest
+    .get(`/user/${userId}`)
+    .then((res) => {
+      console.log("profileRes", res.data);
+      dispatch({
+        type: "GET_CAREER_PROFILE_SUCCESS",
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: "GET_CAREER_PROFILE_ERROR",
+        error: err,
+      });
+    });
+};

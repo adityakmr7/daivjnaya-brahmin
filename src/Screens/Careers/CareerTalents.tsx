@@ -14,10 +14,15 @@ import UserNetWorkCard from "./components/UserNetWorkCard";
 interface CareerTalentsProps {
   getCareer: () => void;
   career: any;
+  navigation: any;
 }
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
-const CareerTalents = ({ getCareer, career }: CareerTalentsProps) => {
+const CareerTalents = ({
+  getCareer,
+  career,
+  navigation,
+}: CareerTalentsProps) => {
   const [searchText, setSearchText] = useState<string>("");
   const handleChangeText = (text: string) => {
     setSearchText(text);
@@ -29,7 +34,13 @@ const CareerTalents = ({ getCareer, career }: CareerTalentsProps) => {
   console.log("talentAl", talentAll);
   const renderItem = ({ item }: { item: any }) => {
     return (
-      <TouchableWithoutFeedback onPress={() => {}}>
+      <TouchableWithoutFeedback
+        onPress={() =>
+          navigation.navigate("CareerProfile", {
+            userId: item.tId,
+          })
+        }
+      >
         {/* // Will Navigate to profile */}
         <Box
           paddingVertical="s"
