@@ -30,6 +30,7 @@ const CareerChat = ({}: CareerChatProps) => {
                   day={"wed"}
                   addButton={false}
                   key={i}
+                  item={item}
                   {...{ profileImage }}
                 />
               );

@@ -1,6 +1,6 @@
 import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Dimensions, StyleSheet } from "react-native";
+import { ActivityIndicator, Dimensions, Image, StyleSheet } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { getCareerCv } from "../../actions/careerActions";
@@ -33,14 +33,14 @@ const renderCvItem = ({ item }: { item: any }) => {
       }}
     >
       <Box>
-        {/* {item._links ? 
-        <Image
-          style={{ height: 50, width: 50, borderRadius: 25 }}
-          source={{uri: item._links}}
-        />
-: null} */}
+        {item._links.profilePic ? (
+          <Image
+            style={{ height: 50, width: 50, borderRadius: 25 }}
+            source={{ uri: item._links.profilePic.href }}
+          />
+        ) : null}
       </Box>
-      <Box>
+      <Box paddingHorizontal="s">
         {item && item.fullName ? (
           <Text fontSize={14}>{item.fullName}</Text>
         ) : null}
