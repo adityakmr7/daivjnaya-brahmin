@@ -1,23 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Box, SearchBox, Text } from "../../components";
-
+import { connect } from "react-redux";
 import UserNetWorkCard from "./components/UserNetWorkCard";
 import NetWorkComponentTitle from "./components/NetWorkComponentTitle";
 import HeaderButton from "./components/HeaderButton";
 import { Dimensions } from "react-native";
+import { getCareerNetwork } from "../../actions/careerActions";
+import { useIsFocused } from "@react-navigation/native";
 interface CareerNetworkProps {
   navigation: any;
+  careerNetworkAll: any;
+  getCareerAll: () => void;
 }
 
 const profileImage = require("../../../assets/images/small-image.png");
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
-const CareerNetwork = ({ navigation }: CareerNetworkProps) => {
+const CareerNetwork = ({
+  navigation,
+  careerNetworkAll,
+  getCareerAll,
+}: CareerNetworkProps) => {
   const [searchText, setSearchText] = useState<string>("");
   const handleChangeText = (text: string) => {
     setSearchText(text);
   };
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    getCareerAll();
+  }, [isFocused]);
+  const {} = careerNetworkAll;
   return (
     <Box backgroundColor="mainBackground" flex={1}>
       <Box
@@ -72,4 +85,13 @@ const CareerNetwork = ({ navigation }: CareerNetworkProps) => {
   );
 };
 
-export default CareerNetwork;
+function mapStateToProps(state: any) {
+  return {
+    careerNetworkAll: state.career,
+  };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  getCareerAll: () => dispatch(getCareerNetwork()),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(CareerNetwork);

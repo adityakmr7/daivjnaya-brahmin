@@ -25,6 +25,9 @@ import {
   GET_CAREER_PROFILE_LOADING,
   GET_CAREER_PROFILE_SUCCESS,
   GET_CAREER_PROFILE_ERROR,
+  GET_ALL_CAREER_NETWORK_ERROR,
+  GET_ALL_CAREER_NETWORK_SUCCESS,
+  GET_ALL_CAREER_NETWORK_LOADING,
 } from "./../actions/constants/careerConstant";
 import { POST_CV_LOADING } from "../actions/constants/careerConstant";
 
@@ -64,6 +67,10 @@ const initialState = {
   careerProfileLoading: false,
   careerProfileData: "",
   careerProfileError: "",
+  // Network From here
+  careerAllNetworkLoading: false,
+  careerAllNetworkData: "",
+  careerAllNetworkError: "",
 };
 
 export default (state = initialState, action: any) => {
@@ -252,6 +259,27 @@ export default (state = initialState, action: any) => {
         careerProfileLoading: false,
         careerProfileData: "",
         careerProfileError: "Something went wrong",
+      };
+    case GET_ALL_CAREER_NETWORK_LOADING:
+      return {
+        ...state,
+        careerAllNetworkLoading: true,
+        careerAllNetworkData: "",
+        careerAllNetworkError: "",
+      };
+    case GET_ALL_CAREER_NETWORK_SUCCESS:
+      return {
+        ...state,
+        careerAllNetworkLoading: false,
+        careerAllNetworkData: action.payload,
+        careerAllNetworkError: "",
+      };
+    case GET_ALL_CAREER_NETWORK_ERROR:
+      return {
+        ...state,
+        careerAllNetworkLoading: false,
+        careerAllNetworkData: "",
+        careerAllNetworkError: "Something went wrong",
       };
     default:
       return {
