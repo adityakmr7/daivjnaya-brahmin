@@ -28,6 +28,9 @@ import {
   GET_CAREER_TIPS_DETAIL_SUCCESS,
   GET_CAREER_TIPS_DETAIL_LOADING,
   GET_CAREER_TIPS_DETAIL_ERROR,
+  GET_CAREER_PROFILE_LOADING,
+  GET_CAREER_PROFILE_SUCCESS,
+  GET_CAREER_PROFILE_ERROR,
 } from "./constants/careerConstant";
 
 export const createNewCareer = (data: any) => (dispatch: any) => {
@@ -257,7 +260,7 @@ export const getCareerTipsDetail = (nId: number) => (dispatch: any) => {
 
 export const getCareerProfile = (userId: number) => (dispatch: any) => {
   dispatch({
-    type: "GET_CAREER_PROFILE_LOADING",
+    type: GET_CAREER_PROFILE_LOADING,
   });
   const _rest = new restServices();
   _rest
@@ -265,13 +268,13 @@ export const getCareerProfile = (userId: number) => (dispatch: any) => {
     .then((res) => {
       console.log("profileRes", res.data);
       dispatch({
-        type: "GET_CAREER_PROFILE_SUCCESS",
+        type: GET_CAREER_PROFILE_SUCCESS,
         payload: res.data,
       });
     })
     .catch((err) => {
       dispatch({
-        type: "GET_CAREER_PROFILE_ERROR",
+        type: GET_CAREER_PROFILE_ERROR,
         error: err,
       });
     });
