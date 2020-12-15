@@ -1,11 +1,13 @@
 import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
+import { Feather as Icon } from "@expo/vector-icons";
 
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import {
   getCareerNetworkInvitation,
   getCareerNetworkInvited,
 } from "../../actions/careerActions";
+import { StyleSheet } from "react-native";
 import { Box, SearchBox, Text } from "../../components";
 import UserNetWorkCard from "./components/UserNetWorkCard";
 import NetWorkComponentTitle from "./components/NetWorkComponentTitle";
@@ -43,14 +45,86 @@ const MyNetwork = ({
   const renderInvites = ({ item }: { item: any }) => {
     return (
       <Box>
-        <Text>{item.fromUsername}</Text>
+        <Box
+          paddingVertical="s"
+          alignItems="center"
+          justifyContent="space-around"
+          flexDirection="row"
+          style={{
+            borderWidth: StyleSheet.hairlineWidth,
+            borderColor: "#0000001A",
+          }}
+        >
+          {/* <Box> */}
+          {/* {item._links ? 
+        <Image
+          style={{ height: 50, width: 50, borderRadius: 25 }}
+          source={{uri: item._links}}
+        />
+: null} */}
+          {/* </Box> */}
+          <Box>
+            {item && item.fromUsername ? (
+              <Text fontSize={14}>
+                <Text>{item.fromUsername}</Text>
+              </Text>
+            ) : null}
+          </Box>
+          <Box flexDirection="row">
+            <>
+              <Box borderRadius="l" borderWidth={1} borderColor="grey">
+                <Icon name="x" size={20} color="red" />
+              </Box>
+              <Box width={10} />
+              <Box borderRadius="l" borderWidth={1} borderColor="grey">
+                <Icon name="check" size={20} color="green" />
+              </Box>
+            </>
+          </Box>
+        </Box>
       </Box>
     );
   };
   const renderInvited = ({ item }: { item: any }) => {
     return (
       <Box>
-        <Text>{item.fromUsername}</Text>
+        <Box
+          paddingVertical="s"
+          alignItems="center"
+          justifyContent="space-around"
+          flexDirection="row"
+          style={{
+            borderWidth: StyleSheet.hairlineWidth,
+            borderColor: "#0000001A",
+          }}
+        >
+          {/* <Box> */}
+          {/* {item._links ? 
+        <Image
+          style={{ height: 50, width: 50, borderRadius: 25 }}
+          source={{uri: item._links}}
+        />
+: null} */}
+          {/* </Box> */}
+          <Box>
+            {item && item.fromUsername ? (
+              <Text fontSize={14}>
+                <Text>{item.fromUsername}</Text>
+              </Text>
+            ) : null}
+          </Box>
+          <Box flexDirection="row">
+            <>
+              <Box borderRadius="l" borderWidth={1} borderColor="grey">
+                <Icon name="x" size={20} color="red" />
+              </Box>
+              <Box width={10} />
+              <Box borderRadius="l" borderWidth={1} borderColor="grey">
+                <Icon name="check" size={20} color="green" />
+              </Box>
+            </>
+          </Box>
+        </Box>
       </Box>
     );
   };
