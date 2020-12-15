@@ -19,8 +19,6 @@ interface CareerNetworkProps {
   getCareerAll: () => void;
 }
 
-const profileImage = require("../../../assets/images/small-image.png");
-
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const CareerNetwork = ({
   navigation,
@@ -97,7 +95,9 @@ const CareerNetwork = ({
       </Box>
       <Box marginVertical="s" backgroundColor="iconBackground">
         <NetWorkComponentTitle
-          numberOfPeople={2}
+          numberOfPeople={
+            careerAllNetworkData ? careerAllNetworkData.length : 0
+          }
           title="Invitation"
           onPress={() => {}}
         />

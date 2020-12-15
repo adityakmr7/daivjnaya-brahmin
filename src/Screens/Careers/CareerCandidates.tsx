@@ -61,7 +61,7 @@ const CareerCandidates = ({
           }}
         >
           <Box>
-            {item._links.profilePic ? (
+            {item._links && item._links.profilePic ? (
               <Image
                 style={{ height: 50, width: 50, borderRadius: 25 }}
                 source={{ uri: item._links.profilePic.href }}
