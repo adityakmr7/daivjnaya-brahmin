@@ -271,7 +271,7 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         careerAllNetworkLoading: false,
-        careerAllNetworkData: action.payload,
+        careerAllNetworkData: action.payload._embedded.networkResourceList,
         careerAllNetworkError: "",
       };
     case GET_ALL_CAREER_NETWORK_ERROR:
