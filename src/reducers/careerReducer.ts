@@ -107,6 +107,7 @@ export default (state = initialState, action: any) => {
     case POST_CV_ERROR:
       return {
         ...state,
+        postingCv: false,
         postedCv: "",
         errorPosting: "Please Try Again",
       };

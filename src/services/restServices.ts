@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from "axios";
 import AsyncStorage from "@react-native-community/async-storage";
 // import { AsyncStorage } from "react-native";
 class restServices {
-  baseUrl = "http://3.6.104.144/";
+  baseUrl = "http://3.6.104.144";
 
   get = async (url: string) => {
     let config: AxiosRequestConfig = {
