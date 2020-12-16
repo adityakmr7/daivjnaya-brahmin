@@ -7,17 +7,26 @@ import { Box, Text } from "../../components";
 import { IntroSection, RoundedBorderButton } from "../MyProfile/components";
 import CompanyCard from "./components/CompanyCard";
 import NetWorkComponentTitle from "./components/NetWorkComponentTitle";
+import { getUserDetail } from "../../actions/userActions";
 
 interface CareerProfileProps {
   career: any;
   getProfile: (userId: number) => void;
   route: any;
+  getUserDetail: () => void;
+  profileData: any;
 }
 export const companyLogo = require("../../../assets/images/company-logo.png");
 
 export const friends = require("../../../assets/images/small-image.png");
 const walls = require("../../../assets/images/wall.png");
-const CareerProfile = ({ getProfile, career, route }: CareerProfileProps) => {
+const CareerProfile = ({
+  getProfile,
+  career,
+  route,
+  getUserDetail,
+  profileData,
+}: CareerProfileProps) => {
   const { userId } = route.params;
   useEffect(() => {
     getProfile(userId);
@@ -27,6 +36,7 @@ const CareerProfile = ({ getProfile, career, route }: CareerProfileProps) => {
     careerProfileData,
     careerProfileError,
   } = career;
+  const { userProfileData } = profileData;
   //     about: null
   // address: null
   // city: null
@@ -133,10 +143,12 @@ const CareerProfile = ({ getProfile, career, route }: CareerProfileProps) => {
 function mapStateToProps(state: any) {
   return {
     career: state.career,
+    profileData: state.profile,
   };
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
+  getUserDetail: () => dispatch(getUserDetail()),
   getProfile: (userId: number) => dispatch(getCareerProfile(userId)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CareerProfile);
