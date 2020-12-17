@@ -215,7 +215,7 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
                   touched={touched.phoneNumber}
                 />
               </Box>
-              <Box marginTop="l" flexDirection="row">
+              <Box marginTop="s" flexDirection="row">
                 <CheckBox
                   checked={values.callback}
                   onChange={() => setFieldValue("callback", !values.callback)}
