@@ -57,7 +57,6 @@ const SeeAllFriends = ({
   }, [searchText]);
 
   const renderItem = ({ item }: { item: friendListProps }) => {
-    console.log("renderItem", item);
     return (
       <RectButton
         onPress={() =>

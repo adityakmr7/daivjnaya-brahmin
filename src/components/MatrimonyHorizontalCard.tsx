@@ -28,7 +28,6 @@ interface HorizontalCardProps {
 // phoneNumber: "9845184444"
 // updatedDate: 1605196070000
 const MatrimonyHorizontalCard = ({ item, onPress }: HorizontalCardProps) => {
-  console.log("Horizontal", item);
   return (
     <TouchableWithoutFeedback {...{ onPress }}>
       <Box flexDirection="row">

@@ -8,6 +8,9 @@ import {
   GET_CAREER_CV_ERROR,
   GET_CAREER_CV_LOADING,
   GET_CAREER_CV_SUCCESS,
+  GET_CAREER_TALENT_ERROR,
+  GET_CAREER_TALENT_LOADING,
+  GET_CAREER_TALENT_SUCCESS,
   GET_CAREER_TIPS_DETAIL_ERROR,
   GET_CAREER_TIPS_DETAIL_LOADING,
   GET_CAREER_TIPS_DETAIL_SUCCESS,
@@ -19,6 +22,18 @@ import {
   POST_TALENT_ERROR,
   POST_TALENT_LOADING,
   POST_TALENT_SUCCESS,
+  GET_CAREER_PROFILE_LOADING,
+  GET_CAREER_PROFILE_SUCCESS,
+  GET_CAREER_PROFILE_ERROR,
+  GET_ALL_CAREER_NETWORK_ERROR,
+  GET_ALL_CAREER_NETWORK_SUCCESS,
+  GET_ALL_CAREER_NETWORK_LOADING,
+  GET_ALL_CAREER_NETWORK_INVITED_LOADING,
+  GET_ALL_CAREER_NETWORK_INVITED_SUCCESS,
+  GET_ALL_CAREER_NETWORK_INVITED_ERROR,
+  GET_ALL_CAREER_NETWORK_INVITES_ERROR,
+  GET_ALL_CAREER_NETWORK_INVITES_SUCCESS,
+  GET_ALL_CAREER_NETWORK_INVITES_LOADING,
 } from "./../actions/constants/careerConstant";
 import { POST_CV_LOADING } from "../actions/constants/careerConstant";
 
@@ -50,6 +65,27 @@ const initialState = {
   tipsDetailLoading: false,
   tipsDetailAll: "",
   tipsDetailError: "",
+  // talent
+  talentLoading: false,
+  talentAll: "",
+  talentError: "",
+  // CareerProfile
+  careerProfileLoading: false,
+  careerProfileData: "",
+  careerProfileError: "",
+  // Network From here
+  careerAllNetworkLoading: false,
+  careerAllNetworkData: "",
+  careerAllNetworkError: "",
+  // network invited
+  careerNetworkInvitedLoading: false,
+  careerNetworkInvitedData: "",
+  careerNetworkInvitedError: "",
+
+  //network invites
+  careerInvitesLoading: false,
+  careerInvitesData: "",
+  careerInvitesError: "",
 };
 
 export default (state = initialState, action: any) => {
@@ -71,6 +107,7 @@ export default (state = initialState, action: any) => {
     case POST_CV_ERROR:
       return {
         ...state,
+        postingCv: false,
         postedCv: "",
         errorPosting: "Please Try Again",
       };
@@ -123,7 +160,6 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         careerCvLoading: true,
-        careerCvError: "",
       };
     case GET_CAREER_CV_SUCCESS:
       return {
@@ -136,7 +172,6 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         careerCvLoading: false,
-        careerCvAll: undefined,
         careerCvError: "Something Went Wrong",
       };
     // AllJobs
@@ -162,17 +197,20 @@ export default (state = initialState, action: any) => {
     //CareerTips
     case GET_ALL_CAREER_TIPS_LOADING:
       return {
+        ...state,
         tipsLoading: true,
         tipsError: "",
       };
     case GET_ALL_CAREER_TIPS_SUCCESS:
       return {
+        ...state,
         tipsLoading: false,
         tipsAll: action.payload._embedded.careerTipResourceList,
         tipsError: "",
       };
     case GET_ALL_CAREER_TIPS_ERROR:
       return {
+        ...state,
         tipsLoading: false,
         tipsAll: "",
         tipsError: "Something Went Wrong",
@@ -180,20 +218,130 @@ export default (state = initialState, action: any) => {
     // CareerTips detail
     case GET_CAREER_TIPS_DETAIL_LOADING:
       return {
+        ...state,
         tipsDetailLoading: true,
         tipsDetailError: "",
       };
     case GET_CAREER_TIPS_DETAIL_SUCCESS:
       return {
+        ...state,
         tipsDetailLoading: false,
         tipsDetailAll: action.payload.data,
         tipsDetailError: "",
       };
     case GET_CAREER_TIPS_DETAIL_ERROR:
       return {
+        ...state,
         tipsDetailLoading: false,
         tipsDetailAll: "",
         tipsDetailError: "Something Went wrong",
+      };
+    // career Talents
+    case GET_CAREER_TALENT_LOADING:
+      return {
+        ...state,
+        talentLoading: true,
+      };
+    case GET_CAREER_TALENT_SUCCESS:
+      return {
+        ...state,
+        talentLoading: false,
+        talentAll: action.payload._embedded.talentResourceList,
+        talentError: "",
+      };
+    case GET_CAREER_TALENT_ERROR:
+      return {
+        ...state,
+        talentLoading: false,
+        talentAll: "",
+        talentError: "Something went Wrong",
+      };
+    //Career Profile
+    case GET_CAREER_PROFILE_LOADING:
+      return {
+        ...state,
+        careerProfileLoading: true,
+      };
+    case GET_CAREER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        careerProfileLoading: false,
+        careerProfileData: action.payload,
+        careerProfileError: "",
+      };
+    case GET_CAREER_PROFILE_ERROR:
+      return {
+        ...state,
+        careerProfileLoading: false,
+        careerProfileData: "",
+        careerProfileError: "Something went wrong",
+      };
+    case GET_ALL_CAREER_NETWORK_LOADING:
+      return {
+        ...state,
+        careerAllNetworkLoading: true,
+        careerAllNetworkData: "",
+        careerAllNetworkError: "",
+      };
+    case GET_ALL_CAREER_NETWORK_SUCCESS:
+      return {
+        ...state,
+        careerAllNetworkLoading: false,
+        careerAllNetworkData: action.payload._embedded.networkResourceList,
+        careerAllNetworkError: "",
+      };
+    case GET_ALL_CAREER_NETWORK_ERROR:
+      return {
+        ...state,
+        careerAllNetworkLoading: false,
+        careerAllNetworkData: "",
+        careerAllNetworkError: "Something went wrong",
+      };
+    // Network invited
+    case GET_ALL_CAREER_NETWORK_INVITED_LOADING:
+      return {
+        ...state,
+        careerNetworkInvitedLoading: true,
+        careerNetworkInvitedData: "",
+        careerNetworkInvitedError: "",
+      };
+    case GET_ALL_CAREER_NETWORK_INVITED_SUCCESS:
+      return {
+        ...state,
+        careerNetworkInvitedLoading: false,
+        careerNetworkInvitedData: action.payload,
+        careerNetworkInvitedError: "",
+      };
+    case GET_ALL_CAREER_NETWORK_INVITED_ERROR:
+      return {
+        ...state,
+        careerNetworkInvitedLoading: false,
+        careerNetworkInvitedData: "",
+        careerNetworkInvitedError: "Something Went Wrong",
+      };
+
+    // Network invites
+    case GET_ALL_CAREER_NETWORK_INVITES_LOADING:
+      return {
+        ...state,
+        careerInvitesLoading: true,
+        careerInvitesData: "",
+        careerInvitesError: "",
+      };
+    case GET_ALL_CAREER_NETWORK_INVITES_SUCCESS:
+      return {
+        ...state,
+        careerInvitesLoading: false,
+        careerInvitesData:
+          action.payload._embedded.networkInvitationResourceList,
+        careerInvitesError: "",
+      };
+    case GET_ALL_CAREER_NETWORK_INVITES_ERROR:
+      return {
+        ...state,
+        careerInvitesLoading: false,
+        careerInvitesData: "",
+        careerInvitesError: "Something Went wrong",
       };
     default:
       return {

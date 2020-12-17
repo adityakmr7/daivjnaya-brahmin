@@ -31,8 +31,6 @@ export const getAllPost = () => (dispatch: any) => {
   _rest
     .get("/post?sort=createdDate,desc")
     .then((res) => {
-      console.log("postList", res.data);
-
       dispatch({
         type: GET_ALL_POST_SUCCESS,
         payload: res.data,
@@ -140,7 +138,6 @@ export const getAllCommentByPostId = (postId: number) => (dispatch: any) => {
   _rest
     .get(`/post/${postId}/comment`)
     .then((res) => {
-      console.log("CommentPost", res.data);
       dispatch({
         type: GET_ALL_COMMENT_BY_POST_ID_SUCCESS,
         payload: res.data,
@@ -160,7 +157,7 @@ export const createNewCommentToPost = (postId: any, data: any) => (
   dispatch({
     type: "CREATE_NEW_COMMENT_LOADING",
   });
-  console.log("createNew", data, postId);
+
   const dataToSend = {
     content: data.comment,
   };
@@ -186,9 +183,7 @@ export const deletePostComment = (id: number) => (dispatch: any) => {
   const _rest = new restServices();
   _rest
     .delete(`/post/comment/${id}`)
-    .then((res) => {
-      console.log(res);
-    })
+    .then((res) => {})
     .catch((err) => console.log(err));
 };
 
@@ -196,9 +191,7 @@ export const getCommentById = (commentId: number) => (dispatch: any) => {
   const _rest = new restServices();
   _rest
     .get(`/post/comment/${commentId}`)
-    .then((res) => {
-      console.log(res);
-    })
+    .then((res) => {})
     .catch((err) => console.log(err));
 };
 
@@ -206,9 +199,7 @@ export const deleteCommentLike = (commentId: number) => (dispatch: any) => {
   const _rest = new restServices();
   _rest
     .delete(`/post/comment/${commentId}/like`)
-    .then((res) => {
-      console.log(res);
-    })
+    .then((res) => {})
     .catch((err) => console.log(err));
 };
 
@@ -216,9 +207,7 @@ export const addCommentLike = (commentId: number) => (dispatch: any) => {
   const _rest = new restServices();
   _rest
     .post(`/post/comment/${commentId}/like`, {})
-    .then((res) => {
-      console.log(res);
-    })
+    .then((res) => {})
     .catch((err) => console.log(err));
 };
 
@@ -226,9 +215,7 @@ export const getCommentLike = (commentId: number) => (dispatch: any) => {
   const _rest = new restServices();
   _rest
     .get(`/post/comment/${commentId}/like`)
-    .then((res) => {
-      console.log(res);
-    })
+    .then((res) => {})
     .catch((err) => console.log(err));
 };
 
@@ -236,9 +223,7 @@ export const createPostMedia = (data: string) => (dispatch: any) => {
   const _rest = new restServices();
   _rest
     .post(`/post/media`, data)
-    .then((res) => {
-      console.log(res);
-    })
+    .then((res) => {})
     .catch((err) => console.log(err));
 };
 
@@ -246,9 +231,7 @@ export const deletePostById = (postId: string) => (dispatch: any) => {
   const _rest = new restServices();
   _rest
     .delete(`/post/${postId}`)
-    .then((res) => {
-      console.log(res);
-    })
+    .then((res) => {})
     .catch((err) => console.log(err));
 };
 
@@ -256,9 +239,7 @@ export const getPostById = (postId: string) => (dispatch: any) => {
   const _rest = new restServices();
   _rest
     .get(`/post/${postId}`)
-    .then((res) => {
-      console.log(res);
-    })
+    .then((res) => {})
     .catch((err) => console.log(err));
 };
 
@@ -266,9 +247,7 @@ export const postIdComment = (postId: string, data: any) => (dispatch: any) => {
   const _rest = new restServices();
   _rest
     .post(`/post/${postId}/comment`, data)
-    .then((res) => {
-      console.log(res);
-    })
+    .then((res) => {})
     .catch((err) => console.log(err));
 };
 
@@ -318,8 +297,6 @@ export const getPostIdLike = (postId: string) => (dispatch: any) => {
   const _rest = new restServices();
   _rest
     .get(`/post/${postId}/like`)
-    .then((res) => {
-      console.log(res);
-    })
+    .then((res) => {})
     .catch((err) => console.log(err));
 };

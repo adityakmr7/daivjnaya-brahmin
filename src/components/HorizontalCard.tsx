@@ -14,7 +14,6 @@ interface HorizontalCardProps {
   community?: boolean;
 }
 const HorizontalCard = ({ item, onPress, community }: HorizontalCardProps) => {
-  console.log("Horizontal", item);
   return (
     <TouchableWithoutFeedback {...{ onPress }}>
       <Box

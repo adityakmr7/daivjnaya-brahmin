@@ -1,6 +1,12 @@
 import React, { useEffect } from "react";
 
-import { Dimensions, Image, ToastAndroid } from "react-native";
+import {
+  Dimensions,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  ToastAndroid,
+} from "react-native";
 import { Box, LargeButton, Text, TextField } from "../../components";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -66,7 +72,6 @@ const Login = ({ navigation, getLogin, authentication }: LoginProps) => {
 
   useEffect(() => {
     if (loginError !== "" && loginSuccess === "") {
-      console.log("HelloFromIf");
       toast({
         message: "Wrong username or password!",
         bg: "background",
@@ -79,74 +84,85 @@ const Login = ({ navigation, getLogin, authentication }: LoginProps) => {
     }
   }, [loginError, loginSuccess]);
   return (
-    <Box
-      backgroundColor="primaryText"
-      flex={1}
-      justifyContent="center"
-      alignItems="center"
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
     >
       <Box
+        backgroundColor="primaryText"
+        flex={1}
         justifyContent="center"
         alignItems="center"
-        height={wHeight / 2}
-        width={wWidth}
-        flex={1}
       >
-        <Box style={{ marginTop: 100 }} height={wHeight / 3} width={wWidth / 2}>
-          <Image
-            style={{ height: "100%", width: "100%" }}
-            source={require("../../../assets/login-logo.png")}
-          />
+        <Box
+          justifyContent="center"
+          alignItems="center"
+          height={wHeight / 2}
+          width={wWidth}
+          flex={1}
+        >
+          <Box
+            style={{ marginTop: 100 }}
+            height={wHeight / 3}
+            width={wWidth / 2}
+          >
+            <Image
+              style={{ height: "100%", width: "100%" }}
+              source={require("../../../assets/login-logo.png")}
+            />
+          </Box>
         </Box>
-      </Box>
-      <Box
-        borderTopLeftRadius="l"
-        borderTopRightRadius="l"
-        width={wWidth}
-        backgroundColor="iconBackground"
-        flex={1}
-      >
-        <Box marginHorizontal="l">
-          <Box>
-            <TextField
-              onChangeText={handleChange("email")}
-              placeholder="Email"
-              onBlur={handleBlur("email")}
-              error={errors.email}
-              touched={touched.email}
+        <Box
+          borderTopLeftRadius="l"
+          borderTopRightRadius="l"
+          width={wWidth}
+          backgroundColor="iconBackground"
+          flex={1}
+        >
+          <Box marginHorizontal="l">
+            <Box>
+              <TextField
+                onChangeText={handleChange("email")}
+                placeholder="Email"
+                onBlur={handleBlur("email")}
+                error={errors.email}
+                touched={touched.email}
+              />
+            </Box>
+            <Box>
+              <TextField
+                secureTextEntry={true}
+                placeholder="Password"
+                onChangeText={handleChange("password")}
+                onBlur={handleBlur("password")}
+                error={errors.password}
+                touched={touched.password}
+              />
+            </Box>
+            <LargeButton
+              loading={loginLoading}
+              onPress={handleSubmit}
+              label={"LOGIN"}
             />
-          </Box>
-          <Box>
-            <TextField
-              secureTextEntry={true}
-              placeholder="Password"
-              onChangeText={handleChange("password")}
-              onBlur={handleBlur("password")}
-              error={errors.password}
-              touched={touched.password}
-            />
-          </Box>
-          <LargeButton
-            loading={loginLoading}
-            onPress={handleSubmit}
-            label={"LOGIN"}
-          />
-          <Box paddingVertical="m" alignItems="center">
-            <TouchableWithoutFeedback>
-              <Text variant="seeAll">Forgot Password ?</Text>
-            </TouchableWithoutFeedback>
-          </Box>
+            <Box paddingVertical="m" alignItems="center">
+              <TouchableWithoutFeedback
+                onPress={() => navigation.navigate("Forgot")}
+              >
+                <Text variant="seeAll">Forgot Password ?</Text>
+              </TouchableWithoutFeedback>
+            </Box>
 
-          <Box paddingVertical="m" alignItems="center">
-            <TouchableWithoutFeedback
-              onPress={() => navigation.navigate("SignUp")}
-            >
-              <Text variant="seeAll">Create new account!</Text>
-            </TouchableWithoutFeedback>
+            <Box paddingVertical="m" alignItems="center">
+              <TouchableWithoutFeedback
+                onPress={() => navigation.navigate("SignUp")}
+              >
+                <Text variant="seeAll">Create new account!</Text>
+              </TouchableWithoutFeedback>
+            </Box>
           </Box>
         </Box>
       </Box>
-    </Box>
+    </KeyboardAvoidingView>
   );
 };
 

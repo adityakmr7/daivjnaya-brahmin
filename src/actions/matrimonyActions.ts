@@ -87,7 +87,7 @@ export const createMatrimonyProfile = (
     gender: data.gender,
   });
   const _rest = new restServices();
-  console.log("dataToSend", dataToSend);
+
   _rest
     .post("/matrimony/profile", dataToSend)
     .then((res) => {
@@ -100,7 +100,6 @@ export const createMatrimonyProfile = (
           screen: "Groom",
         });
       } else {
-        console.log("gender", data.gender);
         navigation.navigate("Matrimony", {
           screen: "Bride",
         });

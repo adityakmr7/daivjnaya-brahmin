@@ -10,9 +10,7 @@ const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const AVATAR_WIDTH = wWidth / 5;
 const Message = ({}: MessageProps) => {
   const [searchText, setSearchText] = useState<string>("");
-  const handleChangeText = (text: string) => {
-    console.log(text);
-  };
+  const handleChangeText = (text: string) => {};
   return (
     <Box flex={1}>
       <SearchBox {...{ searchText, handleChangeText }} />

@@ -72,7 +72,6 @@ const CommunityHubMemberDetail = ({
     yourName,
     hubGalleries,
   } = hubMemberDetail;
-  console.log("memberDetail", hubMemberDetail);
 
   const renderImage = ({ item }: { item: any }) => {
     return (

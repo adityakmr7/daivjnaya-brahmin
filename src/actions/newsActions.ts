@@ -14,7 +14,6 @@ export const getAllNews = () => (dispatch: any) => {
   _rest
     .get("/news")
     .then((res) => {
-      console.log("getting all news", res);
       dispatch({
         type: GET_ALL_NEWS_SUCCESS,
         payload: res.data,

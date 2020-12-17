@@ -49,9 +49,7 @@ const PostProduct = ({}: PostProductProps) => {
       callback: false,
       tmc: false,
     },
-    onSubmit: (values) => {
-      console.log(values);
-    },
+    onSubmit: (values) => {},
   });
   const [galleryImage, setGalleryImage] = useState<any[]>([]);
   const handleImageUpload = async () => {

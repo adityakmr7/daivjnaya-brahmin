@@ -16,7 +16,7 @@ import HeaderButton from "./components/HeaderButton";
 interface CareerHomeProps {
   getAllCv: () => void;
   career: any;
-  getJob: (q: string) => void;
+  getAllJob: (q: string) => void;
   getAllCareerTips: () => void;
   navigation: any;
 }
@@ -24,7 +24,7 @@ interface CareerHomeProps {
 const { width: wWidth } = Dimensions.get("window");
 const CareerHome = ({
   career,
-  getJob,
+  getAllJob,
   getAllCareerTips,
   navigation,
 }: CareerHomeProps) => {
@@ -35,12 +35,12 @@ const CareerHome = ({
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    getJob("");
+    getAllJob("");
     getAllCareerTips();
   }, [isFocused, getJob, getAllCareerTips]);
 
   useEffect(() => {
-    getJob(searchText);
+    getAllJob(searchText);
   }, [searchText]);
   const {
     jobsLoading,
@@ -212,7 +212,7 @@ function mapStateToProps(state: any) {
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  getJob: (q: string) => dispatch(getJob(q)),
+  getAllJob: (q: string) => dispatch(getJob(q)),
   getAllCareerTips: () => dispatch(getAllCareerTips()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CareerHome);

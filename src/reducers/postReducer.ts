@@ -93,7 +93,7 @@ const postReducer = (state = initialState, action: any) => {
       const updatedPostList = list.map((item) =>
         item.postId === id ? { ...item, isLiked: false } : item
       );
-      // console.log("getById", (postList[getById].isLiked = true));
+
       return {
         ...state,
         postUnLikedMessage: action.payload.status,

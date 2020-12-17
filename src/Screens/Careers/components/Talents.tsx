@@ -71,7 +71,7 @@ const Talents = ({ createNewTalent, careerTalent }: CareerRegisterProps) => {
     },
     onSubmit: (values) => {
       createNewTalent(values);
-      console.log(values);
+
       //   if (values.callback === true && values.tmc === true) {
       //     createNewHub(values, galleryImage);
       //     if (createSuccess !== "" && createError === "") {
@@ -126,7 +126,6 @@ const Talents = ({ createNewTalent, careerTalent }: CareerRegisterProps) => {
         });
 
         if (!result.cancelled) {
-          console.log("responseVideo1", result);
           // TODO: video Upload
           const _rest = new restServices();
           _rest
@@ -135,9 +134,7 @@ const Talents = ({ createNewTalent, careerTalent }: CareerRegisterProps) => {
               setFieldValue("video", res.data.url);
               setVideoUploading(false);
             })
-            .catch((err) => {
-              console.log("responseVideoError", err);
-            });
+            .catch((err) => {});
         }
       }
     }

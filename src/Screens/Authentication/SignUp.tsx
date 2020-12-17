@@ -1,9 +1,17 @@
 import React, { useEffect } from "react";
-import { Dimensions, Image } from "react-native";
+import {
+  Dimensions,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { Box, CheckBox, LargeButton, Text, TextField } from "../../components";
 import * as Yup from "yup";
 import { ErrorMessage, useFormik } from "formik";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import {
+  ScrollView,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import { combineAuthStackProps } from ".";
 import { userSignup } from "../../actions/authActions";
 import { connect } from "react-redux";
@@ -66,7 +74,7 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
       // const fullName = fName.split(" ");
       const fName = firstName;
       const lName = lastName;
-      console.log({ values });
+
       if (values.callback === true) {
         userSignUp(email, password, fName, lName, phoneNumber, navigation);
       } else {
@@ -109,117 +117,130 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
     }
   }, [successMessage, signUpError]);
 
-  console.log("surnames", values.lastName);
-
   return (
-    <Box
-      backgroundColor="primaryText"
-      flex={1}
-      justifyContent="center"
-      alignItems="center"
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
     >
       <Box
+        backgroundColor="primaryText"
+        flex={1}
         justifyContent="center"
         alignItems="center"
-        height={wHeight}
-        width={wWidth}
-        flex={1}
       >
-        <Box style={{ marginTop: 50 }} height={wHeight / 3} width={wWidth / 2}>
-          <Image
-            style={{ height: "100%", width: "100%" }}
-            source={require("../../../assets/login-logo.png")}
-          />
-        </Box>
-      </Box>
-      <Box
-        borderTopLeftRadius="l"
-        borderTopRightRadius="l"
-        width={wWidth}
-        backgroundColor="iconBackground"
-        flex={2.5}
-      >
-        <Box marginHorizontal="l">
-          <Box>
-            <TextField
-              onChangeText={handleChange("firstName")}
-              placeholder="First Name"
-              onBlur={handleBlur("firstName")}
-              error={errors.firstName}
-              touched={touched.firstName}
-            />
-          </Box>
-          <Box marginTop="l" marginBottom="s">
-            <Text variant="cardText" color="primaryText">
-              Choose Your Surname
-            </Text>
-          </Box>
-
-          <Select
-            placeholder="Surname"
-            value={values.lastName}
-            onChange={(value: any) => setFieldValue("lastName", value)}
+        <Box
+          justifyContent="center"
+          alignItems="center"
+          height={wHeight}
+          width={wWidth}
+          flex={1}
+        >
+          <Box
+            style={{ marginTop: 50 }}
+            height={wHeight / 3}
+            width={wWidth / 2}
           >
-            {lastNameList.map((item, i) => {
-              return (
-                <Select.Item key={i} label={item.lName} value={item.lName} />
-              );
-            })}
-          </Select>
-          <Box>
-            <TextField
-              keyboardType="email-address"
-              placeholder="Email"
-              onChangeText={handleChange("email")}
-              onBlur={handleBlur("email")}
-              error={errors.email}
-              touched={touched.email}
+            <Image
+              style={{ height: "100%", width: "100%" }}
+              source={require("../../../assets/login-logo.png")}
             />
-          </Box>
-          <Box>
-            <TextField
-              secureTextEntry={true}
-              placeholder="Password"
-              onChangeText={handleChange("password")}
-              onBlur={handleBlur("password")}
-              error={errors.password}
-              touched={touched.password}
-            />
-          </Box>
-          <Box>
-            <TextField
-              keyboardType="number-pad"
-              placeholder="Phone Number"
-              onChangeText={handleChange("phoneNumber")}
-              onBlur={handleBlur("phoneNumber")}
-              error={errors.phoneNumber}
-              touched={touched.phoneNumber}
-            />
-          </Box>
-          <Box marginTop="l" flexDirection="row">
-            <CheckBox
-              checked={values.callback}
-              onChange={() => setFieldValue("callback", !values.callback)}
-              label="Term and conditions"
-            />
-          </Box>
-          <LargeButton
-            loading={signUpLoading}
-            onPress={handleSubmit}
-            label={"SIGN UP"}
-          />
-          <Box alignItems="center">
-            <TouchableWithoutFeedback
-              onPress={() => navigation.navigate("login")}
-            >
-              <Text fontSize={13} variant="silentText">
-                Already have account ? <Text variant="seeAll">Sign In</Text>
-              </Text>
-            </TouchableWithoutFeedback>
           </Box>
         </Box>
+        <Box
+          borderTopLeftRadius="l"
+          borderTopRightRadius="l"
+          width={wWidth}
+          backgroundColor="iconBackground"
+          flex={2.5}
+        >
+          <ScrollView>
+            <Box marginHorizontal="l">
+              <Box>
+                <TextField
+                  onChangeText={handleChange("firstName")}
+                  placeholder="First Name"
+                  onBlur={handleBlur("firstName")}
+                  error={errors.firstName}
+                  touched={touched.firstName}
+                />
+              </Box>
+              <Box marginTop="l" marginBottom="s">
+                <Text variant="cardText" color="primaryText">
+                  Choose Your Surname
+                </Text>
+              </Box>
+
+              <Select
+                placeholder="Surname"
+                value={values.lastName}
+                onChange={(value: any) => setFieldValue("lastName", value)}
+              >
+                {lastNameList.map((item, i) => {
+                  return (
+                    <Select.Item
+                      key={i}
+                      label={item.lName}
+                      value={item.lName}
+                    />
+                  );
+                })}
+              </Select>
+              <Box>
+                <TextField
+                  keyboardType="email-address"
+                  placeholder="Email"
+                  onChangeText={handleChange("email")}
+                  onBlur={handleBlur("email")}
+                  error={errors.email}
+                  touched={touched.email}
+                />
+              </Box>
+              <Box>
+                <TextField
+                  secureTextEntry={true}
+                  placeholder="Password"
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                  error={errors.password}
+                  touched={touched.password}
+                />
+              </Box>
+              <Box>
+                <TextField
+                  keyboardType="number-pad"
+                  placeholder="Phone Number"
+                  onChangeText={handleChange("phoneNumber")}
+                  onBlur={handleBlur("phoneNumber")}
+                  error={errors.phoneNumber}
+                  touched={touched.phoneNumber}
+                />
+              </Box>
+              <Box marginTop="s" flexDirection="row">
+                <CheckBox
+                  checked={values.callback}
+                  onChange={() => setFieldValue("callback", !values.callback)}
+                  label="Term and conditions"
+                />
+              </Box>
+              <LargeButton
+                loading={signUpLoading}
+                onPress={handleSubmit}
+                label={"SIGN UP"}
+              />
+              <Box alignItems="center">
+                <TouchableWithoutFeedback
+                  onPress={() => navigation.navigate("login")}
+                >
+                  <Text fontSize={13} variant="silentText">
+                    Already have account ? <Text variant="seeAll">Sign In</Text>
+                  </Text>
+                </TouchableWithoutFeedback>
+              </Box>
+            </Box>
+          </ScrollView>
+        </Box>
       </Box>
-    </Box>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -28,6 +28,18 @@ import {
   GET_CAREER_TIPS_DETAIL_SUCCESS,
   GET_CAREER_TIPS_DETAIL_LOADING,
   GET_CAREER_TIPS_DETAIL_ERROR,
+  GET_CAREER_PROFILE_LOADING,
+  GET_CAREER_PROFILE_SUCCESS,
+  GET_CAREER_PROFILE_ERROR,
+  GET_ALL_CAREER_NETWORK_ERROR,
+  GET_ALL_CAREER_NETWORK_SUCCESS,
+  GET_ALL_CAREER_NETWORK_LOADING,
+  GET_ALL_CAREER_NETWORK_INVITED_LOADING,
+  GET_ALL_CAREER_NETWORK_INVITED_SUCCESS,
+  GET_ALL_CAREER_NETWORK_INVITED_ERROR,
+  GET_ALL_CAREER_NETWORK_INVITES_LOADING,
+  GET_ALL_CAREER_NETWORK_INVITES_SUCCESS,
+  GET_ALL_CAREER_NETWORK_INVITES_ERROR,
 } from "./constants/careerConstant";
 
 export const createNewCareer = (data: any) => (dispatch: any) => {
@@ -111,7 +123,7 @@ export const getCareerCv = () => (dispatch: any) => {
   _rest
     .get("/career/cv/all")
     .then((res) => {
-      console.log("carer", res);
+      console.log("cvAll", res.data);
       dispatch({
         type: GET_CAREER_CV_SUCCESS,
         payload: res.data,
@@ -217,7 +229,6 @@ export const getAllCareerTips = () => (dispatch: any) => {
   _rest
     .get(`/career/tip`)
     .then((res) => {
-      console.log("gettingTips", res.data);
       dispatch({
         type: GET_ALL_CAREER_TIPS_SUCCESS,
         payload: res.data,
@@ -243,7 +254,6 @@ export const getCareerTipsDetail = (nId: number) => (dispatch: any) => {
   _rest
     .get(`/career/tip/${nId}`)
     .then((res) => {
-      console.log("gettingTipsDetail", res);
       dispatch({
         type: GET_CAREER_TIPS_DETAIL_SUCCESS,
         payload: res,
@@ -252,6 +262,109 @@ export const getCareerTipsDetail = (nId: number) => (dispatch: any) => {
     .catch((err) => {
       dispatch({
         type: GET_CAREER_TIPS_DETAIL_ERROR,
+        error: err,
+      });
+    });
+};
+
+export const getCareerProfile = (userId: number) => (dispatch: any) => {
+  dispatch({
+    type: GET_CAREER_PROFILE_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get(`/user/${userId}`)
+    .then((res) => {
+      console.log("profileRes", res.data);
+      dispatch({
+        type: GET_CAREER_PROFILE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_CAREER_PROFILE_ERROR,
+        error: err,
+      });
+    });
+};
+
+/**
+ *  Career Network Service
+ *  @ get
+ */
+
+export const getCareerNetwork = () => (dispatch: any) => {
+  dispatch({
+    type: GET_ALL_CAREER_NETWORK_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get("/career/network")
+    .then((res) => {
+      console.log("careerCo", res.data);
+      dispatch({
+        type: GET_ALL_CAREER_NETWORK_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ALL_CAREER_NETWORK_ERROR,
+        error: err,
+      });
+    });
+};
+
+/**
+ *  Career Network Service Invited
+ *  @ get
+ */
+
+export const getCareerNetworkInvited = () => (dispatch: any) => {
+  dispatch({
+    type: GET_ALL_CAREER_NETWORK_INVITED_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get("/career/network/invited")
+    .then((res) => {
+      console.log("Invited", res.data);
+      dispatch({
+        type: GET_ALL_CAREER_NETWORK_INVITED_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ALL_CAREER_NETWORK_INVITED_ERROR,
+        error: err,
+      });
+    });
+};
+
+/**
+ *  Career Network Service Invited
+ *  @ get
+ */
+
+export const getCareerNetworkInvitation = () => (dispatch: any) => {
+  dispatch({
+    type: GET_ALL_CAREER_NETWORK_INVITES_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get("/career/network/invites")
+    .then((res) => {
+      console.log("invites", res.data);
+      dispatch({
+        type: GET_ALL_CAREER_NETWORK_INVITES_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ALL_CAREER_NETWORK_INVITES_ERROR,
         error: err,
       });
     });

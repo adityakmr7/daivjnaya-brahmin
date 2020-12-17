@@ -26,7 +26,7 @@ const FullScreen = ({
   }, [navigation]);
   const { matrimonyDetailProfile } = matrimonyDetail;
   const { images } = matrimonyDetailProfile;
-  console.log("fullScreenDetail", matrimonyDetailProfile);
+
   return (
     <Box flex={1}>
       {images &&
