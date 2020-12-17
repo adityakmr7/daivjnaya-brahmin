@@ -145,7 +145,9 @@ const Login = ({ navigation, getLogin, authentication }: LoginProps) => {
               label={"LOGIN"}
             />
             <Box paddingVertical="m" alignItems="center">
-              <TouchableWithoutFeedback>
+              <TouchableWithoutFeedback
+                onPress={() => navigation.navigate("Forgot")}
+              >
                 <Text variant="seeAll">Forgot Password ?</Text>
               </TouchableWithoutFeedback>
             </Box>

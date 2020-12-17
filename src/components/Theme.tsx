@@ -30,6 +30,8 @@ export const theme = {
     l: 20,
     xl: 24,
     xxl: 40,
+    xxxl: 80,
+    xxxxl: 160,
   },
   borderRadii: {
     s: 5,
@@ -38,6 +40,11 @@ export const theme = {
     xl: 75,
   },
   textVariants: {
+    titleText: {
+      fontFamily: "SFProTextBold",
+      fontSize: 40,
+      color: "primaryText",
+    },
     cardTitle: {
       fontFamily: "SFProTextBold",
       fontSize: 21,
