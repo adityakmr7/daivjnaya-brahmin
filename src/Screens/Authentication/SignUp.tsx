@@ -164,12 +164,11 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
                   touched={touched.firstName}
                 />
               </Box>
-              <Box marginTop="l" marginBottom="s">
+              <Box marginTop="l" >
                 <Text variant="cardText" color="primaryText">
                   Choose Your Surname
                 </Text>
               </Box>
-
               <Select
                 placeholder="Surname"
                 value={values.lastName}
@@ -215,7 +214,7 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
                   touched={touched.phoneNumber}
                 />
               </Box>
-              <Box marginTop="s" flexDirection="row">
+              <Box marginTop="xl"  flexDirection="row">
                 <CheckBox
                   checked={values.callback}
                   onChange={() => setFieldValue("callback", !values.callback)}
@@ -231,7 +230,7 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
                 <TouchableWithoutFeedback
                   onPress={() => navigation.navigate("login")}
                 >
-                  <Text fontSize={13} variant="silentText">
+                  <Text fontSize={13} marginTop="xl" marginBottom="xxl" variant="silentText">
                     Already have account ? <Text variant="seeAll">Sign In</Text>
                   </Text>
                 </TouchableWithoutFeedback>
