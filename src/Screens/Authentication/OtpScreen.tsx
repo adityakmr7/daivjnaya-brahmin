@@ -5,13 +5,16 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { combineAuthStackProps } from ".";
-import { Box, LargeButton, Text } from "../../components";
+import { Box, LargeButton, Text, TextField } from "../../components";
 import { Feather as Icon } from "@expo/vector-icons";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { changePasswordForOtp } from "../../actions/authActions";
+import { connect } from "react-redux";
 
 interface OtpScreenProps {
   navigation: combineAuthStackProps<"Otp">;
+  getChangePasswordOtp: (data: {}, navigation: any) => void;
 }
 const validationSchema = Yup.object().shape({
   fValue: Yup.string().length(1),
@@ -19,7 +22,7 @@ const validationSchema = Yup.object().shape({
   tValue: Yup.string().length(1),
   thValue: Yup.string().length(1),
 });
-const OtpScreen = ({ navigation }: OtpScreenProps) => {
+const OtpScreen = ({ navigation, getChangePasswordOtp }: OtpScreenProps) => {
   const {
     handleChange,
     handleBlur,
@@ -37,9 +40,23 @@ const OtpScreen = ({ navigation }: OtpScreenProps) => {
       foValue: "",
       fiValue: "",
       siValue: "",
+      email: "",
+      password: "",
     },
     onSubmit: async (values) => {
-      console.log("otpVlaues", values);
+      const data = {
+        email: values.email,
+        otp:
+          `${values.fValue}` +
+          `${values.sValue}` +
+          `${values.tValue}` +
+          `${values.thValue}` +
+          `${values.foValue}` +
+          `${values.fiValue}`,
+        password: values.password,
+      };
+      getChangePasswordOtp(data, navigation);
+      console.log("otpVlaues", data);
     },
   });
   return (
@@ -98,19 +115,44 @@ const OtpScreen = ({ navigation }: OtpScreenProps) => {
             onBlur={handleBlur("siValue")}
           />
         </Box>
-
         <Box>
-          <LargeButton
-            label="Submit"
-            onPress={() => navigation.navigate("ResetComplete")}
+          <TextField
+            onChangeText={handleChange("email")}
+            onBlur={handleBlur("email")}
+            error={errors.email}
+            touched={touched.email}
+            placeholder="Enter Your Email"
           />
+          <TextField
+            secureTextEntry={true}
+            onChangeText={handleChange("password")}
+            onBlur={handleBlur("password")}
+            error={errors.password}
+            touched={touched.password}
+            placeholder="Enter password"
+          />
+        </Box>
+        <Box>
+          <LargeButton label="Submit" onPress={() => handleSubmit()} />
         </Box>
       </Box>
     </Box>
   );
 };
 
-export default OtpScreen;
+function mapStateToProps(state: any) {
+  return {
+    ...state,
+  };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  getChangePasswordOtp: (
+    data: { email: string; otp: number; password: string },
+    navigation: any
+  ) => dispatch(changePasswordForOtp(data, navigation)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(OtpScreen);
 
 const OtpInput = ({ ...props }) => {
   return (

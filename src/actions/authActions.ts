@@ -118,7 +118,7 @@ export const resetPassword = (email: string, navigation: any) => (
 
   const _rest = new restServices();
   _rest
-    .post("/resetpassword", { email })
+    .put("/resetpassword", { email })
     .then((res) => {
       console.log("passwordRestSuccess", res);
       dispatch({
@@ -130,6 +130,35 @@ export const resetPassword = (email: string, navigation: any) => (
     .catch((err) => {
       dispatch({
         type: "PASSWORD_RESET_ERROR",
+        error: err,
+      });
+    });
+};
+
+export const changePasswordForOtp = (
+  data: {
+    email: string;
+    otp: number;
+    password: string;
+  },
+  navigation: any
+) => (dispatch: any) => {
+  dispatch({
+    type: "PASSWORD_CHANGE_OTP_LOADING",
+  });
+  const _rest = new restServices();
+  _rest
+    .put("/changepassword", { ...data })
+    .then((res) => {
+      dispatch({
+        type: "PASSWORD_CHANGE_OTP_SUCCESS",
+        payload: res.data,
+      });
+      // navigation.navigate('ResetComplete')
+    })
+    .catch((err) => {
+      dispatch({
+        type: "PASSWORD_CHANGE_OTP_ERROR",
         error: err,
       });
     });
