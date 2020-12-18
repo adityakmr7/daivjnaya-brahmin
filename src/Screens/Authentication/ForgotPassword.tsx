@@ -18,7 +18,6 @@ interface ForgotPasswordProps {
   getResetEmail: (email: string, navigation: any) => void;
 }
 const validationSchema = Yup.object().shape({
-  password: Yup.string().required(),
   email: Yup.string().email().required(),
 });
 
@@ -37,6 +36,7 @@ const ForgotPassword = ({ navigation, getResetEmail }: ForgotPasswordProps) => {
       email: "",
     },
     onSubmit: async (values) => {
+      console.log("forgotValue", values);
       getResetEmail(values.email, navigation);
     },
   });

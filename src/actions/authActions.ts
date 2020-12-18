@@ -115,17 +115,17 @@ export const resetPassword = (email: string, navigation: any) => (
   dispatch({
     type: "PASSWORD_RESET_LOADING",
   });
-
   const _rest = new restServices();
   _rest
-    .put("/resetpassword", { email })
+    .authPut(`/resetpassword?email=${email}`)
     .then((res) => {
-      console.log("passwordRestSuccess", res);
-      dispatch({
-        type: "PASSWORD_RESET_SUCCESS",
-        payload: "Password Reset SuccessFull",
-      });
-      // navigation.navigate('Otp');
+      if (res.status === 200) {
+        dispatch({
+          type: "PASSWORD_RESET_SUCCESS",
+          payload: "Password Reset SuccessFull",
+        });
+        navigation.navigate("Otp");
+      }
     })
     .catch((err) => {
       dispatch({

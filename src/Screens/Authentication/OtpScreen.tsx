@@ -110,10 +110,6 @@ const OtpScreen = ({ navigation, getChangePasswordOtp }: OtpScreenProps) => {
             onChangeText={handleChange("fiValue")}
             onBlur={handleBlur("fiValue")}
           />
-          <OtpInput
-            onChangeText={handleChange("siValue")}
-            onBlur={handleBlur("siValue")}
-          />
         </Box>
         <Box>
           <TextField

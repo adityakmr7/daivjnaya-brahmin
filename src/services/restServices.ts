@@ -163,6 +163,15 @@ class restServices {
     };
     return axios(config);
   };
+  authPut = async (url: string) => {
+    let config: AxiosRequestConfig = {
+      method: "put",
+      timeout: 15000,
+      url: this.baseUrl + url,
+      headers: {},
+    };
+    return axios(config);
+  };
 }
 
 export default restServices;
