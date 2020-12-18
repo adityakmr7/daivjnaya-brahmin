@@ -8,10 +8,39 @@ import {
 import { Feather as Icon } from "@expo/vector-icons";
 import { LargeButton, TextField } from "../../components";
 import { combineAuthStackProps } from ".";
+import { connect } from "react-redux";
+import { resetPassword } from "../../actions/authActions";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+
 interface ForgotPasswordProps {
   navigation: combineAuthStackProps<"Forgot">;
+  getResetEmail: (email: string, navigation: any) => void;
 }
-const ForgotPassword = ({ navigation }: ForgotPasswordProps) => {
+const validationSchema = Yup.object().shape({
+  password: Yup.string().required(),
+  email: Yup.string().email().required(),
+});
+
+const ForgotPassword = ({ navigation, getResetEmail }: ForgotPasswordProps) => {
+  const {
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    values,
+    errors,
+    touched,
+    setFieldValue,
+  } = useFormik({
+    validationSchema,
+    initialValues: {
+      email: "",
+    },
+    onSubmit: async (values) => {
+      getResetEmail(values.email, navigation);
+    },
+  });
+
   return (
     <Box flex={1}>
       <StatusBar backgroundColor="black" />
@@ -36,17 +65,30 @@ const ForgotPassword = ({ navigation }: ForgotPasswordProps) => {
             Password
           </Text>
         </Box>
-        <TextField placeholder="Enter Your Email" />
-
+        <TextField
+          onChangeText={handleChange("email")}
+          onBlur={handleBlur("email")}
+          error={errors.email}
+          touched={touched.email}
+          placeholder="Enter Your Email"
+        />
         <Box>
-          <LargeButton
-            label="Submit"
-            onPress={() => navigation.navigate("Otp")}
-          />
+          <LargeButton label="Submit" onPress={() => handleSubmit()} />
         </Box>
       </Box>
     </Box>
   );
 };
 
-export default ForgotPassword;
+function mapStateToProps(state: any) {
+  return {
+    ...state,
+  };
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  getResetEmail: (email: string, navigation: any) =>
+    dispatch(resetPassword(email, navigation)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);

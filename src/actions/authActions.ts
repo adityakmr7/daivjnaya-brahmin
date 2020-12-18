@@ -108,3 +108,29 @@ export const logoutUser = () => async (dispatch: any) => {
   let _res = new restServices();
   await _res.removeAccessToken();
 };
+
+export const resetPassword = (email: string, navigation: any) => (
+  dispatch: any
+) => {
+  dispatch({
+    type: "PASSWORD_RESET_LOADING",
+  });
+
+  const _rest = new restServices();
+  _rest
+    .post("/resetpassword", { email })
+    .then((res) => {
+      console.log("passwordRestSuccess", res);
+      dispatch({
+        type: "PASSWORD_RESET_SUCCESS",
+        payload: "Password Reset SuccessFull",
+      });
+      // navigation.navigate('Otp');
+    })
+    .catch((err) => {
+      dispatch({
+        type: "PASSWORD_RESET_ERROR",
+        error: err,
+      });
+    });
+};
