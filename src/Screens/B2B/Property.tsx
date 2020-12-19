@@ -1,8 +1,15 @@
-import React from "react";
+import { useIsFocused } from "@react-navigation/native";
+import React, { useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
+import { connect } from "react-redux";
+import { getAllB2bProperty } from "../../actions/b2bActions";
 import { Box, Text, HorizontalCard } from "../../components";
 
-interface PropertyProps {}
+interface PropertyProps {
+  navigation: any;
+  getAllProperty: () => void;
+  propertyAll: any;
+}
 
 export const PropertyList = [
   {
@@ -32,7 +39,16 @@ export const PropertyList = [
 ];
 export const B2BPropertyAssets = PropertyList.map((item, i) => item.image);
 
-const Property = ({ navigation }: PropertyProps) => {
+const Property = ({
+  navigation,
+  getAllProperty,
+  propertyAll,
+}: PropertyProps) => {
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    getAllProperty();
+  }, [isFocused]);
+  const { propertyLoading, propertyData, propertyError } = propertyAll;
   return (
     <ScrollView>
       <Box backgroundColor="iconBackground" flex={1}>
@@ -52,4 +68,13 @@ const Property = ({ navigation }: PropertyProps) => {
   );
 };
 
-export default Property;
+function mapStateToProps(state: any) {
+  return {
+    propertyAll: state.b2b,
+  };
+}
+const mapDispatchToProps = (dispatch: any) => ({
+  getAllProperty: () => dispatch(getAllB2bProperty()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Property);
