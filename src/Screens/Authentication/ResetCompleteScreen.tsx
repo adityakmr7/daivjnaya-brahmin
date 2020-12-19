@@ -48,6 +48,7 @@ const ResetCompleteScreen = ({ navigation }: ResetCompleteScreenProps) => {
         </Box>
         <Box justifyContent="flex-end" flexDirection="row">
           <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("login")}
             style={{ flexDirection: "row", alignItems: "center" }}
           >
             <Text color="primaryText" variant="cardSubTitle">

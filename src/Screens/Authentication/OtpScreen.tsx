@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   TextInput,
   TouchableWithoutFeedback,
@@ -14,6 +14,8 @@ import { connect } from "react-redux";
 
 interface OtpScreenProps {
   navigation: combineAuthStackProps<"Otp">;
+  route: any;
+  otpState: any;
   getChangePasswordOtp: (data: {}, navigation: any) => void;
 }
 const validationSchema = Yup.object().shape({
@@ -22,7 +24,12 @@ const validationSchema = Yup.object().shape({
   tValue: Yup.string().length(1),
   thValue: Yup.string().length(1),
 });
-const OtpScreen = ({ navigation, getChangePasswordOtp }: OtpScreenProps) => {
+const OtpScreen = ({
+  navigation,
+  getChangePasswordOtp,
+  route,
+  otpState,
+}: OtpScreenProps) => {
   const {
     handleChange,
     handleBlur,
@@ -30,6 +37,7 @@ const OtpScreen = ({ navigation, getChangePasswordOtp }: OtpScreenProps) => {
     values,
     errors,
     touched,
+    setFieldValue,
   } = useFormik({
     validationSchema,
     initialValues: {
@@ -56,9 +64,20 @@ const OtpScreen = ({ navigation, getChangePasswordOtp }: OtpScreenProps) => {
         password: values.password,
       };
       getChangePasswordOtp(data, navigation);
-      console.log("otpVlaues", data);
     },
   });
+  const { email } = route.params;
+  useEffect(() => {
+    setFieldValue("email", email);
+  }, [email]);
+
+  const ref_input1 = useRef<any>();
+  const ref_input2 = useRef<any>();
+  const ref_input3 = useRef<any>();
+  const ref_input4 = useRef<any>();
+  const ref_input5 = useRef<any>();
+  const ref_input6 = useRef<any>();
+  const { otpPasswordLoading, otpPasswordSuccess, otpPasswordError } = otpState;
   return (
     <Box flex={1}>
       <StatusBar backgroundColor="black" />
@@ -87,32 +106,44 @@ const OtpScreen = ({ navigation, getChangePasswordOtp }: OtpScreenProps) => {
           flexDirection="row"
         >
           <OtpInput
+            autoFocus={true}
+            onSubmitEditing={() => ref_input2.current.focus()}
             onChangeText={handleChange("fValue")}
             onBlur={handleBlur("fValue")}
           />
           <OtpInput
             onChangeText={handleChange("sValue")}
             onBlur={handleBlur("sValue")}
+            ref={ref_input2}
+            onSubmitEditing={() => ref_input3.current.focus()}
           />
           <OtpInput
             onChangeText={handleChange("tValue")}
             onBlur={handleBlur("tValue")}
+            onSubmitEditing={() => ref_input4.current.focus()}
+            ref={ref_input3}
           />
           <OtpInput
             onChangeText={handleChange("thValue")}
             onBlur={handleBlur("thValue")}
+            ref={ref_input4}
+            onSubmitEditing={() => ref_input5.current.focus()}
           />
           <OtpInput
             onChangeText={handleChange("foValue")}
+            onSubmitEditing={() => ref_input6.current.focus()}
+            ref={ref_input5}
             onBlur={handleBlur("foValue")}
           />
           <OtpInput
             onChangeText={handleChange("fiValue")}
             onBlur={handleBlur("fiValue")}
+            ref={ref_input6}
           />
         </Box>
         <Box>
           <TextField
+            value={values.email}
             onChangeText={handleChange("email")}
             onBlur={handleBlur("email")}
             error={errors.email}
@@ -129,7 +160,11 @@ const OtpScreen = ({ navigation, getChangePasswordOtp }: OtpScreenProps) => {
           />
         </Box>
         <Box>
-          <LargeButton label="Submit" onPress={() => handleSubmit()} />
+          <LargeButton
+            loading={otpPasswordLoading}
+            label="Submit"
+            onPress={() => handleSubmit()}
+          />
         </Box>
       </Box>
     </Box>
@@ -138,13 +173,13 @@ const OtpScreen = ({ navigation, getChangePasswordOtp }: OtpScreenProps) => {
 
 function mapStateToProps(state: any) {
   return {
-    ...state,
+    otpState: state.auth,
   };
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
   getChangePasswordOtp: (
-    data: { email: string; otp: number; password: string },
+    data: { email: string; otp: string; password: string },
     navigation: any
   ) => dispatch(changePasswordForOtp(data, navigation)),
 });

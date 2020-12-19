@@ -15,13 +15,18 @@ import { useFormik } from "formik";
 
 interface ForgotPasswordProps {
   navigation: combineAuthStackProps<"Forgot">;
+  forgotState: any;
   getResetEmail: (email: string, navigation: any) => void;
 }
 const validationSchema = Yup.object().shape({
   email: Yup.string().email().required(),
 });
 
-const ForgotPassword = ({ navigation, getResetEmail }: ForgotPasswordProps) => {
+const ForgotPassword = ({
+  forgotState,
+  navigation,
+  getResetEmail,
+}: ForgotPasswordProps) => {
   const {
     handleChange,
     handleBlur,
@@ -40,7 +45,11 @@ const ForgotPassword = ({ navigation, getResetEmail }: ForgotPasswordProps) => {
       getResetEmail(values.email, navigation);
     },
   });
-
+  const {
+    forgotPasswordLoading,
+    forgotPasswordSuccess,
+    forgotPasswordError,
+  } = forgotState;
   return (
     <Box flex={1}>
       <StatusBar backgroundColor="black" />
@@ -73,7 +82,11 @@ const ForgotPassword = ({ navigation, getResetEmail }: ForgotPasswordProps) => {
           placeholder="Enter Your Email"
         />
         <Box>
-          <LargeButton label="Submit" onPress={() => handleSubmit()} />
+          <LargeButton
+            loading={forgotPasswordLoading}
+            label="Submit"
+            onPress={() => handleSubmit()}
+          />
         </Box>
       </Box>
     </Box>
@@ -82,7 +95,7 @@ const ForgotPassword = ({ navigation, getResetEmail }: ForgotPasswordProps) => {
 
 function mapStateToProps(state: any) {
   return {
-    ...state,
+    forgotState: state.auth,
   };
 }
 

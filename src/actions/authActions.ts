@@ -7,6 +7,12 @@ import {
   LOGIN_USER_ERROR,
   LOGIN_USER_LOADING,
   USER_SIGN_UP_LOADING,
+  PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_ERROR,
+  PASSWORD_RESET_LOADING,
+  PASSWORD_CHANGE_OTP_LOADING,
+  PASSWORD_CHANGE_OTP_SUCCESS,
+  PASSWORD_CHANGE_OTP_ERROR,
 } from "./constants/authConstant";
 import { _sign_in_user, _login_user } from "./../api/endpoints";
 import axios, { AxiosPromise, AxiosRequestConfig, AxiosResponse } from "axios";
@@ -39,9 +45,11 @@ export const userSignup = (
     },
     data: data,
   };
+
   axios(config)
     .then((res) => {
       // Add Snackbar here
+      console.log("autSignupSuccess", res);
       dispatch({
         type: USER_SIGN_UP,
         payload: res.data,
@@ -51,7 +59,7 @@ export const userSignup = (
     .catch((err) => {
       dispatch({
         type: USER_SIGN_UP_ERROR,
-        message: "Error Signup",
+        message: err.message,
       });
     });
 };
@@ -113,7 +121,7 @@ export const resetPassword = (email: string, navigation: any) => (
   dispatch: any
 ) => {
   dispatch({
-    type: "PASSWORD_RESET_LOADING",
+    type: PASSWORD_RESET_LOADING,
   });
   const _rest = new restServices();
   _rest
@@ -121,15 +129,17 @@ export const resetPassword = (email: string, navigation: any) => (
     .then((res) => {
       if (res.status === 200) {
         dispatch({
-          type: "PASSWORD_RESET_SUCCESS",
+          type: PASSWORD_RESET_SUCCESS,
           payload: "Password Reset SuccessFull",
         });
-        navigation.navigate("Otp");
+        navigation.navigate("Otp", {
+          email: email,
+        });
       }
     })
     .catch((err) => {
       dispatch({
-        type: "PASSWORD_RESET_ERROR",
+        type: PASSWORD_RESET_ERROR,
         error: err,
       });
     });
@@ -138,27 +148,34 @@ export const resetPassword = (email: string, navigation: any) => (
 export const changePasswordForOtp = (
   data: {
     email: string;
-    otp: number;
+    otp: string;
     password: string;
   },
   navigation: any
 ) => (dispatch: any) => {
   dispatch({
-    type: "PASSWORD_CHANGE_OTP_LOADING",
+    type: PASSWORD_CHANGE_OTP_LOADING,
   });
+
   const _rest = new restServices();
   _rest
-    .put("/changepassword", { ...data })
+    .authPut(
+      `/changepassword?email=${data.email}&otp=${parseInt(data.otp)}&password=${
+        data.password
+      }`
+    )
     .then((res) => {
-      dispatch({
-        type: "PASSWORD_CHANGE_OTP_SUCCESS",
-        payload: res.data,
-      });
-      // navigation.navigate('ResetComplete')
+      if (res.status === 200) {
+        dispatch({
+          type: PASSWORD_CHANGE_OTP_SUCCESS,
+          payload: res.data,
+        });
+        navigation.navigate("ResetComplete");
+      }
     })
     .catch((err) => {
       dispatch({
-        type: "PASSWORD_CHANGE_OTP_ERROR",
+        type: PASSWORD_CHANGE_OTP_ERROR,
         error: err,
       });
     });

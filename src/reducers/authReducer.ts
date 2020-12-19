@@ -1,7 +1,13 @@
 import {
   LOGIN_USER_LOADING,
+  PASSWORD_RESET_ERROR,
+  PASSWORD_RESET_LOADING,
+  PASSWORD_RESET_SUCCESS,
   USER_SIGN_UP_ERROR,
   USER_SIGN_UP_LOADING,
+  PASSWORD_CHANGE_OTP_LOADING,
+  PASSWORD_CHANGE_OTP_SUCCESS,
+  PASSWORD_CHANGE_OTP_ERROR,
 } from "./../actions/constants/authConstant";
 import {
   LOGIN_USER_SUCCESS,
@@ -21,6 +27,14 @@ export type AuthState = {
   readonly signUpLoading: boolean;
   readonly signUpError: string;
   readonly successMessage: string;
+  // forgot password
+  readonly forgotPasswordLoading: boolean;
+  readonly forgotPasswordSuccess: string;
+  readonly forgotPasswordError: string;
+  // otp update
+  readonly otpPasswordLoading: boolean;
+  readonly otpPasswordSuccess: string;
+  readonly otpPasswordError: string;
 };
 
 const initialState: AuthState = {
@@ -33,6 +47,14 @@ const initialState: AuthState = {
   signUpLoading: false,
   signUpError: "",
   successMessage: "",
+  //forgot password
+  forgotPasswordLoading: false,
+  forgotPasswordSuccess: "",
+  forgotPasswordError: "",
+  //otp
+  otpPasswordLoading: false,
+  otpPasswordSuccess: "",
+  otpPasswordError: "",
 };
 
 const authReducer = (state = initialState, action: any) => {
@@ -95,6 +117,48 @@ const authReducer = (state = initialState, action: any) => {
       return {
         ...state,
         isAuthenticated: true,
+      };
+    case PASSWORD_RESET_LOADING:
+      return {
+        ...state,
+        forgotPasswordLoading: true,
+        forgotPasswordSuccess: "",
+        forgotPasswordError: "",
+      };
+    case PASSWORD_RESET_SUCCESS:
+      return {
+        ...state,
+        forgotPasswordLoading: false,
+        forgotPasswordSuccess: "Otp Sent to Your Email",
+        forgotPasswordError: "",
+      };
+    case PASSWORD_RESET_ERROR:
+      return {
+        ...state,
+        forgotPasswordLoading: false,
+        forgotPasswordSuccess: "",
+        forgotPasswordError: "Email Does Not Exist",
+      };
+    case PASSWORD_CHANGE_OTP_LOADING:
+      return {
+        ...state,
+        otpPasswordLoading: true,
+        otpPasswordSuccess: "",
+        otpPasswordError: "",
+      };
+    case PASSWORD_CHANGE_OTP_SUCCESS:
+      return {
+        ...state,
+        otpPasswordLoading: false,
+        otpPasswordSuccess: "Password Reset SuccessFull",
+        otpPasswordError: "",
+      };
+    case PASSWORD_CHANGE_OTP_ERROR:
+      return {
+        ...state,
+        otpPasswordLoading: false,
+        otpPasswordSuccess: "",
+        otpPasswordError: "Something Went Wrong",
       };
     default:
       return {
