@@ -63,6 +63,8 @@ export default (state = initialState, action: any) => {
         productDetailError: "Something Went Wrong",
       };
     default:
-      break;
+      return {
+        ...state,
+      };
   }
 };
