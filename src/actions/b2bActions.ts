@@ -1,0 +1,52 @@
+import restServices from "../services/restServices";
+import {
+  GET_ALL_B2B_PRODUCT_ERROR,
+  GET_ALL_B2B_PRODUCT_LOADING,
+  GET_ALL_B2B_PRODUCT_SUCCESS,
+  GET_DETAIL_B2B_PRODUCT_ERROR,
+  GET_DETAIL_B2B_PRODUCT_LOADING,
+  GET_DETAIL_B2B_PRODUCT_SUCCESS,
+} from "./constants/b2bConstant";
+export const getAllB2bProduct = () => (dispatch: any) => {
+  dispatch({
+    type: GET_ALL_B2B_PRODUCT_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get("/b2b/product")
+    .then((res) => {
+      console.log("b2ballProduct", res);
+      dispatch({
+        type: GET_ALL_B2B_PRODUCT_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ALL_B2B_PRODUCT_ERROR,
+        payload: err,
+      });
+    });
+};
+
+export const getB2bProductDetail = (pId: number) => (dispatch: any) => {
+  dispatch({
+    type: GET_DETAIL_B2B_PRODUCT_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get(`/b2b/product/${pId}`)
+    .then((res) => {
+      console.log("b2ballProduct", res);
+      dispatch({
+        type: GET_DETAIL_B2B_PRODUCT_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_DETAIL_B2B_PRODUCT_ERROR,
+        payload: err,
+      });
+    });
+};
