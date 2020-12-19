@@ -177,7 +177,7 @@ export const changePasswordForOtp = (
     .catch((err) => {
       dispatch({
         type: PASSWORD_CHANGE_OTP_ERROR,
-        error: "Link Expired" || err,
+        error: "Otp Expired" || err,
       });
     });
 };

@@ -11,6 +11,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { changePasswordForOtp } from "../../actions/authActions";
 import { connect } from "react-redux";
+import { useToast } from "react-native-styled-toast";
 
 interface OtpScreenProps {
   navigation: combineAuthStackProps<"Otp">;
@@ -78,6 +79,20 @@ const OtpScreen = ({
   const ref_input5 = useRef<any>();
   const ref_input6 = useRef<any>();
   const { otpPasswordLoading, otpPasswordSuccess, otpPasswordError } = otpState;
+  const { toast } = useToast();
+  useEffect(() => {
+    if (otpPasswordError !== "") {
+      toast({
+        message: otpPasswordError,
+        bg: "background",
+        color: "text",
+        accentColor: "main",
+        iconFamily: "Feather",
+        iconName: "alert-triangle",
+        iconColor: "error",
+      });
+    }
+  }, [otpPasswordError]);
   return (
     <Box flex={1}>
       <StatusBar backgroundColor="black" />

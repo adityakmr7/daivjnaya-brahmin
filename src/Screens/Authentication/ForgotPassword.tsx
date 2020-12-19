@@ -1,5 +1,5 @@
 import { Box, Text } from "../../components/Theme";
-import React from "react";
+import React, { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   TextInput,
@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import { resetPassword } from "../../actions/authActions";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { useToast } from "react-native-styled-toast";
 
 interface ForgotPasswordProps {
   navigation: combineAuthStackProps<"Forgot">;
@@ -45,11 +46,25 @@ const ForgotPassword = ({
       getResetEmail(values.email, navigation);
     },
   });
+  const { toast } = useToast();
   const {
     forgotPasswordLoading,
     forgotPasswordSuccess,
     forgotPasswordError,
   } = forgotState;
+  useEffect(() => {
+    if (forgotPasswordError !== "") {
+      toast({
+        message: forgotPasswordError,
+        bg: "background",
+        color: "text",
+        accentColor: "main",
+        iconFamily: "Feather",
+        iconName: "alert-triangle",
+        iconColor: "error",
+      });
+    }
+  }, [forgotPasswordError]);
   return (
     <Box flex={1}>
       <StatusBar backgroundColor="black" />
