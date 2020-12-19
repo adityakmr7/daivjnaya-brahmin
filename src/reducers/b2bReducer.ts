@@ -8,6 +8,9 @@ import {
   GET_DETAIL_B2B_PRODUCT_ERROR,
   GET_DETAIL_B2B_PRODUCT_LOADING,
   GET_DETAIL_B2B_PRODUCT_SUCCESS,
+  GET_DETAIL_B2B_PROPERTY_ERROR,
+  GET_DETAIL_B2B_PROPERTY_LOADING,
+  GET_DETAIL_B2B_PROPERTY_SUCCESS,
 } from "../actions/constants/b2bConstant";
 
 const initialState = {
@@ -24,6 +27,10 @@ const initialState = {
   propertyLoading: false,
   propertyData: "",
   propertyError: "",
+  // property detail
+  propertyDetailLoading: false,
+  propertyDetailData: "",
+  propertyDetailError: "",
 };
 
 export default (state = initialState, action: any) => {
@@ -91,6 +98,27 @@ export default (state = initialState, action: any) => {
         propertyLoading: false,
         propertyData: "",
         propertyError: "Something Went Wrong",
+      };
+    case GET_DETAIL_B2B_PROPERTY_LOADING:
+      return {
+        ...state,
+        propertyDetailLoading: true,
+        propertyDetailData: "",
+        propertyDetailError: "",
+      };
+    case GET_DETAIL_B2B_PROPERTY_SUCCESS:
+      return {
+        ...state,
+        propertyDetailLoading: false,
+        propertyDetailData: action.payload,
+        propertyDetailError: "",
+      };
+    case GET_DETAIL_B2B_PROPERTY_ERROR:
+      return {
+        ...state,
+        propertyDetailLoading: false,
+        propertyDetailData: "",
+        propertyDetailError: "Something Went Wrong",
       };
     default:
       return {
