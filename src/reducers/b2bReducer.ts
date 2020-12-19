@@ -14,6 +14,9 @@ import {
   POST_NEW_PRODUCT_ERROR,
   POST_NEW_PRODUCT_LOADING,
   POST_NEW_PRODUCT_SUCCESS,
+  POST_NEW_PROPERTY_ERROR,
+  POST_NEW_PROPERTY_LOADING,
+  POST_NEW_PROPERTY_SUCCESS,
 } from "../actions/constants/b2bConstant";
 
 const initialState = {
@@ -151,6 +154,28 @@ export default (state = initialState, action: any) => {
         propertyDetailLoading: false,
         propertyDetailData: "",
         propertyDetailError: "Something Went Wrong",
+      };
+    case POST_NEW_PROPERTY_LOADING:
+      return {
+        ...state,
+        createPropertyLoading: true,
+        createPropertySuccess: "",
+        createPropertyError: "",
+      };
+    case POST_NEW_PROPERTY_SUCCESS:
+      return {
+        ...state,
+        createPropertyLoading: false,
+        createPropertySuccess: "Property Created",
+        createPropertyError: "",
+      };
+    case POST_NEW_PROPERTY_ERROR:
+      return {
+        ...state,
+
+        createPropertyLoading: false,
+        createPropertySuccess: "",
+        createPropertyError: "Something Went Wrong",
       };
     default:
       return {

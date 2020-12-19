@@ -15,6 +15,9 @@ import {
   POST_NEW_PRODUCT_LOADING,
   POST_NEW_PRODUCT_SUCCESS,
   POST_NEW_PRODUCT_ERROR,
+  POST_NEW_PROPERTY_ERROR,
+  POST_NEW_PROPERTY_SUCCESS,
+  POST_NEW_PROPERTY_LOADING,
 } from "./constants/b2bConstant";
 export const getAllB2bProduct = () => (dispatch: any) => {
   dispatch({
@@ -126,6 +129,28 @@ export const getB2bPropertyDetail = (pId: number) => (dispatch: any) => {
     .catch((err) => {
       dispatch({
         type: GET_DETAIL_B2B_PROPERTY_ERROR,
+        payload: err,
+      });
+    });
+};
+
+export const postNewB2bProperty = (data: any) => (dispatch: any) => {
+  dispatch({
+    type: POST_NEW_PROPERTY_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .post("/b2b/property", data)
+    .then((res) => {
+      console.log("b2ballProduct", res);
+      dispatch({
+        type: POST_NEW_PROPERTY_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: POST_NEW_PROPERTY_ERROR,
         payload: err,
       });
     });

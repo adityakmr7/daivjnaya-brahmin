@@ -12,7 +12,16 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import restServices from "../../services/restServices";
-interface PostProductProps {}
+import {
+  postNewB2bProduct,
+  postNewB2bProperty,
+} from "../../actions/b2bActions";
+import { connect } from "react-redux";
+interface PostProductProps {
+  createNewProduct: (data: {}) => void;
+  createNewProperty: (data: {}) => void;
+  productCreateState: any;
+}
 
 const validationSchema = Yup.object().shape({
   pname: Yup.string().required(),
@@ -22,7 +31,11 @@ const validationSchema = Yup.object().shape({
   upload: Yup.string().required(),
   description: Yup.string().required(),
 });
-const PostProduct = ({}: PostProductProps) => {
+const PostProduct = ({
+  createNewProduct,
+  productCreateState,
+  createNewProperty,
+}: PostProductProps) => {
   const {
     handleChange,
     handleBlur,
@@ -36,6 +49,7 @@ const PostProduct = ({}: PostProductProps) => {
     initialValues: {
       fName: "",
       contact: "",
+      productName: "",
       address: "",
       city: "",
       country: "",
@@ -46,12 +60,39 @@ const PostProduct = ({}: PostProductProps) => {
       about: "",
       otherInfo: "",
       price: "",
+      imageUrl1: "",
+      imageUrl2: "",
+      imageUrl3: "",
       callback: false,
       tmc: false,
+      offered: false,
+      wanted: false,
+      product: false,
+      property: false,
     },
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      const data = {
+        address: values.address,
+        email: values.email,
+        galleries: [values.imageUrl1, values.imageUrl2, values.imageUrl3],
+        phoneNumber: values.contact,
+        productName: values.productName,
+        vendor: {
+          designation: values,
+          email: values.email,
+          fullName: values.fName,
+          phoneNumber: values.contact,
+          place: values.address,
+          profilePic: "",
+        },
+      };
+      if (values.wanted && values.property) {
+        createNewProperty(data);
+      } else {
+        createNewProduct(data);
+      }
+    },
   });
-  const [galleryImage, setGalleryImage] = useState<any[]>([]);
   const handleImageUpload = async () => {
     if (Platform.OS !== "web") {
       const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -67,8 +108,6 @@ const PostProduct = ({}: PostProductProps) => {
         });
 
         if (!result.cancelled) {
-          // TODO: set Image upload Here
-          //result.uri
           return result.uri;
         }
       }
@@ -78,19 +117,22 @@ const PostProduct = ({}: PostProductProps) => {
   const handleFistImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+    setFieldValue("imageUrl1", imageUrl);
+    // setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
   };
   const handleSecondImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
     // stateCopy[0] = imageUrl.data.url;
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+    setFieldValue("imageUrl2", imageUrl);
+
+    // setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
   };
   const handleImageThree = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+    setFieldValue("imageUrl3", imageUrl);
+    // setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
   };
   return (
     <Box flex={1} flexDirection="column">
@@ -104,29 +146,25 @@ const PostProduct = ({}: PostProductProps) => {
                 justifyContent="space-around"
               >
                 <CheckBox
-                  checked={values.tmc}
-                  onChange={() => setFieldValue("tmc", !values.tmc)}
+                  checked={values.offered}
+                  onChange={() => setFieldValue("offered", !values.offered)}
                   label="Offered"
                 />
                 <CheckBox
-                  checked={values.callback}
-                  onChange={() => setFieldValue("callback", !values.callback)}
+                  checked={values.product}
+                  onChange={() => setFieldValue("product", !values.product)}
                   label="Wanted"
                 />
               </Box>
-              <Box
-                marginVertical="l"
-                flexDirection="row"
-                justifyContent="space-around"
-              >
+              <Box flexDirection="row" justifyContent="space-around">
                 <CheckBox
-                  checked={values.tmc}
-                  onChange={() => setFieldValue("tmc", !values.tmc)}
+                  checked={values.wanted}
+                  onChange={() => setFieldValue("wanted", !values.wanted)}
                   label="Product"
                 />
                 <CheckBox
-                  checked={values.callback}
-                  onChange={() => setFieldValue("callback", !values.callback)}
+                  checked={values.property}
+                  onChange={() => setFieldValue("property", !values.property)}
                   label="Property"
                 />
               </Box>
@@ -194,7 +232,6 @@ const PostProduct = ({}: PostProductProps) => {
                 touched={touched.pinCode}
                 placeholder="Pin Code"
               />
-
               <Box
                 marginVertical="l"
                 flexDirection="row"
@@ -215,7 +252,11 @@ const PostProduct = ({}: PostProductProps) => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Icon name="plus" size={10} />
+                      {values.imageUrl1 !== "" ? (
+                        <Icon name="check" size={10} />
+                      ) : (
+                        <Icon name="plus" size={10} />
+                      )}
                     </Box>
                   </RectButton>
                   <RectButton
@@ -230,7 +271,11 @@ const PostProduct = ({}: PostProductProps) => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Icon name="plus" size={10} />
+                      {values.imageUrl2 !== "" ? (
+                        <Icon name="check" size={10} />
+                      ) : (
+                        <Icon name="plus" size={10} />
+                      )}
                     </Box>
                   </RectButton>
                   <RectButton
@@ -245,7 +290,11 @@ const PostProduct = ({}: PostProductProps) => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Icon name="plus" size={10} />
+                      {values.imageUrl3 !== "" ? (
+                        <Icon name="check" size={10} />
+                      ) : (
+                        <Icon name="plus" size={10} />
+                      )}
                     </Box>
                   </RectButton>
                 </Box>
@@ -299,7 +348,9 @@ const PostProduct = ({}: PostProductProps) => {
                 />
               </Box>
             </Box>
-            <LargeButton onPress={handleSubmit} label="POST" />
+            <Box marginBottom="xxl">
+              <LargeButton onPress={handleSubmit} label="POST" />
+            </Box>
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
       </ScrollView>
@@ -307,4 +358,14 @@ const PostProduct = ({}: PostProductProps) => {
   );
 };
 
-export default PostProduct;
+function mapStateToProps(state: any) {
+  return {
+    productCreateState: state.b2b,
+  };
+}
+const mapDispatchToProps = (dispatch: any) => ({
+  createNewProduct: (data: {}) => dispatch(postNewB2bProduct(data)),
+  createNewProperty: (data: {}) => dispatch(postNewB2bProperty(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostProduct);
