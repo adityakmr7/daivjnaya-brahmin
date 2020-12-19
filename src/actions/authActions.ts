@@ -138,9 +138,10 @@ export const resetPassword = (email: string, navigation: any) => (
       }
     })
     .catch((err) => {
+      console.log("errorAut", err);
       dispatch({
         type: PASSWORD_RESET_ERROR,
-        error: err,
+        error: "Email Does Not Exit" || err,
       });
     });
 };
@@ -176,7 +177,7 @@ export const changePasswordForOtp = (
     .catch((err) => {
       dispatch({
         type: PASSWORD_CHANGE_OTP_ERROR,
-        error: err,
+        error: "Link Expired" || err,
       });
     });
 };

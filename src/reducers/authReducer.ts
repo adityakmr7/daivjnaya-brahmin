@@ -137,7 +137,7 @@ const authReducer = (state = initialState, action: any) => {
         ...state,
         forgotPasswordLoading: false,
         forgotPasswordSuccess: "",
-        forgotPasswordError: "Email Does Not Exist",
+        forgotPasswordError: action.error,
       };
     case PASSWORD_CHANGE_OTP_LOADING:
       return {
@@ -158,7 +158,7 @@ const authReducer = (state = initialState, action: any) => {
         ...state,
         otpPasswordLoading: false,
         otpPasswordSuccess: "",
-        otpPasswordError: "Something Went Wrong",
+        otpPasswordError: action.error,
       };
     default:
       return {
