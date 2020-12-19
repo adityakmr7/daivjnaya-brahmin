@@ -11,6 +11,9 @@ import {
   GET_DETAIL_B2B_PROPERTY_ERROR,
   GET_DETAIL_B2B_PROPERTY_LOADING,
   GET_DETAIL_B2B_PROPERTY_SUCCESS,
+  POST_NEW_PRODUCT_ERROR,
+  POST_NEW_PRODUCT_LOADING,
+  POST_NEW_PRODUCT_SUCCESS,
 } from "../actions/constants/b2bConstant";
 
 const initialState = {
@@ -21,6 +24,11 @@ const initialState = {
   productDetailLoading: false,
   productDetailData: "",
   productDetailError: "",
+
+  //create product
+  createProductLoading: false,
+  createProductSuccess: "",
+  createProductError: "",
 
   //property
 
@@ -78,6 +86,30 @@ export default (state = initialState, action: any) => {
         productDetailData: "",
         productDetailError: "Something Went Wrong",
       };
+    case POST_NEW_PRODUCT_LOADING:
+      return {
+        ...state,
+        createProductLoading: true,
+        createProductSuccess: "",
+        createProductError: "",
+      };
+    case POST_NEW_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        createProductLoading: false,
+        createProductSuccess: "Product Created",
+        createProductError: "",
+      };
+    case POST_NEW_PRODUCT_ERROR:
+      return {
+        ...state,
+
+        createProductLoading: false,
+        createProductSuccess: "",
+        createProductError: "Something Went Wrong",
+      };
+
+    // Property
     case GET_ALL_B2B_PROPERTY_LOADING:
       return {
         ...state,
