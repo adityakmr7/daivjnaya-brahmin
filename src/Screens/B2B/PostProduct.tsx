@@ -23,19 +23,17 @@ interface PostProductProps {
   productCreateState: any;
 }
 
-const validationSchema = Yup.object().shape({
-  pname: Yup.string().required(),
-  contact: Yup.string().length(10).required(),
-  email: Yup.string().required(), //TODO: Validate Email
-  city: Yup.string().required(),
-  upload: Yup.string().required(),
-  description: Yup.string().required(),
-});
+const validationSchema = Yup.object().shape({});
 const PostProduct = ({
   createNewProduct,
   productCreateState,
   createNewProperty,
 }: PostProductProps) => {
+  const {
+    createProductLoading,
+    createProductSuccess,
+    createProductError,
+  } = productCreateState;
   const {
     handleChange,
     handleBlur,
@@ -83,6 +81,7 @@ const PostProduct = ({
           profilePic: "",
         },
       };
+      console.log("newProduct", data);
       if (values.propertyWanted) {
         createNewProperty(data);
       } else {
@@ -114,21 +113,21 @@ const PostProduct = ({
   const handleFistImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-    setFieldValue("imageUrl1", imageUrl);
+    setFieldValue("imageUrl1", imageUrl.data.url);
     // setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
   };
   const handleSecondImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
     // stateCopy[0] = imageUrl.data.url;
-    setFieldValue("imageUrl2", imageUrl);
+    setFieldValue("imageUrl2", imageUrl.data.url);
 
     // setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
   };
   const handleImageThree = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-    setFieldValue("imageUrl3", imageUrl);
+    setFieldValue("imageUrl3", imageUrl.data.url);
     // setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
   };
   return (
@@ -333,7 +332,11 @@ const PostProduct = ({
               </Box>
             </Box>
             <Box marginBottom="xxl">
-              <LargeButton onPress={handleSubmit} label="POST" />
+              <LargeButton
+                loading={createProductLoading}
+                onPress={() => handleSubmit()}
+                label="POST"
+              />
             </Box>
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
