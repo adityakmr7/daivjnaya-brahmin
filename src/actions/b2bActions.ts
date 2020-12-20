@@ -27,7 +27,6 @@ export const getAllB2bProduct = () => (dispatch: any) => {
   _rest
     .get("/b2b/product")
     .then((res) => {
-      console.log("b2ballProduct", res);
       dispatch({
         type: GET_ALL_B2B_PRODUCT_SUCCESS,
         payload: res.data,
@@ -49,7 +48,6 @@ export const getB2bProductDetail = (pId: number) => (dispatch: any) => {
   _rest
     .get(`/b2b/product/${pId}`)
     .then((res) => {
-      console.log("b2ballProduct", res);
       dispatch({
         type: GET_DETAIL_B2B_PRODUCT_SUCCESS,
         payload: res.data,
@@ -71,7 +69,6 @@ export const postNewB2bProduct = (data: any) => (dispatch: any) => {
   _rest
     .post("/b2b/product", data)
     .then((res) => {
-      console.log("b2ballProduct", res);
       dispatch({
         type: POST_NEW_PRODUCT_SUCCESS,
         payload: res.data,
@@ -98,7 +95,6 @@ export const getAllB2bProperty = () => (dispatch: any) => {
   _rest
     .get("/b2b/property")
     .then((res) => {
-      console.log("b2ballproperty", res);
       dispatch({
         type: GET_ALL_B2B_PROPERTY_SUCCESS,
         payload: res.data,
@@ -120,7 +116,6 @@ export const getB2bPropertyDetail = (pId: number) => (dispatch: any) => {
   _rest
     .get(`/b2b/property/${pId}`)
     .then((res) => {
-      console.log("b2balldETAULProperty", res);
       dispatch({
         type: GET_DETAIL_B2B_PROPERTY_SUCCESS,
         payload: res.data,
@@ -142,7 +137,6 @@ export const postNewB2bProperty = (data: any) => (dispatch: any) => {
   _rest
     .post("/b2b/property", data)
     .then((res) => {
-      console.log("b2ballProduct", res);
       dispatch({
         type: POST_NEW_PROPERTY_SUCCESS,
         payload: res.data,

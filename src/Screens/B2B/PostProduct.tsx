@@ -33,6 +33,9 @@ const PostProduct = ({
     createProductLoading,
     createProductSuccess,
     createProductError,
+    createPropertyLoading,
+    createPropertySuccess,
+    createPropertyError,
   } = productCreateState;
   const {
     handleChange,
@@ -81,9 +84,24 @@ const PostProduct = ({
           profilePic: "",
         },
       };
+      const propertyData = {
+        address: values.address,
+        email: values.email,
+        galleries: [values.imageUrl1, values.imageUrl2, values.imageUrl3],
+        owner: {
+          designation: values.vendorDesignation,
+          email: values.vendorEmail,
+          fullName: values.vendorFName,
+          phoneNumber: values.vendorPhoneNumber,
+          place: values.vendorPlace,
+          profilePic: "",
+        },
+        phoneNumber: values.contact,
+        propertyName: values.productName,
+      };
       console.log("newProduct", data);
       if (values.propertyWanted) {
-        createNewProperty(data);
+        createNewProperty(propertyData);
       } else {
         createNewProduct(data);
       }
@@ -202,7 +220,9 @@ const PostProduct = ({
                 onBlur={handleBlur("productName")}
                 error={errors.productName}
                 touched={touched.productName}
-                placeholder="Product Name"
+                placeholder={
+                  values.propertyWanted ? "Property Name" : "Product Name"
+                }
               />
               <TextField
                 keyboardType="default"
@@ -219,7 +239,11 @@ const PostProduct = ({
                 onBlur={handleBlur("vendorPhoneNumber")}
                 error={errors.vendorPhoneNumber}
                 touched={touched.vendorPhoneNumber}
-                placeholder="Vendor PhoneNumber"
+                placeholder={
+                  values.propertyWanted
+                    ? "Owner PhoneNumber"
+                    : "Vendor PhoneNumber"
+                }
               />
               <TextField
                 keyboardType="default"
@@ -243,7 +267,9 @@ const PostProduct = ({
                 onBlur={handleBlur("vendorEmail")}
                 error={errors.vendorEmail}
                 touched={touched.vendorEmail}
-                placeholder="Vendor Email"
+                placeholder={
+                  values.propertyWanted ? "Owner Email" : "Vendor Email"
+                }
               />
 
               <Box
@@ -333,7 +359,7 @@ const PostProduct = ({
             </Box>
             <Box marginBottom="xxl">
               <LargeButton
-                loading={createProductLoading}
+                loading={createPropertyLoading || createProductLoading}
                 onPress={() => handleSubmit()}
                 label="POST"
               />

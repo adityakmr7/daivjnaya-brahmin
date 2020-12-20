@@ -42,6 +42,11 @@ const initialState = {
   propertyDetailLoading: false,
   propertyDetailData: "",
   propertyDetailError: "",
+
+  // create property
+  createPropertyLoading: false,
+  createPropertySuccess: "",
+  createPropertyError: "",
 };
 
 export default (state = initialState, action: any) => {
@@ -155,6 +160,7 @@ export default (state = initialState, action: any) => {
         propertyDetailData: "",
         propertyDetailError: "Something Went Wrong",
       };
+    // new Property
     case POST_NEW_PROPERTY_LOADING:
       return {
         ...state,
@@ -172,7 +178,6 @@ export default (state = initialState, action: any) => {
     case POST_NEW_PROPERTY_ERROR:
       return {
         ...state,
-
         createPropertyLoading: false,
         createPropertySuccess: "",
         createPropertyError: "Something Went Wrong",
