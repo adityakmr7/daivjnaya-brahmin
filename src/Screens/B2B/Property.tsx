@@ -78,7 +78,13 @@ const Property = ({
 
   const renderItem = ({ item }: { item: any }) => {
     return (
-      <TouchableWithoutFeedback onPress={() => {}}>
+      <TouchableWithoutFeedback
+        onPress={() =>
+          navigation.navigate("B2BPropertyDetail", {
+            id: item.pId,
+          })
+        }
+      >
         <Box
           borderTopWidth={0}
           borderLeftWidth={0}

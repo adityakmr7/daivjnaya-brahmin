@@ -8,6 +8,8 @@ import { RoundedBorderButton } from "../MyProfile/components";
 import { B2BProductAssets } from "./Product";
 import { B2BPropertyAssets } from "./Property";
 import PostProduct from "./PostProduct";
+import B2BProductDetail from "./B2BProductDetail";
+import B2BPropertyDetail from "./B2BPropertyDetail";
 export const B2BAssets = [...B2BProductAssets, ...B2BPropertyAssets];
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -71,9 +73,32 @@ const B2BStackNavigation = () => {
               image={require("../../../assets/images/b2b.png")}
             />
           ),
+          title: "Product & Property",
         }}
         name="PostProduct"
         component={PostProduct}
+      />
+      <Stack.Screen
+        options={{
+          headerLeft: () => (
+            <HeaderBackButton
+              image={require("../../../assets/images/b2b.png")}
+            />
+          ),
+        }}
+        name="B2BProductDetail"
+        component={B2BProductDetail}
+      />
+      <Stack.Screen
+        options={{
+          headerLeft: () => (
+            <HeaderBackButton
+              image={require("../../../assets/images/b2b.png")}
+            />
+          ),
+        }}
+        name="B2BPropertyDetail"
+        component={B2BPropertyDetail}
       />
     </Stack.Navigator>
   );
