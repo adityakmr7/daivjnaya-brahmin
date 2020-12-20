@@ -4,7 +4,6 @@ import { Provider } from "react-redux";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { LoadAssets, theme } from "./src/components";
 import AppNavigation from "./src/Screens";
-import { B2BAssets } from "./src/Screens/B2B";
 import { assetShop } from "./src/Screens/Jewellery/Shop";
 import { assetsVendor } from "./src/Screens/Jewellery/Vendors";
 import { assetsWorker } from "./src/Screens/Jewellery/Workers";
@@ -26,7 +25,6 @@ const assets = [
   ...assetShop,
   ...assetsWorker,
   ...NotificationAssets,
-  ...B2BAssets,
 ];
 const fonts = {
   Saman: require("./assets/fonts/Samarkan.ttf"),

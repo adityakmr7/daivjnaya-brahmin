@@ -16,33 +16,6 @@ interface PropertyProps {
   propertyAll: any;
 }
 
-export const PropertyList = [
-  {
-    id: 1,
-    title: "Full Name",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("../../../assets/images/property-1.png"),
-    btn: "View full details",
-  },
-  {
-    id: 2,
-    title: "Full Name",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("../../../assets/images/property-1.png"),
-    btn: "View full details",
-  },
-  {
-    id: 3,
-    title: "Full Name",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("../../../assets/images/property-1.png"),
-    btn: "View full details",
-  },
-];
-export const B2BPropertyAssets = PropertyList.map((item, i) => item.image);
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 const Property = ({
@@ -82,6 +55,7 @@ const Property = ({
         onPress={() =>
           navigation.navigate("B2BPropertyDetail", {
             id: item.pId,
+            title: item.propertyName,
           })
         }
       >

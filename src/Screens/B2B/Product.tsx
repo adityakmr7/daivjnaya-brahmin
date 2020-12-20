@@ -17,33 +17,6 @@ interface ProductProps {
   navigation: any;
 }
 
-export const ProductList = [
-  {
-    id: 1,
-    title: "Full Name",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("../../../assets/images/sweet-1.png"),
-    btn: "View full details",
-  },
-  {
-    id: 2,
-    title: "Full Name",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("../../../assets/images/sweet-2.png"),
-    btn: "View full details",
-  },
-  {
-    id: 3,
-    title: "Full Name",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    image: require("../../../assets/images/sweet-3.png"),
-    btn: "View full details",
-  },
-];
-export const B2BProductAssets = ProductList.map((item, i) => item.image);
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const Product = ({ navigation, getAllProduct, productAll }: ProductProps) => {
   const isFocused = useIsFocused();
@@ -81,6 +54,7 @@ const Product = ({ navigation, getAllProduct, productAll }: ProductProps) => {
         onPress={() =>
           navigation.navigate("B2BProductDetail", {
             id: item.pId,
+            title: item.productName,
           })
         }
       >

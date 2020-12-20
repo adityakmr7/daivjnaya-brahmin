@@ -5,7 +5,7 @@ import { Box, Text } from "../../components";
 import { getB2bProductDetail } from "../../actions/b2bActions";
 import { ActivityIndicator, Dimensions } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-
+import { Feather as Icon } from "@expo/vector-icons";
 interface B2BDetailProps {
   route: any;
   getDetail: (id: number) => void;
@@ -88,12 +88,31 @@ const B2BDetail = ({ route, getDetail, product }: B2BDetailProps) => {
             )}
             <Box marginHorizontal="s" marginVertical="s">
               <Box>
-                <Text variant="cardTitle" color="primaryText">
+                <Text
+                  marginVertical="s"
+                  variant="cardTitle"
+                  color="primaryText"
+                >
                   {productName}
                 </Text>
-                <Text>Address : {address ? address : null}</Text>
-                <Text>Email : {email ? email : null}</Text>
-                <Text>Phone : {phoneNumber ? phoneNumber : null}</Text>
+                <Text marginVertical="s">
+                  <Icon name="map-pin" size={20} />{" "}
+                  <Text variant="cardSubTitle" color="primaryText">
+                    {address ? address : null}
+                  </Text>
+                </Text>
+                <Text marginVertical="s">
+                  <Icon name="mail" size={20} /> Email :
+                  <Text variant="cardSubTitle" color="primaryText">
+                    {email ? email : null}
+                  </Text>
+                </Text>
+                <Text marginVertical="s">
+                  <Icon name="phone" size={20} /> Phone :
+                  <Text variant="cardSubTitle" color="primaryText">
+                    {phoneNumber ? phoneNumber : null}
+                  </Text>
+                </Text>
               </Box>
               {vendor ? (
                 <Box marginVertical="s">
