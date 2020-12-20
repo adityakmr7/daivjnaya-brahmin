@@ -1,7 +1,12 @@
 import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import { ActivityIndicator } from "react-native";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
+import { ActivityIndicator, Dimensions } from "react-native";
+import {
+  FlatList,
+  ScrollView,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
+import { Image } from "react-native";
 import { connect } from "react-redux";
 import { getAllB2bProduct } from "../../actions/b2bActions";
 import { Box, Text, HorizontalCard } from "../../components";
@@ -39,7 +44,7 @@ export const ProductList = [
   },
 ];
 export const B2BProductAssets = ProductList.map((item, i) => item.image);
-
+const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const Product = ({ navigation, getAllProduct, productAll }: ProductProps) => {
   const isFocused = useIsFocused();
   useEffect(() => {
@@ -72,9 +77,29 @@ const Product = ({ navigation, getAllProduct, productAll }: ProductProps) => {
   const renderItem = ({ item }: { item: any }) => {
     console.log("productItem", item);
     return (
-      <Box flex={1}>
-        <Text>{item.vendor.fullName}</Text>
-      </Box>
+      <TouchableWithoutFeedback onPress={() => {}}>
+        <Box
+          borderTopWidth={0}
+          borderLeftWidth={0}
+          borderRightWidth={0}
+          borderWidth={1}
+          marginHorizontal="s"
+          height={wWidth / 4}
+        >
+          <Box flex={1} alignItems="center" flexDirection="row">
+            {item.vendor._links && item.vendor._links.profilePic ? (
+              <Image
+                style={{ width: "30%", height: "80%" }}
+                source={{ uri: item.vendor._links.profilePic.href }}
+              />
+            ) : null}
+            <Box paddingHorizontal="s">
+              <Text>{item.vendor.fullName}</Text>
+              <Text>{item.vendor.designation}</Text>
+            </Box>
+          </Box>
+        </Box>
+      </TouchableWithoutFeedback>
     );
   };
 
@@ -94,16 +119,6 @@ const Product = ({ navigation, getAllProduct, productAll }: ProductProps) => {
             />
           </Box>
         )}
-
-        {/* {ProductList.map((data, i) => {
-            return (
-              <HorizontalCard
-                key={i}
-                onPress={() => console.log("Navigate to productDetail screen")}
-                {...{ data }}
-              />
-            );
-          })} */}
       </Box>
     </Box>
   );

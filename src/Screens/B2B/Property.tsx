@@ -1,11 +1,15 @@
 import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import { ActivityIndicator } from "react-native";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
+import { ActivityIndicator, Dimensions } from "react-native";
+import {
+  FlatList,
+  ScrollView,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { getAllB2bProperty } from "../../actions/b2bActions";
 import { Box, Text, HorizontalCard } from "../../components";
-
+import { Image } from "react-native";
 interface PropertyProps {
   navigation: any;
   getAllProperty: () => void;
@@ -39,6 +43,7 @@ export const PropertyList = [
   },
 ];
 export const B2BPropertyAssets = PropertyList.map((item, i) => item.image);
+const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 const Property = ({
   navigation,
@@ -73,9 +78,31 @@ const Property = ({
 
   const renderItem = ({ item }: { item: any }) => {
     return (
-      <Box flex={1}>
-        <Text>{item.owner.fullName}</Text>
-      </Box>
+      <TouchableWithoutFeedback onPress={() => {}}>
+        <Box
+          borderTopWidth={0}
+          borderLeftWidth={0}
+          borderRightWidth={0}
+          borderWidth={1}
+          marginHorizontal="s"
+          height={wWidth / 4}
+        >
+          <Box flex={1} alignItems="center" flexDirection="row">
+            {item.owner._links && item.vendor._links.profilePic ? (
+              <Image
+                style={{ width: "30%", height: "80%" }}
+                source={{ uri: item.vendor._links.profilePic.href }}
+              />
+            ) : null}
+            <Box paddingHorizontal="s">
+              <Text>{item.owner.fullName ? item.owner.fullName : null}</Text>
+              <Text>
+                {item.owner.designation ? item.owner.designation : null}
+              </Text>
+            </Box>
+          </Box>
+        </Box>
+      </TouchableWithoutFeedback>
     );
   };
 
