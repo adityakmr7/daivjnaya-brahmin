@@ -62,7 +62,7 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         productLoading: false,
-        productData: action.payload,
+        productData: action.payload._embedded.productResourceList,
         productError: "",
       };
     case GET_ALL_B2B_PRODUCT_ERROR:
@@ -129,7 +129,7 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         propertyLoading: false,
-        propertyData: action.payload,
+        propertyData: action.payload._embedded.propertyResourceList,
         propertyError: "",
       };
     case GET_ALL_B2B_PROPERTY_ERROR:

@@ -95,6 +95,7 @@ export const getAllB2bProperty = () => (dispatch: any) => {
   _rest
     .get("/b2b/property")
     .then((res) => {
+      console.log("b2bProperty", res);
       dispatch({
         type: GET_ALL_B2B_PROPERTY_SUCCESS,
         payload: res.data,
