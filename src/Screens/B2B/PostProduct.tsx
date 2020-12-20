@@ -47,28 +47,25 @@ const PostProduct = ({
   } = useFormik({
     validationSchema,
     initialValues: {
-      fName: "",
-      contact: "",
-      productName: "",
       address: "",
-      city: "",
-      country: "",
-      state: "",
-      pinCode: "",
       email: "",
-      website: "",
-      about: "",
-      otherInfo: "",
-      price: "",
       imageUrl1: "",
       imageUrl2: "",
       imageUrl3: "",
+      contact: "",
+      productName: "",
+      //vendor
+      vendorDesignation: "",
+      vendorEmail: "",
+      vendorFName: "",
+      vendorPhoneNumber: "",
+      vendorPlace: "",
+      vendorProfilePic: "",
+
       callback: false,
       tmc: false,
-      offered: false,
-      wanted: false,
-      product: false,
-      property: false,
+      productOffered: false,
+      propertyWanted: false,
     },
     onSubmit: (values) => {
       const data = {
@@ -78,15 +75,15 @@ const PostProduct = ({
         phoneNumber: values.contact,
         productName: values.productName,
         vendor: {
-          designation: values,
-          email: values.email,
-          fullName: values.fName,
-          phoneNumber: values.contact,
-          place: values.address,
+          designation: values.vendorDesignation,
+          vendorEmail: values.vendorEmail,
+          fullName: values.vendorFName,
+          phoneNumber: values.vendorPhoneNumber,
+          place: values.vendorPlace,
           profilePic: "",
         },
       };
-      if (values.wanted && values.property) {
+      if (values.propertyWanted) {
         createNewProperty(data);
       } else {
         createNewProduct(data);
@@ -146,33 +143,41 @@ const PostProduct = ({
                 justifyContent="space-around"
               >
                 <CheckBox
-                  checked={values.offered}
-                  onChange={() => setFieldValue("offered", !values.offered)}
+                  checked={values.productOffered}
+                  onChange={() =>
+                    setFieldValue("productOffered", !values.productOffered)
+                  }
                   label="Offered"
                 />
                 <CheckBox
-                  checked={values.product}
-                  onChange={() => setFieldValue("product", !values.product)}
+                  checked={values.propertyWanted}
+                  onChange={() =>
+                    setFieldValue("propertyWanted", !values.propertyWanted)
+                  }
                   label="Wanted"
                 />
               </Box>
               <Box flexDirection="row" justifyContent="space-around">
                 <CheckBox
-                  checked={values.wanted}
-                  onChange={() => setFieldValue("wanted", !values.wanted)}
+                  checked={values.productOffered}
+                  onChange={() =>
+                    setFieldValue("productOffered", !values.productOffered)
+                  }
                   label="Product"
                 />
                 <CheckBox
-                  checked={values.property}
-                  onChange={() => setFieldValue("property", !values.property)}
+                  checked={values.propertyWanted}
+                  onChange={() =>
+                    setFieldValue("propertyWanted", !values.propertyWanted)
+                  }
                   label="Property"
                 />
               </Box>
               <TextField
-                onChangeText={handleChange("fName")}
-                onBlur={handleBlur("fName")}
-                error={errors.fName}
-                touched={touched.fName}
+                onChangeText={handleChange("vendorFName")}
+                onBlur={handleBlur("vendorFName")}
+                error={errors.vendorFName}
+                touched={touched.vendorFName}
                 placeholder="Full Name"
               />
               <TextField
@@ -194,44 +199,54 @@ const PostProduct = ({
               />
               <TextField
                 keyboardType="default"
+                onChangeText={handleChange("productName")}
+                onBlur={handleBlur("productName")}
+                error={errors.productName}
+                touched={touched.productName}
+                placeholder="Product Name"
+              />
+              <TextField
+                keyboardType="default"
                 onChangeText={handleChange("address")}
                 onBlur={handleBlur("address")}
                 error={errors.address}
                 touched={touched.address}
                 placeholder="Address"
               />
+
               <TextField
-                keyboardType="default"
-                onChangeText={handleChange("city")}
-                onBlur={handleBlur("city")}
-                error={errors.city}
-                touched={touched.city}
-                placeholder="City"
+                keyboardType="phone-pad"
+                onChangeText={handleChange("vendorPhoneNumber")}
+                onBlur={handleBlur("vendorPhoneNumber")}
+                error={errors.vendorPhoneNumber}
+                touched={touched.vendorPhoneNumber}
+                placeholder="Vendor PhoneNumber"
               />
               <TextField
                 keyboardType="default"
-                onChangeText={handleChange("state")}
-                onBlur={handleBlur("state")}
-                error={errors.state}
-                touched={touched.state}
-                placeholder="State"
+                onChangeText={handleChange("vendorDesignation")}
+                onBlur={handleBlur("vendorDesignation")}
+                error={errors.vendorDesignation}
+                touched={touched.vendorDesignation}
+                placeholder="Designation"
               />
               <TextField
                 keyboardType="default"
-                onChangeText={handleChange("country")}
-                onBlur={handleBlur("country")}
-                error={errors.country}
-                touched={touched.country}
-                placeholder="Country"
+                onChangeText={handleChange("vendorPlace")}
+                onBlur={handleBlur("vendorPlace")}
+                error={errors.vendorPlace}
+                touched={touched.vendorPlace}
+                placeholder="Place"
               />
               <TextField
-                keyboardType="default"
-                onChangeText={handleChange("pinCode")}
-                onBlur={handleBlur("pinCode")}
-                error={errors.pinCode}
-                touched={touched.pinCode}
-                placeholder="Pin Code"
+                keyboardType="email-address"
+                onChangeText={handleChange("vendorEmail")}
+                onBlur={handleBlur("vendorEmail")}
+                error={errors.vendorEmail}
+                touched={touched.vendorEmail}
+                placeholder="Vendor Email"
               />
+
               <Box
                 marginVertical="l"
                 flexDirection="row"
@@ -299,38 +314,7 @@ const PostProduct = ({
                   </RectButton>
                 </Box>
               </Box>
-              <TextField
-                keyboardType="number-pad"
-                onChangeText={handleChange("price")}
-                onBlur={handleBlur("price")}
-                error={errors.price}
-                touched={touched.price}
-                placeholder="Price"
-              />
-              <TextField
-                keyboardType="default"
-                onChangeText={handleChange("website")}
-                onBlur={handleBlur("website")}
-                error={errors.website}
-                touched={touched.website}
-                placeholder="Website"
-              />
-              <TextField
-                keyboardType="default"
-                onChangeText={handleChange("about")}
-                onBlur={handleBlur("about")}
-                error={errors.about}
-                touched={touched.about}
-                placeholder="About the post"
-              />
-              <TextField
-                keyboardType="default"
-                onChangeText={handleChange("otherInfo")}
-                onBlur={handleBlur("otherInfo")}
-                error={errors.otherInfo}
-                touched={touched.otherInfo}
-                placeholder="Other Info"
-              />
+
               <Box
                 marginVertical="l"
                 flexDirection="row"
