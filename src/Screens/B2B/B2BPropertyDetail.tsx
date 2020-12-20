@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { ActivityIndicator, Dimensions, Image } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
@@ -9,14 +9,22 @@ interface B2BPropertyDetailProps {
   route: any;
   getPropertyDetail: (id: number) => void;
   property: any;
+  navigation: any;
 }
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const B2BPropertyDetail = ({
   route,
   getPropertyDetail,
   property,
+  navigation,
 }: B2BPropertyDetailProps) => {
-  const { id } = route.params;
+  const { id, title } = route.params;
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: title,
+    });
+  }, [title]);
   useEffect(() => {
     getPropertyDetail(id);
   }, [id]);

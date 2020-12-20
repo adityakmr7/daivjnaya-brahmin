@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { Image } from "react-native";
 import { connect } from "react-redux";
 import { Box, Text } from "../../components";
@@ -10,6 +10,7 @@ interface B2BDetailProps {
   route: any;
   getDetail: (id: number) => void;
   product: any;
+  navigation: any;
 }
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 // vendor
@@ -23,8 +24,18 @@ const { width: wWidth, height: wHeight } = Dimensions.get("window");
 // pvId: 1
 // updatedDate: 1608451535000
 
-const B2BDetail = ({ route, getDetail, product }: B2BDetailProps) => {
-  const { id } = route.params;
+const B2BDetail = ({
+  route,
+  navigation,
+  getDetail,
+  product,
+}: B2BDetailProps) => {
+  const { id, title } = route.params;
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: title,
+    });
+  }, [title]);
   const {
     productDetailLoading,
     productDetailData,
