@@ -45,7 +45,7 @@ export const userSignup = (
     },
     data: data,
   };
-
+  console.log("data", data);
   axios(config)
     .then((res) => {
       // Add Snackbar here
@@ -57,9 +57,11 @@ export const userSignup = (
       navigation.navigate("login");
     })
     .catch((err) => {
+      console.log("autSignupSuccessError", err);
+
       dispatch({
         type: USER_SIGN_UP_ERROR,
-        message: err.message,
+        error: "Email Already Exist" || err.message,
       });
     });
 };

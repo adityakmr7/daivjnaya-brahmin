@@ -106,7 +106,7 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
       });
     } else if (successMessage === "" && signUpError !== "") {
       toast({
-        message: "SignUp Failed",
+        message: signUpError,
         bg: "background",
         color: "text",
         accentColor: "main",
@@ -178,7 +178,7 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
                 {lastNameList.map((item, i) => {
                   return (
                     <Select.Item
-                      key={i}
+                      key={item.id}
                       label={item.lName}
                       value={item.lName}
                     />
