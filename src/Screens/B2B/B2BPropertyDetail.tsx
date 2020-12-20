@@ -4,7 +4,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { getB2bPropertyDetail } from "../../actions/b2bActions";
 import { Box, Text } from "../../components";
-
+import { Feather as Icon } from "@expo/vector-icons";
 interface B2BPropertyDetailProps {
   route: any;
   getPropertyDetail: (id: number) => void;
@@ -49,84 +49,105 @@ const B2BPropertyDetail = ({
 
   return (
     <Box flex={1}>
-      {propertyDetailLoading ? (
-        <Box>
-          <ActivityIndicator />
-        </Box>
-      ) : (
-        <Box flex={1}>
-          {galleries !== undefined ? (
-            <Box>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-              >
-                {galleries.map((item: any, i: number) => {
-                  return (
-                    <Box key={item.pgId} height={wWidth + 100} width={wWidth}>
-                      <Image
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                        }}
-                        source={{
-                          uri:
-                            item &&
-                            item._links &&
-                            item._links.image &&
-                            item._links.image.href &&
-                            item._links.image.href,
-                        }}
-                      />
-                    </Box>
-                  );
-                })}
-              </ScrollView>
-            </Box>
-          ) : (
-            <Box>
-              <Text>No Image To Show</Text>
-            </Box>
-          )}
+      <ScrollView>
+        {propertyDetailLoading ? (
           <Box>
-            <Box>
-              <Text variant="cardTitle" color="primaryText">
-                {propertyName}
-              </Text>
-              <Text>Address : {address ? address : null}</Text>
-              <Text>Email : {email ? email : null}</Text>
-              <Text>Phone : {phoneNumber ? phoneNumber : null}</Text>
-            </Box>
-            {owner ? (
-              <Box marginVertical="s">
-                <Text variant="cardTitle" color="primaryText">
-                  Vendor
-                </Text>
-                <Box
-                  marginVertical="s"
-                  width={wWidth}
-                  height={wWidth * 0.2}
-                  flexDirection="row"
-                  alignItems="center"
+            <ActivityIndicator />
+          </Box>
+        ) : (
+          <Box flex={1}>
+            {galleries !== undefined ? (
+              <Box>
+                <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
                 >
-                  <Box width={"20%"} height={"100%"}>
-                    {owner._links !== undefined ? (
-                      <Image
-                        style={{ width: "100%", height: "100%" }}
-                        source={{ uri: owner._links.profilePic.href }}
-                      />
-                    ) : null}
-                  </Box>
-                  <Box marginHorizontal="s">
-                    <Text>{owner.fullName}</Text>
-                    <Text>{owner.designation}</Text>
+                  {galleries.map((item: any, i: number) => {
+                    return (
+                      <Box key={item.pgId} height={wWidth + 100} width={wWidth}>
+                        <Image
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                          }}
+                          source={{
+                            uri:
+                              item &&
+                              item._links &&
+                              item._links.image &&
+                              item._links.image.href &&
+                              item._links.image.href,
+                          }}
+                        />
+                      </Box>
+                    );
+                  })}
+                </ScrollView>
+              </Box>
+            ) : (
+              <Box>
+                <Text>No Image To Show</Text>
+              </Box>
+            )}
+            <Box>
+              <Box marginHorizontal="s">
+                <Text
+                  marginVertical="s"
+                  variant="cardTitle"
+                  color="primaryText"
+                >
+                  {propertyName}
+                </Text>
+                <Text marginVertical="s">
+                  <Icon name="map-pin" size={20} />{" "}
+                  <Text variant="cardSubTitle" color="primaryText">
+                    {address ? address : null}
+                  </Text>
+                </Text>
+                <Text marginVertical="s">
+                  <Icon name="mail" size={20} /> Email :
+                  <Text variant="cardSubTitle" color="primaryText">
+                    {email ? email : null}
+                  </Text>
+                </Text>
+                <Text marginVertical="s">
+                  <Icon name="phone" size={20} /> Phone :
+                  <Text variant="cardSubTitle" color="primaryText">
+                    {phoneNumber ? phoneNumber : null}
+                  </Text>
+                </Text>
+              </Box>
+              {owner ? (
+                <Box marginHorizontal="s" marginVertical="s">
+                  <Text variant="cardTitle" color="primaryText">
+                    Owner
+                  </Text>
+                  <Box
+                    marginVertical="s"
+                    width={wWidth}
+                    height={wWidth * 0.2}
+                    flexDirection="row"
+                    alignItems="center"
+                  >
+                    <Box width={"20%"} height={"100%"}>
+                      {owner._links !== undefined ? (
+                        <Image
+                          style={{ width: "100%", height: "100%" }}
+                          source={{ uri: owner._links.profilePic.href }}
+                        />
+                      ) : null}
+                    </Box>
+                    <Box marginHorizontal="s">
+                      <Text>{owner.fullName}</Text>
+                      <Text>{owner.designation}</Text>
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
-            ) : null}
+              ) : null}
+            </Box>
           </Box>
-        </Box>
-      )}
+        )}
+      </ScrollView>
     </Box>
   );
 };

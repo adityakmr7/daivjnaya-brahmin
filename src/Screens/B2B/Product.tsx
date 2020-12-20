@@ -91,6 +91,7 @@ const Product = ({ navigation, getAllProduct, productAll }: ProductProps) => {
           borderWidth={1}
           marginHorizontal="s"
           height={wWidth / 4}
+          borderColor="greyish"
         >
           <Box flex={1} alignItems="center" flexDirection="row">
             {item.vendor._links && item.vendor._links.profilePic ? (

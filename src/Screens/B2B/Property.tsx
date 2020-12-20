@@ -92,6 +92,7 @@ const Property = ({
           borderWidth={1}
           marginHorizontal="s"
           height={wWidth / 4}
+          borderColor="greyish"
         >
           <Box flex={1} alignItems="center" flexDirection="row">
             {item.owner._links && item.vendor._links.profilePic ? (
@@ -113,25 +114,21 @@ const Property = ({
   };
 
   return (
-    <ScrollView>
-      <Box backgroundColor="iconBackground" flex={1}>
+    <Box backgroundColor="iconBackground" flex={1}>
+      {propertyLoading ? (
         <Box>
-          {propertyLoading ? (
-            <Box>
-              <ActivityIndicator />
-            </Box>
-          ) : (
-            <Box>
-              <FlatList
-                data={propertyData}
-                renderItem={renderItem}
-                keyExtractor={(item: any) => item.pId.toString()}
-              />
-            </Box>
-          )}
+          <ActivityIndicator />
         </Box>
-      </Box>
-    </ScrollView>
+      ) : (
+        <Box flex={1}>
+          <FlatList
+            data={propertyData}
+            renderItem={renderItem}
+            keyExtractor={(item: any) => item.pId.toString()}
+          />
+        </Box>
+      )}
+    </Box>
   );
 };
 
