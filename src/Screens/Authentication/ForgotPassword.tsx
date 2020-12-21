@@ -89,14 +89,6 @@ const ForgotPassword = ({
             Password
           </Text>
         </Box>
-<<<<<<< HEAD
-        <TextField placeholder="Enter Your Email" />
-
-        <Box>
-          <LargeButton
-            label="Submit"
-            onPress={() => navigation.navigate("Otp")}
-=======
         <TextField
           onChangeText={handleChange("email")}
           onBlur={handleBlur("email")}
@@ -109,7 +101,6 @@ const ForgotPassword = ({
             loading={forgotPasswordLoading}
             label="Submit"
             onPress={() => handleSubmit()}
->>>>>>> batman
           />
         </Box>
       </Box>
@@ -117,9 +108,6 @@ const ForgotPassword = ({
   );
 };
 
-<<<<<<< HEAD
-export default ForgotPassword;
-=======
 function mapStateToProps(state: any) {
   return {
     forgotState: state.auth,
@@ -132,4 +120,3 @@ const mapDispatchToProps = (dispatch: any) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);
->>>>>>> batman
