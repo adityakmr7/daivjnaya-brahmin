@@ -54,17 +54,18 @@ const CommunityMember = ({
         onPress={() => handleTabClick(item)}
         style={{
           width: 100,
-          marginHorizontal: 5,
+          marginHorizontal: 10,
           borderBottomColor: selectedTab === item ? "#D4AF37" : "#FFFFFF",
-          borderBottomWidth: 3,
+          borderBottomWidth: 2,
         }}
       >
         <Box padding="s">
           <Text
             ellipsizeMode="tail"
-            numberOfLines={2}
-            textAlign="center"
+            numberOfLines={1}
+            textAlign="left"
             variant="mainIconSubTitle"
+            fontSize="11"
           >
             {item.toUpperCase()}
           </Text>

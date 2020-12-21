@@ -39,6 +39,7 @@ const B2BDetail = ({
   const {
     productDetailLoading,
     productDetailData,
+  
     productDetailError,
   } = product;
   useEffect(() => {
@@ -50,6 +51,8 @@ const B2BDetail = ({
     vendor,
     phoneNumber,
     productName,
+    type,
+    description,
     updatedDate,
     address,
     creationDate,
@@ -104,7 +107,14 @@ const B2BDetail = ({
                   variant="cardTitle"
                   color="primaryText"
                 >
-                  {productName}
+                  {productName} - {type}
+                  
+                </Text>
+                <Text
+                  marginVertical="s"
+                  color="primaryText"
+                >
+                  {description}
                 </Text>
                 <Text marginVertical="s">
                   <Icon name="map-pin" size={20} />{" "}
@@ -146,7 +156,7 @@ const B2BDetail = ({
                       ) : null}
                     </Box>
                     <Box marginHorizontal="s">
-                      <Text>{vendor.fullName}</Text>
+                      <Text style={{fontWeight: "bold"}}>{vendor.fullName}</Text>
                       <Text>{vendor.designation}</Text>
                     </Box>
                   </Box>

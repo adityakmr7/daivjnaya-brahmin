@@ -75,8 +75,10 @@ const Product = ({ navigation, getAllProduct, productAll }: ProductProps) => {
               />
             ) : null}
             <Box paddingHorizontal="s">
-              <Text>{item.vendor.fullName}</Text>
-              <Text>{item.vendor.designation}</Text>
+            <Text textAlign="right">{item.type}</Text>
+              <Text style={{fontWeight: "bold"}}>{item.productName}</Text>
+              <Text>{item.vendor.place}</Text>
+              <Text>{item.description}</Text>
             </Box>
           </Box>
         </Box>

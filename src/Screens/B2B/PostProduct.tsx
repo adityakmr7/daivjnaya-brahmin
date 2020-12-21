@@ -55,6 +55,8 @@ const PostProduct = ({
       imageUrl3: "",
       contact: "",
       productName: "",
+      description:"",
+      type:"",
       //vendor
       vendorDesignation: "",
       vendorEmail: "",
@@ -71,6 +73,8 @@ const PostProduct = ({
     onSubmit: (values) => {
       const data = {
         address: values.address,
+        description: values.description,
+        type: values.type,
         email: values.email,
         galleries: [values.imageUrl1, values.imageUrl2, values.imageUrl3],
         phoneNumber: values.contact,
@@ -86,8 +90,11 @@ const PostProduct = ({
       };
       const propertyData = {
         address: values.address,
+        description: values.description,
         email: values.email,
         galleries: [values.imageUrl1, values.imageUrl2, values.imageUrl3],
+        productName: values.productName,
+        type: values.type,
         owner: {
           designation: values.vendorDesignation,
           email: values.vendorEmail,
@@ -232,7 +239,14 @@ const PostProduct = ({
                 touched={touched.address}
                 placeholder="Address"
               />
-
+              <TextField
+                keyboardType="default"
+                onChangeText={handleChange("description")}
+                onBlur={handleBlur("description")}
+                error={errors.description}
+                touched={touched.description}
+                placeholder="Description"
+              />
               <TextField
                 keyboardType="phone-pad"
                 onChangeText={handleChange("vendorPhoneNumber")}

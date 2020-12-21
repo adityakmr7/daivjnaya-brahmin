@@ -22,9 +22,9 @@ const SectionHeader = ({ title, onPress }: SectionHeaderProps) => {
           {title}
         </Text>
       </Box>
-      <RectButton {...{ onPress }}>
+      {/* <RectButton {...{ onPress }}>
         <Icon size={24} name="arrow-right" />
-      </RectButton>
+      </RectButton> */}
     </Box>
   );
 };
