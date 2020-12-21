@@ -68,9 +68,6 @@ const PostProduct = ({
       productOffered: false,
       propertyWanted: false,
     },
-<<<<<<< HEAD
-    onSubmit: (values) => {},
-=======
     onSubmit: (values) => {
       const data = {
         address: values.address,
@@ -109,7 +106,6 @@ const PostProduct = ({
         createNewProduct(data);
       }
     },
->>>>>>> batman
   });
   const handleImageUpload = async () => {
     if (Platform.OS !== "web") {
