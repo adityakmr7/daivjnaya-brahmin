@@ -61,8 +61,7 @@ const PostProduct = ({
       vendorFName: "",
       vendorPhoneNumber: "",
       vendorPlace: "",
-      vendorProfilePic: "",
-
+      profilePic: "",
       callback: false,
       tmc: false,
       product: false,
@@ -84,7 +83,7 @@ const PostProduct = ({
           fullName: values.vendorFName,
           phoneNumber: values.vendorPhoneNumber,
           place: values.vendorPlace,
-          profilePic: "",
+          profilePic: values.profilePic,
         },
       };
       const propertyData = {
@@ -98,14 +97,14 @@ const PostProduct = ({
           fullName: values.vendorFName,
           phoneNumber: values.vendorPhoneNumber,
           place: values.vendorPlace,
-          profilePic: "",
+          profilePic: values.profilePic,
         },
         phoneNumber: values.contact,
         propertyName: values.productName,
       };
-      if (values.propertyWanted) {
+      if (values.property) {
         createNewProperty(propertyData);
-      } else {
+      } else if (values.product) {
         createNewProduct(data);
       }
     },
@@ -140,7 +139,7 @@ const PostProduct = ({
   const handleSecondImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-    // stateCopy[0] = imageUrl.data.url;
+
     setFieldValue("imageUrl2", imageUrl.data.url);
 
     // setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
@@ -150,6 +149,11 @@ const PostProduct = ({
     const imageUrl = await _rest.getMediaUrl(url);
     setFieldValue("imageUrl3", imageUrl.data.url);
     // setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+  };
+  const handleProfilePic = async () => {
+    const url: any = await handleImageUpload();
+    const imageUrl = await _rest.getMediaUrl(url);
+    setFieldValue("profilePic", imageUrl.data.url);
   };
   return (
     <Box flex={1} flexDirection="column">
@@ -180,19 +184,16 @@ const PostProduct = ({
               <Box flexDirection="row" justifyContent="space-around">
                 <CheckBox
                   checked={values.product}
-                  onChange={() =>
-                    setFieldValue("productOffered", !values.product)
-                  }
+                  onChange={() => setFieldValue("product", !values.product)}
                   label="Product"
                 />
                 <CheckBox
                   checked={values.property}
-                  onChange={() =>
-                    setFieldValue("propertyWanted", !values.property)
-                  }
+                  onChange={() => setFieldValue("property", !values.property)}
                   label="Property"
                 />
               </Box>
+
               <TextField
                 onChangeText={handleChange("vendorFName")}
                 onBlur={handleBlur("vendorFName")}
@@ -342,7 +343,34 @@ const PostProduct = ({
                   </RectButton>
                 </Box>
               </Box>
-
+              <Box
+                marginVertical="l"
+                flexDirection="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Box>
+                  <Text variant="silentText">
+                    {values.property ? "Owner ProfilePic" : "Vendor Profile"}{" "}
+                  </Text>
+                </Box>
+                <RectButton onPress={() => handleProfilePic()}>
+                  <Box
+                    width={40}
+                    height={40}
+                    borderColor="primaryText"
+                    borderWidth={2}
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    {values.profilePic !== "" ? (
+                      <Icon name="check" size={10} />
+                    ) : (
+                      <Icon name="plus" size={10} />
+                    )}
+                  </Box>
+                </RectButton>
+              </Box>
               <Box
                 marginVertical="l"
                 flexDirection="row"
