@@ -1,9 +1,5 @@
 import { Box, Text } from "../../components/Theme";
-<<<<<<< HEAD
-import React from "react";
-=======
 import React, { useEffect } from "react";
->>>>>>> batman
 import { StatusBar } from "expo-status-bar";
 import {
   TextInput,
@@ -12,12 +8,6 @@ import {
 import { Feather as Icon } from "@expo/vector-icons";
 import { LargeButton, TextField } from "../../components";
 import { combineAuthStackProps } from ".";
-<<<<<<< HEAD
-interface ForgotPasswordProps {
-  navigation: combineAuthStackProps<"Forgot">;
-}
-const ForgotPassword = ({ navigation }: ForgotPasswordProps) => {
-=======
 import { connect } from "react-redux";
 import { resetPassword } from "../../actions/authActions";
 import * as Yup from "yup";
@@ -75,7 +65,6 @@ const ForgotPassword = ({
       });
     }
   }, [forgotPasswordError]);
->>>>>>> batman
   return (
     <Box flex={1}>
       <StatusBar backgroundColor="black" />
