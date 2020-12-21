@@ -106,7 +106,7 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
       });
     } else if (successMessage === "" && signUpError !== "") {
       toast({
-        message: "SignUp Failed",
+        message: signUpError,
         bg: "background",
         color: "text",
         accentColor: "main",
@@ -164,11 +164,19 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
                   touched={touched.firstName}
                 />
               </Box>
+<<<<<<< HEAD
               <Box marginTop="l" >
+=======
+              <Box marginTop="l" marginBottom="s">
+>>>>>>> batman
                 <Text variant="cardText" color="primaryText">
                   Choose Your Surname
                 </Text>
               </Box>
+<<<<<<< HEAD
+=======
+
+>>>>>>> batman
               <Select
                 placeholder="Surname"
                 value={values.lastName}
@@ -177,7 +185,11 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
                 {lastNameList.map((item, i) => {
                   return (
                     <Select.Item
+<<<<<<< HEAD
                       key={i}
+=======
+                      key={item.id}
+>>>>>>> batman
                       label={item.lName}
                       value={item.lName}
                     />
@@ -214,7 +226,11 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
                   touched={touched.phoneNumber}
                 />
               </Box>
+<<<<<<< HEAD
               <Box marginTop="xl"  flexDirection="row">
+=======
+              <Box marginTop="s" flexDirection="row">
+>>>>>>> batman
                 <CheckBox
                   checked={values.callback}
                   onChange={() => setFieldValue("callback", !values.callback)}
@@ -230,7 +246,11 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
                 <TouchableWithoutFeedback
                   onPress={() => navigation.navigate("login")}
                 >
+<<<<<<< HEAD
                   <Text fontSize={13} marginTop="xl" marginBottom="xxl" variant="silentText">
+=======
+                  <Text fontSize={13} variant="silentText">
+>>>>>>> batman
                     Already have account ? <Text variant="seeAll">Sign In</Text>
                   </Text>
                 </TouchableWithoutFeedback>

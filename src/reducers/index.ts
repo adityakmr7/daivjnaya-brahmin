@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import authReducer from "./authReducer";
+import b2bReducer from "./b2bReducer";
 import bannerReducer from "./bannerReducer";
 import careerReducer from "./careerReducer";
 import friendReducer from "./friendReducer";
@@ -21,4 +22,5 @@ export default combineReducers({
   news: newsReducer,
   banner: bannerReducer,
   career: careerReducer,
+  b2b: b2bReducer,
 });

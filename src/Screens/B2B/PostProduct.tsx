@@ -12,17 +12,31 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import restServices from "../../services/restServices";
-interface PostProductProps {}
+import {
+  postNewB2bProduct,
+  postNewB2bProperty,
+} from "../../actions/b2bActions";
+import { connect } from "react-redux";
+interface PostProductProps {
+  createNewProduct: (data: {}) => void;
+  createNewProperty: (data: {}) => void;
+  productCreateState: any;
+}
 
-const validationSchema = Yup.object().shape({
-  pname: Yup.string().required(),
-  contact: Yup.string().length(10).required(),
-  email: Yup.string().required(), //TODO: Validate Email
-  city: Yup.string().required(),
-  upload: Yup.string().required(),
-  description: Yup.string().required(),
-});
-const PostProduct = ({}: PostProductProps) => {
+const validationSchema = Yup.object().shape({});
+const PostProduct = ({
+  createNewProduct,
+  productCreateState,
+  createNewProperty,
+}: PostProductProps) => {
+  const {
+    createProductLoading,
+    createProductSuccess,
+    createProductError,
+    createPropertyLoading,
+    createPropertySuccess,
+    createPropertyError,
+  } = productCreateState;
   const {
     handleChange,
     handleBlur,
@@ -34,24 +48,69 @@ const PostProduct = ({}: PostProductProps) => {
   } = useFormik({
     validationSchema,
     initialValues: {
-      fName: "",
-      contact: "",
       address: "",
-      city: "",
-      country: "",
-      state: "",
-      pinCode: "",
       email: "",
-      website: "",
-      about: "",
-      otherInfo: "",
-      price: "",
+      imageUrl1: "",
+      imageUrl2: "",
+      imageUrl3: "",
+      contact: "",
+      productName: "",
+      //vendor
+      vendorDesignation: "",
+      vendorEmail: "",
+      vendorFName: "",
+      vendorPhoneNumber: "",
+      vendorPlace: "",
+      vendorProfilePic: "",
+
       callback: false,
       tmc: false,
+      productOffered: false,
+      propertyWanted: false,
     },
+<<<<<<< HEAD
     onSubmit: (values) => {},
+=======
+    onSubmit: (values) => {
+      const data = {
+        address: values.address,
+        email: values.email,
+        galleries: [values.imageUrl1, values.imageUrl2, values.imageUrl3],
+        phoneNumber: values.contact,
+        productName: values.productName,
+        vendor: {
+          designation: values.vendorDesignation,
+          vendorEmail: values.vendorEmail,
+          fullName: values.vendorFName,
+          phoneNumber: values.vendorPhoneNumber,
+          place: values.vendorPlace,
+          profilePic: "",
+        },
+      };
+      const propertyData = {
+        address: values.address,
+        email: values.email,
+        galleries: [values.imageUrl1, values.imageUrl2, values.imageUrl3],
+        owner: {
+          designation: values.vendorDesignation,
+          email: values.vendorEmail,
+          fullName: values.vendorFName,
+          phoneNumber: values.vendorPhoneNumber,
+          place: values.vendorPlace,
+          profilePic: "",
+        },
+        phoneNumber: values.contact,
+        propertyName: values.productName,
+      };
+      console.log("newProduct", data);
+      if (values.propertyWanted) {
+        createNewProperty(propertyData);
+      } else {
+        createNewProduct(data);
+      }
+    },
+>>>>>>> batman
   });
-  const [galleryImage, setGalleryImage] = useState<any[]>([]);
   const handleImageUpload = async () => {
     if (Platform.OS !== "web") {
       const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -67,8 +126,6 @@ const PostProduct = ({}: PostProductProps) => {
         });
 
         if (!result.cancelled) {
-          // TODO: set Image upload Here
-          //result.uri
           return result.uri;
         }
       }
@@ -78,19 +135,22 @@ const PostProduct = ({}: PostProductProps) => {
   const handleFistImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+    setFieldValue("imageUrl1", imageUrl.data.url);
+    // setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
   };
   const handleSecondImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
     // stateCopy[0] = imageUrl.data.url;
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+    setFieldValue("imageUrl2", imageUrl.data.url);
+
+    // setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
   };
   const handleImageThree = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+    setFieldValue("imageUrl3", imageUrl.data.url);
+    // setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
   };
   return (
     <Box flex={1} flexDirection="column">
@@ -104,37 +164,41 @@ const PostProduct = ({}: PostProductProps) => {
                 justifyContent="space-around"
               >
                 <CheckBox
-                  checked={values.tmc}
-                  onChange={() => setFieldValue("tmc", !values.tmc)}
+                  checked={values.productOffered}
+                  onChange={() =>
+                    setFieldValue("productOffered", !values.productOffered)
+                  }
                   label="Offered"
                 />
                 <CheckBox
-                  checked={values.callback}
-                  onChange={() => setFieldValue("callback", !values.callback)}
+                  checked={values.propertyWanted}
+                  onChange={() =>
+                    setFieldValue("propertyWanted", !values.propertyWanted)
+                  }
                   label="Wanted"
                 />
               </Box>
-              <Box
-                marginVertical="l"
-                flexDirection="row"
-                justifyContent="space-around"
-              >
+              <Box flexDirection="row" justifyContent="space-around">
                 <CheckBox
-                  checked={values.tmc}
-                  onChange={() => setFieldValue("tmc", !values.tmc)}
+                  checked={values.productOffered}
+                  onChange={() =>
+                    setFieldValue("productOffered", !values.productOffered)
+                  }
                   label="Product"
                 />
                 <CheckBox
-                  checked={values.callback}
-                  onChange={() => setFieldValue("callback", !values.callback)}
+                  checked={values.propertyWanted}
+                  onChange={() =>
+                    setFieldValue("propertyWanted", !values.propertyWanted)
+                  }
                   label="Property"
                 />
               </Box>
               <TextField
-                onChangeText={handleChange("fName")}
-                onBlur={handleBlur("fName")}
-                error={errors.fName}
-                touched={touched.fName}
+                onChangeText={handleChange("vendorFName")}
+                onBlur={handleBlur("vendorFName")}
+                error={errors.vendorFName}
+                touched={touched.vendorFName}
                 placeholder="Full Name"
               />
               <TextField
@@ -156,43 +220,60 @@ const PostProduct = ({}: PostProductProps) => {
               />
               <TextField
                 keyboardType="default"
+                onChangeText={handleChange("productName")}
+                onBlur={handleBlur("productName")}
+                error={errors.productName}
+                touched={touched.productName}
+                placeholder={
+                  values.propertyWanted ? "Property Name" : "Product Name"
+                }
+              />
+              <TextField
+                keyboardType="default"
                 onChangeText={handleChange("address")}
                 onBlur={handleBlur("address")}
                 error={errors.address}
                 touched={touched.address}
                 placeholder="Address"
               />
+
               <TextField
-                keyboardType="default"
-                onChangeText={handleChange("city")}
-                onBlur={handleBlur("city")}
-                error={errors.city}
-                touched={touched.city}
-                placeholder="City"
+                keyboardType="phone-pad"
+                onChangeText={handleChange("vendorPhoneNumber")}
+                onBlur={handleBlur("vendorPhoneNumber")}
+                error={errors.vendorPhoneNumber}
+                touched={touched.vendorPhoneNumber}
+                placeholder={
+                  values.propertyWanted
+                    ? "Owner PhoneNumber"
+                    : "Vendor PhoneNumber"
+                }
               />
               <TextField
                 keyboardType="default"
-                onChangeText={handleChange("state")}
-                onBlur={handleBlur("state")}
-                error={errors.state}
-                touched={touched.state}
-                placeholder="State"
+                onChangeText={handleChange("vendorDesignation")}
+                onBlur={handleBlur("vendorDesignation")}
+                error={errors.vendorDesignation}
+                touched={touched.vendorDesignation}
+                placeholder="Designation"
               />
               <TextField
                 keyboardType="default"
-                onChangeText={handleChange("country")}
-                onBlur={handleBlur("country")}
-                error={errors.country}
-                touched={touched.country}
-                placeholder="Country"
+                onChangeText={handleChange("vendorPlace")}
+                onBlur={handleBlur("vendorPlace")}
+                error={errors.vendorPlace}
+                touched={touched.vendorPlace}
+                placeholder="Place"
               />
               <TextField
-                keyboardType="default"
-                onChangeText={handleChange("pinCode")}
-                onBlur={handleBlur("pinCode")}
-                error={errors.pinCode}
-                touched={touched.pinCode}
-                placeholder="Pin Code"
+                keyboardType="email-address"
+                onChangeText={handleChange("vendorEmail")}
+                onBlur={handleBlur("vendorEmail")}
+                error={errors.vendorEmail}
+                touched={touched.vendorEmail}
+                placeholder={
+                  values.propertyWanted ? "Owner Email" : "Vendor Email"
+                }
               />
 
               <Box
@@ -215,7 +296,11 @@ const PostProduct = ({}: PostProductProps) => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Icon name="plus" size={10} />
+                      {values.imageUrl1 !== "" ? (
+                        <Icon name="check" size={10} />
+                      ) : (
+                        <Icon name="plus" size={10} />
+                      )}
                     </Box>
                   </RectButton>
                   <RectButton
@@ -230,7 +315,11 @@ const PostProduct = ({}: PostProductProps) => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Icon name="plus" size={10} />
+                      {values.imageUrl2 !== "" ? (
+                        <Icon name="check" size={10} />
+                      ) : (
+                        <Icon name="plus" size={10} />
+                      )}
                     </Box>
                   </RectButton>
                   <RectButton
@@ -245,43 +334,16 @@ const PostProduct = ({}: PostProductProps) => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Icon name="plus" size={10} />
+                      {values.imageUrl3 !== "" ? (
+                        <Icon name="check" size={10} />
+                      ) : (
+                        <Icon name="plus" size={10} />
+                      )}
                     </Box>
                   </RectButton>
                 </Box>
               </Box>
-              <TextField
-                keyboardType="number-pad"
-                onChangeText={handleChange("price")}
-                onBlur={handleBlur("price")}
-                error={errors.price}
-                touched={touched.price}
-                placeholder="Price"
-              />
-              <TextField
-                keyboardType="default"
-                onChangeText={handleChange("website")}
-                onBlur={handleBlur("website")}
-                error={errors.website}
-                touched={touched.website}
-                placeholder="Website"
-              />
-              <TextField
-                keyboardType="default"
-                onChangeText={handleChange("about")}
-                onBlur={handleBlur("about")}
-                error={errors.about}
-                touched={touched.about}
-                placeholder="About the post"
-              />
-              <TextField
-                keyboardType="default"
-                onChangeText={handleChange("otherInfo")}
-                onBlur={handleBlur("otherInfo")}
-                error={errors.otherInfo}
-                touched={touched.otherInfo}
-                placeholder="Other Info"
-              />
+
               <Box
                 marginVertical="l"
                 flexDirection="row"
@@ -299,7 +361,13 @@ const PostProduct = ({}: PostProductProps) => {
                 />
               </Box>
             </Box>
-            <LargeButton onPress={handleSubmit} label="POST" />
+            <Box marginBottom="xxl">
+              <LargeButton
+                loading={createPropertyLoading || createProductLoading}
+                onPress={() => handleSubmit()}
+                label="POST"
+              />
+            </Box>
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
       </ScrollView>
@@ -307,4 +375,14 @@ const PostProduct = ({}: PostProductProps) => {
   );
 };
 
-export default PostProduct;
+function mapStateToProps(state: any) {
+  return {
+    productCreateState: state.b2b,
+  };
+}
+const mapDispatchToProps = (dispatch: any) => ({
+  createNewProduct: (data: {}) => dispatch(postNewB2bProduct(data)),
+  createNewProperty: (data: {}) => dispatch(postNewB2bProperty(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostProduct);

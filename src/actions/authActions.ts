@@ -7,6 +7,12 @@ import {
   LOGIN_USER_ERROR,
   LOGIN_USER_LOADING,
   USER_SIGN_UP_LOADING,
+  PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_ERROR,
+  PASSWORD_RESET_LOADING,
+  PASSWORD_CHANGE_OTP_LOADING,
+  PASSWORD_CHANGE_OTP_SUCCESS,
+  PASSWORD_CHANGE_OTP_ERROR,
 } from "./constants/authConstant";
 import { _sign_in_user, _login_user } from "./../api/endpoints";
 import axios, { AxiosPromise, AxiosRequestConfig, AxiosResponse } from "axios";
@@ -39,9 +45,11 @@ export const userSignup = (
     },
     data: data,
   };
+  console.log("data", data);
   axios(config)
     .then((res) => {
       // Add Snackbar here
+      console.log("autSignupSuccess", res);
       dispatch({
         type: USER_SIGN_UP,
         payload: res.data,
@@ -49,9 +57,11 @@ export const userSignup = (
       navigation.navigate("login");
     })
     .catch((err) => {
+      console.log("autSignupSuccessError", err);
+
       dispatch({
         type: USER_SIGN_UP_ERROR,
-        message: "Error Signup",
+        error: "Email Already Exist" || err.message,
       });
     });
 };
@@ -107,4 +117,69 @@ export const logoutUser = () => async (dispatch: any) => {
   });
   let _res = new restServices();
   await _res.removeAccessToken();
+};
+
+export const resetPassword = (email: string, navigation: any) => (
+  dispatch: any
+) => {
+  dispatch({
+    type: PASSWORD_RESET_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .authPut(`/resetpassword?email=${email}`)
+    .then((res) => {
+      if (res.status === 200) {
+        dispatch({
+          type: PASSWORD_RESET_SUCCESS,
+          payload: "Password Reset SuccessFull",
+        });
+        navigation.navigate("Otp", {
+          email: email,
+        });
+      }
+    })
+    .catch((err) => {
+      console.log("errorAut", err);
+      dispatch({
+        type: PASSWORD_RESET_ERROR,
+        error: "Email Does Not Exit" || err,
+      });
+    });
+};
+
+export const changePasswordForOtp = (
+  data: {
+    email: string;
+    otp: string;
+    password: string;
+  },
+  navigation: any
+) => (dispatch: any) => {
+  dispatch({
+    type: PASSWORD_CHANGE_OTP_LOADING,
+  });
+
+  const _rest = new restServices();
+  _rest
+    .authPut(
+      `/changepassword?email=${data.email}&otp=${parseInt(data.otp)}&password=${
+        data.password
+      }`
+    )
+    .then((res) => {
+      if (res.status === 200) {
+        dispatch({
+          type: PASSWORD_CHANGE_OTP_SUCCESS,
+          payload: res.data,
+        });
+        navigation.navigate("ResetComplete");
+      }
+    })
+    .catch((err) => {
+      dispatch({
+        type: PASSWORD_CHANGE_OTP_ERROR,
+        error: "Otp Expired" || err,
+      });
+    });
 };
