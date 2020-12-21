@@ -49,12 +49,13 @@ const B2BDetail = ({
     email,
     vendor,
     phoneNumber,
+    type,
     productName,
     updatedDate,
     address,
     creationDate,
   } = productDetailData;
-
+  console.log("productDetailData", productDetailData);
   return (
     <Box flex={1}>
       <ScrollView>
@@ -99,6 +100,9 @@ const B2BDetail = ({
             )}
             <Box marginHorizontal="s" marginVertical="s">
               <Box>
+                <Text variant="cardSubTitle" color="primaryText">
+                  {type}
+                </Text>
                 <Text
                   marginVertical="s"
                   variant="cardTitle"

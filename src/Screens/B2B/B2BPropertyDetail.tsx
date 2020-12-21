@@ -42,6 +42,7 @@ const B2BPropertyDetail = ({
     phoneNumber,
     propertyName,
     updatedDate,
+    type,
   } = propertyDetailData;
   console.log("productDetailData", propertyDetailData);
 
@@ -99,6 +100,9 @@ const B2BPropertyDetail = ({
             )}
             <Box>
               <Box marginHorizontal="s">
+                <Text variant="cardSubTitle" color="primaryText">
+                  {type}
+                </Text>
                 <Text
                   marginVertical="s"
                   variant="cardTitle"

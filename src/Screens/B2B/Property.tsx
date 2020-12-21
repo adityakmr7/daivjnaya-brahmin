@@ -69,10 +69,12 @@ const Property = ({
           borderColor="greyish"
         >
           <Box flex={1} alignItems="center" flexDirection="row">
-            {item.owner._links && item.vendor._links.profilePic ? (
+            {item.galleries &&
+            item.galleries[0]._links &&
+            item.galleries[0]._links.image ? (
               <Image
                 style={{ width: "30%", height: "80%" }}
-                source={{ uri: item.vendor._links.profilePic.href }}
+                source={{ uri: item.galleries[0]._links.image.href }}
               />
             ) : null}
             <Box paddingHorizontal="s">

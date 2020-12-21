@@ -65,6 +65,8 @@ const PostProduct = ({
 
       callback: false,
       tmc: false,
+      product: false,
+      property: false,
       productOffered: false,
       propertyWanted: false,
     },
@@ -75,6 +77,7 @@ const PostProduct = ({
         galleries: [values.imageUrl1, values.imageUrl2, values.imageUrl3],
         phoneNumber: values.contact,
         productName: values.productName,
+        type: values.productOffered ? "OFFERED" : "WANTED",
         vendor: {
           designation: values.vendorDesignation,
           vendorEmail: values.vendorEmail,
@@ -88,6 +91,7 @@ const PostProduct = ({
         address: values.address,
         email: values.email,
         galleries: [values.imageUrl1, values.imageUrl2, values.imageUrl3],
+        type: values.propertyWanted ? "WANTED" : "OFFERED",
         owner: {
           designation: values.vendorDesignation,
           email: values.vendorEmail,
@@ -99,7 +103,6 @@ const PostProduct = ({
         phoneNumber: values.contact,
         propertyName: values.productName,
       };
-      console.log("newProduct", data);
       if (values.propertyWanted) {
         createNewProperty(propertyData);
       } else {
@@ -176,16 +179,16 @@ const PostProduct = ({
               </Box>
               <Box flexDirection="row" justifyContent="space-around">
                 <CheckBox
-                  checked={values.productOffered}
+                  checked={values.product}
                   onChange={() =>
-                    setFieldValue("productOffered", !values.productOffered)
+                    setFieldValue("productOffered", !values.product)
                   }
                   label="Product"
                 />
                 <CheckBox
-                  checked={values.propertyWanted}
+                  checked={values.property}
                   onChange={() =>
-                    setFieldValue("propertyWanted", !values.propertyWanted)
+                    setFieldValue("propertyWanted", !values.property)
                   }
                   label="Property"
                 />
