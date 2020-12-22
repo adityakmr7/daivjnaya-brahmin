@@ -94,8 +94,8 @@ const Product = ({ navigation, getAllProduct, productAll }: ProductProps) => {
             <ActivityIndicator />
           </Box>
         ) : (
-          <Box>
-            <FlatList
+          <Box marginBottom="l">
+            <FlatList 
               data={productData}
               renderItem={renderItem}
               keyExtractor={(item: any) => item.pId.toString()}

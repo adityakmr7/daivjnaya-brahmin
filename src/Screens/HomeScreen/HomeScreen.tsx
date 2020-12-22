@@ -122,7 +122,7 @@ const HomeScreen = ({
             image={require("../../../assets/images/jwel.png")}
             subtitle="Jewellery Market"
           />
-          <IconNavigator
+          <IconNavigator 
             onPress={() => navigation.navigate("Careers")}
             image={require("../../../assets/images/briefcase.png")}
             subtitle="Careers & Talent"

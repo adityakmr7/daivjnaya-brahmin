@@ -85,7 +85,7 @@ const CareerProfile = ({
             <Box
               style={{
                 position: "relative",
-                top: 80,
+                top: 90,
               }}
             >
               <RoundedBorderButton label={"Edit Profile"} onPress={() => {}} />
