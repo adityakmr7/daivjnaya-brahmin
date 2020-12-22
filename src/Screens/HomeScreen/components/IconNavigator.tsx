@@ -19,8 +19,8 @@ const IconNavigator = ({ subtitle, image, onPress }: IconNavigatorProps) => {
           alignItems="center"
           borderRadius="m"
           shadowOffset=""
-          height={92}
-          width={92}
+          height={72}
+          width={72}
           backgroundColor="iconBackground"
         >
           <Image source={image} />
@@ -28,7 +28,7 @@ const IconNavigator = ({ subtitle, image, onPress }: IconNavigatorProps) => {
       </TouchableWithoutFeedback>
 
       <Box paddingVertical="s">
-        <Text variant="mainIconSubTitle">{subtitle}</Text>
+        <Text numberOfLines={2}  variant="mainIconSubTitle">{subtitle}</Text>
       </Box>
     </Box>
   );

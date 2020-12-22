@@ -56,7 +56,7 @@ const CareerTab = () => {
         name="CareerNetwork"
         component={CareerNetwork}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         options={{ tabBarLabel: "Profile" }}
         name="CareerProfile"
         component={CareerProfile}
@@ -65,7 +65,7 @@ const CareerTab = () => {
         options={{ tabBarLabel: "Chat" }}
         name="CareerChat"
         component={CareerChat}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };

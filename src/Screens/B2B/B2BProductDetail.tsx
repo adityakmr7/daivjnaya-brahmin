@@ -52,7 +52,6 @@ const B2BDetail = ({
     phoneNumber,
     type,
     productName,
-    type,
     description,
     updatedDate,
     address,
@@ -142,7 +141,7 @@ const B2BDetail = ({
               {vendor ? (
                 <Box marginVertical="s">
                   <Text variant="cardTitle" color="primaryText">
-                    Vendor
+                    Seller
                   </Text>
                   <Box
                     marginVertical="s"

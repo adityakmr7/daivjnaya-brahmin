@@ -105,7 +105,7 @@ const HomeScreen = ({
             subtitle="Matrimony"
           />
         </Box>
-        <Box
+        <Box 
           flexDirection="row"
           paddingVertical="s"
           width={wWidth - 40}
@@ -117,10 +117,11 @@ const HomeScreen = ({
             image={require("../../../assets/images/shake.png")}
             subtitle="B2B"
           />
-          <IconNavigator
+          <IconNavigator 
             onPress={() => navigation.navigate("Jewellery")}
             image={require("../../../assets/images/jwel.png")}
             subtitle="Jewellery Market"
+           
           />
           <IconNavigator 
             onPress={() => navigation.navigate("Careers")}

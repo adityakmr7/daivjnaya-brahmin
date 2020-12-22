@@ -75,7 +75,7 @@ const PostProduct = ({
       const data = {
         address: values.address,
         description: values.description,
-        type: values.type,
+        
         email: values.email,
         galleries: [values.imageUrl1, values.imageUrl2, values.imageUrl3],
         phoneNumber: values.contact,
@@ -95,12 +95,7 @@ const PostProduct = ({
         description: values.description,
         email: values.email,
         galleries: [values.imageUrl1, values.imageUrl2, values.imageUrl3],
-<<<<<<< HEAD
-        productName: values.productName,
-        type: values.type,
-=======
         type: values.propertyWanted ? "WANTED" : "OFFERED",
->>>>>>> batman
         owner: {
           designation: values.vendorDesignation,
           email: values.vendorEmail,

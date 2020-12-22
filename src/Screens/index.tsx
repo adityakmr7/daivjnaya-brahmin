@@ -47,7 +47,7 @@ const AppNavigation = (props: any) => {
                 return (
                   <Box flexDirection={"row"} paddingHorizontal="s">
                     <Box paddingHorizontal="s">
-                      <RectButton
+                      {/* <RectButton
                         onPress={() => navigation.navigate("Notification")}
                         style={{
                           width: 28,
@@ -68,7 +68,7 @@ const AppNavigation = (props: any) => {
                           backgroundColor="notificationColor"
                         />
                         <Icon name="bell" size={20} color={"black"} />
-                      </RectButton>
+                      </RectButton> */}
                     </Box>
                     <Box>
                       <RectButton
@@ -76,16 +76,19 @@ const AppNavigation = (props: any) => {
                         style={{
                           alignItems: "center",
                           justifyContent: "center",
+                          
                         }}
                       >
                         <Box flexDirection="row" justifyContent="space-between">
-                          {/* <Text>New</Text> */}
+                          {/* <Text>Logout</Text> */}
                           <Icon
                             style={{ padding: 2 }}
                             name="log-out"
                             size={20}
                             color="black"
+                            
                           />
+                          
                         </Box>
                       </RectButton>
                     </Box>
