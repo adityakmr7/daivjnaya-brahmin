@@ -2,6 +2,9 @@ import {
   GET_ALL_JEWELLERY_SHOP_ERROR,
   GET_ALL_JEWELLERY_SHOP_LOADING,
   GET_ALL_JEWELLERY_SHOP_SUCCESS,
+  GET_ALL_JEWELLERY_VENDOR_ERROR,
+  GET_ALL_JEWELLERY_VENDOR_LOADING,
+  GET_ALL_JEWELLERY_VENDOR_SUCCESS,
   GET_ALL_JEWELLERY_WORKER_ERROR,
   GET_ALL_JEWELLERY_WORKER_LOADING,
   GET_ALL_JEWELLERY_WORKER_SUCCESS,
@@ -18,6 +21,11 @@ const initialState = {
   jewelleryWorkerLoading: false,
   jewelleryWorkerData: "",
   jewelleryWorkerError: "",
+
+  //vendor
+  jewelleryVendorLoading: false,
+  jewelleryVendorData: "",
+  jewelleryVendorError: "",
   // post
   postJewelleryLoading: false,
   postJewelleryData: "",
@@ -72,6 +80,28 @@ export default (state = initialState, action: any) => {
         jewelleryWorkerLoading: false,
         jewelleryWorkerData: "",
         jewelleryWorkerError: action.error,
+      };
+    case GET_ALL_JEWELLERY_VENDOR_LOADING:
+      return {
+        ...state,
+        jewelleryVendorLoading: true,
+        jewelleryVendorData: "",
+        jewelleryVendorError: "",
+      };
+    case GET_ALL_JEWELLERY_VENDOR_SUCCESS:
+      return {
+        ...state,
+        jewelleryVendorLoading: false,
+        jewelleryVendorData:
+          action.payload._embedded.jewellerVendorResourceList,
+        jewelleryVendorError: "",
+      };
+    case GET_ALL_JEWELLERY_VENDOR_ERROR:
+      return {
+        ...state,
+        jewelleryVendorLoading: false,
+        jewelleryVendorData: "",
+        jewelleryVendorError: "Something Went Wrong",
       };
     case POST_ALL_JEWELLERY_LOADING:
       return {
