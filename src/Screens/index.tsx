@@ -80,17 +80,6 @@ const AppNavigation = (props: any) => {
                         }}
                       >
                         <Box flexDirection="row" justifyContent="space-between">
-<<<<<<< HEAD
-                          {/* <Text>Logout</Text> */}
-                          <Icon
-                            style={{ padding: 2 }}
-                            name="log-out"
-                            size={20}
-                            color="black"
-                            
-                          />
-                          
-=======
                           <Box>
                             <Icon
                               style={{ padding: 2 }}
@@ -100,7 +89,6 @@ const AppNavigation = (props: any) => {
                             />
                             <Text fontSize={8}>Logout</Text>
                           </Box>
->>>>>>> batman
                         </Box>
                       </RectButton>
                     </Box>

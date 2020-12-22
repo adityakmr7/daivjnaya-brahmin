@@ -121,13 +121,8 @@ const HomeScreen = ({
           <IconNavigator 
             onPress={() => navigation.navigate("Jewellery")}
             image={require("../../../assets/images/jwel.png")}
-<<<<<<< HEAD
-            subtitle="Jewellery Market"
-           
-=======
             subtitle="Jewellery"
             subtitle2="Market"
->>>>>>> batman
           />
           <IconNavigator 
             onPress={() => navigation.navigate("Careers")}

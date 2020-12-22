@@ -33,10 +33,6 @@ const IconNavigator = ({
         </Box>
       </TouchableWithoutFeedback>
 
-<<<<<<< HEAD
-      <Box paddingVertical="s">
-        <Text numberOfLines={2}  variant="mainIconSubTitle">{subtitle}</Text>
-=======
       <Box
         flexDirection="column"
         alignItems="center"
@@ -51,7 +47,6 @@ const IconNavigator = ({
             <Text variant="mainIconSubTitle">{subtitle2}</Text>
           </Box>
         ) : null}
->>>>>>> batman
       </Box>
     </Box>
   );
