@@ -1,4 +1,5 @@
-import React from "react";
+import { useIsFocused } from "@react-navigation/native";
+import React, { useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { getJewellerShop } from "../../actions/jewelleryActions";
@@ -55,6 +56,10 @@ function Shop({ getShop, jewellery }: ShopProps) {
     jewelleryShopData,
     jewelleryShopError,
   } = jewellery;
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    getShop();
+  }, [isFocused]);
   return (
     <ScrollView>
       <Box backgroundColor="iconBackground" flex={1}>
