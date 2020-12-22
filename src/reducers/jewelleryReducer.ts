@@ -37,7 +37,7 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         jewelleryShopLoading: false,
-        jewelleryShopData: action.payload,
+        jewelleryShopData: action.payload._embedded.jewellerShopResourceList,
         jewelleryShopError: "",
       };
     case GET_ALL_JEWELLERY_SHOP_ERROR:
@@ -58,7 +58,8 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         jewelleryWorkerLoading: false,
-        jewelleryWorkerData: action.payload,
+        jewelleryWorkerData:
+          action.payload._embedded.jewellerWorkerResourceList,
         jewelleryWorkerError: "",
       };
     case GET_ALL_JEWELLERY_WORKER_ERROR:
