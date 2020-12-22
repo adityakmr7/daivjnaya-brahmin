@@ -7,10 +7,16 @@ import {
 import { Box, Text } from "../../../components";
 interface IconNavigatorProps {
   subtitle: string;
+  subtitle2?: string;
   image: number;
   onPress: () => void;
 }
-const IconNavigator = ({ subtitle, image, onPress }: IconNavigatorProps) => {
+const IconNavigator = ({
+  subtitle,
+  image,
+  onPress,
+  subtitle2,
+}: IconNavigatorProps) => {
   return (
     <Box justifyContent="space-between" alignItems="center">
       <TouchableWithoutFeedback {...{ onPress }}>
@@ -27,8 +33,20 @@ const IconNavigator = ({ subtitle, image, onPress }: IconNavigatorProps) => {
         </Box>
       </TouchableWithoutFeedback>
 
-      <Box paddingVertical="s">
-        <Text variant="mainIconSubTitle">{subtitle}</Text>
+      <Box
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        paddingVertical="xs"
+      >
+        <Box>
+          <Text variant="mainIconSubTitle">{subtitle}</Text>
+        </Box>
+        {subtitle2 ? (
+          <Box>
+            <Text variant="mainIconSubTitle">{subtitle2}</Text>
+          </Box>
+        ) : null}
       </Box>
     </Box>
   );

@@ -34,6 +34,7 @@ export const theme = {
     xxxxl: 160,
   },
   borderRadii: {
+    xs: 3,
     s: 5,
     m: 10,
     l: 25,

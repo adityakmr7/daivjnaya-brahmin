@@ -22,6 +22,10 @@ const initialState = {
   postJewelleryLoading: false,
   postJewelleryData: "",
   postJewelleryError: "",
+  // SHop Detail
+  shopDetailLoading: false,
+  shopDetailData: "",
+  shopDetailError: "",
 };
 
 export default (state = initialState, action: any) => {
