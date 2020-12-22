@@ -9,45 +9,6 @@ interface WorkersProps {
   getWorker: () => void;
   jewellery: any;
 }
-const workerList = [
-  {
-    id: 1,
-    image: require("../../../assets/images/jwellary-asset-1.png"),
-    title: "Community Name",
-    subtitle: "Risus commodo",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    btn: "View full details",
-  },
-  {
-    id: 2,
-    image: require("../../../assets/images/jwellary-asset-1.png"),
-    title: "Community Name",
-    subtitle: "Risus commodo",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    btn: "View full details",
-  },
-  {
-    id: 3,
-    image: require("../../../assets/images/jwellary-asset-1.png"),
-    title: "Community Name",
-    subtitle: "Risus commodo",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    btn: "View full details",
-  },
-  {
-    id: 4,
-    image: require("../../../assets/images/jwellary-asset-1.png"),
-    title: "Community Name",
-    subtitle: "Risus commodo",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod…",
-    btn: "View full details",
-  },
-];
-export const assetsWorker = workerList.map((item, i) => item.image);
 
 const Workers = ({ getWorker, jewellery }: WorkersProps) => {
   const {
