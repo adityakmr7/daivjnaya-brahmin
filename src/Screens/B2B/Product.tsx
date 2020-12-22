@@ -48,7 +48,7 @@ const Product = ({ navigation, getAllProduct, productAll }: ProductProps) => {
   // href: "https://s3-ap-south-1.amazonaws.com/daivajnya.brahmin/Daivajna/B2B/Media/1608451359901.jpeg"
 
   const renderItem = ({ item }: { item: any }) => {
-    console.log("productItem", item);
+    console.log("ren", item);
     return (
       <TouchableWithoutFeedback
         onPress={() =>
@@ -68,10 +68,12 @@ const Product = ({ navigation, getAllProduct, productAll }: ProductProps) => {
           borderColor="greyish"
         >
           <Box flex={1} alignItems="center" flexDirection="row">
-            {item.vendor._links && item.vendor._links.profilePic ? (
+            {item.galleries &&
+            item.galleries[0]._links &&
+            item.galleries[0]._links.image ? (
               <Image
                 style={{ width: "30%", height: "80%" }}
-                source={{ uri: item.vendor._links.profilePic.href }}
+                source={{ uri: item.galleries[0]._links.image.href }}
               />
             ) : null}
             <Box paddingHorizontal="s">

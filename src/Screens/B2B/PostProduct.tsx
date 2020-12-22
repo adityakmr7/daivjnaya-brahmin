@@ -63,10 +63,11 @@ const PostProduct = ({
       vendorFName: "",
       vendorPhoneNumber: "",
       vendorPlace: "",
-      vendorProfilePic: "",
-
+      profilePic: "",
       callback: false,
       tmc: false,
+      product: false,
+      property: false,
       productOffered: false,
       propertyWanted: false,
     },
@@ -79,13 +80,14 @@ const PostProduct = ({
         galleries: [values.imageUrl1, values.imageUrl2, values.imageUrl3],
         phoneNumber: values.contact,
         productName: values.productName,
+        type: values.productOffered ? "OFFERED" : "WANTED",
         vendor: {
           designation: values.vendorDesignation,
           vendorEmail: values.vendorEmail,
           fullName: values.vendorFName,
           phoneNumber: values.vendorPhoneNumber,
           place: values.vendorPlace,
-          profilePic: "",
+          profilePic: values.profilePic,
         },
       };
       const propertyData = {
@@ -93,23 +95,26 @@ const PostProduct = ({
         description: values.description,
         email: values.email,
         galleries: [values.imageUrl1, values.imageUrl2, values.imageUrl3],
+<<<<<<< HEAD
         productName: values.productName,
         type: values.type,
+=======
+        type: values.propertyWanted ? "WANTED" : "OFFERED",
+>>>>>>> batman
         owner: {
           designation: values.vendorDesignation,
           email: values.vendorEmail,
           fullName: values.vendorFName,
           phoneNumber: values.vendorPhoneNumber,
           place: values.vendorPlace,
-          profilePic: "",
+          profilePic: values.profilePic,
         },
         phoneNumber: values.contact,
         propertyName: values.productName,
       };
-      console.log("newProduct", data);
-      if (values.propertyWanted) {
+      if (values.property) {
         createNewProperty(propertyData);
-      } else {
+      } else if (values.product) {
         createNewProduct(data);
       }
     },
@@ -144,7 +149,7 @@ const PostProduct = ({
   const handleSecondImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-    // stateCopy[0] = imageUrl.data.url;
+
     setFieldValue("imageUrl2", imageUrl.data.url);
 
     // setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
@@ -154,6 +159,11 @@ const PostProduct = ({
     const imageUrl = await _rest.getMediaUrl(url);
     setFieldValue("imageUrl3", imageUrl.data.url);
     // setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+  };
+  const handleProfilePic = async () => {
+    const url: any = await handleImageUpload();
+    const imageUrl = await _rest.getMediaUrl(url);
+    setFieldValue("profilePic", imageUrl.data.url);
   };
   return (
     <Box flex={1} flexDirection="column">
@@ -183,20 +193,17 @@ const PostProduct = ({
               </Box>
               <Box flexDirection="row" justifyContent="space-around">
                 <CheckBox
-                  checked={values.productOffered}
-                  onChange={() =>
-                    setFieldValue("productOffered", !values.productOffered)
-                  }
+                  checked={values.product}
+                  onChange={() => setFieldValue("product", !values.product)}
                   label="Product"
                 />
                 <CheckBox
-                  checked={values.propertyWanted}
-                  onChange={() =>
-                    setFieldValue("propertyWanted", !values.propertyWanted)
-                  }
+                  checked={values.property}
+                  onChange={() => setFieldValue("property", !values.property)}
                   label="Property"
                 />
               </Box>
+
               <TextField
                 onChangeText={handleChange("vendorFName")}
                 onBlur={handleBlur("vendorFName")}
@@ -353,7 +360,34 @@ const PostProduct = ({
                   </RectButton>
                 </Box>
               </Box>
-
+              <Box
+                marginVertical="l"
+                flexDirection="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Box>
+                  <Text variant="silentText">
+                    {values.property ? "Owner ProfilePic" : "Vendor Profile"}{" "}
+                  </Text>
+                </Box>
+                <RectButton onPress={() => handleProfilePic()}>
+                  <Box
+                    width={40}
+                    height={40}
+                    borderColor="primaryText"
+                    borderWidth={2}
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    {values.profilePic !== "" ? (
+                      <Icon name="check" size={10} />
+                    ) : (
+                      <Icon name="plus" size={10} />
+                    )}
+                  </Box>
+                </RectButton>
+              </Box>
               <Box
                 marginVertical="l"
                 flexDirection="row"

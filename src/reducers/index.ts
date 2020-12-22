@@ -7,6 +7,7 @@ import bannerReducer from "./bannerReducer";
 import careerReducer from "./careerReducer";
 import friendReducer from "./friendReducer";
 import hubReducer from "./hubReducer";
+import jewelleryReducer from "./jewelleryReducer";
 import matrimonyReducer from "./matrimonyReducer";
 import newsReducer from "./newsReducer";
 import postReducer from "./postReducer";
@@ -23,4 +24,5 @@ export default combineReducers({
   banner: bannerReducer,
   career: careerReducer,
   b2b: b2bReducer,
+  jewellery: jewelleryReducer,
 });

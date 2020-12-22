@@ -34,26 +34,84 @@ const JewelleryRegister = ({}: PostProductProps) => {
   } = useFormik({
     validationSchema,
     initialValues: {
-      fName: "",
-      contact: "",
-      address: "",
-      city: "",
-      country: "",
-      state: "",
-      pinCode: "",
-      email: "",
-      website: "",
-      about: "",
-      otherInfo: "",
-      price: "",
-      callback: false,
-      tmc: false,
+      shop: false, // TODO:
+      vendor: false,
+      worker: false,
+      // data to send
+      fullName: "string",
+      about: "string",
+
+      addressLine1: "string",
+      addressLine2: "string",
+
+      city: "string",
+      country: "string",
+
+      email: "string",
+      facilities: "string",
+
+      coverImage: "string", // TODO:
+      image1: "", // TODO:
+      image2: "", // TODO:
+      image3: "", // TODO:
+      acceptTMC: true,
+      getCallback: true,
+      otherInfo: "string",
+      //owner
+      ownerDesignation: "string",
+      ownerEmail: "string",
+      ownerFullName: "string",
+      ownerPhoneNumber: "string",
+      ownerPlace: "string",
+      ownerProfilePic: "string", // TODO:
+
+      phoneNumber: "string",
+      pincode: "string",
+      price: "string",
+      professionName: "string",
+      shopName: "string",
+      state: "string",
+      type: "SHOP",
+      website: "string",
     },
     onSubmit: (values) => {
+      const data = {
+        about: "string",
+        acceptTMC: true,
+        addressLine1: "string",
+        addressLine2: "string",
+        city: "string",
+        country: "string",
+        coverImage: "string",
+        email: "string",
+        facilities: "string",
+        fullName: "string",
+        galleries: ["string"],
+        getCallback: true,
+        otherInfo: "string",
+        owner: [
+          {
+            designation: "string",
+            email: "string",
+            fullName: "string",
+            phoneNumber: "string",
+            place: "string",
+            profilePic: "string",
+          },
+        ],
+        phoneNumber: "string",
+
+        pincode: "string",
+        price: "string",
+        professionName: "string",
+        shopName: "string",
+        state: "string",
+        type: "SHOP",
+        website: "string",
+      };
       console.log(values);
     },
   });
-  const [galleryImage, setGalleryImage] = useState<any[]>([]);
   const handleImageUpload = async () => {
     if (Platform.OS !== "web") {
       const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -69,8 +127,6 @@ const JewelleryRegister = ({}: PostProductProps) => {
         });
 
         if (!result.cancelled) {
-          // TODO: set Image upload Here
-          //result.uri
           return result.uri;
         }
       }
@@ -80,19 +136,28 @@ const JewelleryRegister = ({}: PostProductProps) => {
   const handleFistImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+    setFieldValue("image1", imageUrl.data.url);
   };
   const handleSecondImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-    // stateCopy[0] = imageUrl.data.url;
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+
+    setFieldValue("image2", imageUrl.data.url);
   };
   const handleImageThree = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
-    setGalleryImage((prevState) => [...prevState, imageUrl.data.url]);
+    setFieldValue("image3", imageUrl.data.url);
+  };
+  const handleProfilePic = async () => {
+    const url: any = await handleImageUpload();
+    const imageUrl = await _rest.getMediaUrl(url);
+    setFieldValue("ownerProfilePic", imageUrl.data.url);
+  };
+  const handleCoverImage = async () => {
+    const url: any = await handleImageUpload();
+    const imageUrl = await _rest.getMediaUrl(url);
+    setFieldValue("coverImage", imageUrl.data.url);
   };
   return (
     <Box flex={1} flexDirection="column">
@@ -106,87 +171,184 @@ const JewelleryRegister = ({}: PostProductProps) => {
                 justifyContent="space-around"
               >
                 <CheckBox
-                  checked={values.tmc}
-                  onChange={() => setFieldValue("tmc", !values.tmc)}
+                  checked={values.shop}
+                  onChange={() => setFieldValue("shop", !values.shop)}
                   label="Shop"
                 />
                 <CheckBox
-                  checked={values.callback}
-                  onChange={() => setFieldValue("callback", !values.callback)}
+                  checked={values.vendor}
+                  onChange={() => setFieldValue("vendor", !values.vendor)}
                   label="Vendors"
                 />
                 <CheckBox
-                  checked={values.tmc}
-                  onChange={() => setFieldValue("tmc", !values.tmc)}
+                  checked={values.worker}
+                  onChange={() => setFieldValue("tmc", !values.worker)}
                   label="Workers"
                 />
               </Box>
 
               <TextField
-                onChangeText={handleChange("fName")}
-                onBlur={handleBlur("fName")}
-                error={errors.fName}
-                touched={touched.fName}
+                onChangeText={handleChange("fullName")}
+                onBlur={handleBlur("fullName")}
+                error={errors.fullName}
+                touched={touched.fullName}
                 placeholder="Full Name"
               />
               <TextField
-                keyboardType="phone-pad"
-                onChangeText={handleChange("contact")}
-                onBlur={handleBlur("contact")}
-                error={errors.contact}
-                touched={touched.contact}
-                placeholder="Contact Number"
-              />
-
-              <TextField
-                keyboardType="email-address"
-                onChangeText={handleChange("email")}
-                onBlur={handleBlur("email")}
-                error={errors.email}
-                touched={touched.email}
-                placeholder="Email Id"
+                onChangeText={handleChange("about")}
+                onBlur={handleBlur("about")}
+                error={errors.about}
+                touched={touched.about}
+                placeholder="About"
               />
               <TextField
-                keyboardType="default"
-                onChangeText={handleChange("address")}
-                onBlur={handleBlur("address")}
-                error={errors.address}
-                touched={touched.address}
-                placeholder="Address"
+                onChangeText={handleChange("addressLine1")}
+                onBlur={handleBlur("addressLine1")}
+                error={errors.addressLine1}
+                touched={touched.addressLine1}
+                placeholder="AddressLine1"
               />
               <TextField
-                keyboardType="default"
+                onChangeText={handleChange("addressLine2")}
+                onBlur={handleBlur("addressLine2")}
+                error={errors.addressLine2}
+                touched={touched.addressLine2}
+                placeholder="AddressLine2"
+              />
+              <TextField
                 onChangeText={handleChange("city")}
                 onBlur={handleBlur("city")}
                 error={errors.city}
                 touched={touched.city}
-                placeholder="City"
+                placeholder="city"
               />
               <TextField
-                keyboardType="default"
-                onChangeText={handleChange("state")}
-                onBlur={handleBlur("state")}
-                error={errors.state}
-                touched={touched.state}
-                placeholder="State"
-              />
-              <TextField
-                keyboardType="default"
                 onChangeText={handleChange("country")}
                 onBlur={handleBlur("country")}
                 error={errors.country}
                 touched={touched.country}
-                placeholder="Country"
+                placeholder="country"
               />
               <TextField
-                keyboardType="default"
-                onChangeText={handleChange("pinCode")}
-                onBlur={handleBlur("pinCode")}
-                error={errors.pinCode}
-                touched={touched.pinCode}
-                placeholder="Pin Code"
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
+                error={errors.email}
+                touched={touched.email}
+                placeholder="email"
+              />
+              <TextField
+                onChangeText={handleChange("facilities")}
+                onBlur={handleBlur("facilities")}
+                error={errors.facilities}
+                touched={touched.facilities}
+                placeholder="facilities"
+              />
+              <TextField
+                onChangeText={handleChange("otherInfo")}
+                onBlur={handleBlur("otherInfo")}
+                error={errors.otherInfo}
+                touched={touched.otherInfo}
+                placeholder="otherInfo"
+              />
+              <TextField
+                onChangeText={handleChange("ownerDesignation")}
+                onBlur={handleBlur("ownerDesignation")}
+                error={errors.ownerDesignation}
+                touched={touched.ownerDesignation}
+                placeholder="ownerDesignation"
+              />
+              <TextField
+                onChangeText={handleChange("ownerEmail")}
+                onBlur={handleBlur("ownerEmail")}
+                error={errors.ownerEmail}
+                touched={touched.ownerEmail}
+                placeholder="ownerEmail"
+              />
+              <TextField
+                onChangeText={handleChange("ownerFullName")}
+                onBlur={handleBlur("ownerFullName")}
+                error={errors.ownerFullName}
+                touched={touched.ownerFullName}
+                placeholder="ownerFullName"
+              />
+              <TextField
+                onChangeText={handleChange("ownerPhoneNumber")}
+                onBlur={handleBlur("ownerPhoneNumber")}
+                error={errors.ownerPhoneNumber}
+                touched={touched.ownerPhoneNumber}
+                placeholder="ownerPhoneNumber"
+              />
+              <TextField
+                onChangeText={handleChange("ownerPlace")}
+                onBlur={handleBlur("ownerPlace")}
+                error={errors.ownerPlace}
+                touched={touched.ownerPlace}
+                placeholder="ownerPlace"
               />
 
+              <TextField
+                keyboardType="phone-pad"
+                onChangeText={handleChange("phoneNumber")}
+                onBlur={handleBlur("phoneNumber")}
+                error={errors.phoneNumber}
+                touched={touched.phoneNumber}
+                placeholder="phone Number"
+              />
+              <TextField
+                keyboardType="phone-pad"
+                onChangeText={handleChange("pincode")}
+                onBlur={handleBlur("pincode")}
+                error={errors.pincode}
+                touched={touched.pincode}
+                placeholder="pincode"
+              />
+              <TextField
+                keyboardType="phone-pad"
+                onChangeText={handleChange("price")}
+                onBlur={handleBlur("price")}
+                error={errors.price}
+                touched={touched.price}
+                placeholder="price"
+              />
+              <TextField
+                onChangeText={handleChange("professionName")}
+                onBlur={handleBlur("professionName")}
+                error={errors.professionName}
+                touched={touched.professionName}
+                placeholder="professionName"
+              />
+              <TextField
+                onChangeText={handleChange("shopName")}
+                onBlur={handleBlur("shopName")}
+                error={errors.shopName}
+                touched={touched.shopName}
+                placeholder="shopName"
+              />
+
+              <TextField
+                onChangeText={handleChange("state")}
+                onBlur={handleBlur("state")}
+                error={errors.state}
+                touched={touched.state}
+                placeholder="state"
+              />
+              {/* // TODO:  type for better way */}
+              <TextField
+                onChangeText={handleChange("type")}
+                onBlur={handleBlur("type")}
+                error={errors.type}
+                touched={touched.type}
+                placeholder="type"
+              />
+              <TextField
+                onChangeText={handleChange("website")}
+                onBlur={handleBlur("website")}
+                error={errors.website}
+                touched={touched.website}
+                placeholder="website"
+              />
+
+              {/* // ! // gallery select Image */}
               <Box
                 marginVertical="l"
                 flexDirection="row"
@@ -207,7 +369,11 @@ const JewelleryRegister = ({}: PostProductProps) => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Icon name="plus" size={10} />
+                      {values.image1 !== "" ? (
+                        <Icon name="check" size={10} />
+                      ) : (
+                        <Icon name="plus" size={10} />
+                      )}
                     </Box>
                   </RectButton>
                   <RectButton
@@ -222,7 +388,11 @@ const JewelleryRegister = ({}: PostProductProps) => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Icon name="plus" size={10} />
+                      {values.image2 !== "" ? (
+                        <Icon name="check" size={10} />
+                      ) : (
+                        <Icon name="plus" size={10} />
+                      )}
                     </Box>
                   </RectButton>
                   <RectButton
@@ -237,56 +407,82 @@ const JewelleryRegister = ({}: PostProductProps) => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Icon name="plus" size={10} />
+                      {values.image3 !== "" ? (
+                        <Icon name="check" size={10} />
+                      ) : (
+                        <Icon name="plus" size={10} />
+                      )}
                     </Box>
                   </RectButton>
                 </Box>
               </Box>
-              <TextField
-                keyboardType="number-pad"
-                onChangeText={handleChange("price")}
-                onBlur={handleBlur("price")}
-                error={errors.price}
-                touched={touched.price}
-                placeholder="Price"
-              />
-              <TextField
-                keyboardType="default"
-                onChangeText={handleChange("website")}
-                onBlur={handleBlur("website")}
-                error={errors.website}
-                touched={touched.website}
-                placeholder="Website"
-              />
-              <TextField
-                keyboardType="default"
-                onChangeText={handleChange("about")}
-                onBlur={handleBlur("about")}
-                error={errors.about}
-                touched={touched.about}
-                placeholder="About the post"
-              />
-              <TextField
-                keyboardType="default"
-                onChangeText={handleChange("otherInfo")}
-                onBlur={handleBlur("otherInfo")}
-                error={errors.otherInfo}
-                touched={touched.otherInfo}
-                placeholder="Other Info"
-              />
+              <Box
+                marginVertical="l"
+                flexDirection="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Box>
+                  <Text variant="silentText">ProfilePic</Text>
+                </Box>
+                <RectButton onPress={() => handleProfilePic()}>
+                  <Box
+                    width={40}
+                    height={40}
+                    borderColor="primaryText"
+                    borderWidth={2}
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    {values.ownerProfilePic !== "" ? (
+                      <Icon name="check" size={10} />
+                    ) : (
+                      <Icon name="plus" size={10} />
+                    )}
+                  </Box>
+                </RectButton>
+              </Box>
+              <Box
+                marginVertical="l"
+                flexDirection="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Box>
+                  <Text variant="silentText">CoverImage</Text>
+                </Box>
+                <RectButton onPress={() => handleCoverImage()}>
+                  <Box
+                    width={40}
+                    height={40}
+                    borderColor="primaryText"
+                    borderWidth={2}
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    {values.coverImage !== "" ? (
+                      <Icon name="check" size={10} />
+                    ) : (
+                      <Icon name="plus" size={10} />
+                    )}
+                  </Box>
+                </RectButton>
+              </Box>
               <Box
                 marginVertical="l"
                 flexDirection="row"
                 justifyContent="space-between"
               >
                 <CheckBox
-                  checked={values.tmc}
-                  onChange={() => setFieldValue("tmc", !values.tmc)}
+                  checked={values.acceptTMC}
+                  onChange={() => setFieldValue("acceptTMC", !values.acceptTMC)}
                   label="Accept TMC"
                 />
                 <CheckBox
-                  checked={values.callback}
-                  onChange={() => setFieldValue("callback", !values.callback)}
+                  checked={values.getCallback}
+                  onChange={() =>
+                    setFieldValue("getCallback", !values.getCallback)
+                  }
                   label="Get a Callback"
                 />
               </Box>
