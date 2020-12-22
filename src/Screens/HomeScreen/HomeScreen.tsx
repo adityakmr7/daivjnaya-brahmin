@@ -97,7 +97,8 @@ const HomeScreen = ({
           <IconNavigator
             onPress={() => navigation.navigate("CommunityStack")}
             image={require("../../../assets/images/dna.png")}
-            subtitle="Daivajnya Samaj"
+            subtitle="Daivajnya"
+            subtitle2="Samaj"
           />
           <IconNavigator
             onPress={() => navigation.navigate("Matrimony")}
@@ -120,13 +121,19 @@ const HomeScreen = ({
           <IconNavigator 
             onPress={() => navigation.navigate("Jewellery")}
             image={require("../../../assets/images/jwel.png")}
+<<<<<<< HEAD
             subtitle="Jewellery Market"
            
+=======
+            subtitle="Jewellery"
+            subtitle2="Market"
+>>>>>>> batman
           />
           <IconNavigator 
             onPress={() => navigation.navigate("Careers")}
             image={require("../../../assets/images/briefcase.png")}
-            subtitle="Careers & Talent"
+            subtitle="Careers &"
+            subtitle2="Talent"
           />
         </Box>
         <SectionHeader

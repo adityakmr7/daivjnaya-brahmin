@@ -1,7 +1,7 @@
 import React from "react";
 import { Feather as Icon } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
-import { theme, Box, Text, HeaderBackButton } from "../components";
+import { theme, Box, Text } from "../components";
 import { AppRoutes } from "../components/NavigationRoutes";
 import { HomeScreen } from "./HomeScreen";
 import { RectButton } from "react-native-gesture-handler";
@@ -80,6 +80,7 @@ const AppNavigation = (props: any) => {
                         }}
                       >
                         <Box flexDirection="row" justifyContent="space-between">
+<<<<<<< HEAD
                           {/* <Text>Logout</Text> */}
                           <Icon
                             style={{ padding: 2 }}
@@ -89,6 +90,17 @@ const AppNavigation = (props: any) => {
                             
                           />
                           
+=======
+                          <Box>
+                            <Icon
+                              style={{ padding: 2 }}
+                              name="log-out"
+                              size={20}
+                              color="black"
+                            />
+                            <Text fontSize={8}>Logout</Text>
+                          </Box>
+>>>>>>> batman
                         </Box>
                       </RectButton>
                     </Box>

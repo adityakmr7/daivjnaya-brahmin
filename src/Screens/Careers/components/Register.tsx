@@ -100,11 +100,12 @@ const Register = ({ findJob, careerState }: RegisterProps) => {
   });
 
   const getPdfFile = async () => {
+    setUploading(true);
     const result: any = await DocumentPicker.getDocumentAsync({
       type: "application/pdf",
       copyToCacheDirectory: false,
     });
-    setUploading(true);
+
     if (result.uri && result.type === "success") {
       const _rest = new restServices();
       _rest
@@ -135,7 +136,10 @@ const Register = ({ findJob, careerState }: RegisterProps) => {
       );
     }
   }, [postedCv, errorPosting]);
-
+  const handleResumeRemove = () => {
+    setFieldValue("pdf", "");
+    setUploading(false);
+  };
   return (
     <Box flex={1} marginBottom="l" flexDirection="column">
       <ScrollView>
@@ -604,9 +608,7 @@ const Register = ({ findJob, careerState }: RegisterProps) => {
                 </Text>
               </Box>
               <Box marginVertical="s" marginHorizontal="xl">
-                <TouchableWithoutFeedback
-                  onPress={() => setFieldValue("pdf", "")}
-                >
+                <TouchableWithoutFeedback onPress={() => handleResumeRemove()}>
                   <Box
                     marginVertical="s"
                     alignItems="center"

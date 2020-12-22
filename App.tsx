@@ -4,9 +4,6 @@ import { Provider } from "react-redux";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { LoadAssets, theme } from "./src/components";
 import AppNavigation from "./src/Screens";
-import { assetShop } from "./src/Screens/Jewellery/Shop";
-import { assetsVendor } from "./src/Screens/Jewellery/Vendors";
-import { assetsWorker } from "./src/Screens/Jewellery/Workers";
 import { NotificationAssets } from "./src/Screens/Notifications";
 import { ThemeProvider as StyleThemeProvider } from "styled-components";
 import { ToastProvider } from "react-native-styled-toast";
@@ -18,14 +15,10 @@ import { BackdropProvider } from "react-native-propel-kit";
 import { YellowBox } from "react-native";
 import Notification from "./src/Notification/Notification";
 import { iconAssets } from "./src/Screens/HomeScreen";
+
 YellowBox.ignoreWarnings(["VirtualizedLists should never be nested"]);
-const assets = [
-  ...iconAssets,
-  ...assetsVendor,
-  ...assetShop,
-  ...assetsWorker,
-  ...NotificationAssets,
-];
+
+const assets = [...iconAssets, ...NotificationAssets];
 const fonts = {
   Saman: require("./assets/fonts/Samarkan.ttf"),
   SFProTextBold: require("./assets/fonts/SF-Pro-Text-Bold.otf"),
