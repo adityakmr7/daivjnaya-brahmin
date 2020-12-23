@@ -12,6 +12,15 @@ import {
   GET_ALL_JEWELLERY_VENDOR_ERROR,
   GET_ALL_JEWELLERY_VENDOR_SUCCESS,
   GET_ALL_JEWELLERY_VENDOR_LOADING,
+  GET_ALL_JEWELLERY_WORKER_DETAIL_ERROR,
+  GET_ALL_JEWELLERY_WORKER_DETAIL_SUCCESS,
+  GET_ALL_JEWELLERY_WORKER_DETAIL_LOADING,
+  GET_ALL_JEWELLERY_VENDOR_DETAIL_ERROR,
+  GET_ALL_JEWELLERY_VENDOR_DETAIL_SUCCESS,
+  GET_ALL_JEWELLERY_VENDOR_DETAIL_LOADING,
+  GET_ALL_JEWELLERY_SHOP_DETAIL_ERROR,
+  GET_ALL_JEWELLERY_SHOP_DETAIL_SUCCESS,
+  GET_ALL_JEWELLERY_SHOP_DETAIL_LOADING,
 } from "./constants/jewelleryConstant";
 
 export const getJewellerShop = () => (dispatch: any) => {
@@ -122,3 +131,69 @@ export const postJeweller = (data: {}) => (dispatch: any) => {
 //       });
 //     });
 // };
+
+/**
+ *  Shop Detail
+ */
+
+export const getJewelleryShopDetail = (id: number) => (dispatch: any) => {
+  dispatch({
+    type: GET_ALL_JEWELLERY_SHOP_DETAIL_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get(`/jeweller/shop${id}`)
+    .then((res) => {
+      dispatch({
+        type: GET_ALL_JEWELLERY_SHOP_DETAIL_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ALL_JEWELLERY_SHOP_DETAIL_ERROR,
+        payload: "Something Went Wrong" || err,
+      });
+    });
+};
+
+export const getJewelleryVendorDetail = (id: number) => (dispatch: any) => {
+  dispatch({
+    type: GET_ALL_JEWELLERY_VENDOR_DETAIL_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get(`/jeweller/vendor${id}`)
+    .then((res) => {
+      dispatch({
+        type: GET_ALL_JEWELLERY_VENDOR_DETAIL_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ALL_JEWELLERY_VENDOR_DETAIL_ERROR,
+        payload: "Something Went Wrong" || err,
+      });
+    });
+};
+export const getJewelleryWorkerDetail = (id: number) => (dispatch: any) => {
+  dispatch({
+    type: GET_ALL_JEWELLERY_WORKER_DETAIL_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get(`/jeweller/worker${id}`)
+    .then((res) => {
+      dispatch({
+        type: GET_ALL_JEWELLERY_WORKER_DETAIL_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ALL_JEWELLERY_WORKER_DETAIL_ERROR,
+        payload: "Something Went Wrong" || err,
+      });
+    });
+};
