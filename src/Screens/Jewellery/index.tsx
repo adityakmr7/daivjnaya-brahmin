@@ -9,7 +9,10 @@ import {
 } from "./JewelleryNavigationProps";
 import JewelleryRegister from "./JewelleryRegister";
 import Shop from "./Shop";
+import ShopDetail from "./ShopDetail";
+import VendorDetail from "./VendorDetail";
 import Vendors from "./Vendors";
+import WorkerDetail from "./WorkerDetail";
 import Workers from "./Workers";
 
 const Stack = createStackNavigator<JewelleryStackParamList>();
@@ -74,6 +77,9 @@ const JewelleryStack = () => {
         options={{ headerTitle: "Register" }}
         component={JewelleryRegister}
       />
+      <Stack.Screen name="JewelleryShopDetail" component={ShopDetail} />
+      <Stack.Screen name="JewelleryWorkerDetail" component={WorkerDetail} />
+      <Stack.Screen name="JewelleryVendorDetail" component={VendorDetail} />
     </Stack.Navigator>
   );
 };

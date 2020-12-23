@@ -31,12 +31,12 @@ const Vendors = ({ jewellery, getVendor, navigation }: VendorsProps) => {
   const renderItem = ({ item }: { item: any }) => {
     return (
       <TouchableWithoutFeedback
-      // onPress={() =>
-      //   navigation.navigate("B2BProductDetail", {
-      //     id: item.pId,
-      //     title: item.productName,
-      //   })
-      // }
+        onPress={() =>
+          navigation.navigate("JewelleryVendorDetail", {
+            id: item.jId,
+            title: item.productName,
+          })
+        }
       >
         <Box
           borderTopWidth={0}

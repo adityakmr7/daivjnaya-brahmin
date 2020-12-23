@@ -13,10 +13,11 @@ import { Box, HorizontalCard, Text } from "../../components";
 interface WorkersProps {
   getWorker: () => void;
   jewellery: any;
+  navigation: any;
 }
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
-const Workers = ({ getWorker, jewellery }: WorkersProps) => {
+const Workers = ({ getWorker, jewellery, navigation }: WorkersProps) => {
   const {
     jewelleryWorkerLoading,
     jewelleryWorkerData,
@@ -30,12 +31,12 @@ const Workers = ({ getWorker, jewellery }: WorkersProps) => {
   const renderItem = ({ item }: { item: any }) => {
     return (
       <TouchableWithoutFeedback
-      // onPress={() =>
-      //   navigation.navigate("B2BProductDetail", {
-      //     id: item.jId,
-      //     title: item.productName,
-      //   })
-      // }
+        onPress={() =>
+          navigation.navigate("B2BProductDetail", {
+            id: item.jId,
+            title: item.shopName,
+          })
+        }
       >
         <Box
           borderTopWidth={0}
