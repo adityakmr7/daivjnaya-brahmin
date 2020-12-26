@@ -40,7 +40,7 @@ const CareerCandidates = ({
     return (
       <TouchableWithoutFeedback
         onPress={() =>
-          navigation.navigate("CareerProfile", {
+          navigation.navigate("CandidateProfile", {
             userId: item.cvId,
           })
         }

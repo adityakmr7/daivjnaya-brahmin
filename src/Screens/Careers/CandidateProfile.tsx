@@ -15,58 +15,52 @@ interface CareerProfileProps {
   route: any;
   getUserDetail: () => void;
   profileData: any;
-  getUserProfile: () => void;
 }
 export const companyLogo = require("../../../assets/images/company-logo.png");
+const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 export const friends = require("../../../assets/images/small-image.png");
 const walls = require("../../../assets/images/wall.png");
-const CareerProfile = ({
+const CandidateProfile = ({
   getProfile,
   career,
   route,
   getUserDetail,
   profileData,
-  getUserProfile,
 }: CareerProfileProps) => {
+  const { userId } = route.params;
   useEffect(() => {
-    getUserProfile();
-  }, []);
-  // const { userId } = route.params;
-  // useEffect(() => {
-  //   getProfile(userId);
-  // }, [userId]);
-  // const {
-  //   careerProfileLoading,
-  //   careerProfileData,
-  //   careerProfileError,
-  // } = career;
-  const { userProfileData, loading } = profileData;
+    getProfile(userId);
+  }, [userId]);
   const {
-    about,
-    address,
-    city,
-    companyName,
-    designation,
-    education,
-    email,
-    firstName,
-    interest,
-    isEnabled,
-    isFriend,
-    isFriendRequested,
-    lastName,
-    livesIn,
-    phoneNumber,
-    pincode,
-    state,
-    uId,
-    _links,
-  } = userProfileData;
-  const { width: wWidth, height: wHeight } = Dimensions.get("window");
+    careerProfileLoading,
+    careerProfileData,
+    careerProfileError,
+  } = career;
+  const { userProfileData } = profileData;
+  //     about: null
+  // address: null
+  // city: null
+  // companyName: null
+  // designation: null
+  // education: null
+  // email: "test123@gmail.com"
+  // firstName: "test"
+  // interest: null
+  // isEnabled: false
+  // isFriend: false
+  // isFriendRequested: true
+  // lastName: "testing"
+  // livesIn: null
+  // phoneNumber: "9123456789"
+  // pincode: null
+  // state: null
+  // uId: 3
+  // _links.profilePic.href
+  const { _links, firstName, lastName, about } = careerProfileData;
   return (
     <Box flex={1} backgroundColor="iconBackground">
-      {loading ? (
+      {careerProfileLoading ? (
         <Box>
           <ActivityIndicator />
         </Box>
@@ -150,13 +144,13 @@ const CareerProfile = ({
 
 function mapStateToProps(state: any) {
   return {
-    // career: state.career,
+    career: state.career,
     profileData: state.profile,
   };
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  getUserProfile: () => dispatch(getUserDetail()),
-  //getProfile: (userId: number) => dispatch(getCareerProfile(userId)),
+  getUserDetail: () => dispatch(getUserDetail()),
+  getProfile: (userId: number) => dispatch(getCareerProfile(userId)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(CareerProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(CandidateProfile);
