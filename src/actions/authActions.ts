@@ -45,7 +45,6 @@ export const userSignup = (
     },
     data: data,
   };
-  console.log("data", data);
   axios(config)
     .then((res) => {
       // Add Snackbar here

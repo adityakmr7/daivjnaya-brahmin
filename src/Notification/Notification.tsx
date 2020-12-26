@@ -4,8 +4,6 @@ import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 import { Platform, View } from "react-native";
 import restServices from "../services/restServices";
-import * as firebase from "firebase";
-import messaging from "@react-native-firebase/messaging";
 
 // const firebaseConfig = {
 //   authDomain: "https://daivajnyabrahmin.firebaseio.com",
@@ -47,8 +45,6 @@ async function registerForPushNotificationsAsync() {
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
     // token = (await Notifications.getDevicePushTokenAsync()).data;
-
-    console.log("token", token);
   } else {
     alert("Must use physical device for Push Notifications");
   }

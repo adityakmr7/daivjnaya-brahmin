@@ -23,8 +23,7 @@
     },
     "android": {
       "package": "com.svgrtech.daivajnyabrahmin",
-      "useNextNotificationsApi": true,
-      "googleServicesFile": "./google-services.json"
+      "useNextNotificationsApi": true
     },
     "notification": {
       "icon": "./assets/icon-2.png"
