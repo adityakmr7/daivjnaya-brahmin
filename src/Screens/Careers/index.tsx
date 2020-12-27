@@ -17,6 +17,7 @@ import CareerTalents from "./CareerTalents";
 import HeaderButton from "./components/HeaderButton";
 import MyNetwork from "./MyNetwork";
 import Register from "./components/Register";
+import CandidateProfile from "./CandidateProfile";
 
 const Tab = createBottomTabNavigator();
 const CareerTab = () => {
@@ -150,6 +151,7 @@ const CareerStack = () => {
       <Stack.Screen name="MyNetwork" component={MyNetwork} />
       <Stack.Screen name="ApplyJob" component={Register} />
       <Stack.Screen name="PostTalent" component={Talents} />
+      <Stack.Screen name="CandidateProfile" component={CandidateProfile} />
     </Stack.Navigator>
   );
 };

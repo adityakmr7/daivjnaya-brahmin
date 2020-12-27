@@ -10,6 +10,7 @@ import hubReducer from "./hubReducer";
 import jewelleryReducer from "./jewelleryReducer";
 import matrimonyReducer from "./matrimonyReducer";
 import newsReducer from "./newsReducer";
+import notificationReducer from "./notificationReducer";
 import postReducer from "./postReducer";
 import userReducer from "./userReducer";
 
@@ -25,4 +26,5 @@ export default combineReducers({
   career: careerReducer,
   b2b: b2bReducer,
   jewellery: jewelleryReducer,
+  notification: notificationReducer,
 });

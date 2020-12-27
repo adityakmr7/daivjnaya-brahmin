@@ -1,10 +1,19 @@
 import {
+  GET_ALL_JEWELLERY_SHOP_DETAIL_ERROR,
+  GET_ALL_JEWELLERY_SHOP_DETAIL_LOADING,
+  GET_ALL_JEWELLERY_SHOP_DETAIL_SUCCESS,
   GET_ALL_JEWELLERY_SHOP_ERROR,
   GET_ALL_JEWELLERY_SHOP_LOADING,
   GET_ALL_JEWELLERY_SHOP_SUCCESS,
+  GET_ALL_JEWELLERY_VENDOR_DETAIL_ERROR,
+  GET_ALL_JEWELLERY_VENDOR_DETAIL_LOADING,
+  GET_ALL_JEWELLERY_VENDOR_DETAIL_SUCCESS,
   GET_ALL_JEWELLERY_VENDOR_ERROR,
   GET_ALL_JEWELLERY_VENDOR_LOADING,
   GET_ALL_JEWELLERY_VENDOR_SUCCESS,
+  GET_ALL_JEWELLERY_WORKER_DETAIL_ERROR,
+  GET_ALL_JEWELLERY_WORKER_DETAIL_LOADING,
+  GET_ALL_JEWELLERY_WORKER_DETAIL_SUCCESS,
   GET_ALL_JEWELLERY_WORKER_ERROR,
   GET_ALL_JEWELLERY_WORKER_LOADING,
   GET_ALL_JEWELLERY_WORKER_SUCCESS,
@@ -34,6 +43,14 @@ const initialState = {
   shopDetailLoading: false,
   shopDetailData: "",
   shopDetailError: "",
+  // vendor detail
+  vendorDetailLoading: false,
+  vendorDetailData: "",
+  vendorDetailError: "",
+  //worker detail
+  workerDetailLoading: false,
+  workerDetailData: "",
+  workerDetailError: "",
 };
 
 export default (state = initialState, action: any) => {
@@ -123,6 +140,75 @@ export default (state = initialState, action: any) => {
         postJewelleryLoading: false,
         postJewelleryData: "",
         postJewelleryError: "Something Went Wrong",
+      };
+    // Detail
+    case GET_ALL_JEWELLERY_SHOP_DETAIL_LOADING:
+      return {
+        ...state,
+        shopDetailLoading: true,
+        shopDetailData: "",
+        shopDetailError: "",
+      };
+    case GET_ALL_JEWELLERY_SHOP_DETAIL_SUCCESS:
+      return {
+        ...state,
+        shopDetailLoading: false,
+        shopDetailData: action.payload,
+        shopDetailError: "",
+      };
+    case GET_ALL_JEWELLERY_SHOP_DETAIL_ERROR:
+      return {
+        ...state,
+        shopDetailLoading: false,
+        shopDetailData: "",
+        shopDetailError: "Something Went Wrong",
+      };
+
+    // worker
+
+    case GET_ALL_JEWELLERY_VENDOR_DETAIL_LOADING:
+      return {
+        ...state,
+        vendorDetailLoading: true,
+        vendorDetailData: "",
+        vendorDetailError: "",
+      };
+    case GET_ALL_JEWELLERY_VENDOR_DETAIL_SUCCESS:
+      return {
+        ...state,
+        vendorDetailLoading: false,
+        vendorDetailData: action.payload,
+        vendorDetailError: "",
+      };
+    case GET_ALL_JEWELLERY_VENDOR_DETAIL_ERROR:
+      return {
+        ...state,
+        vendorDetailLoading: false,
+        vendorDetailData: "",
+        vendorDetailError: "Something Went Wrong",
+      };
+    // worker
+
+    case GET_ALL_JEWELLERY_WORKER_DETAIL_LOADING:
+      return {
+        ...state,
+        workerDetailLoading: true,
+        workerDetailData: "",
+        workerDetailError: "",
+      };
+    case GET_ALL_JEWELLERY_WORKER_DETAIL_SUCCESS:
+      return {
+        ...state,
+        workerDetailLoading: false,
+        workerDetailData: action.payload,
+        workerDetailError: "",
+      };
+    case GET_ALL_JEWELLERY_WORKER_DETAIL_ERROR:
+      return {
+        ...state,
+        workerDetailLoading: false,
+        workerDetailData: "",
+        workerDetailError: "Something Went Wrong",
       };
     default:
       return {

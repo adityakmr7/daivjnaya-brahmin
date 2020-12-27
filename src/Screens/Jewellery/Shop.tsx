@@ -57,12 +57,12 @@ function Shop({ getShop, jewellery, navigation }: ShopProps) {
   const renderItem = ({ item }: { item: any }) => {
     return (
       <TouchableWithoutFeedback
-      // onPress={() =>
-      //   navigation.navigate("B2BProductDetail", {
-      //     id: item.jId,
-      //     title: item.productName,
-      //   })
-      // }
+        onPress={() =>
+          navigation.navigate("JewelleryShopDetail", {
+            id: item.jId,
+            title: item.shopName,
+          })
+        }
       >
         <Box
           borderTopWidth={0}

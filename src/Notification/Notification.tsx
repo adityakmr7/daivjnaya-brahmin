@@ -5,6 +5,19 @@ import Constants from "expo-constants";
 import { Platform, View } from "react-native";
 import restServices from "../services/restServices";
 
+// const firebaseConfig = {
+//   authDomain: "https://daivajnyabrahmin.firebaseio.com",
+//   databaseURL: "https://daivajnyabrahmin.firebaseio.com",
+//   apiKey: "AIzaSyDplafLggv_ymeQtE7yL3Ed_6zOam7DwV0",
+//   projectId: "daivajnyabrahmin",
+//   storageBucket: "daivajnyabrahmin.appspot.com",
+//   messagingSenderId: "sender-id",
+//   appId: "1:331986792657:android:1d2949283f78c3c29f95f0",
+//   // measurementId: "G-measurement-id",
+// };
+
+// firebase.initializeApp(firebaseConfig);
+
 interface NotificationProps {}
 
 Notifications.setNotificationHandler({
@@ -32,8 +45,6 @@ async function registerForPushNotificationsAsync() {
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
     // token = (await Notifications.getDevicePushTokenAsync()).data;
-
-    console.log("token", token);
   } else {
     alert("Must use physical device for Push Notifications");
   }
@@ -77,6 +88,32 @@ const Notification = () => {
       Notifications.removeNotificationSubscription(responseListener);
     };
   }, []);
+  console.log("notification", notification);
+  // useEffect(() => {
+  //   // Assume a message-notification contains a "type" property in the data payload of the screen to open
+
+  //   messaging().onNotificationOpenedApp((remoteMessage) => {
+  //     console.log(
+  //       "Notification caused app to open from background state:",
+  //       remoteMessage.notification
+  //     );
+  //     // navigation.navigate(remoteMessage.data.type);
+  //   });
+
+  //   // Check whether an initial notification is available
+  //   messaging()
+  //     .getInitialNotification()
+  //     .then((remoteMessage) => {
+  //       if (remoteMessage) {
+  //         console.log(
+  //           "Notification caused app to open from quit state:",
+  //           remoteMessage.notification
+  //         );
+  //         // setInitialRoute(remoteMessage.data.type); // e.g. "Settings"
+  //       }
+  //       // setLoading(false);
+  //     });
+  // }, []);
 
   useEffect(() => {
     if (expoPushToken !== "") {
@@ -92,19 +129,19 @@ const Notification = () => {
     }
   }, [expoPushToken]);
 
-  useEffect(() => {
-    if (expoPushToken) {
-      const _rest = new restServices();
-      _rest
-        .get(`/notification?isRead=${true}`)
-        .then((res) => {
-          console.log("resNotification", res);
-        })
-        .catch((err) => {
-          console.log("Error", err);
-        });
-    }
-  }, [expoPushToken]);
+  // useEffect(() => {
+  //   if (expoPushToken) {
+  //     const _rest = new restServices();
+  //     _rest
+  //       .get(`/notification?isRead=${true}`)
+  //       .then((res) => {
+  //         console.log("resNotification", res);
+  //       })
+  //       .catch((err) => {
+  //         console.log("Error", err);
+  //       });
+  //   }
+  // }, [expoPushToken]);
 
   return null;
   // return <Box flex={1}>{children}</Box>;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Dimensions, Image } from "react-native";
 import {
   RectButton,
@@ -8,6 +8,8 @@ import {
 import { Box, Text, VideoSection } from "../../components";
 import SectionHeader from "../HomeScreen/components/SectionHeader";
 import { StackNavigationProps } from "../../components/NavigationRoutes";
+import { getAllNotification } from "../../actions/notificationAction";
+import { connect } from "react-redux";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const image = require("../../../assets/images/img-2.png");
 
@@ -45,12 +47,26 @@ export const NotificationData = [
 ];
 
 export const NotificationAssets = NotificationData.map((item) => item.img);
-
+interface NotificationProps {
+  navigation: any;
+  getAll: () => void;
+  notification: any;
+}
 const Notifications = ({
   navigation,
-}: StackNavigationProps<"Notification">) => {
+  getAll,
+  notification,
+}: NotificationProps) => {
   const CARD_WIDTH = wWidth - 40;
   const CARD_HEIGHT = wWidth;
+  useEffect(() => {
+    getAll();
+  }, []);
+  const {
+    getAllNotificationLoading,
+    getAllNotificationData,
+    getAllNotificationError,
+  } = notification;
   return (
     <Box flex={1} backgroundColor="mainBackground">
       <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
@@ -117,4 +133,13 @@ const Notifications = ({
   );
 };
 
-export default Notifications;
+function mapStateToProps(state: any) {
+  return {
+    notification: state.notification,
+  };
+}
+const mapDispatchToProps = (dispatch: any) => ({
+  getAll: () => getAllNotification(),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
