@@ -148,8 +148,9 @@ export const getCandidatesProfileById = (userId: number) => (dispatch: any) => {
   });
   const _rest = new restServices();
   _rest
-    .get(``)
+    .get(`/career/cv/${userId}`)
     .then((res) => {
+      console.log("candidateRes", res);
       dispatch({
         type: GET_CANDIDATES_PROFILE_BY_ID_SUCCESS,
         payload: res.data,

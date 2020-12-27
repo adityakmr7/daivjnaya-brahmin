@@ -1,22 +1,20 @@
 import { connect } from "react-redux";
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { ActivityIndicator, Dimensions, Image } from "react-native";
 import { RectButton, ScrollView } from "react-native-gesture-handler";
-import {
-  getCandidatesProfileById,
-  getCareerProfile,
-} from "../../actions/careerActions";
+import { getCandidatesProfileById } from "../../actions/careerActions";
 import { Box, Text } from "../../components";
 import { IntroSection, RoundedBorderButton } from "../MyProfile/components";
 import CompanyCard from "./components/CompanyCard";
 import NetWorkComponentTitle from "./components/NetWorkComponentTitle";
-import { getUserDetailById } from "../../actions/userActions";
+import { exp } from "react-native-reanimated";
 
 interface CareerProfileProps {
   career: any;
   route: any;
   getUserDetail: (id: number) => void;
   profileData: any;
+  navigation: any;
 }
 export const companyLogo = require("../../../assets/images/company-logo.png");
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
@@ -28,8 +26,15 @@ const CandidateProfile = ({
   career,
   route,
   getUserDetail,
+  navigation,
 }: CareerProfileProps) => {
-  const { userId } = route.params;
+  const { userId, title } = route.params;
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: title,
+    });
+  }, [title]);
   useEffect(() => {
     getUserDetail(userId);
   }, [userId]);
@@ -38,8 +43,50 @@ const CandidateProfile = ({
     candidatesProfileData,
     candidatesProfileError,
   } = career;
+  //   about: null
+  // addressLine1: "Addres2 Line 1"
+  // addressLine2: "Address Line 2"
+  // city: "City"
+  // collegeName: "College Name"
+  // companyCity: "Company City"
+  // companyFromMonth: "MM"
+  // companyFromYear: "YYYY"
+  // companyName: "Company Name"
+  // companyToMonth: "MM"
+  // companyToYear: "YYYY"
+  // country: "Country"
+  // currentlyStudyingHere: false
+  // currentlyWorkingHere: true
+  // cvId: 3
+  // educationLevel: "POST_GRADUATE"
+  // email: "something@email.com"
+  // experiences: []
+  // fieldOfStudy: "Computer Science"
+  // fullName: "Full Name"
+  // isConnected: false
+  // isInvited: false
+  // jobTitle: "Job Title"
+  // phoneNumber: "9876543210"
+  // pincode: "654321"
+  // preferedJobSalary: "654321"
+  // preferedJobTitle: "Prefered Job Title"
+  // preferedJobType: "Prefered Job Type"
+  // skills: "Skills"
+  // state: "State"
+  // studyFromMonth: "MM"
+  // studyFromYear: "YYYY"
+  // studyToMonth: "MM"
+  // studyToYear: "YYYY"
+  // willingToRelocate: true
+  // workDescription: "Work Description"
+  // workExperience: true
+  const {
+    _links,
 
-  const { _links, firstName, lastName, about } = candidatesProfileData;
+    about,
+    experiences,
+    fullName,
+  } = candidatesProfileData;
   return (
     <Box flex={1} backgroundColor="iconBackground">
       {candidatesProfileLoading ? (
@@ -63,7 +110,7 @@ const CandidateProfile = ({
             flexDirection="row"
           >
             <Box borderRadius="xl" height={140} width={140}>
-              {_links ? (
+              {_links && _links.profilePic ? (
                 <Image
                   style={{ height: 140, width: 140, borderRadius: 140 / 2 }}
                   source={{ uri: _links.profilePic.href }}
@@ -82,7 +129,7 @@ const CandidateProfile = ({
           {/* <IntroSection /> */}
           <Box marginHorizontal="s">
             <Text variant="cardTitle" color="primaryText">
-              {firstName} {lastName}
+              {fullName}
             </Text>
           </Box>
 
@@ -97,27 +144,29 @@ const CandidateProfile = ({
             <NetWorkComponentTitle title="Experience" onPress={() => {}} />
           </Box>
 
-          {[1, 2, 3, 4, 5].map((_, i) => {
-            return (
-              <Box
-                key={i}
-                paddingVertical="s"
-                paddingHorizontal="s"
-                flexDirection="row"
-              >
-                <Box>
-                  <Image source={companyLogo} />
-                </Box>
-                <Box>
-                  <Text>Designation</Text>
-                  <Text variant="profileAction">Company Name</Text>
-                  <Text variant="profileAction">
-                    Feb 2019 - Nov 2019 10 moss
-                  </Text>
-                </Box>
-              </Box>
-            );
-          })}
+          {experiences && experiences.length > 0
+            ? experiences.map((item: any, i: number) => {
+                return (
+                  <Box
+                    key={i}
+                    paddingVertical="s"
+                    paddingHorizontal="s"
+                    flexDirection="row"
+                  >
+                    <Box>
+                      <Image source={companyLogo} />
+                    </Box>
+                    <Box>
+                      <Text>Designation</Text>
+                      <Text variant="profileAction">Company Name</Text>
+                      <Text variant="profileAction">
+                        Feb 2019 - Nov 2019 10 moss
+                      </Text>
+                    </Box>
+                  </Box>
+                );
+              })
+            : null}
         </ScrollView>
       )}
     </Box>
