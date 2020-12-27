@@ -225,12 +225,13 @@ const SignUp = ({ navigation, userSignUp, userSignupState }: SignupProps) => {
                 loading={signUpLoading}
                 onPress={handleSubmit}
                 label={"SIGN UP"}
+                
               />
-              <Box alignItems="center">
+              <Box alignItems="center" >
                 <TouchableWithoutFeedback
                   onPress={() => navigation.navigate("login")}
                 >
-                  <Text fontSize={13} variant="silentText">
+                  <Text fontSize={13} variant="silentText" paddingBottom="xxl" paddingTop="xl">
                     Already have account ? <Text variant="seeAll">Sign In</Text>
                   </Text>
                 </TouchableWithoutFeedback>
