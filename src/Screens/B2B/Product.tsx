@@ -48,7 +48,6 @@ const Product = ({ navigation, getAllProduct, productAll }: ProductProps) => {
   // href: "https://s3-ap-south-1.amazonaws.com/daivajnya.brahmin/Daivajna/B2B/Media/1608451359901.jpeg"
 
   const renderItem = ({ item }: { item: any }) => {
-    console.log("ren", item);
     return (
       <TouchableWithoutFeedback
         onPress={() =>

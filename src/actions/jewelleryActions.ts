@@ -31,7 +31,6 @@ export const getJewellerShop = () => (dispatch: any) => {
   _rest
     .get("/jeweller/shop")
     .then((res) => {
-      console.log("shop", res);
       dispatch({
         type: GET_ALL_JEWELLERY_SHOP_SUCCESS,
         payload: res.data,
@@ -53,7 +52,6 @@ export const getJewellerWorker = () => (dispatch: any) => {
   _rest
     .get("/jeweller/worker")
     .then((res) => {
-      console.log("worker", res);
       dispatch({
         type: GET_ALL_JEWELLERY_WORKER_SUCCESS,
         payload: res.data,

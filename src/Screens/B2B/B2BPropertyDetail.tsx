@@ -44,7 +44,6 @@ const B2BPropertyDetail = ({
     updatedDate,
     type,
   } = propertyDetailData;
-  console.log("productDetailData", propertyDetailData);
 
   //   creationDate: 1608459064000
   // designation: "hdjdkccn"

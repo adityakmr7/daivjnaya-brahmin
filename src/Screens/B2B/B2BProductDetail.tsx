@@ -55,7 +55,7 @@ const B2BDetail = ({
     address,
     creationDate,
   } = productDetailData;
-  console.log("productDetailData", productDetailData);
+
   return (
     <Box flex={1}>
       <ScrollView>

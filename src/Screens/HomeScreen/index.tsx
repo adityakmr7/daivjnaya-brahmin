@@ -1,1 +1,1 @@
-export { default as HomeScreen, headerAssets, iconAssets } from "./HomeScreen";
+export { default as HomeScreen, iconAssets } from "./HomeScreen";

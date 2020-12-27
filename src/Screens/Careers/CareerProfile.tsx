@@ -71,7 +71,7 @@ const CareerProfile = ({
     workExperience,
     _links,
   } = cvProfileSuccess;
-  console.log("cvprofile", cvProfileSuccess);
+
   const { width: wWidth, height: wHeight } = Dimensions.get("window");
   return (
     <Box flex={1} backgroundColor="iconBackground">
