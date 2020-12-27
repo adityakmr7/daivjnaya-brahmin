@@ -51,7 +51,7 @@ const postReducer = (state = initialState, action: any) => {
     case GET_ALL_POST_ERROR:
       return {
         ...state,
-        postLoading: true,
+        postLoading: false,
         error: "Network Error",
       };
     case POST_POST_SUCCESS_LOADING:
@@ -68,7 +68,7 @@ const postReducer = (state = initialState, action: any) => {
     case POST_POST_ERROR:
       return {
         ...state,
-        postCreationMessage: true,
+        postCreationMessage: false,
       };
     case POST_LIKED_SUCCESS:
       const { data, postId } = action.payload;
