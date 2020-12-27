@@ -34,6 +34,9 @@ import {
   GET_ALL_CAREER_NETWORK_INVITES_ERROR,
   GET_ALL_CAREER_NETWORK_INVITES_SUCCESS,
   GET_ALL_CAREER_NETWORK_INVITES_LOADING,
+  GET_PROFILE_CV_LOADING,
+  GET_PROFILE_CV_SUCCESS,
+  GET_PROFILE_CV_ERROR,
 } from "./../actions/constants/careerConstant";
 import { POST_CV_LOADING } from "../actions/constants/careerConstant";
 
@@ -86,6 +89,10 @@ const initialState = {
   careerInvitesLoading: false,
   careerInvitesData: "",
   careerInvitesError: "",
+  // get Profile Cv
+  cvProfileLoading: false,
+  cvProfileSuccess: "",
+  cvProfileError: "",
 };
 
 export default (state = initialState, action: any) => {
@@ -342,6 +349,28 @@ export default (state = initialState, action: any) => {
         careerInvitesLoading: false,
         careerInvitesData: "",
         careerInvitesError: "Something Went wrong",
+      };
+
+    case GET_PROFILE_CV_LOADING:
+      return {
+        ...state,
+        cvProfileLoading: true,
+        cvProfileSuccess: "",
+        cvProfileError: "",
+      };
+    case GET_PROFILE_CV_SUCCESS:
+      return {
+        ...state,
+        cvProfileLoading: false,
+        cvProfileSuccess: action.payload,
+        cvProfileError: "",
+      };
+    case GET_PROFILE_CV_ERROR:
+      return {
+        ...state,
+        cvProfileLoading: false,
+        cvProfileSuccess: "",
+        cvProfileError: action.error,
       };
     default:
       return {

@@ -40,6 +40,9 @@ import {
   GET_ALL_CAREER_NETWORK_INVITES_LOADING,
   GET_ALL_CAREER_NETWORK_INVITES_SUCCESS,
   GET_ALL_CAREER_NETWORK_INVITES_ERROR,
+  GET_PROFILE_CV_LOADING,
+  GET_PROFILE_CV_SUCCESS,
+  GET_PROFILE_CV_ERROR,
 } from "./constants/careerConstant";
 
 export const createNewCareer = (data: any) => (dispatch: any) => {
@@ -366,6 +369,27 @@ export const getCareerNetworkInvitation = () => (dispatch: any) => {
       dispatch({
         type: GET_ALL_CAREER_NETWORK_INVITES_ERROR,
         error: err,
+      });
+    });
+};
+
+export const getProfileCv = () => (dispatch: any) => {
+  dispatch({
+    type: GET_PROFILE_CV_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get("/career/cv")
+    .then((res) => {
+      dispatch({
+        type: GET_PROFILE_CV_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_PROFILE_CV_ERROR,
+        error: "Something went wrong" || err,
       });
     });
 };
