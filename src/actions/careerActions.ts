@@ -43,6 +43,9 @@ import {
   GET_PROFILE_CV_LOADING,
   GET_PROFILE_CV_SUCCESS,
   GET_PROFILE_CV_ERROR,
+  GET_CANDIDATES_PROFILE_BY_ID_LOADING,
+  GET_CANDIDATES_PROFILE_BY_ID_SUCCESS,
+  GET_CANDIDATES_PROFILE_BY_ID_ERROR,
 } from "./constants/careerConstant";
 
 export const createNewCareer = (data: any) => (dispatch: any) => {
@@ -135,6 +138,27 @@ export const getCareerCv = () => (dispatch: any) => {
       dispatch({
         type: GET_CAREER_CV_ERROR,
         error: err,
+      });
+    });
+};
+
+export const getCandidatesProfileById = (userId: number) => (dispatch: any) => {
+  dispatch({
+    type: GET_CANDIDATES_PROFILE_BY_ID_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get(``)
+    .then((res) => {
+      dispatch({
+        type: GET_CANDIDATES_PROFILE_BY_ID_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_CANDIDATES_PROFILE_BY_ID_ERROR,
+        error: "Something Went Wrong" || err,
       });
     });
 };

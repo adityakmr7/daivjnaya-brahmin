@@ -37,6 +37,9 @@ import {
   GET_PROFILE_CV_LOADING,
   GET_PROFILE_CV_SUCCESS,
   GET_PROFILE_CV_ERROR,
+  GET_CANDIDATES_PROFILE_BY_ID_LOADING,
+  GET_CANDIDATES_PROFILE_BY_ID_SUCCESS,
+  GET_CANDIDATES_PROFILE_BY_ID_ERROR,
 } from "./../actions/constants/careerConstant";
 import { POST_CV_LOADING } from "../actions/constants/careerConstant";
 
@@ -93,6 +96,10 @@ const initialState = {
   cvProfileLoading: false,
   cvProfileSuccess: "",
   cvProfileError: "",
+  // candidatesProfile By id
+  candidatesProfileLoading: false,
+  candidatesProfileData: "",
+  candidatesProfileError: "",
 };
 
 export default (state = initialState, action: any) => {
@@ -372,6 +379,28 @@ export default (state = initialState, action: any) => {
         cvProfileSuccess: "",
         cvProfileError: action.error,
       };
+    case GET_CANDIDATES_PROFILE_BY_ID_LOADING:
+      return {
+        ...state,
+        candidatesProfileLoading: true,
+        candidatesProfileData: "",
+        candidatesProfileError: "",
+      };
+    case GET_CANDIDATES_PROFILE_BY_ID_SUCCESS:
+      return {
+        ...state,
+        candidatesProfileLoading: false,
+        candidatesProfileData: action.payload,
+        candidatesProfileError: "",
+      };
+    case GET_CANDIDATES_PROFILE_BY_ID_ERROR:
+      return {
+        ...state,
+        candidatesProfileLoading: false,
+        candidatesProfileData: "",
+        candidatesProfileError: action.error,
+      };
+
     default:
       return {
         ...state,
