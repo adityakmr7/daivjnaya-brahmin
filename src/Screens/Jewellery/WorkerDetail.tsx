@@ -6,14 +6,14 @@ import { Box, Text } from "../../components";
 interface ShopDetailProps {
   route: any;
   getWorkerDetail: (id: number) => void;
-  shop: any;
+  worker: any;
 }
-const WorkerDetail = ({ route, getWorkerDetail, shop }: ShopDetailProps) => {
+const WorkerDetail = ({ route, getWorkerDetail, worker }: ShopDetailProps) => {
   const { id, title } = route.params;
   useEffect(() => {
     getWorkerDetail(id);
   }, [id]);
-  const { workerDetailLoading, workerDetailData, workerDetailError } = shop;
+  const { workerDetailLoading, workerDetailData, workerDetailError } = worker;
   return (
     <Box>
       <Text>WorkerDetail</Text>
