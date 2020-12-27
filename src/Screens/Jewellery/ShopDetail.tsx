@@ -59,7 +59,7 @@ const ShopDetail = ({
                 >
                   {galleries.map((item: any, i: number) => {
                     return (
-                      <Box key={item.pgId} height={wWidth + 100} width={wWidth}>
+                      <Box key={i} height={wWidth + 100} width={wWidth}>
                         <Image
                           style={{
                             width: "100%",

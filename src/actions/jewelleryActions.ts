@@ -149,7 +149,7 @@ export const getJewelleryShopDetail = (id: number) => (dispatch: any) => {
   });
   const _rest = new restServices();
   _rest
-    .get(`/jeweller/shop${id}`)
+    .get(`/jeweller/shop/${id}`)
     .then((res) => {
       dispatch({
         type: GET_ALL_JEWELLERY_SHOP_DETAIL_SUCCESS,
@@ -170,7 +170,7 @@ export const getJewelleryVendorDetail = (id: number) => (dispatch: any) => {
   });
   const _rest = new restServices();
   _rest
-    .get(`/jeweller/vendor${id}`)
+    .get(`/jeweller/vendor/${id}`)
     .then((res) => {
       dispatch({
         type: GET_ALL_JEWELLERY_VENDOR_DETAIL_SUCCESS,
@@ -190,7 +190,7 @@ export const getJewelleryWorkerDetail = (id: number) => (dispatch: any) => {
   });
   const _rest = new restServices();
   _rest
-    .get(`/jeweller/worker${id}`)
+    .get(`/jeweller/worker/${id}`)
     .then((res) => {
       dispatch({
         type: GET_ALL_JEWELLERY_WORKER_DETAIL_SUCCESS,
