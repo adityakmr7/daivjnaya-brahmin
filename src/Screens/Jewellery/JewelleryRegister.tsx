@@ -14,8 +14,9 @@ import {
 import restServices from "../../services/restServices";
 import { postJeweller } from "../../actions/jewelleryActions";
 interface PostProductProps {
-  postJwel: (data: {}) => void;
+  postJwel: (data: {}, navigation: any) => void;
   jewellery: any;
+  navigation: any;
 }
 
 const validationSchema = Yup.object().shape({
@@ -26,7 +27,11 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email(),
   ownerEmail: Yup.string().email(),
 });
-const JewelleryRegister = ({ postJwel, jewellery }: PostProductProps) => {
+const JewelleryRegister = ({
+  postJwel,
+  jewellery,
+  navigation,
+}: PostProductProps) => {
   const {
     handleChange,
     handleBlur,
@@ -114,7 +119,7 @@ const JewelleryRegister = ({ postJwel, jewellery }: PostProductProps) => {
         type: typeData,
         website: values.website,
       };
-      postJwel(data);
+      postJwel(data, navigation);
     },
   });
   const {
@@ -516,7 +521,8 @@ function mapStateToProps(state: any) {
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  postJwel: (data: {}) => dispatch(postJeweller(data)),
+  postJwel: (data: {}, navigation: any) =>
+    dispatch(postJeweller(data, navigation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(JewelleryRegister);

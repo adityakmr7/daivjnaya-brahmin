@@ -34,7 +34,7 @@ const Vendors = ({ jewellery, getVendor, navigation }: VendorsProps) => {
         onPress={() =>
           navigation.navigate("JewelleryVendorDetail", {
             id: item.jId,
-            title: item.productName,
+            title: item.fullName,
           })
         }
       >

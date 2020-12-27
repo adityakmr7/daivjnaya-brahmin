@@ -89,7 +89,7 @@ export const getJewellerVendor = () => (dispatch: any) => {
     });
 };
 
-export const postJeweller = (data: {}) => (dispatch: any) => {
+export const postJeweller = (data: any, navigation: any) => (dispatch: any) => {
   dispatch({
     type: POST_ALL_JEWELLERY_LOADING,
   });
@@ -101,6 +101,13 @@ export const postJeweller = (data: {}) => (dispatch: any) => {
         type: POST_ALL_JEWELLERY_SUCCESS,
         payload: res.data,
       });
+      if (data.type === "SHOP") {
+        navigation.navigate("Shop");
+      } else if (data.type === "VENDOR") {
+        navigation.navigate("Vendors");
+      } else if (data.type === "WORKER") {
+        navigation.navigate("Workers");
+      }
     })
     .catch((err) => {
       dispatch({
