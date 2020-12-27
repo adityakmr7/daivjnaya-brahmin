@@ -19,12 +19,12 @@ interface PostProductProps {
 }
 
 const validationSchema = Yup.object().shape({
-  pname: Yup.string().required(),
-  contact: Yup.string().length(10).required(),
-  email: Yup.string().required(), //TODO: Validate Email
-  city: Yup.string().required(),
-  upload: Yup.string().required(),
-  description: Yup.string().required(),
+  fullName: Yup.string().required(),
+  about: Yup.string(),
+  addressLine1: Yup.string(),
+  addressLine2: Yup.string(),
+  email: Yup.string().email(),
+  ownerEmail: Yup.string().email(),
 });
 const JewelleryRegister = ({ postJwel, jewellery }: PostProductProps) => {
   const {
@@ -44,16 +44,12 @@ const JewelleryRegister = ({ postJwel, jewellery }: PostProductProps) => {
       // data to send
       fullName: "",
       about: "",
-
       addressLine1: "",
       addressLine2: "",
-
       city: "",
       country: "",
-
       email: "",
       facilities: "",
-
       coverImage: "",
       image1: "",
       image2: "",
@@ -68,14 +64,12 @@ const JewelleryRegister = ({ postJwel, jewellery }: PostProductProps) => {
       ownerPhoneNumber: "",
       ownerPlace: "",
       ownerProfilePic: "",
-
       phoneNumber: "",
       pincode: "",
       price: "",
       professionName: "",
       shopName: "",
       state: "",
-      type: "",
       website: "",
     },
     onSubmit: (values) => {
@@ -200,7 +194,7 @@ const JewelleryRegister = ({ postJwel, jewellery }: PostProductProps) => {
                   />
                   <CheckBox
                     checked={values.worker}
-                    onChange={() => setFieldValue("tmc", !values.worker)}
+                    onChange={() => setFieldValue("worker", !values.worker)}
                     label="Workers"
                   />
                 </Box>
@@ -248,6 +242,7 @@ const JewelleryRegister = ({ postJwel, jewellery }: PostProductProps) => {
                   placeholder="country"
                 />
                 <TextField
+                  keyboardType="email-address"
                   onChangeText={handleChange("email")}
                   onBlur={handleBlur("email")}
                   error={errors.email}
@@ -276,6 +271,7 @@ const JewelleryRegister = ({ postJwel, jewellery }: PostProductProps) => {
                   placeholder="ownerDesignation"
                 />
                 <TextField
+                  keyboardType="email-address"
                   onChangeText={handleChange("ownerEmail")}
                   onBlur={handleBlur("ownerEmail")}
                   error={errors.ownerEmail}
@@ -290,6 +286,7 @@ const JewelleryRegister = ({ postJwel, jewellery }: PostProductProps) => {
                   placeholder="ownerFullName"
                 />
                 <TextField
+                  keyboardType="phone-pad"
                   onChangeText={handleChange("ownerPhoneNumber")}
                   onBlur={handleBlur("ownerPhoneNumber")}
                   error={errors.ownerPhoneNumber}
@@ -321,7 +318,7 @@ const JewelleryRegister = ({ postJwel, jewellery }: PostProductProps) => {
                   placeholder="pincode"
                 />
                 <TextField
-                  keyboardType="phone-pad"
+                  keyboardType="number-pad"
                   onChangeText={handleChange("price")}
                   onBlur={handleBlur("price")}
                   error={errors.price}
@@ -349,14 +346,6 @@ const JewelleryRegister = ({ postJwel, jewellery }: PostProductProps) => {
                   error={errors.state}
                   touched={touched.state}
                   placeholder="state"
-                />
-                {/* // TODO:  type for better way */}
-                <TextField
-                  onChangeText={handleChange("type")}
-                  onBlur={handleBlur("type")}
-                  error={errors.type}
-                  touched={touched.type}
-                  placeholder="type"
                 />
                 <TextField
                   onChangeText={handleChange("website")}
