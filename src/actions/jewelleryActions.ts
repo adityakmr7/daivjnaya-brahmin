@@ -75,7 +75,7 @@ export const getJewellerVendor = () => (dispatch: any) => {
   _rest
     .get("/jeweller/vendor")
     .then((res) => {
-      console.log("worker", res);
+      console.log("vendor", res);
       dispatch({
         type: GET_ALL_JEWELLERY_VENDOR_SUCCESS,
         payload: res.data,

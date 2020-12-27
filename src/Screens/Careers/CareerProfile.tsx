@@ -31,15 +31,6 @@ const CareerProfile = ({
     getCvProfile();
   }, []);
   const { cvProfileLoading, cvProfileSuccess, cvProfileError } = careerProfile;
-  // const { userId } = route.params;
-  // useEffect(() => {
-  //   getProfile(userId);
-  // }, [userId]);
-  // const {
-  //   careerProfileLoading,
-  //   careerProfileData,
-  //   careerProfileError,
-  // } = career;
   const {
     about,
     addressLine1,
