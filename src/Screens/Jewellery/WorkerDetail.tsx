@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { connect } from "react-redux";
 import { getJewelleryWorkerDetail } from "../../actions/jewelleryActions";
 import { Box, Text } from "../../components";
@@ -7,9 +7,20 @@ interface ShopDetailProps {
   route: any;
   getWorkerDetail: (id: number) => void;
   worker: any;
+  navigation: any;
 }
-const WorkerDetail = ({ route, getWorkerDetail, worker }: ShopDetailProps) => {
+const WorkerDetail = ({
+  navigation,
+  route,
+  getWorkerDetail,
+  worker,
+}: ShopDetailProps) => {
   const { id, title } = route.params;
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: title,
+    });
+  }, [title]);
   useEffect(() => {
     getWorkerDetail(id);
   }, [id]);
