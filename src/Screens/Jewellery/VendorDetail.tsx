@@ -2,7 +2,10 @@ import React, { useEffect, useLayoutEffect } from "react";
 import { ActivityIndicator, Dimensions, Image } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import { getJewelleryWorkerDetail } from "../../actions/jewelleryActions";
+import {
+  getJewelleryVendorDetail,
+  getJewelleryWorkerDetail,
+} from "../../actions/jewelleryActions";
 import { Box, Text } from "../../components";
 import { Feather as Icon } from "@expo/vector-icons";
 
@@ -35,12 +38,34 @@ const VendorDetail = ({
     galleries,
     email,
     phoneNumber,
+    addressLine1,
+    addressLine2,
     type,
-    productName,
+    fullName,
     updatedDate,
-    address,
     creationDate,
   } = vendorDetailData;
+  //   about: "jdndndn"
+  // acceptTMC: true
+  // addressLine1: "dndnnfnf"
+  // addressLine2: "dndnnfnf"
+  // city: "dndndnnd"
+  // country: "dfnfnnfnc"
+  // creationDate: 1609049135000
+  // email: "adityakmr088@gmail.com"
+  // facilities: "dnfnffnf"
+  // fullName: "jsjfkfkf fkfkfmf"
+  // galleries: (3) [{…}, {…}, {…}]
+  // getCallback: true
+  // jId: 3
+  // otherInfo: "ndnfnfnfn"
+  // phoneNumber: "9985225252"
+  // pincode: "851101"
+  // price: "25"
+  // professionName: "jddjdjdjd"
+  // state: "bihar"
+  // updatedDate: 1609049135000
+  // website: "www.india.com"
   return (
     <Box flex={1}>
       <ScrollView>
@@ -93,12 +118,12 @@ const VendorDetail = ({
                   variant="cardTitle"
                   color="primaryText"
                 >
-                  {productName}
+                  {fullName}
                 </Text>
                 <Text marginVertical="s">
                   <Icon name="map-pin" size={20} />{" "}
                   <Text variant="cardSubTitle" color="primaryText">
-                    {address ? address : null}
+                    {addressLine1 ? addressLine1 : null}
                   </Text>
                 </Text>
                 <Text marginVertical="s">
@@ -154,7 +179,7 @@ function mapStateToProps(state: any) {
   };
 }
 const mapDispatchToProps = (dispatch: any) => ({
-  getVendorDetail: (id: number) => dispatch(getJewelleryWorkerDetail(id)),
+  getVendorDetail: (id: number) => dispatch(getJewelleryVendorDetail(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VendorDetail);

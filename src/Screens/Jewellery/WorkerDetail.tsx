@@ -35,11 +35,34 @@ const WorkerDetail = ({
     vendor,
     phoneNumber,
     type,
-    productName,
+    fullName,
     updatedDate,
     address,
     creationDate,
+    addressLine1,
   } = workerDetailData;
+
+  //   about: "jdnfnfnf"
+  // acceptTMC: true
+  // addressLine1: "nxnfnfnf"
+  // addressLine2: "nxnfnfnf"
+  // city: "ndndndnd"
+  // country: "jdndndnfn"
+  // creationDate: 1609049250000
+  // email: "adityakmr088@gmail.com"
+  // facilities: "dnfnfncn"
+  // fullName: "jdndmd djdmfn"
+  // galleries: (3) [{…}, {…}, {…}]
+  // getCallback: true
+  // jId: 4
+  // otherInfo: "fnfnfnfn"
+  // phoneNumber: "9931255285"
+  // pincode: "851101"
+  // price: "256"
+  // professionName: "dnfnfnffjfn"
+  // state: "bihar"
+  // updatedDate: 1609049250000
+  // website: "www.indiamart.com"
   return (
     <Box flex={1}>
       <ScrollView>
@@ -92,12 +115,12 @@ const WorkerDetail = ({
                   variant="cardTitle"
                   color="primaryText"
                 >
-                  {productName}
+                  {fullName}
                 </Text>
                 <Text marginVertical="s">
                   <Icon name="map-pin" size={20} />{" "}
                   <Text variant="cardSubTitle" color="primaryText">
-                    {address ? address : null}
+                    {addressLine1 ? addressLine1 : null}
                   </Text>
                 </Text>
                 <Text marginVertical="s">
