@@ -46,6 +46,9 @@ import {
   GET_CANDIDATES_PROFILE_BY_ID_LOADING,
   GET_CANDIDATES_PROFILE_BY_ID_SUCCESS,
   GET_CANDIDATES_PROFILE_BY_ID_ERROR,
+  GET_JOB_PROFILE_LOADING,
+  GET_JOB_PROFILE_SUCCESS,
+  GET_JOB_PROFILE_ERROR,
 } from "./constants/careerConstant";
 
 export const createNewCareer = (data: any) => (dispatch: any) => {
@@ -409,6 +412,27 @@ export const getProfileCv = () => (dispatch: any) => {
     .catch((err) => {
       dispatch({
         type: GET_PROFILE_CV_ERROR,
+        error: "Something went wrong" || err,
+      });
+    });
+};
+
+export const getJobProfile = (jpId: number) => (dispatch: any) => {
+  dispatch({
+    type: GET_JOB_PROFILE_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get(`/career/jobPosting/${jpId}`)
+    .then((res) => {
+      dispatch({
+        type: GET_JOB_PROFILE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_JOB_PROFILE_ERROR,
         error: "Something went wrong" || err,
       });
     });

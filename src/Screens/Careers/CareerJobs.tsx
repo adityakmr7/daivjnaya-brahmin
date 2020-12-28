@@ -24,8 +24,9 @@ const CareerJobs = ({ getAllJob, career, navigation }: CareerJobsProps) => {
     return (
       <TouchableWithoutFeedback
         onPress={() =>
-          navigation.navigate("CareerProfile", {
+          navigation.navigate("CareerJobsProfile", {
             userId: item.jpId,
+            title: item.companyName,
           })
         }
       >

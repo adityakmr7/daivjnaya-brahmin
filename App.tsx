@@ -12,11 +12,11 @@ import axios from "axios";
 import { logoutUser, userAuthorized } from "./src/actions/authActions";
 import restServices from "./src/services/restServices";
 import { BackdropProvider } from "react-native-propel-kit";
-import { YellowBox } from "react-native";
+import { LogBox } from "react-native";
 import Notification from "./src/Notification/Notification";
 import { iconAssets } from "./src/Screens/HomeScreen";
 
-YellowBox.ignoreWarnings(["VirtualizedLists should never be nested"]);
+LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
 
 const assets = [...iconAssets, ...NotificationAssets];
 const fonts = {
