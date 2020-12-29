@@ -51,7 +51,9 @@ import {
   GET_JOB_PROFILE_ERROR,
 } from "./constants/careerConstant";
 
-export const createNewCareer = (data: any) => (dispatch: any) => {
+export const createNewCareer = (data: any, navigation: any) => (
+  dispatch: any
+) => {
   dispatch({
     type: CREATE_CAREER_LOADING,
   });
@@ -64,6 +66,7 @@ export const createNewCareer = (data: any) => (dispatch: any) => {
         type: CREATE_CAREER_SUCCESS,
         payload: res,
       });
+      navigation.navigate("Candidates");
     })
     .catch((err) => {
       dispatch({
@@ -77,7 +80,7 @@ export const createNewCareer = (data: any) => (dispatch: any) => {
  * Find Job
  * @param data
  */
-export const postNewCV = (data: any) => (dispatch: any) => {
+export const postNewCV = (data: any, navigation: any) => (dispatch: any) => {
   dispatch({
     type: POST_CV_LOADING,
   });
@@ -89,6 +92,7 @@ export const postNewCV = (data: any) => (dispatch: any) => {
         type: POST_CV_SUCCESS,
         payload: res.data.url,
       });
+      navigation.navigate("CareerJobs");
     })
     .catch((err) => {
       dispatch({
@@ -98,7 +102,7 @@ export const postNewCV = (data: any) => (dispatch: any) => {
     });
 };
 
-export const postTalents = (data: any) => (dispatch: any) => {
+export const postTalents = (data: any, navigation: any) => (dispatch: any) => {
   dispatch({
     type: POST_TALENT_LOADING,
   });
@@ -110,6 +114,7 @@ export const postTalents = (data: any) => (dispatch: any) => {
         type: POST_TALENT_SUCCESS,
         payload: res.data,
       });
+      navigation.navigate("CareerTalents");
     })
     .catch((err) => {
       dispatch({

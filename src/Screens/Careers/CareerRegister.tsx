@@ -5,9 +5,11 @@ import { Box, CheckBox } from "../../components";
 import Register from "./components/Register";
 import Talents from "./components/Talents";
 import PostJobForm from "./components/PostJobForm";
-interface CareerRegisterProps {}
+interface CareerRegisterProps {
+  navigation: any;
+}
 
-const CareerRegister = () => {
+const CareerRegister = ({ navigation }: CareerRegisterProps) => {
   const [fJob, setFJob] = useState(true);
   const [pJob, setPJob] = useState(false);
   const [talents, setTalents] = useState(false);
@@ -30,11 +32,11 @@ const CareerRegister = () => {
 
   let registerForm: ReactNode;
   if (fJob) {
-    registerForm = <Register />;
+    registerForm = <Register navigation={navigation} />;
   } else if (pJob) {
-    registerForm = <PostJobForm />;
+    registerForm = <PostJobForm navigation={navigation} />;
   } else if (talents) {
-    registerForm = <Talents />;
+    registerForm = <Talents navigation={navigation} />;
   }
 
   return (
