@@ -75,11 +75,12 @@ const Product = ({ navigation, getAllProduct, productAll }: ProductProps) => {
                 source={{ uri: item.galleries[0]._links.image.href }}
               />
             ) : null}
-            <Box paddingHorizontal="s" style={{marginRight: 105}} paddingBottom="l" paddingTop="l">
+            <Box paddingHorizontal="s" style={{marginRight: 105}} paddingBottom="l" paddingTop="s">
             <Text textAlign="right">{item.type}</Text>
+            <Text >{item.type}</Text>
               <Text style={{fontWeight: "bold"}}>{item.productName}</Text>
               <Text>{item.vendor.place}</Text>
-              <Text numberOfLines={2} >{item.description}</Text>
+              <Text numberOfLines={1} >{item.description}</Text>
             </Box>
           </Box>
         </Box>

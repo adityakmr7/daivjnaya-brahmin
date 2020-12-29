@@ -78,9 +78,11 @@ const Property = ({
               />
             ) : null}
             <Box paddingHorizontal="s">
-              <Text>{item.owner.fullName ? item.owner.fullName : null}</Text>
-              <Text>
-                {item.owner.designation ? item.owner.designation : null}
+            <Text textAlign="right">{item.type}</Text>
+            <Text style={{fontWeight: "bold", marginRight: 105}} numberOfLines={1}>{item.propertyName}</Text>
+            <Text>{item.owner.place ? item.owner.place : null}</Text>
+              <Text numberOfLines={1} style={{marginRight: 105}}>
+                {item.description ? item.description : null}
               </Text>
             </Box>
           </Box>

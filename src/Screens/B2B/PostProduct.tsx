@@ -56,6 +56,7 @@ const PostProduct = ({
       contact: "",
       productName: "",
       description:"",
+      price:"",
       type:"",
       //vendor
       vendorDesignation: "",
@@ -75,7 +76,7 @@ const PostProduct = ({
       const data = {
         address: values.address,
         description: values.description,
-        
+        price: values.price,
         email: values.email,
         galleries: [values.imageUrl1, values.imageUrl2, values.imageUrl3],
         phoneNumber: values.contact,
@@ -93,6 +94,7 @@ const PostProduct = ({
       const propertyData = {
         address: values.address,
         description: values.description,
+        price: values.price,
         email: values.email,
         galleries: [values.imageUrl1, values.imageUrl2, values.imageUrl3],
         type: values.propertyWanted ? "WANTED" : "OFFERED",
@@ -248,6 +250,14 @@ const PostProduct = ({
                 error={errors.description}
                 touched={touched.description}
                 placeholder="Description"
+              />
+              <TextField
+                keyboardType="default"
+                onChangeText={handleChange("price")}
+                onBlur={handleBlur("price")}
+                error={errors.price}
+                touched={touched.price}
+                placeholder="Price"
               />
               <TextField
                 keyboardType="phone-pad"

@@ -97,13 +97,13 @@ const OtpScreen = ({
     <Box flex={1}>
       <StatusBar backgroundColor="black" />
       <Box marginHorizontal="s">
-        <Box marginTop="xxl" marginHorizontal="s">
+        <Box marginTop="xxl" >
           <TouchableWithoutFeedback
             onPress={() => navigation.navigate("login")}
           >
             <Box flexDirection="row" alignItems="center">
               <Icon name="arrow-left" size={26} />
-              <Text color="primaryText" variant="cardText">
+              <Text color="primaryText" variant="cardText" marginHorizontal="s">
                 Forgot Password
               </Text>
             </Box>
@@ -206,7 +206,7 @@ const OtpInput = ({ ...props }) => {
       justifyContent="center"
       alignItems="center"
       borderColor="grey"
-      borderWidth={3}
+      borderWidth={1}
       width={40}
       height={40}
     >

@@ -41,6 +41,8 @@ const B2BPropertyDetail = ({
     owner,
     phoneNumber,
     propertyName,
+    description,
+    price,
     updatedDate,
     type,
   } = propertyDetailData;
@@ -107,7 +109,14 @@ const B2BPropertyDetail = ({
                   variant="cardTitle"
                   color="primaryText"
                 >
-                  {propertyName}
+                  {propertyName}{price}
+                </Text>
+                <Text
+                  marginVertical="s"
+                  
+                  color="primaryText"
+                >
+                  {description}
                 </Text>
                 <Text marginVertical="s">
                   <Icon name="map-pin" size={20} />{" "}

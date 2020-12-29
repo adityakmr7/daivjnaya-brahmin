@@ -51,6 +51,7 @@ const B2BDetail = ({
     vendor,
     phoneNumber,
     type,
+    price,
     productName,
     description,
     updatedDate,
@@ -110,7 +111,7 @@ const B2BDetail = ({
                   variant="cardTitle"
                   color="primaryText"
                 >
-                  {productName} - {type}
+                  {productName} - {price}
                   
                 </Text>
                 <Text
