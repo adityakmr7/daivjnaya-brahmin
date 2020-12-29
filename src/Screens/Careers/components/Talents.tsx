@@ -27,8 +27,9 @@ import { postNewHub } from "../../../actions/hubActions";
 import restServices from "../../../services/restServices";
 import { postTalents } from "../../../actions/careerActions";
 interface CareerRegisterProps {
-  createNewTalent: (data: any) => void;
+  createNewTalent: (data: any, navigation: any) => void;
   careerTalent: any;
+  navigation: any;
 }
 
 const validationSchema = Yup.object().shape({
@@ -39,7 +40,11 @@ const validationSchema = Yup.object().shape({
   city: Yup.string(),
   tellUs: Yup.number(),
 });
-const Talents = ({ createNewTalent, careerTalent }: CareerRegisterProps) => {
+const Talents = ({
+  createNewTalent,
+  navigation,
+  careerTalent,
+}: CareerRegisterProps) => {
   const [videoUploading, setVideoUploading] = useState(false);
   const {
     handleChange,
@@ -70,7 +75,7 @@ const Talents = ({ createNewTalent, careerTalent }: CareerRegisterProps) => {
       video: "",
     },
     onSubmit: (values) => {
-      createNewTalent(values);
+      createNewTalent(values, navigation);
 
       //   if (values.callback === true && values.tmc === true) {
       //     createNewHub(values, galleryImage);
@@ -377,7 +382,8 @@ function mapStateToProps(state: any) {
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  createNewTalent: (data: any) => dispatch(postTalents(data)),
+  createNewTalent: (data: any, navigation: any) =>
+    dispatch(postTalents(data, navigation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Talents);

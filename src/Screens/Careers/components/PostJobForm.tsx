@@ -31,8 +31,9 @@ import restServices from "../../../services/restServices";
 import { MonthPicker } from "react-native-propel-kit";
 import { createNewCareer } from "../../../actions/careerActions";
 interface RegisterProps {
-  createNewJobPosting: (data: any) => void;
+  createNewJobPosting: (data: any, navigation: any) => void;
   postNewJob: any;
+  navigation: any;
 }
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const validationSchema = Yup.object().shape({
@@ -43,7 +44,11 @@ const validationSchema = Yup.object().shape({
   city: Yup.string(),
   tellUs: Yup.number(),
 });
-const PostJobForm = ({ createNewJobPosting, postNewJob }: RegisterProps) => {
+const PostJobForm = ({
+  createNewJobPosting,
+  navigation,
+  postNewJob,
+}: RegisterProps) => {
   const [videoUploading, setVideoUploading] = useState(false);
 
   const {
@@ -73,7 +78,7 @@ const PostJobForm = ({ createNewJobPosting, postNewJob }: RegisterProps) => {
       video: "",
     },
     onSubmit: (values) => {
-      createNewJobPosting(values);
+      createNewJobPosting(values, navigation);
       // console.log(values);
       //   if (values.callback === true && values.tmc === true) {
       //     createNewHub(values, galleryImage);
@@ -334,7 +339,8 @@ function mapStateToProps(state: any) {
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  createNewJobPosting: (data: any) => dispatch(createNewCareer(data)),
+  createNewJobPosting: (data: any, navigation: any) =>
+    dispatch(createNewCareer(data, navigation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostJobForm);

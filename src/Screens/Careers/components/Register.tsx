@@ -32,6 +32,7 @@ import { postNewCV } from "../../../actions/careerActions";
 interface RegisterProps {
   findJob: (data: any) => void;
   careerState: any;
+  navigation: any;
 }
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const validationSchema = Yup.object().shape({
@@ -42,7 +43,7 @@ const validationSchema = Yup.object().shape({
   city: Yup.string(),
   tellUs: Yup.number(),
 });
-const Register = ({ findJob, careerState }: RegisterProps) => {
+const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
   const [galleryImage, setGalleryImage] = useState<any[]>([]);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
