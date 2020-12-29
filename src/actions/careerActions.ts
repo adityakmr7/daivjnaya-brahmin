@@ -40,6 +40,15 @@ import {
   GET_ALL_CAREER_NETWORK_INVITES_LOADING,
   GET_ALL_CAREER_NETWORK_INVITES_SUCCESS,
   GET_ALL_CAREER_NETWORK_INVITES_ERROR,
+  GET_PROFILE_CV_LOADING,
+  GET_PROFILE_CV_SUCCESS,
+  GET_PROFILE_CV_ERROR,
+  GET_CANDIDATES_PROFILE_BY_ID_LOADING,
+  GET_CANDIDATES_PROFILE_BY_ID_SUCCESS,
+  GET_CANDIDATES_PROFILE_BY_ID_ERROR,
+  GET_JOB_PROFILE_LOADING,
+  GET_JOB_PROFILE_SUCCESS,
+  GET_JOB_PROFILE_ERROR,
 } from "./constants/careerConstant";
 
 export const createNewCareer = (data: any) => (dispatch: any) => {
@@ -123,7 +132,6 @@ export const getCareerCv = () => (dispatch: any) => {
   _rest
     .get("/career/cv/all")
     .then((res) => {
-      console.log("cvAll", res.data);
       dispatch({
         type: GET_CAREER_CV_SUCCESS,
         payload: res.data,
@@ -133,6 +141,28 @@ export const getCareerCv = () => (dispatch: any) => {
       dispatch({
         type: GET_CAREER_CV_ERROR,
         error: err,
+      });
+    });
+};
+
+export const getCandidatesProfileById = (userId: number) => (dispatch: any) => {
+  dispatch({
+    type: GET_CANDIDATES_PROFILE_BY_ID_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get(`/career/cv/${userId}`)
+    .then((res) => {
+      console.log("candidateRes", res);
+      dispatch({
+        type: GET_CANDIDATES_PROFILE_BY_ID_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_CANDIDATES_PROFILE_BY_ID_ERROR,
+        error: "Something Went Wrong" || err,
       });
     });
 };
@@ -275,7 +305,6 @@ export const getCareerProfile = (userId: number) => (dispatch: any) => {
   _rest
     .get(`/user/${userId}`)
     .then((res) => {
-      console.log("profileRes", res.data);
       dispatch({
         type: GET_CAREER_PROFILE_SUCCESS,
         payload: res.data,
@@ -302,7 +331,6 @@ export const getCareerNetwork = () => (dispatch: any) => {
   _rest
     .get("/career/network")
     .then((res) => {
-      console.log("careerCo", res.data);
       dispatch({
         type: GET_ALL_CAREER_NETWORK_SUCCESS,
         payload: res.data,
@@ -329,7 +357,6 @@ export const getCareerNetworkInvited = () => (dispatch: any) => {
   _rest
     .get("/career/network/invited")
     .then((res) => {
-      console.log("Invited", res.data);
       dispatch({
         type: GET_ALL_CAREER_NETWORK_INVITED_SUCCESS,
         payload: res.data,
@@ -356,7 +383,6 @@ export const getCareerNetworkInvitation = () => (dispatch: any) => {
   _rest
     .get("/career/network/invites")
     .then((res) => {
-      console.log("invites", res.data);
       dispatch({
         type: GET_ALL_CAREER_NETWORK_INVITES_SUCCESS,
         payload: res.data,
@@ -366,6 +392,48 @@ export const getCareerNetworkInvitation = () => (dispatch: any) => {
       dispatch({
         type: GET_ALL_CAREER_NETWORK_INVITES_ERROR,
         error: err,
+      });
+    });
+};
+
+export const getProfileCv = () => (dispatch: any) => {
+  dispatch({
+    type: GET_PROFILE_CV_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get("/career/cv")
+    .then((res) => {
+      dispatch({
+        type: GET_PROFILE_CV_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_PROFILE_CV_ERROR,
+        error: "Something went wrong" || err,
+      });
+    });
+};
+
+export const getJobProfile = (jpId: number) => (dispatch: any) => {
+  dispatch({
+    type: GET_JOB_PROFILE_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get(`/career/jobPosting/${jpId}`)
+    .then((res) => {
+      dispatch({
+        type: GET_JOB_PROFILE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_JOB_PROFILE_ERROR,
+        error: "Something went wrong" || err,
       });
     });
 };

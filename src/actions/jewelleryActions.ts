@@ -31,7 +31,6 @@ export const getJewellerShop = () => (dispatch: any) => {
   _rest
     .get("/jeweller/shop")
     .then((res) => {
-      console.log("shop", res);
       dispatch({
         type: GET_ALL_JEWELLERY_SHOP_SUCCESS,
         payload: res.data,
@@ -53,7 +52,6 @@ export const getJewellerWorker = () => (dispatch: any) => {
   _rest
     .get("/jeweller/worker")
     .then((res) => {
-      console.log("worker", res);
       dispatch({
         type: GET_ALL_JEWELLERY_WORKER_SUCCESS,
         payload: res.data,
@@ -75,7 +73,7 @@ export const getJewellerVendor = () => (dispatch: any) => {
   _rest
     .get("/jeweller/vendor")
     .then((res) => {
-      console.log("worker", res);
+      console.log("vendor", res);
       dispatch({
         type: GET_ALL_JEWELLERY_VENDOR_SUCCESS,
         payload: res.data,
@@ -89,7 +87,7 @@ export const getJewellerVendor = () => (dispatch: any) => {
     });
 };
 
-export const postJeweller = (data: {}) => (dispatch: any) => {
+export const postJeweller = (data: any, navigation: any) => (dispatch: any) => {
   dispatch({
     type: POST_ALL_JEWELLERY_LOADING,
   });
@@ -101,6 +99,13 @@ export const postJeweller = (data: {}) => (dispatch: any) => {
         type: POST_ALL_JEWELLERY_SUCCESS,
         payload: res.data,
       });
+      if (data.type === "SHOP") {
+        navigation.navigate("Shop");
+      } else if (data.type === "VENDOR") {
+        navigation.navigate("Vendors");
+      } else if (data.type === "WORKER") {
+        navigation.navigate("Workers");
+      }
     })
     .catch((err) => {
       dispatch({
@@ -142,7 +147,7 @@ export const getJewelleryShopDetail = (id: number) => (dispatch: any) => {
   });
   const _rest = new restServices();
   _rest
-    .get(`/jeweller/shop${id}`)
+    .get(`/jeweller/shop/${id}`)
     .then((res) => {
       dispatch({
         type: GET_ALL_JEWELLERY_SHOP_DETAIL_SUCCESS,
@@ -163,7 +168,7 @@ export const getJewelleryVendorDetail = (id: number) => (dispatch: any) => {
   });
   const _rest = new restServices();
   _rest
-    .get(`/jeweller/vendor${id}`)
+    .get(`/jeweller/vendor/${id}`)
     .then((res) => {
       dispatch({
         type: GET_ALL_JEWELLERY_VENDOR_DETAIL_SUCCESS,
@@ -183,7 +188,7 @@ export const getJewelleryWorkerDetail = (id: number) => (dispatch: any) => {
   });
   const _rest = new restServices();
   _rest
-    .get(`/jeweller/worker${id}`)
+    .get(`/jeweller/worker/${id}`)
     .then((res) => {
       dispatch({
         type: GET_ALL_JEWELLERY_WORKER_DETAIL_SUCCESS,

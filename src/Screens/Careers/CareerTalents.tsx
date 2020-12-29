@@ -31,7 +31,7 @@ const CareerTalents = ({
     getCareer();
   }, []);
   const { talentLoading, talentAll, talentError } = career;
-  console.log("talentAl", talentAll);
+
   const renderItem = ({ item }: { item: any }) => {
     return (
       <TouchableWithoutFeedback

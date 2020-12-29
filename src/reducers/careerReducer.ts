@@ -34,6 +34,15 @@ import {
   GET_ALL_CAREER_NETWORK_INVITES_ERROR,
   GET_ALL_CAREER_NETWORK_INVITES_SUCCESS,
   GET_ALL_CAREER_NETWORK_INVITES_LOADING,
+  GET_PROFILE_CV_LOADING,
+  GET_PROFILE_CV_SUCCESS,
+  GET_PROFILE_CV_ERROR,
+  GET_CANDIDATES_PROFILE_BY_ID_LOADING,
+  GET_CANDIDATES_PROFILE_BY_ID_SUCCESS,
+  GET_CANDIDATES_PROFILE_BY_ID_ERROR,
+  GET_JOB_PROFILE_LOADING,
+  GET_JOB_PROFILE_SUCCESS,
+  GET_JOB_PROFILE_ERROR,
 } from "./../actions/constants/careerConstant";
 import { POST_CV_LOADING } from "../actions/constants/careerConstant";
 
@@ -86,6 +95,18 @@ const initialState = {
   careerInvitesLoading: false,
   careerInvitesData: "",
   careerInvitesError: "",
+  // get Profile Cv
+  cvProfileLoading: false,
+  cvProfileSuccess: "",
+  cvProfileError: "",
+  // candidatesProfile By id
+  candidatesProfileLoading: false,
+  candidatesProfileData: "",
+  candidatesProfileError: "",
+  // jobProfile
+  jobProfileLoading: false,
+  jobProfileSuccess: "",
+  jobProfileError: "",
 };
 
 export default (state = initialState, action: any) => {
@@ -342,6 +363,70 @@ export default (state = initialState, action: any) => {
         careerInvitesLoading: false,
         careerInvitesData: "",
         careerInvitesError: "Something Went wrong",
+      };
+
+    case GET_PROFILE_CV_LOADING:
+      return {
+        ...state,
+        cvProfileLoading: true,
+        cvProfileSuccess: "",
+        cvProfileError: "",
+      };
+    case GET_PROFILE_CV_SUCCESS:
+      return {
+        ...state,
+        cvProfileLoading: false,
+        cvProfileSuccess: action.payload,
+        cvProfileError: "",
+      };
+    case GET_PROFILE_CV_ERROR:
+      return {
+        ...state,
+        cvProfileLoading: false,
+        cvProfileSuccess: "",
+        cvProfileError: action.error,
+      };
+    case GET_CANDIDATES_PROFILE_BY_ID_LOADING:
+      return {
+        ...state,
+        candidatesProfileLoading: true,
+        candidatesProfileData: "",
+        candidatesProfileError: "",
+      };
+    case GET_CANDIDATES_PROFILE_BY_ID_SUCCESS:
+      return {
+        ...state,
+        candidatesProfileLoading: false,
+        candidatesProfileData: action.payload,
+        candidatesProfileError: "",
+      };
+    case GET_CANDIDATES_PROFILE_BY_ID_ERROR:
+      return {
+        ...state,
+        candidatesProfileLoading: false,
+        candidatesProfileData: "",
+        candidatesProfileError: action.error,
+      };
+    case GET_JOB_PROFILE_LOADING:
+      return {
+        ...state,
+        jobProfileLoading: true,
+        jobProfileSuccess: "",
+        jobProfileError: "",
+      };
+    case GET_JOB_PROFILE_SUCCESS:
+      return {
+        ...state,
+        jobProfileLoading: false,
+        jobProfileSuccess: action.payload,
+        jobProfileError: "",
+      };
+    case GET_JOB_PROFILE_ERROR:
+      return {
+        ...state,
+        jobProfileLoading: false,
+        jobProfileSuccess: "",
+        jobProfileError: "Something Went Wrong" || action.error,
       };
     default:
       return {

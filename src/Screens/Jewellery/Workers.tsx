@@ -32,9 +32,9 @@ const Workers = ({ getWorker, jewellery, navigation }: WorkersProps) => {
     return (
       <TouchableWithoutFeedback
         onPress={() =>
-          navigation.navigate("B2BProductDetail", {
+          navigation.navigate("JewelleryWorkerDetail", {
             id: item.jId,
-            title: item.shopName,
+            title: item.fullName,
           })
         }
       >

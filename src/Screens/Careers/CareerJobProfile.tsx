@@ -1,105 +1,78 @@
-import { connect } from "react-redux";
 import React, { useEffect, useLayoutEffect } from "react";
 import { ActivityIndicator, Dimensions, Image } from "react-native";
-import { RectButton, ScrollView } from "react-native-gesture-handler";
-import { getCandidatesProfileById } from "../../actions/careerActions";
+import { ScrollView } from "react-native-gesture-handler";
+import { connect } from "react-redux";
+import { getJobProfile } from "../../actions/careerActions";
 import { Box, Text } from "../../components";
-import { IntroSection, RoundedBorderButton } from "../MyProfile/components";
-import CompanyCard from "./components/CompanyCard";
+import { RoundedBorderButton } from "../MyProfile/components";
 import NetWorkComponentTitle from "./components/NetWorkComponentTitle";
-import { exp } from "react-native-reanimated";
-
-interface CareerProfileProps {
-  career: any;
-  route: any;
-  getUserDetail: (id: number) => void;
-  profileData: any;
-  navigation: any;
-}
 export const companyLogo = require("../../../assets/images/company-logo.png");
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
-export const friends = require("../../../assets/images/small-image.png");
-const walls = require("../../../assets/images/wall.png");
-const CandidateProfile = ({
-  // getProfile,
-  career,
+interface CareerJobProfileProps {
+  jobProfile: any;
+  getProfile: (jpId: number) => void;
+  route: any;
+  navigation: any;
+}
+const CareerJobProfile = ({
+  jobProfile,
+  getProfile,
   route,
-  getUserDetail,
   navigation,
-}: CareerProfileProps) => {
+}: CareerJobProfileProps) => {
   const { userId, title } = route.params;
-
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: title,
     });
   }, [title]);
   useEffect(() => {
-    getUserDetail(userId);
+    getProfile(userId);
   }, [userId]);
-  const {
-    candidatesProfileLoading,
-    candidatesProfileData,
-    candidatesProfileError,
-  } = career;
-  //   about: null
-  // addressLine1: "Addres2 Line 1"
-  // addressLine2: "Address Line 2"
-  // city: "City"
-  // collegeName: "College Name"
-  // companyCity: "Company City"
-  // companyFromMonth: "MM"
-  // companyFromYear: "YYYY"
-  // companyName: "Company Name"
-  // companyToMonth: "MM"
-  // companyToYear: "YYYY"
-  // country: "Country"
-  // currentlyStudyingHere: false
-  // currentlyWorkingHere: true
-  // cvId: 3
-  // educationLevel: "POST_GRADUATE"
-  // email: "something@email.com"
-  // experiences: []
-  // fieldOfStudy: "Computer Science"
-  // fullName: "Full Name"
-  // isConnected: false
-  // isInvited: false
-  // jobTitle: "Job Title"
-  // phoneNumber: "9876543210"
-  // pincode: "654321"
-  // preferedJobSalary: "654321"
-  // preferedJobTitle: "Prefered Job Title"
-  // preferedJobType: "Prefered Job Type"
-  // skills: "Skills"
-  // state: "State"
-  // studyFromMonth: "MM"
-  // studyFromYear: "YYYY"
-  // studyToMonth: "MM"
-  // studyToYear: "YYYY"
-  // willingToRelocate: true
-  // workDescription: "Work Description"
-  // workExperience: true
+
+  const { jobProfileLoading, jobProfileSuccess, jobProfileError } = jobProfile;
+
   const {
     _links,
 
     about,
     experiences,
+    companyName,
     fullName,
-  } = candidatesProfileData;
+  } = jobProfileSuccess;
+  //   addressLine1: "addressLine1"
+  // addressLine2: "addressLine2"
+  // alreadyApplied: null
+  // city: "city"
+  // companyName: "companyName"
+  // country: "country"
+  // creationDate: 1607229449000
+  // description: "description"
+  // education: "education"
+  // employerEmail: "employerEmail@gmail.com"
+  // employerName: "employerName"
+  // employerPhoneNumber: "9876543210"
+  // experience: "experience"
+  // jobTitle: "jobTitle"
+  // jpId: 3
+  // pinCode: "pinCode"
+  // state: "state"
+  // updatedDate: 1607229449000
+
   return (
     <Box flex={1} backgroundColor="iconBackground">
-      {candidatesProfileLoading ? (
+      {jobProfileLoading ? (
         <Box>
           <ActivityIndicator />
         </Box>
       ) : (
         <ScrollView showsVerticalScrollIndicator={false}>
           <Box height={10}>
-            {_links && _links.coverPic ? (
+            {_links && _links.coverImage ? (
               <Image
                 style={{ height: wWidth * 0.5 }}
-                source={{ uri: _links.coverPic.href }}
+                source={{ uri: _links.coverImage.href }}
               />
             ) : null}
           </Box>
@@ -129,7 +102,7 @@ const CandidateProfile = ({
           {/* <IntroSection /> */}
           <Box marginHorizontal="s">
             <Text variant="cardTitle" color="primaryText">
-              {fullName}
+              {companyName}
             </Text>
           </Box>
 
@@ -172,14 +145,14 @@ const CandidateProfile = ({
     </Box>
   );
 };
-
 function mapStateToProps(state: any) {
   return {
-    career: state.career,
+    jobProfile: state.career,
   };
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  getUserDetail: (id: number) => dispatch(getCandidatesProfileById(id)),
+  getProfile: (jpId: number) => dispatch(getJobProfile(jpId)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(CandidateProfile);
+
+export default connect(mapStateToProps, mapDispatchToProps)(CareerJobProfile);

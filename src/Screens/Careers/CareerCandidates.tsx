@@ -34,6 +34,7 @@ const CareerCandidates = ({
   useEffect(() => {
     getAllCv();
   }, [getAllCv]);
+
   const { careerCvLoading, careerCvAll, careerCvError } = career;
 
   const renderCvItem = ({ item }: { item: any }) => {
@@ -42,6 +43,7 @@ const CareerCandidates = ({
         onPress={() =>
           navigation.navigate("CandidateProfile", {
             userId: item.cvId,
+            title: item.fullName,
           })
         }
       >
