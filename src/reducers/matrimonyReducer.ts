@@ -15,6 +15,9 @@ import {
   MATRIMONY_CREATED_ERROR,
   MATRIMONY_CREATED_SUCCESS,
   MATRIMONY_CREATING,
+  POST_MATRIMONY_VENDOR_LOADING,
+  POST_MATRIMONY_VENDOR_LOADING_ERROR,
+  POST_MATRIMONY_VENDOR_LOADING_SUCCESS,
 } from "./../actions/constants/matrimonyConstants";
 
 const initialState = {
@@ -35,6 +38,10 @@ const initialState = {
   matrimonyVendorDetailLoading: false,
   matrimonyVendorDetailData: "",
   matrimonyVendorDetailError: "",
+  // post vendor register
+  postVendorLoading: false,
+  postVendorSuccess: "",
+  postVendorError: "",
 };
 
 const matrimonyReducer = (state = initialState, action: any) => {
@@ -143,6 +150,28 @@ const matrimonyReducer = (state = initialState, action: any) => {
         matrimonyVendorDetailData: "",
         matrimonyVendorDetailError: "Something Went Wrong",
       };
+    case POST_MATRIMONY_VENDOR_LOADING:
+      return {
+        ...state,
+        postVendorLoading: true,
+        postVendorSuccess: "",
+        postVendorError: "",
+      };
+    case POST_MATRIMONY_VENDOR_LOADING_SUCCESS:
+      return {
+        ...state,
+        postVendorLoading: false,
+        postVendorSuccess: action.payload,
+        postVendorError: "",
+      };
+    case POST_MATRIMONY_VENDOR_LOADING_ERROR:
+      return {
+        ...state,
+        postVendorLoading: false,
+        postVendorSuccess: "",
+        postVendorError: "Something went wrong" || action.error,
+      };
+
     default:
       return {
         ...state,

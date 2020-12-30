@@ -19,6 +19,9 @@ import {
   GET_ALL_MATRIMONY_VENDOR_DETAIL_LOADING,
   GET_ALL_MATRIMONY_VENDOR_DETAIL_SUCCESS,
   GET_ALL_MATRIMONY_VENDOR_DETAIL_ERROR,
+  POST_MATRIMONY_VENDOR_LOADING,
+  POST_MATRIMONY_VENDOR_LOADING_SUCCESS,
+  POST_MATRIMONY_VENDOR_LOADING_ERROR,
 } from "./constants/matrimonyConstants";
 
 /**
@@ -179,6 +182,29 @@ export const getMatrimonyVendorDetail = (id: number) => (dispatch: any) => {
     .catch((err) => {
       dispatch({
         type: GET_ALL_MATRIMONY_VENDOR_DETAIL_ERROR,
+        error: err,
+      });
+    });
+};
+
+export const postMatrimonyVendor = (data: {}, navigation: any) => (
+  dispatch: any
+) => {
+  dispatch({
+    type: POST_MATRIMONY_VENDOR_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .post("/matrimony/vendor", data)
+    .then((res) => {
+      dispatch({
+        type: POST_MATRIMONY_VENDOR_LOADING_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: POST_MATRIMONY_VENDOR_LOADING_ERROR,
         error: err,
       });
     });
