@@ -119,6 +119,7 @@ class restServices {
       console.log(e);
     }
   };
+
   getMediaUrl = async (source: string) => {
     const mime = require("mime");
     var data = new FormData();
@@ -137,6 +138,7 @@ class restServices {
         "Content-Type": "multipart/form-data",
       },
       data: data,
+      onUploadProgress: (progressEvent) => progressEvent.loaded,
     };
     return axios(config);
   };

@@ -39,6 +39,7 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email().required(), //TODO:, Validate Email
   city: Yup.string(),
   tellUs: Yup.number(),
+  pincode: Yup.string().length(6),
 });
 const Talents = ({
   createNewTalent,
@@ -65,9 +66,10 @@ const Talents = ({
       coverImage: "", // TODO:
       email: "",
       fullName: "",
-      galleries: [
-        // TODO:
-      ],
+      galleryImage1: "",
+      galleryImage2: "",
+      galleryImage3: "",
+
       phoneNumber: "",
       pincode: "",
       state: "",
@@ -75,7 +77,28 @@ const Talents = ({
       video: "",
     },
     onSubmit: (values) => {
-      createNewTalent(values, navigation);
+      const dataToSend = {
+        about: values.about,
+        addressLine1: values.addressLine1,
+        addressLine2: values.addressLine2,
+        city: values.city,
+        country: values.country,
+        coverImage: values.coverImage,
+        email: values.email,
+        fullName: values.fullName,
+        galleries: [
+          values.galleryImage1,
+          values.galleryImage2,
+          values.galleryImage3,
+        ],
+
+        phoneNumber: values.phoneNumber,
+        pincode: values.pincode,
+        state: values.state,
+        title: values.title,
+        video: values.video,
+      };
+      createNewTalent(dataToSend, navigation);
 
       //   if (values.callback === true && values.tmc === true) {
       //     createNewHub(values, galleryImage);
@@ -93,9 +116,26 @@ const Talents = ({
 
   const handleImageUpload = async () => {
     if (Platform.OS !== "web") {
-      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+      const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
       if (status !== "granted") {
-        alert("Sorry, we need camera Permissions");
+        const {
+          status,
+        } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status === "granted") {
+          const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+            base64: true,
+          });
+
+          if (!result.cancelled) {
+            // TODO: set Image upload Here
+            //result.uri
+            return result.uri;
+          }
+        }
       } else {
         const result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -115,35 +155,7 @@ const Talents = ({
   };
 
   var _rest = new restServices();
-  const handleVideoUpload = async () => {
-    setVideoUploading(true);
-    if (Platform.OS !== "web") {
-      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
-      if (status !== "granted") {
-        alert("Sorry, we need camera Permissions");
-      } else {
-        const result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Videos,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-          base64: true,
-        });
 
-        if (!result.cancelled) {
-          // TODO: video Upload
-          const _rest = new restServices();
-          _rest
-            .getMediaUrl(result.uri)
-            .then((res) => {
-              setFieldValue("video", res.data.url);
-              setVideoUploading(false);
-            })
-            .catch((err) => {});
-        }
-      }
-    }
-  };
   const handleCoverImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
@@ -154,19 +166,19 @@ const Talents = ({
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
     const uri: any = await imageUrl.data.url;
-    setFieldValue("gallery", (values.galleries[0] = uri));
+    setFieldValue("galleryImage1", uri);
   };
   const handleSecondImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
     const uri: any = await imageUrl.data.url;
-    setFieldValue("gallery", (values.galleries[1] = uri));
+    setFieldValue("galleryImage2", uri);
   };
   const handleImageThree = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
     const uri: any = await imageUrl.data.url;
-    setFieldValue("gallery", (values.galleries[2] = uri));
+    setFieldValue("galleryImage3", uri);
   };
   const { postingTalent, postedTalent, errorPostingTalent } = careerTalent;
 
@@ -311,7 +323,7 @@ const Talents = ({
                         alignItems="center"
                       >
                         <Icon
-                          name={values.galleries[0] ? "check" : "plus"}
+                          name={values.galleryImage1 !== "" ? "check" : "plus"}
                           size={10}
                         />
                       </Box>
@@ -329,7 +341,7 @@ const Talents = ({
                         alignItems="center"
                       >
                         <Icon
-                          name={values.galleries[1] ? "check" : "plus"}
+                          name={values.galleryImage2 !== "" ? "check" : "plus"}
                           size={10}
                         />
                       </Box>
@@ -347,7 +359,7 @@ const Talents = ({
                         alignItems="center"
                       >
                         <Icon
-                          name={values.galleries[2] ? "check" : "plus"}
+                          name={values.galleryImage3 !== "" ? "check" : "plus"}
                           size={10}
                         />
                       </Box>
@@ -355,12 +367,6 @@ const Talents = ({
                   </Box>
                 </Box>
               </Box>
-
-              <LargeButton
-                loading={videoUploading}
-                onPress={handleVideoUpload}
-                label={values.video !== "" ? "VIDEO ADDED" : "ADD VIDEO"}
-              />
             </Box>
 
             <LargeButton

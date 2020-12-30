@@ -3,12 +3,21 @@ import {
   GET_ALL_MATRIMONY_ERROR,
   GET_ALL_MATRIMONY_LOADING,
   GET_ALL_MATRIMONY_SUCCESS,
+  GET_ALL_MATRIMONY_VENDOR_DETAIL_ERROR,
+  GET_ALL_MATRIMONY_VENDOR_DETAIL_LOADING,
+  GET_ALL_MATRIMONY_VENDOR_DETAIL_SUCCESS,
+  GET_ALL_MATRIMONY_VENDOR_ERROR,
+  GET_ALL_MATRIMONY_VENDOR_LOADING,
+  GET_ALL_MATRIMONY_VENDOR_SUCCESS,
   GET_MATRIMONY_PROFILE_BY_ID_ERROR,
   GET_MATRIMONY_PROFILE_BY_ID_LOADING,
   GET_MATRIMONY_PROFILE_BY_ID_SUCCESS,
   MATRIMONY_CREATED_ERROR,
   MATRIMONY_CREATED_SUCCESS,
   MATRIMONY_CREATING,
+  POST_MATRIMONY_VENDOR_LOADING,
+  POST_MATRIMONY_VENDOR_LOADING_ERROR,
+  POST_MATRIMONY_VENDOR_LOADING_SUCCESS,
 } from "./../actions/constants/matrimonyConstants";
 
 const initialState = {
@@ -21,6 +30,18 @@ const initialState = {
   error: "",
   createLoading: false,
   createError: "",
+  // VENDOR
+  matrimonyVendorLoading: false,
+  matrimonyVendorData: "",
+  matrimonyVendorError: "",
+  // VENDOR DETAIL
+  matrimonyVendorDetailLoading: false,
+  matrimonyVendorDetailData: "",
+  matrimonyVendorDetailError: "",
+  // post vendor register
+  postVendorLoading: false,
+  postVendorSuccess: "",
+  postVendorError: "",
 };
 
 const matrimonyReducer = (state = initialState, action: any) => {
@@ -85,6 +106,72 @@ const matrimonyReducer = (state = initialState, action: any) => {
         successMessage: "",
         createError: action.error,
       };
+    case GET_ALL_MATRIMONY_VENDOR_LOADING:
+      return {
+        ...state,
+        matrimonyVendorLoading: true,
+        matrimonyVendorData: "",
+        matrimonyVendorError: "",
+      };
+    case GET_ALL_MATRIMONY_VENDOR_SUCCESS:
+      return {
+        ...state,
+        matrimonyVendorLoading: false,
+        matrimonyVendorData:
+          action.payload._embedded.matrimonyVendorResourceList,
+        matrimonyVendorError: "",
+      };
+    case GET_ALL_MATRIMONY_VENDOR_ERROR:
+      return {
+        ...state,
+        matrimonyVendorLoading: false,
+        matrimonyVendorData: "",
+        matrimonyVendorError: "Something went wrong",
+      };
+    // vendor detail
+    case GET_ALL_MATRIMONY_VENDOR_DETAIL_LOADING:
+      return {
+        ...state,
+        matrimonyVendorDetailLoading: true,
+        matrimonyVendorDetailData: "",
+        matrimonyVendorDetailError: "",
+      };
+    case GET_ALL_MATRIMONY_VENDOR_DETAIL_SUCCESS:
+      return {
+        ...state,
+        matrimonyVendorDetailLoading: false,
+        matrimonyVendorDetailData: action.payload,
+        matrimonyVendorDetailError: "",
+      };
+    case GET_ALL_MATRIMONY_VENDOR_DETAIL_ERROR:
+      return {
+        ...state,
+        matrimonyVendorDetailLoading: false,
+        matrimonyVendorDetailData: "",
+        matrimonyVendorDetailError: "Something Went Wrong",
+      };
+    case POST_MATRIMONY_VENDOR_LOADING:
+      return {
+        ...state,
+        postVendorLoading: true,
+        postVendorSuccess: "",
+        postVendorError: "",
+      };
+    case POST_MATRIMONY_VENDOR_LOADING_SUCCESS:
+      return {
+        ...state,
+        postVendorLoading: false,
+        postVendorSuccess: action.payload,
+        postVendorError: "",
+      };
+    case POST_MATRIMONY_VENDOR_LOADING_ERROR:
+      return {
+        ...state,
+        postVendorLoading: false,
+        postVendorSuccess: "",
+        postVendorError: "Something went wrong" || action.error,
+      };
+
     default:
       return {
         ...state,
