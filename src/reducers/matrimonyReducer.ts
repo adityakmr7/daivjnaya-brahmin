@@ -3,6 +3,12 @@ import {
   GET_ALL_MATRIMONY_ERROR,
   GET_ALL_MATRIMONY_LOADING,
   GET_ALL_MATRIMONY_SUCCESS,
+  GET_ALL_MATRIMONY_VENDOR_DETAIL_ERROR,
+  GET_ALL_MATRIMONY_VENDOR_DETAIL_LOADING,
+  GET_ALL_MATRIMONY_VENDOR_DETAIL_SUCCESS,
+  GET_ALL_MATRIMONY_VENDOR_ERROR,
+  GET_ALL_MATRIMONY_VENDOR_LOADING,
+  GET_ALL_MATRIMONY_VENDOR_SUCCESS,
   GET_MATRIMONY_PROFILE_BY_ID_ERROR,
   GET_MATRIMONY_PROFILE_BY_ID_LOADING,
   GET_MATRIMONY_PROFILE_BY_ID_SUCCESS,
@@ -21,6 +27,14 @@ const initialState = {
   error: "",
   createLoading: false,
   createError: "",
+  // VENDOR
+  matrimonyVendorLoading: false,
+  matrimonyVendorData: "",
+  matrimonyVendorError: "",
+  // VENDOR DETAIL
+  matrimonyVendorDetailLoading: false,
+  matrimonyVendorDetailData: "",
+  matrimonyVendorDetailError: "",
 };
 
 const matrimonyReducer = (state = initialState, action: any) => {
@@ -84,6 +98,50 @@ const matrimonyReducer = (state = initialState, action: any) => {
         createLoading: false,
         successMessage: "",
         createError: action.error,
+      };
+    case GET_ALL_MATRIMONY_VENDOR_LOADING:
+      return {
+        ...state,
+        matrimonyVendorLoading: true,
+        matrimonyVendorData: "",
+        matrimonyVendorError: "",
+      };
+    case GET_ALL_MATRIMONY_VENDOR_SUCCESS:
+      return {
+        ...state,
+        matrimonyVendorLoading: false,
+        matrimonyVendorData:
+          action.payload._embedded.matrimonyVendorResourceList,
+        matrimonyVendorError: "",
+      };
+    case GET_ALL_MATRIMONY_VENDOR_ERROR:
+      return {
+        ...state,
+        matrimonyVendorLoading: false,
+        matrimonyVendorData: "",
+        matrimonyVendorError: "Something went wrong",
+      };
+    // vendor detail
+    case GET_ALL_MATRIMONY_VENDOR_DETAIL_LOADING:
+      return {
+        ...state,
+        matrimonyVendorDetailLoading: true,
+        matrimonyVendorDetailData: "",
+        matrimonyVendorDetailError: "",
+      };
+    case GET_ALL_MATRIMONY_VENDOR_DETAIL_SUCCESS:
+      return {
+        ...state,
+        matrimonyVendorDetailLoading: false,
+        matrimonyVendorDetailData: action.payload,
+        matrimonyVendorDetailError: "",
+      };
+    case GET_ALL_MATRIMONY_VENDOR_DETAIL_ERROR:
+      return {
+        ...state,
+        matrimonyVendorDetailLoading: false,
+        matrimonyVendorDetailData: "",
+        matrimonyVendorDetailError: "Something Went Wrong",
       };
     default:
       return {

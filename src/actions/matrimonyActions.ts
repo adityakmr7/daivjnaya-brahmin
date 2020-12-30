@@ -13,6 +13,12 @@ import {
   GET_MATRIMONY_PROFILE_BY_ID_SUCCESS,
   GET_MATRIMONY_PROFILE_BY_ID_ERROR,
   MATRIMONY_CREATING,
+  GET_ALL_MATRIMONY_VENDOR_LOADING,
+  GET_ALL_MATRIMONY_VENDOR_SUCCESS,
+  GET_ALL_MATRIMONY_VENDOR_ERROR,
+  GET_ALL_MATRIMONY_VENDOR_DETAIL_LOADING,
+  GET_ALL_MATRIMONY_VENDOR_DETAIL_SUCCESS,
+  GET_ALL_MATRIMONY_VENDOR_DETAIL_ERROR,
 } from "./constants/matrimonyConstants";
 
 /**
@@ -132,6 +138,47 @@ export const getMatrimonyProfileById = (pid: number) => async (
     .catch((err) => {
       dispatch({
         type: GET_MATRIMONY_PROFILE_BY_ID_ERROR,
+        error: err,
+      });
+    });
+};
+
+export const getMatrimonyVendor = () => (dispatch: any) => {
+  dispatch({
+    type: GET_ALL_MATRIMONY_VENDOR_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get("/matrimony/vendor")
+    .then((res) => {
+      dispatch({
+        type: GET_ALL_MATRIMONY_VENDOR_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ALL_MATRIMONY_VENDOR_ERROR,
+        error: err,
+      });
+    });
+};
+export const getMatrimonyVendorDetail = (id: number) => (dispatch: any) => {
+  dispatch({
+    type: GET_ALL_MATRIMONY_VENDOR_DETAIL_LOADING,
+  });
+  const _rest = new restServices();
+  _rest
+    .get(`/matrimony/vendor/${id}`)
+    .then((res) => {
+      dispatch({
+        type: GET_ALL_MATRIMONY_VENDOR_DETAIL_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_ALL_MATRIMONY_VENDOR_DETAIL_ERROR,
         error: err,
       });
     });
