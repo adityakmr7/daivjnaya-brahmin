@@ -155,36 +155,7 @@ const Talents = ({
   };
 
   var _rest = new restServices();
-  const handleVideoUpload = async () => {
-    setVideoUploading(true);
-    if (Platform.OS !== "web") {
-      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
-      if (status !== "granted") {
-        alert("Sorry, we need camera Permissions");
-      } else {
-        const result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Videos,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-          base64: true,
-        });
-        if (result.cancelled) {
-          setVideoUploading(false);
-        }
-        if (!result.cancelled) {
-          const _rest = new restServices();
-          _rest
-            .getMediaUrl(result.uri)
-            .then((res) => {
-              setFieldValue("video", res.data.url);
-              setVideoUploading(false);
-            })
-            .catch((err) => {});
-        }
-      }
-    }
-  };
+
   const handleCoverImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
@@ -396,12 +367,6 @@ const Talents = ({
                   </Box>
                 </Box>
               </Box>
-
-              <LargeButton
-                loading={videoUploading}
-                onPress={handleVideoUpload}
-                label={values.video !== "" ? "VIDEO ADDED" : "ADD VIDEO"}
-              />
             </Box>
 
             <LargeButton

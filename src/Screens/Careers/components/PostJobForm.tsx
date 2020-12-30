@@ -157,44 +157,6 @@ const PostJobForm = ({
       }
     }
   };
-  const uploadProgress = (progressEvent: any) => {
-    const { loaded, total } = progressEvent;
-    let percent = Math.floor((loaded * 100) / total);
-    console.log(`${loaded}kb of ${total}kb | ${percent}`);
-  };
-  const handleVideoUpload = async () => {
-    setVideoUploading(true);
-    if (Platform.OS !== "web") {
-      const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
-      if (status !== "granted") {
-        alert("Sorry, we need camera Permissions");
-      } else {
-        const result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Videos,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-          base64: true,
-        });
-        if (result.cancelled) {
-          setVideoUploading(false);
-        }
-        if (!result.cancelled) {
-          const _rest = new restServices();
-          _rest
-            .getMediaUrl(result.uri)
-            .then((res) => {
-              setFieldValue("video", res.data.url);
-              setVideoUploading(false);
-            })
-            .catch((err) => {
-              console.log("responseVideoError", err);
-            });
-          return result.uri;
-        }
-      }
-    }
-  };
 
   var _rest = new restServices();
   const handleFistImage = async () => {
@@ -365,11 +327,6 @@ const PostJobForm = ({
                   </RectButton>
                 </Box>
               </Box>
-              <LargeButton
-                loading={videoUploading}
-                onPress={handleVideoUpload}
-                label={values.video !== "" ? "Video Added" : "Add Video"}
-              />
             </Box>
 
             <LargeButton onPress={handleSubmit} label="REGISTER" />
