@@ -54,11 +54,11 @@ const VendorRegister = ({
     validationSchema,
     initialValues: {
       about: "",
-      acceptTMC: true,
+      acceptTMC: false,
       addressLine1: "",
       addressLine2: "",
       businessName: "",
-      category: "PHOTOGRAPHER",
+      category: "",
       city: "",
       country: "",
       email: "",
@@ -66,7 +66,7 @@ const VendorRegister = ({
       galleryImage1: "",
       galleryImage2: "",
       galleryImage3: "",
-      getCallback: true,
+      getCallback: false,
       image: "",
 
       ownerDesignation: "",

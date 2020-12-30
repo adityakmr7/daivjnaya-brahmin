@@ -1,6 +1,6 @@
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { useIsFocused } from "@react-navigation/native";
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { ActivityIndicator, Dimensions, FlatList, Image } from "react-native";
 import {
   ScrollView,

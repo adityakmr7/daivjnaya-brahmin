@@ -15,6 +15,7 @@ import BrideDetail from "./BrideDetail";
 import VendorDetail from "./VendorDetail";
 import FullScreen from "./FullScreen";
 import MatrimonyRegister from "./MatrimonyRegister";
+import VendorRegister from "./VendorRegister";
 
 const Stack = createStackNavigator<MatrimonyStackParamList>();
 const Tab = createMaterialTopTabNavigator<MatrimonyTabParamList>();
@@ -75,7 +76,29 @@ const MatrimonyStack = () => {
       />
       <Stack.Screen name="GroomDetail" component={GroomDetail} />
       <Stack.Screen name="BrideDetail" component={BrideDetail} />
-      <Stack.Screen name="VendorDetail" component={VendorDetail} />
+      <Stack.Screen
+        name="VendorDetail"
+        options={({ navigation }) => ({
+          headerRight: () => {
+            return (
+              <Box marginHorizontal="s">
+                <RoundedBorderButton
+                  label="Register"
+                  onPress={() => navigation.navigate("VendorRegister")}
+                />
+              </Box>
+            );
+          },
+        })}
+        component={VendorDetail}
+      />
+      <Stack.Screen
+        options={{
+          headerTitle: "Register",
+        }}
+        name="VendorRegister"
+        component={VendorRegister}
+      />
       <Stack.Screen name="FullScreen" component={FullScreen} />
     </Stack.Navigator>
   );
