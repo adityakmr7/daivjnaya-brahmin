@@ -19,7 +19,7 @@ import {
 
 const initialState = {
   postLoading: false,
-  postList: [],
+  postList: "",
   error: "",
   creatingPost: false,
   postCreationMessage: false,
