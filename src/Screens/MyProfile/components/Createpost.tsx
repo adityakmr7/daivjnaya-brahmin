@@ -18,6 +18,7 @@ import { addPost } from "../../../actions/postActions";
 import { connect } from "react-redux";
 import { postDataType } from "../interfaces";
 import { getLocalImage } from "../../../utils/getLocalImage";
+import restServices from "../../../services/restServices";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface CreatePostProps {
@@ -36,11 +37,13 @@ const CreatePost = ({ src, navigation }: CreatePostProps) => {
   const handlePostImage = async () => {
     const uri = await getLocalImage();
     if (uri) {
-      setPostImage(uri);
+      const _rest = new restServices();
+      const imageUrl = await _rest.getMediaUrl(uri);
+      setPostImage(imageUrl.data.url);
       //updateCoverImage(result.uri);
       navigation.navigate("CreatePostScreen", {
         image: src,
-        post: uri,
+        post: imageUrl.data.url,
       });
     }
   };

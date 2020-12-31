@@ -17,6 +17,7 @@ import { connect } from "react-redux";
 import { addPost } from "../../actions/postActions";
 import { postDataType } from "./interfaces";
 import { getLocalImage } from "../../utils/getLocalImage";
+import restServices from "../../services/restServices";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
@@ -46,7 +47,10 @@ const CreatePostScreen = ({
   const handlePostImage = async () => {
     const uri = await getLocalImage();
     if (uri) {
-      setPostImage(uri);
+      const _rest = new restServices();
+      const imageUrl = await _rest.getMediaUrl(uri);
+      console.log("imageUrl", imageUrl);
+      setPostImage(imageUrl.data.url);
       //updateCoverImage(result.uri);
     }
   };
@@ -91,7 +95,7 @@ const CreatePostScreen = ({
             marginTop="xl"
             flexDirection="row"
           >
-            {image ? (
+            {image && image !== undefined && image !== null && image !== "" ? (
               <Image
                 style={{
                   width: wWidth / 6,

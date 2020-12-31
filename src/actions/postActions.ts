@@ -44,37 +44,14 @@ export const getAllPost = () => (dispatch: any) => {
     });
 };
 
-const getMediaUrl = async (source: string) => {
-  const mime = require("mime");
-  var data = new FormData();
-  const newImageUri = "file:///" + source.split("file:/").join("");
-  data.append("file", {
-    uri: newImageUri,
-    type: mime.getType(newImageUri),
-    name: newImageUri.split("/").pop(),
-  });
-  const _rest = new restServices();
-  const token = await _rest.getAccessToken();
-  var config: AxiosRequestConfig = {
-    method: "post",
-    url: "http://3.6.104.144/post/media",
-    headers: {
-      Authorization: "Bearer " + token,
-      "Content-Type": "multipart/form-data",
-    },
-    data: data,
-  };
-  return axios(config);
-};
-
-export const addPost = (postData: postDataType, navigation) => async (
+export const addPost = (postData: postDataType, navigation: any) => async (
   dispatch: any
 ) => {
   dispatch({
     type: POST_POST_SUCCESS_LOADING,
   });
   const _rest = new restServices();
-  const imageUrl = await getMediaUrl(postData.url);
+
   const postContent = JSON.stringify({
     content: postData.content,
     location: {
@@ -84,7 +61,7 @@ export const addPost = (postData: postDataType, navigation) => async (
     },
     myMediaFiles: [
       {
-        url: imageUrl.data.url,
+        url: postData.url,
         type: "image",
       },
     ],

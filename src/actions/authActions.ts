@@ -48,7 +48,6 @@ export const userSignup = (
   axios(config)
     .then((res) => {
       // Add Snackbar here
-      console.log("autSignupSuccess", res);
       dispatch({
         type: USER_SIGN_UP,
         payload: res.data,
