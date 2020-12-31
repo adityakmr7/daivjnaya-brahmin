@@ -26,6 +26,7 @@ import { connect } from "react-redux";
 import { postNewHub } from "../../../actions/hubActions";
 import restServices from "../../../services/restServices";
 import { postTalents } from "../../../actions/careerActions";
+import { getLocalImage } from "../../../utils/getLocalImage";
 interface CareerRegisterProps {
   createNewTalent: (data: any, navigation: any) => void;
   careerTalent: any;
@@ -115,42 +116,9 @@ const Talents = ({
   });
 
   const handleImageUpload = async () => {
-    if (Platform.OS !== "web") {
-      const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
-      if (status !== "granted") {
-        const {
-          status,
-        } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status === "granted") {
-          const result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-            base64: true,
-          });
-
-          if (!result.cancelled) {
-            // TODO: set Image upload Here
-            //result.uri
-            return result.uri;
-          }
-        }
-      } else {
-        const result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-          base64: true,
-        });
-
-        if (!result.cancelled) {
-          // TODO: set Image upload Here
-          //result.uri
-          return result.uri;
-        }
-      }
+    const uri = await getLocalImage();
+    if (uri) {
+      return uri;
     }
   };
 

@@ -29,6 +29,7 @@ import { createMatrimonyProfile } from "../../actions/matrimonyActions";
 import * as ImagePicker from "expo-image-picker";
 import { useToast } from "react-native-styled-toast";
 import restServices from "../../services/restServices";
+import { getLocalImage } from "../../utils/getLocalImage";
 
 interface MatrimonyRegisterProps {
   navigation: StackNavigationProps<"EditProfile">;
@@ -135,27 +136,13 @@ const MatrimonyRegister = ({
   });
 
   const handleImageUpload = async () => {
-    if (Platform.OS !== "web") {
-      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
-      if (status !== "granted") {
-        alert("Sorry, we need camera Permissions");
-      } else {
-        const result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-          base64: true,
-        });
+    const uri = await getLocalImage();
+    if (uri) {
+      setImageUri(uri);
+      const _rest = new restServices();
+      const imageUrl = await _rest.getMediaUrl(uri);
 
-        if (!result.cancelled) {
-          setImageUri(result.uri);
-          const _rest = new restServices();
-          const imageUrl = await _rest.getMediaUrl(result.uri);
-
-          await setFieldValue("image", imageUrl.data.url);
-        }
-      }
+      await setFieldValue("image", imageUrl.data.url);
     }
   };
 

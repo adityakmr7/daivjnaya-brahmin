@@ -16,13 +16,13 @@ import { Feather as Icon } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { addPost } from "../../actions/postActions";
 import { postDataType } from "./interfaces";
-import * as ImagePicker from "expo-image-picker";
+import { getLocalImage } from "../../utils/getLocalImage";
 
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface CreatePostProps {
   route: any;
-  submitPost: (data: postDataType) => void;
+  submitPost: (data: postDataType, navigation: any) => void;
   postState: any;
   navigation: any;
 }
@@ -44,24 +44,10 @@ const CreatePostScreen = ({
   }, [post]);
 
   const handlePostImage = async () => {
-    if (Platform.OS !== "web") {
-      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
-      if (status !== "granted") {
-        alert("Sorry, we need camera Permissions");
-      } else {
-        const result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-          base64: true,
-        });
-
-        if (!result.cancelled) {
-          setPostImage(result.uri);
-          //updateCoverImage(result.uri);
-        }
-      }
+    const uri = await getLocalImage();
+    if (uri) {
+      setPostImage(uri);
+      //updateCoverImage(result.uri);
     }
   };
 
@@ -76,7 +62,7 @@ const CreatePostScreen = ({
         latitude: "12",
       };
 
-      submitPost(data);
+      submitPost(data, navigation);
 
       setPostContent("");
 
@@ -198,7 +184,8 @@ function mapStateToProps(state: any) {
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  submitPost: (data: postDataType) => dispatch(addPost(data)),
+  submitPost: (data: postDataType, navigation: any) =>
+    dispatch(addPost(data, navigation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreatePostScreen);

@@ -67,7 +67,9 @@ const getMediaUrl = async (source: string) => {
   return axios(config);
 };
 
-export const addPost = (postData: postDataType) => async (dispatch: any) => {
+export const addPost = (postData: postDataType, navigation) => async (
+  dispatch: any
+) => {
   dispatch({
     type: POST_POST_SUCCESS_LOADING,
   });
@@ -94,6 +96,7 @@ export const addPost = (postData: postDataType) => async (dispatch: any) => {
         type: POST_POST_SUCCESS,
         payload: res.data,
       });
+      navigation.navigate("Profile");
     })
     .catch((err) => {
       dispatch({

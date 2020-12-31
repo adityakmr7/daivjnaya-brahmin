@@ -36,6 +36,7 @@ import {
   getAllFriends,
 } from "../../actions/friendsActions";
 import { friendListProps, userProfileProps } from "./interfaces";
+import { getLocalImage } from "../../utils/getLocalImage";
 
 interface MyProfileProps {
   navigation: StackNavigationProps<"MyProfile"> | any;
@@ -113,46 +114,18 @@ const MyProfile = ({
   }, [_links]);
 
   const handleCoverUpload = async () => {
-    if (Platform.OS !== "web") {
-      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
-      if (status !== "granted") {
-        alert("Sorry, we need camera Permissions");
-      } else {
-        const result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-          base64: true,
-        });
-
-        if (!result.cancelled) {
-          setCoverImage(result.uri);
-          updateCoverImage(result.uri);
-        }
-      }
+    const uri = await getLocalImage();
+    if (uri) {
+      setCoverImage(uri);
+      updateCoverImage(uri);
     }
   };
 
   const handleProfileUpdate = async () => {
-    if (Platform.OS !== "web") {
-      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
-      if (status !== "granted") {
-        alert("Sorry, we need camera Permissions");
-      } else {
-        const result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-          base64: true,
-        });
-
-        if (!result.cancelled) {
-          setProfileImage(result.uri);
-          updateProfile(result.uri);
-        }
-      }
+    const uri = await getLocalImage();
+    if (uri) {
+      setProfileImage(uri);
+      updateProfile(uri);
     }
   };
   const { height: wHeight } = Dimensions.get("window");

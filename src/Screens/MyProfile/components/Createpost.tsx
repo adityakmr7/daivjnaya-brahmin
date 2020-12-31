@@ -17,6 +17,7 @@ import * as ImagePicker from "expo-image-picker";
 import { addPost } from "../../../actions/postActions";
 import { connect } from "react-redux";
 import { postDataType } from "../interfaces";
+import { getLocalImage } from "../../../utils/getLocalImage";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface CreatePostProps {
@@ -33,28 +34,14 @@ const CreatePost = ({ src, navigation }: CreatePostProps) => {
   // };
 
   const handlePostImage = async () => {
-    if (Platform.OS !== "web") {
-      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
-      if (status !== "granted") {
-        alert("Sorry, we need camera Permissions");
-      } else {
-        const result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-          base64: true,
-        });
-
-        if (!result.cancelled) {
-          setPostImage(result.uri);
-          //updateCoverImage(result.uri);
-          navigation.navigate("CreatePostScreen", {
-            image: src,
-            post: result.uri,
-          });
-        }
-      }
+    const uri = await getLocalImage();
+    if (uri) {
+      setPostImage(uri);
+      //updateCoverImage(result.uri);
+      navigation.navigate("CreatePostScreen", {
+        image: src,
+        post: uri,
+      });
     }
   };
 
