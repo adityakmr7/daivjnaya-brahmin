@@ -63,7 +63,7 @@ const PostListComponent = ({
 
   return (
     <Box>
-      {postList.length === 0 ? (
+      {postList.length === "" ? (
         <Box>
           <Text>No Post Yet</Text>
         </Box>
