@@ -53,7 +53,7 @@ const NewsEvents = ({ navigation, getNews, news }: NewsEventsProps) => {
         >
           <FlatList
             data={newsList}
-            keyExtractor={(item) => item.nId}
+            keyExtractor={(item) => item.nId.toString()}
             renderItem={renderItem}
           />
         </Box>

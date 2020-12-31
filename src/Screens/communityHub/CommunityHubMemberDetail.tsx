@@ -98,7 +98,7 @@ const CommunityHubMemberDetail = ({
                 horizontal={true}
                 data={hubGalleries}
                 renderItem={renderImage}
-                keyExtractor={(item) => item.hgId}
+                keyExtractor={(item) => item.hgId.toString()}
               />
             </Box>
           ) : (

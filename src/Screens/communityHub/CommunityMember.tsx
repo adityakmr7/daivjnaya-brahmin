@@ -92,7 +92,7 @@ const CommunityMember = ({
           showsHorizontalScrollIndicator={false}
           horizontal={true}
           data={states}
-          keyExtractor={(item) => item}
+          keyExtractor={(item) => item.hId.toString()}
           renderItem={renderItem}
         />
       </Box>

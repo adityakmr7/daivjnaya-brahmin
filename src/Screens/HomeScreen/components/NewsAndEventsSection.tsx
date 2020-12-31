@@ -49,7 +49,7 @@ const NewsAndEventsSection = ({
           data={news}
           horizontal={true}
           renderItem={renderItem}
-          keyExtractor={(item) => item.nId}
+          keyExtractor={(item) => item.nId.toString()}
           showsHorizontalScrollIndicator={false}
         />
       )}
