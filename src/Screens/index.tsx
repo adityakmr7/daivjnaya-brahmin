@@ -39,7 +39,7 @@ const AppNavigation = (props: any) => {
               headerLeft: () => {
                 return (
                   <View style={{ paddingLeft: 22 }}>
-                    <Image source={require("../../assets/sun.png")} />
+                    <Image style={{height:40, width:40}} source={require("../../assets/sun.png")} />
                   </View>
                 );
               },
@@ -97,7 +97,7 @@ const AppNavigation = (props: any) => {
               },
 
               headerTitle: () => (
-                <Image source={require("../../assets/home-logo.png")} />
+                <Image style={{height: 35, width:220}} source={require("../../assets/home-logo.png")} />
                 // <Text style={{ fontFamily: "Saman", fontSize: 20 }}>
                 //   Daivjnaya Brahmin
                 // </Text>

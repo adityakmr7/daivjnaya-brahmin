@@ -277,18 +277,8 @@ const MyProfile = ({
               <Icon
                 size={30}
                 name={Platform.OS === "android" ? "arrow-left" : "chevron-left"}
-                color="grey"
-                style={{
-                  shadowColor: "#000",
-                  shadowOffset: {
-                    width: 0,
-                    height: 12,
-                  },
-                  shadowOpacity: 0.58,
-                  shadowRadius: 16.0,
-
-                  elevation: 24,
-                }}
+                color="white"
+                
               />
             </RectButton>
           </Box>
