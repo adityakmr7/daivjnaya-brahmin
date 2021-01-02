@@ -37,7 +37,11 @@ interface RegisterProps {
   navigation: any;
 }
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
-const validationSchema = Yup.object().shape({});
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email(),
+  pincode: Yup.string().length(6),
+  phoneNumber: Yup.string().length(10),
+});
 const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
   const [uploading, setUploading] = useState(false);
   const [isEdu, setIsEdu] = useState(false);
@@ -191,8 +195,8 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
         workDescription: values.workDescription,
         workExperience: values.workExperience,
       };
-      console.log("typeslist", getTypes.toString());
-      // findJob(values, navigation);
+      // console.log("typeslist", getTypes.toString());
+      findJob(dataToSend, navigation);
     },
   });
 
@@ -453,7 +457,7 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
                     </Text>
                     <Text>{values.studyToMonth}</Text>
                   </TouchableWithoutFeedback>
-                  {studyFrom ? (
+                  {studyTo ? (
                     <DatePicker
                       testID="datePicker"
                       value={new Date()}
