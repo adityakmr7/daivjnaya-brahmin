@@ -1,3 +1,4 @@
+import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Dimensions, Image, StyleSheet } from "react-native";
 import {
@@ -27,9 +28,10 @@ const CareerTalents = ({
   const handleChangeText = (text: string) => {
     setSearchText(text);
   };
+  const isFocused = useIsFocused();
   useEffect(() => {
     getCareer();
-  }, []);
+  }, [isFocused]);
   const { talentLoading, talentAll, talentError } = career;
 
   const renderItem = ({ item }: { item: any }) => {
@@ -57,7 +59,7 @@ const CareerTalents = ({
           }}
         >
           <Box>
-            {item._links.coverImage ? (
+            {item._links && item._links.coverImage ? (
               <Image
                 style={{ height: 50, width: 50, borderRadius: 25 }}
                 source={{ uri: item._links.coverImage.href }}
@@ -82,10 +84,10 @@ const CareerTalents = ({
       >
         <SearchBox {...{ searchText, handleChangeText }} />
       </Box>
-      <Box marginVertical="s" backgroundColor="iconBackground">
+      <Box flex={1} marginVertical="s" backgroundColor="iconBackground">
         {talentLoading ? (
           <Box flex={1} justifyContent="center" alignItems="center">
-            <ActivityIndicator />
+            <ActivityIndicator color="#D4AF37" size={26} />
           </Box>
         ) : (
           <Box>

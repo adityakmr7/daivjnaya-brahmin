@@ -34,10 +34,23 @@ interface CareerRegisterProps {
 }
 
 const validationSchema = Yup.object().shape({
+  about: Yup.string(),
+  addressLine1: Yup.string(),
+  addressLine2: Yup.string(),
+  country: Yup.string(),
+  coverImage: Yup.string(),
+  fullName: Yup.string(),
+  galleryImage1: Yup.string(),
+  galleryImage2: Yup.string(),
+  galleryImage3: Yup.string(),
+  phoneNumber: Yup.string(),
+  state: Yup.string(),
+  title: Yup.string(),
+  video: Yup.string(),
   name: Yup.string(),
   contact: Yup.string().length(10),
   community: Yup.string(),
-  email: Yup.string().email().required(), //TODO:, Validate Email
+  email: Yup.string().email().required(),
   city: Yup.string(),
   tellUs: Yup.number(),
   pincode: Yup.string().length(6),
@@ -47,7 +60,6 @@ const Talents = ({
   navigation,
   careerTalent,
 }: CareerRegisterProps) => {
-  const [videoUploading, setVideoUploading] = useState(false);
   const {
     handleChange,
     handleBlur,
@@ -64,7 +76,7 @@ const Talents = ({
       addressLine2: "",
       city: "",
       country: "",
-      coverImage: "", // TODO:
+      coverImage: "",
       email: "",
       fullName: "",
       galleryImage1: "",
