@@ -38,12 +38,20 @@ interface RegisterProps {
 }
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const validationSchema = Yup.object().shape({
-  name: Yup.string(),
-  contact: Yup.string().length(10),
-  community: Yup.string(),
-  email: Yup.string().email().required(), //TODO:, Validate Email
+  aboutTalent: Yup.string(),
+  addressLine1: Yup.string(),
+  addressLine2: Yup.string(),
   city: Yup.string(),
-  tellUs: Yup.number(),
+  country: Yup.string(),
+  coverImage: Yup.string(),
+  employerEmail: Yup.string().email(),
+  employerName: Yup.string(),
+  employerPhoneNumber: Yup.string(),
+
+  jobTitle: Yup.string(),
+  pinCode: Yup.string().length(6),
+  state: Yup.string(),
+  video: Yup.string(),
 });
 const PostJobForm = ({
   createNewJobPosting,
@@ -63,59 +71,49 @@ const PostJobForm = ({
   } = useFormik({
     validationSchema,
     initialValues: {
-      aboutTalent: "",
       addressLine1: "",
       addressLine2: "",
       city: "",
+      companyName: "",
       country: "",
-      coverImage: "", // TODO: Cover Image
+      coverImage: "",
+      description: "",
+      education: "",
       employerEmail: "",
       employerName: "",
       employerPhoneNumber: "",
-      galleries: [], // TODO: galleries
-      galleryImage1: "",
-      galleryImage2: "",
-      galleryImage3: "",
+      experience: "",
+      jd: "",
       jobTitle: "",
       pinCode: "",
       state: "",
-      video: "",
     },
     onSubmit: (values) => {
-      const dataToSend = {
-        aboutTalent: values.aboutTalent,
-        addressLine1: values.addressLine1,
-        addressLine2: values.addressLine2,
-        city: values.city,
-        country: values.country,
-        coverImage: "", // TODO: Cover Image
-        employerEmail: values.employerEmail,
+      const data = {
         employerName: values.employerName,
         employerPhoneNumber: values.employerPhoneNumber,
-        galleries: [
-          values.galleryImage1,
-          values.galleryImage2,
-          values.galleryImage3,
-        ],
+        employerEmail: values.employerEmail,
 
-        jobTitle: values.jobTitle,
-        pinCode: values.pinCode,
+        addressLine1: values.addressLine1,
+        addressLine2: values.addressLine2,
+
+        city: values.city,
         state: values.state,
-        video: values.video,
+        country: values.country,
+        pinCode: values.pinCode,
+        jobTitle: values.jobTitle,
+        jd: values.jd,
+        description: values.description,
+
+        companyName: values.companyName,
+
+        education: values.education,
+
+        experience: values.experience,
+        coverImage: values.coverImage,
       };
-      createNewJobPosting(dataToSend, navigation);
-      // console.log(values);
-      //   if (values.callback === true && values.tmc === true) {
-      //     createNewHub(values, galleryImage);
-      //     if (createSuccess !== "" && createError === "") {
-      //       ToastAndroid.showWithGravity(
-      //         "Member Created",
-      //         ToastAndroid.LONG,
-      //         ToastAndroid.BOTTOM
-      //       );
-      //       setGalleryImage([]);
-      //     }
-      //   }
+
+      createNewJobPosting(data, navigation);
     },
   });
 
@@ -127,24 +125,14 @@ const PostJobForm = ({
   };
 
   var _rest = new restServices();
-  const handleFistImage = async () => {
+  const handleCoverImage = async () => {
     const url: any = await handleImageUpload();
     const imageUrl = await _rest.getMediaUrl(url);
     const uri: any = await imageUrl.data.url;
-    setFieldValue("galleryImage1", uri);
+    setFieldValue("coverImage", uri);
   };
-  const handleSecondImage = async () => {
-    const url: any = await handleImageUpload();
-    const imageUrl = await _rest.getMediaUrl(url);
-    const uri: any = await imageUrl.data.url;
-    setFieldValue("galleryImage2", uri);
-  };
-  const handleImageThree = async () => {
-    const url: any = await handleImageUpload();
-    const imageUrl = await _rest.getMediaUrl(url);
-    const uri: any = await imageUrl.data.url;
-    setFieldValue("galleryImage3", uri);
-  };
+
+  const { postingNewJob, postedNewJob, errorPostingNewJob } = postNewJob;
 
   return (
     <Box flex={1} marginBottom="l" flexDirection="column">
@@ -231,73 +219,58 @@ const PostJobForm = ({
                 touched={touched.jobTitle}
                 placeholder="Job Title"
               />
+              <TextField
+                onChangeText={handleChange("jd")}
+                onBlur={handleBlur("jd")}
+                error={errors.jd}
+                touched={touched.jd}
+                placeholder="Job Description"
+              />
+              <TextField
+                onChangeText={handleChange("companyName")}
+                onBlur={handleBlur("companyName")}
+                error={errors.companyName}
+                touched={touched.companyName}
+                placeholder="Company Name"
+              />
+              <TextField
+                onChangeText={handleChange("description")}
+                onBlur={handleBlur("description")}
+                error={errors.description}
+                touched={touched.description}
+                placeholder="Description"
+              />
+              <TextField
+                onChangeText={handleChange("education")}
+                onBlur={handleBlur("education")}
+                error={errors.education}
+                touched={touched.education}
+                placeholder="Education"
+              />
+              <TextField
+                onChangeText={handleChange("experience")}
+                onBlur={handleBlur("experience")}
+                error={errors.experience}
+                touched={touched.experience}
+                placeholder="Experience"
+              />
               <Box
-                marginVertical="l"
+                marginVertical="xl"
                 flexDirection="row"
                 justifyContent="space-between"
-                alignItems="center"
               >
-                <Text variant="silentText">Gallery</Text>
-                <Box flexDirection="row" justifyContent="space-between">
-                  <RectButton
-                    onPress={() => handleFistImage()}
-                    style={{ margin: 5 }}
-                  >
-                    <Box
-                      width={40}
-                      height={40}
-                      borderColor="primaryText"
-                      borderWidth={2}
-                      justifyContent="center"
-                      alignItems="center"
-                    >
-                      <Icon
-                        name={values.galleryImage1 !== "" ? "check" : "plus"}
-                        size={10}
-                      />
-                    </Box>
-                  </RectButton>
-                  <RectButton
-                    onPress={() => handleSecondImage()}
-                    style={{ margin: 5 }}
-                  >
-                    <Box
-                      width={40}
-                      height={40}
-                      borderColor="primaryText"
-                      borderWidth={2}
-                      justifyContent="center"
-                      alignItems="center"
-                    >
-                      <Icon
-                        name={values.galleryImage2 !== "" ? "check" : "plus"}
-                        size={10}
-                      />
-                    </Box>
-                  </RectButton>
-                  <RectButton
-                    onPress={() => handleImageThree()}
-                    style={{ margin: 5 }}
-                  >
-                    <Box
-                      width={40}
-                      height={40}
-                      borderColor="primaryText"
-                      borderWidth={2}
-                      justifyContent="center"
-                      alignItems="center"
-                    >
-                      <Icon
-                        name={values.galleryImage3 !== "" ? "check" : "plus"}
-                        size={10}
-                      />
-                    </Box>
-                  </RectButton>
-                </Box>
+                <Text variant="silentText">Cover Image upload </Text>
+                <RectButton onPress={handleCoverImage}>
+                  <Text>Upload</Text>
+                </RectButton>
               </Box>
             </Box>
 
-            <LargeButton onPress={handleSubmit} label="REGISTER" />
+            <LargeButton
+              loading={postingNewJob}
+              onPress={handleSubmit}
+              label="REGISTER"
+            />
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
       </ScrollView>

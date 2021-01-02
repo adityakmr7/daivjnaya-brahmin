@@ -60,13 +60,13 @@ export const createNewCareer = (data: any, navigation: any) => (
 
   const _rest = new restServices();
   _rest
-    .post("/career/jobPosting", {})
+    .post("/career/jobPosting", data)
     .then((res) => {
       dispatch({
         type: CREATE_CAREER_SUCCESS,
         payload: res,
       });
-      navigation.navigate("Candidates");
+      navigation.navigate("CareerJobs");
     })
     .catch((err) => {
       dispatch({

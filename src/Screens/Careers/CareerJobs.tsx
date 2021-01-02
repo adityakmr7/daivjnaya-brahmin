@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { ActivityIndicator, Dimensions, Image, StyleSheet } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 
 interface CareerJobsProps {
@@ -16,9 +17,10 @@ interface CareerJobsProps {
 }
 const CareerJobs = ({ getAllJob, career, navigation }: CareerJobsProps) => {
   // Will Navigate to profile
+  const isFocused = useIsFocused();
   useEffect(() => {
     getAllJob("");
-  }, []);
+  }, [isFocused]);
   const { jobsLoading, jobsAll, jobsError } = career;
   const renderItem = ({ item }: { item: any }) => {
     return (
@@ -68,7 +70,7 @@ const CareerJobs = ({ getAllJob, career, navigation }: CareerJobsProps) => {
   return (
     <Box flex={1}>
       {jobsLoading ? (
-        <Box>
+        <Box flex={1} justifyContent="center" alignItems="center">
           <ActivityIndicator />
         </Box>
       ) : (
