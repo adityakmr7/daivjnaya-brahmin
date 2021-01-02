@@ -42,6 +42,11 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
   const [uploading, setUploading] = useState(false);
   const [isEdu, setIsEdu] = useState(false);
   const [isSkill, setIsSkill] = useState(false);
+  const [studyTo, setStudyTo] = useState(false);
+  const [studyFrom, setStudyFrom] = useState(false);
+  const [companyTo, setCompanyTo] = useState(false);
+  const [companyFrom, setCompanyFrom] = useState(false);
+
   const {
     handleChange,
     handleBlur,
@@ -85,8 +90,8 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
       // experiences
       experiencesCompanyName: "",
       experiencesCompanyCity: "",
-      experiencesCompanyFrom: "",
-      experiencesCompanyTo: "",
+      experiencesCompanyFrom: moment().format("MM/YYYY"),
+      experiencesCompanyTo: moment().format("MM/YYYY"),
       experiencesCurrentlyWorkingHere: false,
       experiencesJobTitle: "",
       // experiences: [
@@ -152,20 +157,20 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
         country: values.country,
         currentlyStudyingHere: values.currentlyStudyingHere,
         currentlyWorkingHere: values.currentlyWorkingHere,
-        educationLevel: "PRIMARY", // TODO: edurationlevel
+        educationLevel: values.educationLevel,
         email: values.email,
-        // experiences: [
-        //   {
-        //     companyCity: "",
-        //     companyFromMonth: "string",
-        //     companyFromYear: "string",
-        //     companyName: "string",
-        //     companyToMonth: "string",
-        //     companyToYear: "string",
-        //     currentlyWorkingHere: true,
-        //     jobTitle: "string",
-        //   },
-        // ],
+        experiences: [
+          {
+            companyCity: values.experiencesCompanyCity,
+            companyFromMonth: values.experiencesCompanyFrom, // TODO: take month only
+            companyFromYear: values.experiencesCompanyFrom, // TODO: take year only
+            companyName: values.experiencesCompanyName,
+            companyToMonth: values.experiencesCompanyTo, //TODO: take month only
+            companyToYear: values.experiencesCompanyTo, // TODO: take year only
+            currentlyWorkingHere: values.experiencesCurrentlyWorkingHere,
+            jobTitle: values.experiencesJobTitle,
+          },
+        ],
         fieldOfStudy: values.fieldOfStudy,
         fullName: values.fullName,
         jobTitle: values.jobTitle,
@@ -178,10 +183,10 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
         profilePic: values.profilePic,
         skills: values.skills,
         state: values.state,
-        studyFromMonth: values.studyFromMonth,
-        studyFromYear: values.studyFromYear,
-        studyToMonth: values.studyToMonth,
-        studyToYear: values.studyToYear,
+        studyFromMonth: values.studyFromMonth, // TODO: month only
+        studyFromYear: values.studyFromYear, // TODO: year only
+        studyToMonth: values.studyToMonth, // TODO: month only
+        studyToYear: values.studyToYear, // TODO: year only
         willingToRelocate: values.willingToRelocate,
         workDescription: values.workDescription,
         workExperience: values.workExperience,
@@ -190,17 +195,26 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
       // findJob(values, navigation);
     },
   });
-  const [show, setShow] = useState(false);
 
-  const handleStudyFrom = (event, selectedDate) => {
+  const handleStudyFrom = (event: any, selectedDate: any) => {
     const selected = moment(selectedDate).format("MM/YYYY");
     setFieldValue("studyFromMonth", selected);
-    setShow(false);
+    setStudyFrom(false);
   };
-  const handleStudyTo = (event, selectedDate) => {
+  const handleStudyTo = (event: any, selectedDate: any) => {
     const selected = moment(selectedDate).format("MM/YYYY");
     setFieldValue("studyToMonth", selected);
-    setShow(false);
+    setStudyTo(false);
+  };
+  const handleCompanyFrom = (event: any, selectedDate: any) => {
+    const selected = moment(selectedDate).format("MM/YYYY");
+    setFieldValue("experiencesCompanyFrom", selected);
+    setCompanyFrom(false);
+  };
+  const handleCompanyTo = (event: any, selectedDate: any) => {
+    const selected = moment(selectedDate).format("MM/YYYY");
+    setFieldValue("experiencesCompanyTo", selected);
+    setCompanyTo(false);
   };
 
   const getPdfFile = async () => {
@@ -414,37 +428,42 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
               </Box>
 
               <Box marginTop="s">
-                <Text color="primaryText" variant="cardSubTitle">
-                  From
-                </Text>
-                <TouchableWithoutFeedback onPress={() => setShow(true)}>
-                  <Text>{values.studyFromMonth}</Text>
-                </TouchableWithoutFeedback>
-                {show ? (
-                  <DatePicker
-                    testID="datePicker"
-                    value={new Date()}
-                    mode={"date"}
-                    display="default"
-                    onChange={handleStudyFrom}
-                  />
-                ) : null}
+                <Box marginVertical="s">
+                  <TouchableWithoutFeedback onPress={() => setStudyFrom(true)}>
+                    <Text color="primaryText" variant="cardSubTitle">
+                      From
+                    </Text>
+                    <Text>{values.studyFromMonth}</Text>
+                  </TouchableWithoutFeedback>
+                  {studyFrom ? (
+                    <DatePicker
+                      testID="datePicker"
+                      value={new Date()}
+                      mode={"date"}
+                      display="default"
+                      onChange={handleStudyFrom}
+                    />
+                  ) : null}
+                </Box>
 
-                <Text color="primaryText" variant="cardSubTitle">
-                  To
-                </Text>
-                <TouchableWithoutFeedback onPress={() => setShow(true)}>
-                  <Text>{values.studyToMonth}</Text>
-                </TouchableWithoutFeedback>
-                {show ? (
-                  <DatePicker
-                    testID="datePicker"
-                    value={new Date()}
-                    mode={"date"}
-                    display="default"
-                    onChange={handleStudyTo}
-                  />
-                ) : null}
+                <Box marginVertical="s">
+                  <TouchableWithoutFeedback onPress={() => setStudyTo(true)}>
+                    <Text color="primaryText" variant="cardSubTitle">
+                      To
+                    </Text>
+                    <Text>{values.studyToMonth}</Text>
+                  </TouchableWithoutFeedback>
+                  {studyFrom ? (
+                    <DatePicker
+                      testID="datePicker"
+                      value={new Date()}
+                      mode={"date"}
+                      display="default"
+                      onChange={handleStudyTo}
+                    />
+                  ) : null}
+                </Box>
+
                 <Box marginVertical="s">
                   <CheckBox
                     checked={isEdu}
@@ -506,37 +525,42 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
                 />
               </Box>
               <Box marginTop="s">
-                <Text color="primaryText" variant="cardSubTitle">
-                  From
-                </Text>
-                <TouchableWithoutFeedback onPress={() => setShow(true)}>
-                  <Text>{values.experiencesCompanyFrom}</Text>
-                </TouchableWithoutFeedback>
-                {show ? (
-                  <DatePicker
-                    testID="datePicker"
-                    value={new Date()}
-                    mode={"date"}
-                    display="default"
-                    onChange={handleStudyFrom}
-                  />
-                ) : null}
-
-                <Text color="primaryText" variant="cardSubTitle">
-                  To
-                </Text>
-                <TouchableWithoutFeedback onPress={() => setShow(true)}>
-                  <Text>{values.experiencesCompanyTo}</Text>
-                </TouchableWithoutFeedback>
-                {show ? (
-                  <DatePicker
-                    testID="datePicker"
-                    value={new Date()}
-                    mode={"date"}
-                    display="default"
-                    onChange={handleStudyFrom}
-                  />
-                ) : null}
+                <Box marginVertical="s">
+                  <TouchableWithoutFeedback
+                    onPress={() => setCompanyFrom(true)}
+                  >
+                    <Text color="primaryText" variant="cardSubTitle">
+                      From
+                    </Text>
+                    <Text>{values.experiencesCompanyFrom}</Text>
+                  </TouchableWithoutFeedback>
+                  {companyFrom ? (
+                    <DatePicker
+                      testID="datePicker"
+                      value={new Date()}
+                      mode={"date"}
+                      display="default"
+                      onChange={handleCompanyFrom}
+                    />
+                  ) : null}
+                </Box>
+                <Box marginVertical="s">
+                  <TouchableWithoutFeedback onPress={() => setCompanyTo(true)}>
+                    <Text color="primaryText" variant="cardSubTitle">
+                      To
+                    </Text>
+                    <Text>{values.experiencesCompanyTo}</Text>
+                  </TouchableWithoutFeedback>
+                  {companyTo ? (
+                    <DatePicker
+                      testID="datePicker"
+                      value={new Date()}
+                      mode={"date"}
+                      display="default"
+                      onChange={handleCompanyTo}
+                    />
+                  ) : null}
+                </Box>
               </Box>
               <Box>
                 <Text color="primaryText" variant="cardSubTitle">
@@ -636,72 +660,89 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
               <Box marginTop="s">
                 <Box flexDirection="row" justifyContent="space-between">
                   <Box>
-                    <CheckBox
-                      checked={values.isFullTime}
-                      onChange={() =>
-                        setFieldValue("isFullTime", !values.isFullTime)
-                      }
-                      label="Full-time"
-                    />
-                    <CheckBox
-                      checked={values.isContract}
-                      onChange={() =>
-                        setFieldValue("isContract", !values.isContract)
-                      }
-                      label="Contract"
-                    />
-
-                    <CheckBox
-                      checked={values.isInternship}
-                      onChange={() =>
-                        setFieldValue("isInternship", !values.isInternship)
-                      }
-                      label="Internship"
-                    />
-                    <CheckBox
-                      checked={values.isFresher}
-                      onChange={() =>
-                        setFieldValue("isFresher", !values.isFresher)
-                      }
-                      label="Fresher"
-                    />
-                    <CheckBox
-                      checked={values.isWalkIn}
-                      onChange={() =>
-                        setFieldValue("isWalkIn", !values.isWalkIn)
-                      }
-                      label="Walk-in"
-                    />
+                    <Box marginVertical="s">
+                      <CheckBox
+                        checked={values.isFullTime}
+                        onChange={() =>
+                          setFieldValue("isFullTime", !values.isFullTime)
+                        }
+                        label="Full-time"
+                      />
+                    </Box>
+                    <Box marginVertical="s">
+                      <CheckBox
+                        checked={values.isContract}
+                        onChange={() =>
+                          setFieldValue("isContract", !values.isContract)
+                        }
+                        label="Contract"
+                      />
+                    </Box>
+                    <Box marginVertical="s">
+                      <CheckBox
+                        checked={values.isInternship}
+                        onChange={() =>
+                          setFieldValue("isInternship", !values.isInternship)
+                        }
+                        label="Internship"
+                      />
+                    </Box>
+                    <Box marginVertical="s">
+                      <CheckBox
+                        checked={values.isFresher}
+                        onChange={() =>
+                          setFieldValue("isFresher", !values.isFresher)
+                        }
+                        label="Fresher"
+                      />
+                    </Box>
+                    <Box marginVertical="s">
+                      <CheckBox
+                        checked={values.isWalkIn}
+                        onChange={() =>
+                          setFieldValue("isWalkIn", !values.isWalkIn)
+                        }
+                        label="Walk-in"
+                      />
+                    </Box>
                   </Box>
                   <Box>
-                    <CheckBox
-                      checked={values.isPartTime}
-                      onChange={() =>
-                        setFieldValue("isPartTime", !values.isPartTime)
-                      }
-                      label="Part-time"
-                    />
-                    <CheckBox
-                      checked={values.isTemporary}
-                      onChange={() =>
-                        setFieldValue("isTemporary", !values.isTemporary)
-                      }
-                      label="Temporary"
-                    />
-                    <CheckBox
-                      checked={values.isCommission}
-                      onChange={() =>
-                        setFieldValue("isCommission", !values.isCommission)
-                      }
-                      label="Commission"
-                    />
-                    <CheckBox
-                      checked={values.isVolunteer}
-                      onChange={() =>
-                        setFieldValue("isVolunteer", !values.isVolunteer)
-                      }
-                      label="Volunteer"
-                    />
+                    <Box marginVertical="s">
+                      <CheckBox
+                        checked={values.isPartTime}
+                        onChange={() =>
+                          setFieldValue("isPartTime", !values.isPartTime)
+                        }
+                        label="Part-time"
+                      />
+                    </Box>
+                    <Box marginVertical="s">
+                      <CheckBox
+                        checked={values.isTemporary}
+                        onChange={() =>
+                          setFieldValue("isTemporary", !values.isTemporary)
+                        }
+                        label="Temporary"
+                      />
+                    </Box>
+                    <Box marginVertical="s">
+                      <CheckBox
+                        checked={values.isCommission}
+                        onChange={() =>
+                          setFieldValue("isCommission", !values.isCommission)
+                        }
+                        label="Commission"
+                      />
+                    </Box>
+                    <Box marginVertical="s">
+                      <CheckBox
+                        checked={values.isVolunteer}
+                        onChange={() =>
+                          setFieldValue("isVolunteer", !values.isVolunteer)
+                        }
+                        label="Volunteer"
+                      />
+                    </Box>
                   </Box>
                 </Box>
               </Box>
