@@ -4,7 +4,8 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { Picker } from "@react-native-community/picker";
-
+import DatePicker from "@react-native-community/datetimepicker";
+import moment from "moment";
 import {
   Box,
   LargeButton,
@@ -29,24 +30,18 @@ import { connect } from "react-redux";
 import restServices from "../../../services/restServices";
 import { MonthPicker } from "react-native-propel-kit";
 import { postNewCV } from "../../../actions/careerActions";
+import { event } from "react-native-reanimated";
 interface RegisterProps {
-  findJob: (data: any) => void;
+  findJob: (data: any, navigation: any) => void;
   careerState: any;
   navigation: any;
 }
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
-const validationSchema = Yup.object().shape({
-  fullName: Yup.string(),
-  contact: Yup.string().length(10),
-  community: Yup.string(),
-  email: Yup.string().email().required(),
-  city: Yup.string(),
-  tellUs: Yup.number(),
-});
+const validationSchema = Yup.object().shape({});
 const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
-  const [galleryImage, setGalleryImage] = useState<any[]>([]);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [isEdu, setIsEdu] = useState(false);
+  const [isSkill, setIsSkill] = useState(false);
   const {
     handleChange,
     handleBlur,
@@ -59,6 +54,7 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
     validationSchema,
     initialValues: {
       fullName: "",
+      about: "",
       phoneNumber: "",
       email: "",
       addressLine1: "",
@@ -66,24 +62,55 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
       city: "",
       state: "",
       country: "",
-      pinCode: "",
-      currentStatus: false,
+      pincode: "",
+      // TextInput till Here Created
+      educationLevel: "", // dropdown
+      fieldOfStudy: "", // textInput
       collegeName: "",
-      levelOfEdu: "",
-      enterEdu: false,
-      isWorkExperience: false,
-      timePeriodDateTo: new Date(),
-      timePeriodDateFrom: new Date(),
-      cityDateTo: new Date(),
-      cityDateFrom: new Date(),
-      company: "",
+      currentlyStudyingHere: false,
+
+      companyCity: "",
+      companyFromMonth: "",
+      companyFromYear: "",
+      companyName: "",
+      companyToMonth: "",
+      companyToYear: "",
+      currentlyWorkingHere: false,
+      // TODO:  Need to work from here
+      studyFromMonth: moment().format("MM/YYYY"),
+      studyFromYear: "",
+      studyToMonth: moment().format("MM/YYYY"),
+      studyToYear: "",
       jobTitle: "",
-      desiredJobTitle: "",
-      fieldOfStudy: "",
-      desiredSalary: "",
-      description: "",
+      // experiences
+      experiencesCompanyName: "",
+      experiencesCompanyCity: "",
+      experiencesCompanyFrom: "",
+      experiencesCompanyTo: "",
+      experiencesCurrentlyWorkingHere: false,
+      experiencesJobTitle: "",
+      // experiences: [
+      //   {
+      //     companyCity: "",
+      //     companyFromMonth: "string",
+      //     companyFromYear: "string",
+      //     companyName: "string",
+      //     companyToMonth: "string",
+      //     companyToYear: "string",
+      //     currentlyWorkingHere: true,
+      //     jobTitle: "string",
+      //   },
+      // ],
+      workDescription: "",
+      workExperience: false,
       skills: "",
+      preferedJobTitle: "",
+      preferedJobSalary: "",
+      willingToRelocate: false,
       pdf: "",
+      profilePic: "",
+
+      // Job Type
       isFullTime: false,
       isContract: false,
       isInternship: false,
@@ -93,12 +120,88 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
       isTemporary: false,
       isCommission: false,
       isVolunteer: false,
-      isRelocate: false,
     },
     onSubmit: (values) => {
-      findJob(values);
+      const type: any = {
+        FullTime: values.isFullTime,
+        Contract: values.isContract,
+        Internship: values.isInternship,
+        Fresher: values.isFresher,
+        WalkIn: values.isWalkIn,
+        PartTime: values.isPartTime,
+        Temporary: values.isTemporary,
+        Commission: values.isCommission,
+        Volunteer: values.isVolunteer,
+      };
+      const getTypes = Object.keys(type).filter((v: any) => {
+        return type[v] === true;
+      });
+
+      const dataToSend = {
+        about: "",
+        addressLine1: values.addressLine1,
+        addressLine2: values.addressLine2,
+        city: values.city,
+        collegeName: values.collegeName,
+        companyCity: values.companyCity,
+        companyFromMonth: values.companyFromMonth,
+        companyFromYear: values.companyFromYear,
+        companyName: values.companyName,
+        companyToMonth: values.companyToMonth,
+        companyToYear: values.companyToYear,
+        country: values.country,
+        currentlyStudyingHere: values.currentlyStudyingHere,
+        currentlyWorkingHere: values.currentlyWorkingHere,
+        educationLevel: "PRIMARY", // TODO: edurationlevel
+        email: values.email,
+        // experiences: [
+        //   {
+        //     companyCity: "",
+        //     companyFromMonth: "string",
+        //     companyFromYear: "string",
+        //     companyName: "string",
+        //     companyToMonth: "string",
+        //     companyToYear: "string",
+        //     currentlyWorkingHere: true,
+        //     jobTitle: "string",
+        //   },
+        // ],
+        fieldOfStudy: values.fieldOfStudy,
+        fullName: values.fullName,
+        jobTitle: values.jobTitle,
+        pdf: values.pdf,
+        phoneNumber: values.phoneNumber,
+        pincode: values.pincode,
+        preferedJobSalary: values.preferedJobSalary,
+        preferedJobTitle: values.preferedJobTitle,
+        preferedJobType: getTypes.toString(),
+        profilePic: values.profilePic,
+        skills: values.skills,
+        state: values.state,
+        studyFromMonth: values.studyFromMonth,
+        studyFromYear: values.studyFromYear,
+        studyToMonth: values.studyToMonth,
+        studyToYear: values.studyToYear,
+        willingToRelocate: values.willingToRelocate,
+        workDescription: values.workDescription,
+        workExperience: values.workExperience,
+      };
+      console.log("typeslist", getTypes.toString());
+      // findJob(values, navigation);
     },
   });
+  const [show, setShow] = useState(false);
+
+  const handleStudyFrom = (event, selectedDate) => {
+    const selected = moment(selectedDate).format("MM/YYYY");
+    setFieldValue("studyFromMonth", selected);
+    setShow(false);
+  };
+  const handleStudyTo = (event, selectedDate) => {
+    const selected = moment(selectedDate).format("MM/YYYY");
+    setFieldValue("studyToMonth", selected);
+    setShow(false);
+  };
 
   const getPdfFile = async () => {
     setUploading(true);
@@ -106,7 +209,9 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
       type: "application/pdf",
       copyToCacheDirectory: false,
     });
-
+    if (result.type !== "success") {
+      setUploading(false);
+    }
     if (result.uri && result.type === "success") {
       const _rest = new restServices();
       _rest
@@ -147,6 +252,13 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
         <KeyboardAvoidingView>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <Box marginHorizontal="xl">
+              <TextField
+                onChangeText={handleChange("about")}
+                onBlur={handleBlur("about")}
+                error={errors.about}
+                touched={touched.about}
+                placeholder="About"
+              />
               <TextField
                 onChangeText={handleChange("fullName")}
                 onBlur={handleBlur("fullName")}
@@ -212,10 +324,10 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
               />
               <TextField
                 keyboardType="phone-pad"
-                onChangeText={handleChange("pinCode")}
-                onBlur={handleBlur("pinCode")}
-                error={errors.pinCode}
-                touched={touched.pinCode}
+                onChangeText={handleChange("pincode")}
+                onBlur={handleBlur("pincode")}
+                error={errors.pincode}
+                touched={touched.pincode}
                 placeholder="Pin Code"
               />
               {/* //! Education */}
@@ -228,9 +340,9 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
                 Level Of Education
               </Text>
               <Picker
-                selectedValue={values.levelOfEdu}
+                selectedValue={values.educationLevel}
                 onValueChange={(itemValue, itemIndex) =>
-                  setFieldValue("levelOfEdu", itemValue)
+                  setFieldValue("educationLevel", itemValue)
                 }
               >
                 <Picker.Item label="Intermediate" value="Intermediate" />
@@ -264,7 +376,7 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
                 touched={touched.collegeName}
                 placeholder="College Or University"
               />
-              <Box marginVertical="s">
+              {/* <Box marginVertical="s">
                 <Text color="primaryText" variant="cardSubTitle">
                   City - India(change)
                 </Text>
@@ -278,7 +390,7 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
                 error={errors.city}
                 touched={touched.city}
                 placeholder="City"
-              />
+              /> */}
               <Box marginVertical="s">
                 <Text color="primaryText" variant="cardSubTitle">
                   Time Period
@@ -290,9 +402,12 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
                 justifyContent="space-between"
               >
                 <CheckBox
-                  checked={values.currentStatus}
+                  checked={values.currentlyStudyingHere}
                   onChange={() =>
-                    setFieldValue("currentStatus", !values.currentStatus)
+                    setFieldValue(
+                      "currentlyStudyingHere",
+                      !values.currentlyStudyingHere
+                    )
                   }
                   label="I Currently go Here"
                 />
@@ -302,30 +417,41 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
                 <Text color="primaryText" variant="cardSubTitle">
                   From
                 </Text>
-                <MonthPicker
-                  placeholder={"Pick a month"}
-                  title={"Pick a month"}
-                  value={values.timePeriodDateFrom}
-                  onChange={(e: any) => setFieldValue("timePeriodDateFrom", e)}
-                />
+                <TouchableWithoutFeedback onPress={() => setShow(true)}>
+                  <Text>{values.studyFromMonth}</Text>
+                </TouchableWithoutFeedback>
+                {show ? (
+                  <DatePicker
+                    testID="datePicker"
+                    value={new Date()}
+                    mode={"date"}
+                    display="default"
+                    onChange={handleStudyFrom}
+                  />
+                ) : null}
 
                 <Text color="primaryText" variant="cardSubTitle">
                   To
                 </Text>
-                <MonthPicker
-                  placeholder={"Pick a month"}
-                  title={"Pick a month"}
-                  value={values.timePeriodDateTo}
-                  onChange={(e: any) => setFieldValue("timePeriodDateTo", e)}
-                />
-
-                <CheckBox
-                  checked={values.enterEdu}
-                  onChange={() =>
-                    setFieldValue("currentStatus", !values.enterEdu)
-                  }
-                  label="I do not want to enter my education."
-                />
+                <TouchableWithoutFeedback onPress={() => setShow(true)}>
+                  <Text>{values.studyToMonth}</Text>
+                </TouchableWithoutFeedback>
+                {show ? (
+                  <DatePicker
+                    testID="datePicker"
+                    value={new Date()}
+                    mode={"date"}
+                    display="default"
+                    onChange={handleStudyTo}
+                  />
+                ) : null}
+                <Box marginVertical="s">
+                  <CheckBox
+                    checked={isEdu}
+                    onChange={() => setIsEdu(!isEdu)}
+                    label="I do not want to enter my education."
+                  />
+                </Box>
               </Box>
               <Box marginTop="m">
                 <Text color="primaryText" variant="cardSubTitle">
@@ -340,11 +466,11 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
                 placeholder="Job Title"
               />
               <TextField
-                onChangeText={handleChange("company")}
-                onBlur={handleBlur("company")}
-                error={errors.company}
-                touched={touched.company}
-                placeholder="Company"
+                onChangeText={handleChange("experiencesCompanyName")}
+                onBlur={handleBlur("experiencesCompanyName")}
+                error={errors.experiencesCompanyName}
+                touched={touched.experiencesCompanyName}
+                placeholder="Company Name"
               />
 
               <Box marginTop="s">
@@ -356,11 +482,11 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
                 </Text>
               </Box>
               <TextField
-                onChangeText={handleChange("city")}
-                onBlur={handleBlur("city")}
-                error={errors.city}
-                touched={touched.city}
-                placeholder="City"
+                onChangeText={handleChange("experiencesCompanyCity")}
+                onBlur={handleBlur("experiencesCompanyCity")}
+                error={errors.experiencesCompanyCity}
+                touched={touched.experiencesCompanyCity}
+                placeholder="Company City"
               />
 
               <Box
@@ -369,9 +495,12 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
                 justifyContent="space-between"
               >
                 <CheckBox
-                  checked={values.currentStatus}
+                  checked={values.experiencesCurrentlyWorkingHere}
                   onChange={() =>
-                    setFieldValue("currentStatus", !values.currentStatus)
+                    setFieldValue(
+                      "experiencesCurrentlyWorkingHere",
+                      !values.experiencesCurrentlyWorkingHere
+                    )
                   }
                   label="I Currently go Here"
                 />
@@ -380,21 +509,34 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
                 <Text color="primaryText" variant="cardSubTitle">
                   From
                 </Text>
-                <MonthPicker
-                  placeholder={"Pick a month"}
-                  title={"Pick a month"}
-                  value={values.cityDateFrom}
-                  onChange={(e: any) => setFieldValue("cityDateFrom", e)}
-                />
+                <TouchableWithoutFeedback onPress={() => setShow(true)}>
+                  <Text>{values.experiencesCompanyFrom}</Text>
+                </TouchableWithoutFeedback>
+                {show ? (
+                  <DatePicker
+                    testID="datePicker"
+                    value={new Date()}
+                    mode={"date"}
+                    display="default"
+                    onChange={handleStudyFrom}
+                  />
+                ) : null}
+
                 <Text color="primaryText" variant="cardSubTitle">
                   To
                 </Text>
-                <MonthPicker
-                  placeholder={"Pick a month"}
-                  title={"Pick a month"}
-                  value={values.cityDateTo}
-                  onChange={(e: any) => setFieldValue("cityDateTo", e)}
-                />
+                <TouchableWithoutFeedback onPress={() => setShow(true)}>
+                  <Text>{values.experiencesCompanyTo}</Text>
+                </TouchableWithoutFeedback>
+                {show ? (
+                  <DatePicker
+                    testID="datePicker"
+                    value={new Date()}
+                    mode={"date"}
+                    display="default"
+                    onChange={handleStudyFrom}
+                  />
+                ) : null}
               </Box>
               <Box>
                 <Text color="primaryText" variant="cardSubTitle">
@@ -408,10 +550,10 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
                 <TextField
                   multiline={true}
                   numberOfLines={4}
-                  onChangeText={handleChange("description")}
-                  onBlur={handleBlur("description")}
-                  error={errors.description}
-                  touched={touched.description}
+                  onChangeText={handleChange("workDescription")}
+                  onBlur={handleBlur("workDescription")}
+                  error={errors.workDescription}
+                  touched={touched.workDescription}
                   placeholder="Description"
                 />
               </Box>
@@ -421,9 +563,9 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
                 justifyContent="space-between"
               >
                 <CheckBox
-                  checked={values.currentStatus}
+                  checked={values.workExperience}
                   onChange={() =>
-                    setFieldValue("currentStatus", !values.currentStatus)
+                    setFieldValue("workExperience", !values.workExperience)
                   }
                   label="I don't have any work experience yet"
                 />
@@ -452,21 +594,20 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
                     placeholder="Skills"
                   />
                 </Box>
-                <Box>
+                {/* <Box>
                   <Button title="Add" onPress={() => {}} />
-                </Box>
+                </Box> */}
               </Box>
 
+              {/* // TODO: Disable skills Here */}
               <Box
                 marginVertical="l"
                 flexDirection="row"
                 justifyContent="space-between"
               >
                 <CheckBox
-                  checked={values.isWorkExperience}
-                  onChange={() =>
-                    setFieldValue("isWorkExperience", !values.isWorkExperience)
-                  }
+                  checked={isSkill}
+                  onChange={() => setIsSkill(!isSkill)}
                   label="I do not want to enter any skills at this time"
                 />
               </Box>
@@ -480,10 +621,10 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
               </Box>
 
               <TextField
-                onChangeText={handleChange("desiredJobTitle")}
-                onBlur={handleBlur("desiredJobTitle")}
-                error={errors.desiredJobTitle}
-                touched={touched.desiredJobTitle}
+                onChangeText={handleChange("preferedJobTitle")}
+                onBlur={handleBlur("preferedJobTitle")}
+                error={errors.preferedJobTitle}
+                touched={touched.preferedJobTitle}
                 placeholder="Desired Job Title"
               />
               <Box marginTop="m">
@@ -572,10 +713,10 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
 
               <TextField
                 keyboardType="number-pad"
-                onChangeText={handleChange("desiredSalary")}
-                onBlur={handleBlur("desiredSalary")}
-                error={errors.desiredSalary}
-                touched={touched.desiredSalary}
+                onChangeText={handleChange("preferedJobSalary")}
+                onBlur={handleBlur("preferedJobSalary")}
+                error={errors.preferedJobSalary}
+                touched={touched.preferedJobSalary}
                 placeholder="Desired Salary"
               />
 
@@ -586,9 +727,12 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
               </Box>
               <Box marginTop="s">
                 <CheckBox
-                  checked={values.isRelocate}
+                  checked={values.willingToRelocate}
                   onChange={() =>
-                    setFieldValue("isRelocate", !values.isRelocate)
+                    setFieldValue(
+                      "willingToRelocate",
+                      !values.willingToRelocate
+                    )
                   }
                   label="I am willing to relocate"
                 />
@@ -632,14 +776,6 @@ const Register = ({ findJob, careerState, navigation }: RegisterProps) => {
                   </Box>
                 </TouchableWithoutFeedback>
               </Box>
-              {/* <Box
-                marginHorizontal="xl"
-                flexDirection="row"
-                justifyContent="space-between"
-              >
-                <Text>Upload Your Profile Picture</Text>
-                <Text>Upload</Text>
-              </Box> */}
             </Box>
             <LargeButton
               loading={postingCv}
@@ -660,7 +796,8 @@ function mapStateToProps(state: any) {
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  findJob: (data: any) => dispatch(postNewCV(data)),
+  findJob: (data: any, navigation: any) =>
+    dispatch(postNewCV(data, navigation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
