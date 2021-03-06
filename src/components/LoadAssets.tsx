@@ -5,7 +5,7 @@ import Constants from "expo-constants";
 import * as Font from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import React, { ReactElement, useCallback, useEffect, useState } from "react";
-import { AsyncStorage } from "react-native";
+import AsyncStorage  from "@react-native-community/async-storage";
 
 const NAVIGATION_STATE_KEY = `NAVIGATION_STATE_KEY-${Constants.manifest.sdkVersion}`;
 
